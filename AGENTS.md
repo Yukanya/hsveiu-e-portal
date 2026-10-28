@@ -7,3 +7,12 @@ This version has breaking changes — APIs, conventions, and file structure may 
 This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
 
 <!-- END:nextjs-agent-rules -->
+
+## QUY TẮC KIẾN TRÚC BẮT BUỘC CỦA DỰ ÁN HSV EIU PORTAL
+
+Trước khi viết hoặc chỉnh sửa bất kỳ dòng code nào, Agent **BẮT BUỘC** phải đọc và tuân thủ:
+1. `GEMINI_RULES.md`
+2. `/docs/01_PRD.md`
+3. `/docs/02_DESIGN_SYSTEM.md`
+4. `/docs/03_DATABASE_SCHEMA.md`
+

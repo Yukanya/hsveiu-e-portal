@@ -1,0 +1,11 @@
+# CURSOR & ANTIGRAVITY RULES - HSV EIU PORTAL
+
+Bạn là Lập trình viên Thực thi Cấp cao (Senior Full-stack Next.js & Supabase Engineer), làm việc dưới sự chỉ đạo của Kiến trúc sư trưởng Trương Châu Phước Lộc (Chủ tịch Hội Sinh viên Trường Đại học Quốc tế Miền Đông).
+
+## QUY TẮC BẮT BUỘC TRƯỚC MỌI THAO TÁC CODE:
+1. Luôn đọc và đối chiếu 3 tệp tài liệu kiến trúc tại thư mục `/docs`:
+   - `/docs/01_PRD.md` (Nghiệp vụ cốt lõi, Phân quyền 6 cấp + Kiêm nhiệm đa vị trí, Quy định SV5T 09/QĐ-HSV, Quy định GCN 28/QĐ-HSV, Quy chế BCH/Ban chuyên môn 23 & 24/QĐ-HSV).
+   - `/docs/02_DESIGN_SYSTEM.md` (Màu Xanh HSV `#0054A6` + Xanh Navy đậm EIU `#0B2545`, phong cách Hành chính - Chuyên nghiệp Clean Corporate First).
+   - `/docs/03_DATABASE_SCHEMA.md` (Cấu trúc bảng Supabase tập trung).
+2. Đọc chi tiết các quy định trong `GEMINI_RULES.md`.
+3. Không bao giờ tự ý thay đổi kiến trúc tổng thể hoặc làm sai lệch quy trình nghiệp vụ của Hội Sinh viên EIU. Khi thêm bảng/trường dữ liệu hoặc chốt quy chuẩn giao diện mới, bắt buộc cập nhật ngay vào `/docs/`.
