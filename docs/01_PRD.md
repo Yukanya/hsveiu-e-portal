@@ -80,19 +80,47 @@ Hệ thống được thiết kế bám sát bộ văn bản pháp lý trong th�
      - 02 Ủy viên Ban Chấp hành Chi hội
      - Tập thể: Các Hội viên ưu tú và Các Hội viên Chi hội.
 
-4. **Khối Câu lạc bộ / Đội / Nhóm trực thuộc (Level 03B):**
+4. **Khối Câu lạc bộ / Đội / Nhóm trực thuộc (Level 03B - Toàn bộ 30 Đơn vị chia 4 nhóm lĩnh vực):**
    - **Cơ cấu tổ chức mỗi CLB / Đội / Nhóm (Chuẩn 05 đồng chí Ban Chủ nhiệm):**
      - 01 Chủ nhiệm
      - 02 Phó Chủ nhiệm
      - 02 Ủy viên Ban Chủ nhiệm
      - Tập thể: Thành viên chính thức và Cộng tác viên (CTV).
-   - **Hệ thống các CLB/Đội/Nhóm tiêu biểu:**
-     - **CLB Cộng đồng Sinh viên 5 tốt** (Đơn vị nòng cốt đồng hành rèn luyện 5 tiêu chí).
-     - **Đội Cộng tác viên Xung kích** (Đội hình xung kích phục vụ cộng đồng và sự kiện).
-     - **CLB MC VoiceUp**
-     - **CLB Hiến máu tình nguyện EIU**
-     - **CLB Truyền thông sự kiện BEAM**
-     - Các Câu lạc bộ học thuật, văn hóa nghệ thuật, thể thao và sở thích trực thuộc khác.
+   - **Danh mục 30 CLB/Đội/Nhóm trực thuộc Hội Sinh viên trường (theo danh sách chính thức):**
+     - **I. Khối Học thuật (06 CLB):**
+       1. *CLB Học thuật Honors Club* (Becamex Business School Honors Club)
+       2. *CLB Học thuật EIU IT Club* (Khoa Công nghệ Thông tin)
+       3. *CLB Học thuật BBS Finance Club* (Tài chính - Ngân hàng)
+       4. *CLB Học thuật EIU Korean Club* (Tiếng Hàn & Văn hóa Hàn Quốc)
+       5. *CLB Học thuật EIU Student Technical Club* (Khoa Kỹ thuật)
+       6. *CLB Học thuật EIU Economics Club* (Kinh tế học)
+     - **II. Khối Nghệ thuật (10 CLB):**
+       1. *CLB Nghệ thuật EIU The Voice Up Club* (Kỹ năng MC, Dẫn chương trình & Giao tiếp)
+       2. *CLB Nghệ thuật EIU Kurume Club* (Văn hóa, Cosplay & Giao lưu Nhật Bản)
+       3. *CLB Nghệ thuật Soarers Club* (Âm nhạc, Acoustic)
+       4. *CLB Nghệ thuật Bumblebee Dance Club* (Vũ đạo & Nhảy hiện đại)
+       5. *CLB Nghệ thuật Passion Club* (Văn nghệ & Nghệ thuật biểu diễn)
+       6. *CLB Nghệ thuật EIU Photography Club (EPC)* (Nhiếp ảnh & Truyền thông thị giác)
+       7. *CLB Nghệ thuật The Villains*
+       8. *CLB Nghệ thuật The Rising Ether Club*
+       9. *CLB Nghệ thuật Helios Cheer Club* (Cheerleading / Cổ động)
+       10. *CLB Nghệ thuật Nauzzy Dance*
+     - **III. Khối Thể thao (07 CLB):**
+       1. *CLB Thể thao FireLions* (CLB Bóng rổ EIU Basketball)
+       2. *CLB Thể thao EIU Football Club* (CLB Bóng đá)
+       3. *CLB Thể thao EIU ACE Volleyball Club* (CLB Bóng chuyền)
+       4. *CLB Thể thao EIU Badminton Club* (CLB Cầu lông)
+       5. *CLB Thể thao EIU Ping-Pong Club* (CLB Bóng bàn)
+       6. *CLB Thể thao EIU Calisthenics Club* (Thể dục thể hình đường phố)
+       7. *CLB Thể thao EIU Taekwondo Club* (Võ thuật Taekwondo)
+     - **IV. Khối Cộng đồng & Tình nguyện (07 CLB / Đội):**
+       1. *CLB Cộng đồng Sunshine Club* (Chủ nhiệm: Trần Thị Tuyết Nhi - Hoạt động thiện nguyện)
+       2. *CLB Cộng đồng Blood Donation Club* (CLB Hiến máu tình nguyện EIU - Chủ nhiệm: Nguyễn Duy Huân)
+       3. *CLB Cộng đồng EIU BEAM Club* (CLB Truyền thông & Sự kiện - Chủ nhiệm: Đào Văn Thanh)
+       4. *CLB Cộng đồng EIU Hospitality Club* (Chủ nhiệm: Lê Trần Bảo Trân)
+       5. *CLB Cộng đồng EIU First Aid Club* (CLB Sơ cấp cứu y tế học đường - Chủ nhiệm: Hà Thị Kim Phụng)
+       6. *CLB Cộng đồng Sinh viên 5 tốt* (Chủ nhiệm: Nguyễn Mai Gia Tường - Đồng hành rèn luyện phong trào SV5T)
+       7. *Đội Cộng tác viên Xung kích* (Đội trưởng: Nguyễn Thanh Đạt - Đội hình thanh niên xung kích cấp trường)
 
 ---
 
