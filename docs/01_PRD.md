@@ -27,29 +27,72 @@ Hệ thống được thiết kế bám sát bộ văn bản pháp lý trong th�
 - **Sổ tay Sinh viên EIU (EIU Student Handbook 2026 – 2027):** Quy chế đào tạo học kỳ theo Quý (03 HK chính + 01 HK Hè), quy tắc cấu trúc Mã số sinh viên 10 chữ số, thang điểm 4.0, hệ thống 4 Khoa chuyên ngành + Khoa Giáo dục Đại cương, và 4 nhóm Câu lạc bộ sinh viên.
 - **Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report 2025):** Triết lý *"Nhân bản – Cộng đồng – Sáng tạo – Bền vững"*, 6 Giá trị cốt lõi (*Xuất sắc, Chính trực, Thiện chí, Hợp tác, Cộng đồng, Bền vững*) và gắn kết hoạt động sinh viên với 17 Mục tiêu Phát triển Bền vững của Liên Hợp Quốc (UN SDGs) & tiêu chuẩn "Sự kiện Xanh" (Không chai nhựa dùng một lần, EIU Green Giving, Thu gom pin).
 
-### 2.1. Các Khối Đơn vị (`units`) trong Hệ thống
-1. **Thường trực & Lãnh đạo cấp Trường:**
-   - Ban Chấp hành (BCH) Hội Sinh viên Trường.
-   - Ban Thư ký (BTK) & Thường trực Hội (Chủ tịch, Phó Chủ tịch thường trực, Phó Chủ tịch).
-   - Ban Kiểm tra (BKT) Hội Sinh viên Trường.
-2. **Văn phòng & Các Ban Chuyên môn cấp Trường:**
-   - **Văn phòng Hội Sinh viên Trường (Phòng 206.B06):**
-     - Quản lý bởi Tổng Thư ký / Chánh Văn phòng, 02 Phó Chánh Văn phòng (Mảng Văn thư – Lưu trữ / Quản trị văn phòng; Mảng Tài chính – Hậu cần) và các Cán bộ/CTV Văn phòng.
-     - Phụ trách hành chính văn thư, tài chính – quỹ Hội, quản lý phòng 206.B06, tài sản, trang thiết bị và Con dấu (Mộc) của Hội.
-   - **Ban Tuyên giáo - Phong trào (TG-PT):**
-     - Gồm 02 Trưởng Ban (01 Trưởng Ban Mảng Phong trào, 01 Trưởng Ban Mảng Tuyên giáo), 04 Phó Ban (Nội dung - Biên tập; Kỹ thuật - Thiết kế; Tình nguyện - Xã hội; Văn – Thể – Mỹ, Hội nhập & SV5T - Học thuật) và các Cán bộ/CTV.
-     - Quản lý toàn diện kênh truyền thông, sản xuất ấn phẩm, tổ chức sự kiện quy mô trường, nắm bắt dư luận sinh viên và chủ trì thẩm định phong trào "Sinh viên 5 tốt".
-   - **Ban Tổ chức và Xây dựng Hội (TC-XDH):**
-     - Gồm 01 Trưởng Ban và 05 Phó Trưởng Ban kiêm **Cụm trưởng** phụ trách 5 cụm:
-       1. Cụm Chi hội Khoa Công nghệ Thông tin (`CIT` – Công nghệ thông tin / Kỹ thuật phần mềm / Mạng máy tính).
-       2. Cụm Chi hội Khoa Quản trị Kinh doanh (`BBS` – Quản trị kinh doanh).
-       3. Cụm Chi hội Khoa Kỹ thuật (`SET` – Kỹ thuật điện tử - viễn thông / Tự động hóa / Cơ điện tử / Cơ khí).
-       4. Cụm Chi hội Khoa Khoa học Sức khỏe (`SNS` – Ngành Điều dưỡng).
-       5. Cụm Câu lạc bộ – Đội – Nhóm trực thuộc.
-     - Phụ trách phát triển hội viên, quản lý hồ sơ cán bộ Hội, thành lập/kiện toàn/giải thể Chi hội & CLB/Đội/Nhóm, và **tiếp nhận xin ý kiến quy đổi ngày tình nguyện trước 03 ngày tổ chức chương trình** (theo Điều 4, QĐ 28/QĐ-HSV).
-3. **Khối Cơ sở Hội trực thuộc:**
-   - **Chi hội các lớp thuộc 4 Khoa (`CIT`, `BBS`, `SET`, `SNS`):** Ví dụ `23QTKD01`, `24QTKD01`, `25QTKD01`, `24KT01`, `25KT01`, `25CNTT01`, `25CNTT02`, `25KHSK01`...
-   - **Câu lạc bộ / Đội / Nhóm trực thuộc:** Ví dụ CLB Sinh viên 5 tốt, CLB MC VoiceUp, CLB Hiến máu tình nguyện EIU, CLB Truyền thông sự kiện BEAM, Đội CTV Xung kích...
+### 2.1. Các Khối Đơn vị (`units`) trong Hệ thống (Chuẩn hóa theo Sơ đồ Cơ cấu Tổ chức đầy đủ Khóa II)
+
+1. **Cấp Trường: Ban Chấp hành, Ban Thư ký & Ban Kiểm tra (Level 01):**
+   - **Ban Chấp hành Hội Sinh viên trường (15 Đồng chí):** Cơ quan lãnh đạo cao nhất giữa 2 kỳ Đại hội.
+     - **Ban Thư ký Hội Sinh viên trường (05 Đồng chí):**
+       - 01 Chủ tịch Hội Sinh viên trường (phụ trách chung, chỉ đạo toàn diện).
+       - 01 Phó Chủ tịch Thường trực (điều hành các hoạt động thường trực).
+       - 01 Phó Chủ tịch, Trưởng Ban Kiểm tra (phụ trách công tác kiểm tra, giám sát).
+       - 02 Ủy viên Ban Thư ký (phụ trách các mảng công tác thường trực của Hội).
+     - **Các Ủy viên Ban Chấp hành (10 Đồng chí):**
+       - 01 Ủy viên BCH kiêm Ủy viên Ban Kiểm tra.
+       - 09 Ủy viên Ban Chấp hành (phụ trách các ban chuyên môn, cụm hoạt động Khoa, Chi hội và các CLB/Đội/Nhóm).
+   - **Ban Kiểm tra Hội Sinh viên trường (05 Đồng chí):**
+     - 01 Trưởng Ban Kiểm tra (do đồng chí Phó Chủ tịch HSV trường đảm nhiệm).
+     - 01 Ủy viên Ban Kiểm tra (do đồng chí Ủy viên BCH đảm nhiệm).
+     - 03 Ủy viên Ban Kiểm tra (các Ủy viên chuyên trách công tác kiểm tra, giám sát của Hội).
+
+2. **Khối các Ban Chuyên môn Hội Sinh viên Trường (Level 02 - Quy mô 03 Ban):**
+   - **Đơn vị 01 – Văn phòng Hội Sinh viên trường (Phòng 206.B06):**
+     - *Cấp điều hành cao nhất (Ngang cấp):* 01 **Chánh Văn phòng** (phụ trách công tác đối ngoại với các phòng, ban trong nhà trường) & 01 **Tổng Thư ký** (điều hành các tác vụ nội bộ của Văn phòng).
+     - *Cấp Phó Văn phòng:* 02 **Phó Chánh Văn phòng** (hỗ trợ đối ngoại, hành chính và điều phối nội bộ, văn thư - lưu trữ, tài chính - hậu cần).
+     - *Lực lượng thực thi:* Cán bộ Văn phòng (Cán bộ ban) và Cộng tác viên Văn phòng (CTV ban).
+   - **Đơn vị 02 – Ban Tổ chức và Xây dựng Hội:**
+     - *Cấp Trưởng ban:* 01 **Trưởng ban Tổ chức và Xây dựng Hội** (phụ trách chung công tác tổ chức, nhân sự, phát triển Hội viên và quản lý hệ thống cơ sở Hội).
+     - *Cấp Phó ban (05 Phó ban):*
+       - 04 Phó ban kiêm **Cụm trưởng Cụm hoạt động theo Khoa** (QTKD, KT, CNTT, KHSK).
+       - 01 Phó ban phụ trách **Quản lý Cụm CLB / Đội / Nhóm trực thuộc**.
+     - *Lực lượng thực thi:* Cán bộ Ban Tổ chức - Xây dựng Hội và Cộng tác viên (CTV).
+   - **Đơn vị 03 – Ban Tuyên giáo - Phong trào (02 Mảng chuyên môn, 06 Tiểu ban & Đội CTVXK):**
+     - **Mảng Tuyên giáo:**
+       - 01 Trưởng ban (Trưởng mảng Tuyên giáo) + 02 Phó ban (Mảng Tuyên giáo).
+       - 03 Tiểu ban chuyên môn: **Tiểu ban Design**, **Tiểu ban Video**, **Tiểu ban Photo**.
+       - Cán bộ Mảng Tuyên giáo & Cộng tác viên (CTV).
+     - **Mảng Phong trào:**
+       - 01 Trưởng ban (Trưởng mảng Phong trào) + 02 Phó ban (Mảng Phong trào).
+       - 03 Tiểu ban chuyên môn: **Tiểu ban Tài chính**, **Tiểu ban Nội dung - Kịch bản**, **Tiểu ban MC**.
+       - **Đội Cộng tác viên Xung kích (Đội CTVXK):** Đơn vị trực thuộc Mảng Phong trào, trực tiếp quản lý 02 tiểu ban:
+         - *Tiểu ban Hậu cần - Sân khấu*
+         - *Tiểu ban Lễ tân - Khánh tiết - Văn thể mỹ*
+       - Cán bộ Mảng Phong trào & Cộng tác viên (CTV).
+
+3. **Khối Chi hội trực thuộc (Level 03A - Chính xác 25 Chi hội):**
+   - Phân bố theo **04 Khoa (Cụm hoạt động)** và **06 Cụm thi đua khóa (2021 – 2026)**:
+     - **Khoa Quản trị Kinh doanh (QTKD - 06 Chi hội):** `21QTKD01`, `22QTKD01`, `23QTKD01`, `24QTKD01`, `25QTKD01`, `26QTKD01`.
+     - **Khoa Kỹ thuật (KT - 06 Chi hội):** `21KT01`, `22KT01`, `23KT01`, `24KT01`, `25KT01`, `26KT01`.
+     - **Khoa Công nghệ Thông tin (CNTT - 07 Chi hội):** `21CNTT01`, `22CNTT01`, `23CNTT01`, `24CNTT01`, `25CNTT01`, `25CNTT02`, `26CNTT01`.
+     - **Khoa Khoa học Sức khỏe (KHSK - 06 Chi hội):** `21KHSK01`, `22KHSK01`, `23KHSK01`, `24KHSK01`, `25KHSK01`, `26KHSK01`.
+   - **Cơ cấu tổ chức mỗi Chi hội (Chuẩn 05 đồng chí BCH Chi hội):**
+     - 01 Chi hội trưởng
+     - 02 Chi hội phó
+     - 02 Ủy viên Ban Chấp hành Chi hội
+     - Tập thể: Các Hội viên ưu tú và Các Hội viên Chi hội.
+
+4. **Khối Câu lạc bộ / Đội / Nhóm trực thuộc (Level 03B):**
+   - **Cơ cấu tổ chức mỗi CLB / Đội / Nhóm (Chuẩn 05 đồng chí Ban Chủ nhiệm):**
+     - 01 Chủ nhiệm
+     - 02 Phó Chủ nhiệm
+     - 02 Ủy viên Ban Chủ nhiệm
+     - Tập thể: Thành viên chính thức và Cộng tác viên (CTV).
+   - **Hệ thống các CLB/Đội/Nhóm tiêu biểu:**
+     - **CLB Cộng đồng Sinh viên 5 tốt** (Đơn vị nòng cốt đồng hành rèn luyện 5 tiêu chí).
+     - **Đội Cộng tác viên Xung kích** (Đội hình xung kích phục vụ cộng đồng và sự kiện).
+     - **CLB MC VoiceUp**
+     - **CLB Hiến máu tình nguyện EIU**
+     - **CLB Truyền thông sự kiện BEAM**
+     - Các Câu lạc bộ học thuật, văn hóa nghệ thuật, thể thao và sở thích trực thuộc khác.
 
 ---
 

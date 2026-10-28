@@ -19,11 +19,24 @@ Trước khi thực hiện bất kỳ thao tác thêm/sửa/xóa mã nguồn, t�
 
 1. **Xác thực Tên miền `@eiu.edu.vn` & Nhận diện Tự động:**
    - Hệ thống chỉ chấp nhận tài khoản Google có đuôi `@eiu.edu.vn`.
-   - Logic phân tích email phải nhận diện tự động 4 Khoa (`cit` $\rightarrow$ Khoa CNTT, `bbs` $\rightarrow$ Khoa QTKD, `set` $\rightarrow$ Khoa Kỹ thuật, `sns` $\rightarrow$ Khoa Khoa học Sức khỏe) và Khóa học (`23`, `24`, `25`, `26`...).
-2. **Đúng Cơ cấu Bộ máy Khóa II (2026 – 2028) theo QĐ 23, QĐ 24 & TB 04:**
-   - Bộ máy cấp trường gồm: Ban Chấp hành, Ban Thư ký (Thường trực), Ban Kiểm tra, **Văn phòng Hội Sinh viên (Phòng 206.B06)** và **02 Ban Chuyên môn**:
-     - **Ban Tuyên giáo - Phong trào** (Mảng Tuyên giáo & Mảng Phong trào).
-     - **Ban Tổ chức và Xây dựng Hội** (Quản lý 5 Cụm: Cụm Chi hội Khoa CNTT, Cụm Chi hội Khoa QTKD, Cụm Chi hội Khoa Kỹ thuật, Cụm Chi hội Khoa Khoa học Sức khỏe, và Cụm CLB/Đội/Nhóm).
+   - Logic phân tích email phải nhận diện tự động 4 Khoa (`cit` $\rightarrow$ Khoa CNTT, `bbs` $\rightarrow$ Khoa QTKD, `set` $\rightarrow$ Khoa Kỹ thuật, `sns` $\rightarrow$ Khoa Khoa học Sức khỏe và Khóa học (`23`, `24`, `25`, `26`...).
+2. **Đúng Cơ cấu Bộ máy Khóa II (2026 – 2028) theo Sơ đồ Tổ chức Đầy đủ (QĐ 23, QĐ 24, TB 04 & HTML Schema):**
+   - **Cấp Trường (Level 01):**
+     - Ban Chấp hành (BCH): **15 đồng chí** (gồm 05 đồng chí Ban Thư ký: 01 Chủ tịch, 01 Phó Chủ tịch thường trực, 01 Phó Chủ tịch kiêm Trưởng Ban Kiểm tra, 02 Ủy viên Ban Thư ký; và 10 Ủy viên BCH: 01 UV BCH kiêm UV Ban Kiểm tra, 09 UV BCH).
+     - Ban Kiểm tra (BKT): **05 đồng chí** (01 Trưởng ban do Phó Chủ tịch đảm nhiệm, 01 UV BKT do UV BCH đảm nhiệm, 03 UV BKT chuyên trách).
+   - **Khối các Ban Chuyên môn (Level 02 - Quy mô 03 Ban):**
+     - **Văn phòng Hội Sinh viên trường (Phòng 206.B06):** Cấp điều hành cao nhất gồm 01 Chánh Văn phòng (đối ngoại các phòng ban trường) và 01 Tổng Thư ký (tác vụ nội bộ) ngang cấp; 02 Phó Chánh Văn phòng; Cán bộ & CTV Văn phòng.
+     - **Ban Tổ chức và Xây dựng Hội:** 01 Trưởng ban; 05 Phó ban (04 Phó ban là Cụm trưởng 4 Cụm Khoa: QTKD, KT, CNTT, KHSK và 01 Phó ban Quản lý CLB/Đội/Nhóm); Cán bộ & CTV.
+     - **Ban Tuyên giáo - Phong trào:** Gồm 02 Mảng:
+       - *Mảng Tuyên giáo:* 01 Trưởng ban (Trưởng mảng), 02 Phó ban, 03 Tiểu ban (Design, Video, Photo), Cán bộ & CTV.
+       - *Mảng Phong trào:* 01 Trưởng ban (Trưởng mảng), 02 Phó ban, 03 Tiểu ban (Tài chính, Nội dung - Kịch bản, MC), Đội CTV Xung kích (quản lý trực tiếp 02 Tiểu ban: Hậu cần - Sân khấu và Lễ tân - Khánh tiết - Văn thể mỹ), Cán bộ & CTV.
+   - **Khối Chi hội (Level 03A - Chính xác 25 Chi hội):**
+     - 04 Cụm hoạt động Khoa: Khoa QTKD (6 Chi hội: `21-26QTKD01`), Khoa KT (6 Chi hội: `21-26KT01`), Khoa CNTT (7 Chi hội: `21-26CNTT01`, `25CNTT02`), Khoa KHSK (6 Chi hội: `21-26KHSK01`).
+     - 06 Cụm thi đua khóa (Khóa 2021 đến Khóa 2026).
+     - Cơ cấu mỗi Chi hội: Chuẩn **05 đồng chí BCH Chi hội** (01 Chi hội trưởng, 02 Chi hội phó, 02 UV BCH Chi hội).
+   - **Khối Câu lạc bộ / Đội / Nhóm (Level 03B):**
+     - Cơ cấu mỗi đơn vị: Chuẩn **05 đồng chí Ban Chủ nhiệm** (01 Chủ nhiệm, 02 Phó Chủ nhiệm, 02 UV Ban Chủ nhiệm).
+     - Các đơn vị nòng cốt: CLB Cộng đồng Sinh viên 5 tốt, Đội Cộng tác viên Xung kích, CLB MC VoiceUp, CLB Hiến máu tình nguyện EIU, CLB Truyền thông sự kiện BEAM...
    - Hỗ trợ đầy đủ cơ chế **Kiêm nhiệm đa vị trí (Role/Unit Context Switcher)** cho các đồng chí vừa giữ chức vụ ở BCH/BKT/Ban Chuyên môn vừa là Chi hội trưởng/phó hoặc Chủ nhiệm/Phó Chủ nhiệm CLB.
 3. **Đúng Quy định Cấp Giấy chứng nhận & Ngày Tình nguyện (Quyết định 28/QĐ-HSV):**
    - **Quy tắc 03 ngày:** Đề nghị công nhận ngày tình nguyện phải gửi trước thời gian tổ chức chương trình ít nhất **03 ngày** thông qua Trưởng Ban Tổ chức và Xây dựng Hội trình Ban Thư ký.

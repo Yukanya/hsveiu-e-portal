@@ -24,9 +24,10 @@ CREATE TYPE unit_type_enum AS ENUM (
   'office',              -- Văn phòng Hội Sinh viên Trường (Phòng 206.B06)
   'department',          -- Ban Chuyên môn (Ban Tuyên giáo - Phong trào, Ban Tổ chức và Xây dựng Hội)
   'faculty_cluster',     -- Cụm Chi hội Khoa (CIT, BBS, SET, SNS) & Cụm CLB/Đội/Nhóm
-  'branch',              -- Chi hội lớp (VD: 23QTKD01, 24QTKD01, 25CNTT01, 25KT01, 25KHSK01...)
+  'branch',              -- Chi hội lớp (Chính xác 25 Chi hội: 21-26QTKD01, 21-26KT01, 21-26CNTT01-02, 21-26KHSK01)
   'club',                -- Câu lạc bộ trực thuộc (CLB SV5T, CLB MC VoiceUp, CLB Hiến máu, CLB BEAM...)
-  'team'                 -- Đội / Nhóm trực thuộc (Đội CTV Xung kích...)
+  'team',                -- Đội / Nhóm trực thuộc (Đội CTV Xung kích...)
+  'subteam'              -- Tiểu ban chuyên môn (Design, Video, Photo, Tài chính, Nội dung, MC, Hậu cần - Sân khấu, Lễ tân - Khánh tiết)
 );
 
 -- 3. Mã 4 Khoa đào tạo tại EIU (Tự động nhận diện từ email @eiu.edu.vn)
@@ -96,6 +97,7 @@ CREATE TABLE public.units (
   slug VARCHAR(120) UNIQUE NOT NULL,          -- Đường dẫn Micro-site: 'clb-mc-voiceup', 'chi-hoi-25cntt01'
   unit_type unit_type_enum NOT NULL,          -- Loại đơn vị
   faculty_code faculty_code_enum,             -- 'CIT', 'BBS', 'SET', 'SNS' (nếu là Cụm Khoa hoặc Chi hội thuộc Khoa)
+  cohort_year INT,                            -- Khóa sinh viên đối với Chi hội (21, 22, 23, 24, 25, 26 phục vụ lọc theo 6 Cụm thi đua khóa)
   parent_unit_id UUID REFERENCES public.units(id) ON DELETE SET NULL, -- Đơn vị cấp trên / Cụm quản lý trực tiếp
   mentor_name VARCHAR(255),                   -- Giảng viên cố vấn (Mentor) đối với CLB học thuật (phục vụ xác nhận SV5T)
   description TEXT,                           -- Giới thiệu đơn vị trên Micro-site
