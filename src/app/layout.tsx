@@ -1,14 +1,20 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { Be_Vietnam_Pro, JetBrains_Mono } from 'next/font/google';
+import { Be_Vietnam_Pro, JetBrains_Mono, Montserrat } from 'next/font/google';
 import './globals.css';
 import { RoleProvider } from '@/context/role-context';
 import { PersonaSwitcherBar } from '@/components/shared/persona-switcher';
 
+const montserrat = Montserrat({
+  variable: '--font-montserrat',
+  subsets: ['latin', 'vietnamese'],
+  weight: ['500', '600', '700', '800'],
+});
+
 const beVietnamPro = Be_Vietnam_Pro({
   variable: '--font-be-vietnam',
   subsets: ['latin', 'vietnamese'],
-  weight: ['300', '400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -19,9 +25,9 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title:
-    'Cổng thông tin Điện tử & E-Office Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông (HSV EIU)',
+    'Hội Sinh viên Việt Nam | Trường Đại học Quốc tế Miền Đông (EIU)',
   description:
-    'Hệ thống Thông tin Điện tử, Quản lý Sự kiện, Xét chọn Sinh viên 5 Tốt, Cấp Giấy chứng nhận Điện tử và E-Office Nội bộ Hội Sinh viên Trường Đại học Quốc tế Miền Đông Khóa II (2026 - 2028).',
+    'Cổng thông tin Điện tử, Quản lý Sự kiện, Xét chọn Sinh viên 5 Tốt, Cấp Giấy chứng nhận Điện tử và Hệ thống E-Office Hội Sinh viên Trường Đại học Quốc tế Miền Đông Khóa II (2026 - 2028).',
 };
 
 const EXTENSION_CLEANUP_SCRIPT = `
@@ -94,7 +100,7 @@ export default function RootLayout({
     <html
       lang="vi"
       suppressHydrationWarning
-      className={`${beVietnamPro.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${beVietnamPro.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head suppressHydrationWarning>
         <script
@@ -104,10 +110,18 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-slate-50 text-slate-900"
+        className="min-h-full flex flex-col bg-[#F5F5F5] text-[#0F172A]"
       >
+        {/* Skip-to-Content Link chuẩn WCAG 2.1 AA */}
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:rounded-lg focus:bg-[#133F68] focus:text-white focus:font-semibold focus:shadow-lg"
+        >
+          Chuyển thẳng tới nội dung chính
+        </a>
+
         <RoleProvider>
-          <Suspense fallback={<div className="h-10 bg-slate-950" />}>
+          <Suspense fallback={<div className="h-10 bg-[#133F68]" />}>
             <PersonaSwitcherBar />
           </Suspense>
           <div suppressHydrationWarning className="flex-1 flex flex-col">

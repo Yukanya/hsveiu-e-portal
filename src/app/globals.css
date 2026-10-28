@@ -1,28 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f8fafc;
-  --foreground: #0f172a;
-  --hsv-primary: #0054a6;
-  --hsv-cyan: #0284c7;
-  --eiu-navy: #0b2545;
-  --eiu-slate: #133b5c;
+  --background: #F5F5F5;
+  --foreground: #0F172A;
+  --eiu-navy: #133F68;
+  --eiu-navy-dark: #0D2E4D;
+  --eiu-gold: #A68556;
+  --eiu-sand: #DED1BE;
+  --eiu-amber: #FCB900;
+  --eiu-crimson: #C10230;
+  --hsv-blue: #0054A6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-hsv-600: #0054a6;
-  --color-hsv-500: #0284c7;
-  --color-hsv-50: #f0f7ff;
-  --color-eiu-900: #0b2545;
-  --color-eiu-800: #133b5c;
-  --font-sans: var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+  --color-eiu-navy: #133F68;
+  --color-eiu-gold: #A68556;
+  --color-eiu-sand: #DED1BE;
+  --color-eiu-amber: #FCB900;
+  --color-eiu-crimson: #C10230;
+  --color-hsv-blue: #0054A6;
+  --font-sans: var(--font-be-vietnam), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-montserrat), var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-be-vietnam), system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, .font-eiu-display {
+  font-family: var(--font-montserrat), var(--font-be-vietnam), system-ui, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+/* Chuẩn Accessibility WCAG 2.1 AA cho điều hướng bàn phím */
+:focus-visible {
+  outline: 2px solid #133F68;
+  outline-offset: 2px;
 }
