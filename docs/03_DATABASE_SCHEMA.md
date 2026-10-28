@@ -34,7 +34,7 @@ CREATE TYPE faculty_code_enum AS ENUM (
   'CIT',   -- Khoa Công nghệ Thông tin (School of Computing and Information Technology)
   'BBS',   -- Khoa Quản trị Kinh doanh (Becamex Business School)
   'SET',   -- Khoa Kỹ thuật (School of Engineering and Technology)
-  'SNS',   -- Khoa Điều dưỡng / Khoa học Sức khỏe (School of Nursing / Health Sciences)
+  'SNS',   -- Khoa Khoa học Sức khỏe (School of Health Sciences)
   'OTHER'  -- Khác / Chuyên viên Phòng Công tác Sinh viên
 );
 

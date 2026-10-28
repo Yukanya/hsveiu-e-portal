@@ -40,7 +40,7 @@
 - **Khoa CNTT (`CIT`):** Indigo (`bg-indigo-50 text-indigo-700 border-indigo-200`)
 - **Khoa Quản trị Kinh doanh (`BBS`):** Blue (`bg-blue-50 text-blue-700 border-blue-200`)
 - **Khoa Kỹ thuật (`SET`):** Teal (`bg-teal-50 text-teal-700 border-teal-200`)
-- **Khoa Điều dưỡng / KHSK (`SNS`):** Rose/Emerald (`bg-rose-50 text-rose-700 border-rose-200`)
+- **Khoa Khoa học Sức khỏe (`SNS`):** Rose/Emerald (`bg-rose-50 text-rose-700 border-rose-200`)
 - **Cụm CLB / Đội / Nhóm (`CLUB`):** Purple (`bg-purple-50 text-purple-700 border-purple-200`)
 
 ---

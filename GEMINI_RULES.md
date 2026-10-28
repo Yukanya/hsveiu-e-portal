@@ -19,11 +19,11 @@ Trước khi thực hiện bất kỳ thao tác thêm/sửa/xóa mã nguồn, t�
 
 1. **Xác thực Tên miền `@eiu.edu.vn` & Nhận diện Tự động:**
    - Hệ thống chỉ chấp nhận tài khoản Google có đuôi `@eiu.edu.vn`.
-   - Logic phân tích email phải nhận diện tự động 4 Khoa (`cit` $\rightarrow$ Khoa CNTT, `bbs` $\rightarrow$ Khoa QTKD, `set` $\rightarrow$ Khoa Kỹ thuật, `sns` $\rightarrow$ Khoa Điều dưỡng/KHSK) và Khóa học (`23`, `24`, `25`, `26`...).
+   - Logic phân tích email phải nhận diện tự động 4 Khoa (`cit` $\rightarrow$ Khoa CNTT, `bbs` $\rightarrow$ Khoa QTKD, `set` $\rightarrow$ Khoa Kỹ thuật, `sns` $\rightarrow$ Khoa Khoa học Sức khỏe) và Khóa học (`23`, `24`, `25`, `26`...).
 2. **Đúng Cơ cấu Bộ máy Khóa II (2026 – 2028) theo QĐ 23, QĐ 24 & TB 04:**
    - Bộ máy cấp trường gồm: Ban Chấp hành, Ban Thư ký (Thường trực), Ban Kiểm tra, **Văn phòng Hội Sinh viên (Phòng 206.B06)** và **02 Ban Chuyên môn**:
      - **Ban Tuyên giáo - Phong trào** (Mảng Tuyên giáo & Mảng Phong trào).
-     - **Ban Tổ chức và Xây dựng Hội** (Quản lý 5 Cụm: Cụm Chi hội Khoa CNTT, Cụm Chi hội Khoa QTKD, Cụm Chi hội Khoa Kỹ thuật, Cụm Chi hội Khoa Điều dưỡng, và Cụm CLB/Đội/Nhóm).
+     - **Ban Tổ chức và Xây dựng Hội** (Quản lý 5 Cụm: Cụm Chi hội Khoa CNTT, Cụm Chi hội Khoa QTKD, Cụm Chi hội Khoa Kỹ thuật, Cụm Chi hội Khoa Khoa học Sức khỏe, và Cụm CLB/Đội/Nhóm).
    - Hỗ trợ đầy đủ cơ chế **Kiêm nhiệm đa vị trí (Role/Unit Context Switcher)** cho các đồng chí vừa giữ chức vụ ở BCH/BKT/Ban Chuyên môn vừa là Chi hội trưởng/phó hoặc Chủ nhiệm/Phó Chủ nhiệm CLB.
 3. **Đúng Quy định Cấp Giấy chứng nhận & Ngày Tình nguyện (Quyết định 28/QĐ-HSV):**
    - **Quy tắc 03 ngày:** Đề nghị công nhận ngày tình nguyện phải gửi trước thời gian tổ chức chương trình ít nhất **03 ngày** thông qua Trưởng Ban Tổ chức và Xây dựng Hội trình Ban Thư ký.

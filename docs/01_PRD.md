@@ -44,7 +44,7 @@ Hệ thống được thiết kế bám sát bộ văn bản pháp lý trong th�
        1. Cụm Chi hội Khoa Công nghệ Thông tin (`CIT` – Công nghệ thông tin / Kỹ thuật phần mềm / Mạng máy tính).
        2. Cụm Chi hội Khoa Quản trị Kinh doanh (`BBS` – Quản trị kinh doanh).
        3. Cụm Chi hội Khoa Kỹ thuật (`SET` – Kỹ thuật điện tử - viễn thông / Tự động hóa / Cơ điện tử / Cơ khí).
-       4. Cụm Chi hội Khoa Điều dưỡng / Khoa học Sức khỏe (`SNS` – Điều dưỡng).
+       4. Cụm Chi hội Khoa Khoa học Sức khỏe (`SNS` – Ngành Điều dưỡng).
        5. Cụm Câu lạc bộ – Đội – Nhóm trực thuộc.
      - Phụ trách phát triển hội viên, quản lý hồ sơ cán bộ Hội, thành lập/kiện toàn/giải thể Chi hội & CLB/Đội/Nhóm, và **tiếp nhận xin ý kiến quy đổi ngày tình nguyện trước 03 ngày tổ chức chương trình** (theo Điều 4, QĐ 28/QĐ-HSV).
 3. **Khối Cơ sở Hội trực thuộc:**
@@ -83,7 +83,7 @@ Hệ thống được thiết kế bám sát bộ văn bản pháp lý trong th�
   - `cit` $\rightarrow$ **Khoa Công nghệ Thông tin** (`School of Computing and Information Technology` – Phòng 301.B10).
   - `bbs` $\rightarrow$ **Khoa Quản trị Kinh doanh** (`Becamex Business School` – Phòng 104.B3).
   - `set` $\rightarrow$ **Khoa Kỹ thuật** (`School of Engineering` – Phòng 303.B10).
-  - `sns` $\rightarrow$ **Khoa Khoa học Sức khỏe / Điều dưỡng** (`School of Health Sciences` – Phòng 311.B10).
+  - `sns` $\rightarrow$ **Khoa Khoa học Sức khỏe** (`School of Health Sciences` – Phòng 311.B10).
   - `23`, `24`, `25`, `26`... $\rightarrow$ Tự động nhận diện Khóa nhập học (Ví dụ: `23` = Khóa 2023).
 - **Quy tắc Giải mã & Kiểm tra tính hợp lệ Mã số Sinh viên 10 chữ số ($X_1 X_2 X_3 X_4 X_5 X_6 X_7 X_8 X_9 X_{10}$ theo Sổ tay Sinh viên EIU trang 15):**
   - $X_1 X_2$: 2 số cuối năm nhập học (VD: `23`, `24`, `25`).
