@@ -1,64 +1,79 @@
-# HỆ THỐNG THIẾT KẾ (DESIGN SYSTEM) — HSV EIU PORTAL
-**Đồng bộ Ngôn ngữ Thiết kế Chính thức của Trường ĐH Quốc tế Miền Đông (`https://eiu.edu.vn/`), Nguyên tắc Apple HIG & Chuẩn Truy cập WCAG 2.1 AA**
+# BỘ QUY CHUẨN THIẾT KẾ CỐT LÕI (EIU DESIGN SPECIFICATION)
+**Chuẩn hóa 100% theo Ngôn ngữ Thiết kế Thực tế của `eiu.edu.vn` & `lib.eiu.edu.vn`**
 
 ---
 
-## 1. Triết lý Thiết kế Cốt lõi (Design Philosophy)
+## 1. Nguyên tắc Tối thượng: "Tinh gọn – Học thuật – Không giải thích rườm rà" (Zero Over-explaining)
 
-Hệ thống Cổng thông tin Điện tử & E-Office Hội Sinh viên Trường Đại học Quốc tế Miền Đông (HSV EIU) kết hợp **Bản sắc Thương hiệu Đại học Quốc tế Miền Đông (`eiu.edu.vn`)** với **3 Nguyên tắc Cốt lõi của Apple Human Interface Guidelines (HIG)**:
-
-1. **Clarity (Sự Rõ ràng & Minh bạch):**
-   - Loại bỏ hoàn toàn hiện tượng "nhồi nhét badge" (tối đa **02 nhãn trạng thái** trên mỗi thẻ).
-   - Cỡ chữ tối thiểu cho nhãn phụ (caption/badge) là **`12px` (`text-xs`)**, văn bản nội dung **`14px–16px` (`text-sm` / `text-base`)**, tiêu đề phân cấp rõ ràng bằng font **`Montserrat`** (chuẩn `eiu.edu.vn`) kết hợp **`Be Vietnam Pro`**.
-2. **Deference (Tôn vinh Nội dung & Không gian thở):**
-   - Sử dụng nền trắng tinh khiết (`#FFFFFF`) xen kẽ nền xám sáng EIU (`#F5F5F5`), khoảng cách giữa các phân khu rộng rãi (`py-14` đến `py-20`), khung chuẩn `max-w-6xl` (`1140px` – đúng chuẩn container của `eiu.edu.vn`).
-   - Thanh chuyển đổi vai trò Demo (`PersonaSwitcherBar`) được thu gọn tinh tế vào **Top Utility Bar (`#133F68`)** chuẩn EIU, chỉ bung bảng chọn chi tiết khi người dùng nhấp mở.
-3. **Depth & Progressive Disclosure (Chiều sâu & Tiết lộ Thông tin theo Lớp):**
-   - Không xếp chồng 7–8 bảng dữ liệu dài trên cùng một màn hình.
-   - Tại **Hồ sơ Hội viên (`/portal`)** và **E-Office (`/workspace`)**, sử dụng **Segmented Control / View Switcher** kiểu macOS/iPadOS để người dùng tập trung vào đúng 1 nhóm tác vụ tại một thời điểm.
+1. **Không giải thích quy chế dài dòng trên giao diện:**
+   - Tuyệt đối **bỏ** các đoạn văn giải thích luật/quyết định dài 3–4 dòng dưới mỗi tiêu đề.
+   - Mỗi thẻ (Card) chỉ gồm tối đa **3 thành phần**: **Tiêu đề ngắn** + **1 câu mô tả (tối đa 2 dòng)** + **Liên kết `> XEM THÊM`**.
+2. **Không lạm dụng Badge / Tag màu sắc:**
+   - Loại bỏ toàn bộ các pill/badge trạng thái xanh đỏ tím vàng rườm rà trên các thẻ nội dung.
+3. **Định danh Thương hiệu Đồng bộ (`EIU | STUDENT UNION` / `EIU | HỘI SINH VIÊN`):**
+   - Thiết kế cụm Logo Header & Footer theo đúng cấu trúc `EIU | LIBRARY` của `lib.eiu.edu.vn`:
+     `[Logo EIU]  |  HỘI SINH VIÊN` (màu `#133F68`, font chữ trang trọng).
 
 ---
 
-## 2. Bảng Màu Chính thức (Trích xuất từ `https://eiu.edu.vn/` & Nhận diện HSV)
+## 2. Bảng Màu Quy Chuẩn (Trích xuất từ 5 Giao diện Mẫu `eiu.edu.vn` & `lib.eiu.edu.vn`)
 
-| Vai trò | Tên Token | Mã Hex | Nguồn gốc & Ứng dụng |
-| :--- | :--- | :--- | :--- |
-| **Primary Brand** | `eiu-navy` | `#133F68` | Màu chủ đạo chính thức của `eiu.edu.vn` (`--e-global-color-secondary`). Dùng cho Top Utility Bar, Footer, Tiêu đề lớn, Nút hành động chính và Sidebar E-Office. |
-| **Union Primary** | `hsv-blue` | `#0054A6` | Màu xanh Hội Sinh viên Việt Nam. Dùng cho huy hiệu Hội, thẻ Hội viên số, nút nghiệp vụ SV5T & tiến độ. |
-| **Warm Gold Accent** | `eiu-gold` | `#A68556` | Màu vàng đồng học thuật của `eiu.edu.vn` (`--e-global-color-accent`). Dùng cho đường kẻ nhấn, trạng thái active/hover trên thanh điều hướng, viền chứng nhận danh hiệu SV5T. |
-| **Champagne Text** | `eiu-sand` | `#DED1BE` | Màu chữ vàng kem trên nền xanh `#133F68` tại Footer `eiu.edu.vn`. |
-| **Highlight Amber** | `eiu-amber` | `#FCB900` | Màu nhấn nổi bật trên nền `#133F68` cho mục đang chọn. |
-| **Alert Crimson** | `eiu-crimson` | `#C10230` | Màu đỏ đô EIU (`--e-global-color-2750f59`), dùng cho thông báo khẩn hoặc cảnh báo quá hạn SLA. |
-| **Surface Primary** | `surface-white` | `#FFFFFF` | Nền Header chính, nền Thẻ (Card), Bảng dữ liệu. |
-| **Canvas Background** | `canvas-gray` | `#F5F5F5` | Nền tổng thể trang web và các dải phân khu xen kẽ (chuẩn `post-7.css` của `eiu.edu.vn`). |
-| **Text Primary** | `text-primary` | `#0F172A` | Chữ chính (độ tương phản $> 15:1$ trên nền trắng). |
-| **Text Secondary** | `text-secondary` | `#475569` | Chữ mô tả phụ (độ tương phản $> 7:1$ trên nền trắng, đạt chuẩn WCAG AAA). |
+| Nhóm màu | Mã Hex | Vai trò trong Giao diện |
+| :--- | :--- | :--- |
+| **EIU Primary Navy** | `#133F68` | Thanh Top Bar trên cùng, Nền Footer, Thanh tiêu đề bảng/form (như trang *Đặt phòng học*), Tiêu đề Section & Tiêu đề Card. |
+| **EIU Crimson Red** | `#C10230` | Khối hình thang nghiêng trên Banner trang con, Nút Tab đang chọn (`TIN TỨC`), Mục đang chọn trên Menu dọc cột trái (`Hội đồng trường`), Khối thông tin nổi bật bên phải (`Thông tin đặt phòng`). |
+| **EIU Warm Sand / Beige** | `#EAE3D2` | Nền các mục chưa chọn trong Menu dọc cột trái (như trang *Đội ngũ EIU*), chữ phụ trên Footer (`#DED1BE`). |
+| **EIU Gold / Bronze** | `#A68556` | Nút tìm kiếm (`Search`), điểm nhấn học thuật. |
+| **Bento Block Colors** | `#133F68` (Navy)<br>`#B44425` (Cam đất)<br>`#52813B` (Xanh ô-liu)<br>`#4E4E50` (Xám than)<br>`#C10230` (Đỏ đô) | Màu nền cho nửa trái của các **Thẻ Ghép Đôi 50/50 (Split Feature Cards)** trên Trang chủ (giống mục *Giới thiệu*, *Tuyển sinh*, *Room Reservation*). |
+| **Action Blue (Form)** | `#0D6EFD` / `#0054A6` | Nút `Lưu` / `Xác nhận` trong các biểu mẫu tác nghiệp (như nút `Lưu` bên cạnh nút `Hủy` trên `lib.eiu.edu.vn`). |
+| **Nền & Đường kẻ** | `#FFFFFF` (Trắng)<br>`#F5F5F5` (Xám nhạt)<br>`#EFEFEF` (Xám bảng)<br>`#E5E7EB` (Viền mảnh) | Nền Header chính `#FFFFFF`, nền dải Breadcrumb & vùng tìm kiếm `#F5F5F5`, tiêu đề bảng/accordion phụ `#EFEFEF`. |
 
 ---
 
-## 3. Hệ thống Chữ viết (Typography)
+## 3. Quy chuẩn Font chữ, Cỡ chữ & Khoảng cách dòng (Typography Scale)
 
-- **Heading & Navigation Font (`--font-montserrat`):** **`Montserrat`** (Weights: `500`, `600`, `700`, `800`) — đồng bộ 100% với `--e-global-typography-primary-font-family: "Montserrat"` trên `https://eiu.edu.vn/`.
-- **Body & UI Font (`--font-be-vietnam`):** **`Be Vietnam Pro`** (Weights: `400`, `500`, `600`, `700`) — tối ưu dấu tiếng Việt cho văn bản hành chính, biểu mẫu và bảng dữ liệu dài.
-- **Monospace Font (`--font-jetbrains-mono`):** **`JetBrains Mono`** — hiển thị Mã số sinh viên 10 chữ số, GPA, số hiệu Quyết định (`09/QĐ-HSV`, `28/QĐ-HSV`) và đồng hồ SLA 07 ngày.
+- **Font chữ chính (`Primary Font`):** **`Montserrat`** (hoặc `Be Vietnam Pro` đồng bộ độ dày) cho toàn bộ Heading, Menu, Nút bấm và Nội dung ngắn.
+- **Hệ thống phân cấp cỡ chữ (Type Scale):**
 
----
-
-## 4. Cấu trúc Header 2 Tầng Chuẩn `eiu.edu.vn`
-
-1. **Tầng 1 — Top Utility Bar (`bg-[#133F68] text-white`):**
-   - Bên trái: Liên kết phân luồng đối tượng đúng phong cách `eiu.edu.vn`: `SINH VIÊN | CÁN BỘ HỘI | TRA CỨU GCN | VĂN BẢN PHÁP LÝ`.
-   - Bên phải: Nút chuyển đổi nhanh **Ngữ cảnh Kiêm nhiệm & Đóng vai Demo** (hiển thị gọn tên cán bộ + cấp quyền, bấm vào mới mở khay chuyển đổi chi tiết).
-2. **Tầng 2 — Main Navigation Bar (`bg-white border-b border-slate-200`):**
-   - Bên trái: Logo chính thức của **Trường Đại học Quốc tế Miền Đông (`/images/eiu-logo.png`)** đặt cạnh biểu trưng **Hội Sinh viên EIU Khóa II**.
-   - Chính giữa: Menu điều hướng in hoa gọn gàng bằng font `Montserrat` (`13px–14px`, `font-semibold`, màu `#133F68`, gạch chân màu vàng đồng `#A68556` khi active).
-   - Bên phải: Nút **Sổ tay SV5T (`/portal`)**, **E-Office (`/workspace`)** và **Đăng nhập `@eiu.edu.vn`**.
+| Cấp độ (Level) | Cỡ chữ (`font-size`) | Độ đậm (`font-weight`) | Chiều cao dòng (`line-height`) | Quy cách hiển thị |
+| :--- | :--- | :--- | :--- | :--- |
+| **Top Utility Bar** | `11px – 12px` | `500` (Medium) | `1.4` | IN HOA (`TRƯƠNG CHÂU PHƯỚC LỘC (MSSV) \| TRA CỨU GCN \| E-OFFICE`), chữ trắng trên nền `#133F68`. |
+| **Main Nav Menu** | `13px – 14px` | `600 / 700` | `1.4` | IN HOA trên `eiu.edu.vn` hoặc Title Case gọn trên `lib.eiu.edu.vn`, màu `#133F68`. |
+| **Banner Overlay Title (H1)** | `24px – 28px` | `700` (Bold) | `1.25` | Chữ trắng đặt trong khối hình thang nghiêng `#C10230`, phía trên có vạch ngang trắng `—` dài `36px`. |
+| **Section Heading (H2)** | `20px – 24px` | `700` (Bold) | `1.3` | Màu `#133F68`, IN HOA căn giữa (`TUYỂN SINH`, `TIN TỨC & SỰ KIỆN`) hoặc căn trái (`HỘI ĐỒNG TRƯỜNG`, `THÔNG TIN HỌC PHÍ`). |
+| **Table / Form Bar Header** | `14px – 15px` | `700` (Bold) | `1.4` | Chữ trắng trên dải nền `#133F68` cao `40px` (`Đặt phòng`, `Mô tả`). |
+| **Card Title (H3)** | `15px – 16px` | `700` (Bold) | `1.35` | Màu `#133F68` (trên nền trắng) hoặc `#FFFFFF` (trên thẻ màu). |
+| **Body / Table Text** | `13.5px – 14px` | `400` (Regular) | `1.6` | Màu `#333333` / `#4E4E50`, ngắn gọn, tối đa 2–3 dòng trong thẻ. |
+| **Card Footer Link** | `11px – 12px` | `600` (SemiBold) | `1.4` | IN HOA màu `#133F68` hoặc `#0054A6`: `> XEM THÊM`, `> TIN TỨC`, `> ĐĂNG KÝ`. |
 
 ---
 
-## 5. Tiêu chuẩn Khả năng Truy cập (Accessibility — WCAG 2.1 AA & Apple HIG)
+## 4. Quy chuẩn Bo góc (Border Radius) & Khung Lưới (Grid & Spacing)
 
-1. **Điều hướng Bàn phím & Skip Link:** Có liên kết `"Chuyển tới nội dung chính"` (`href="#main-content"`) hiển thị ngay khi nhấn phím `Tab` đầu tiên.
-2. **Vùng chạm Tối thiểu (Touch Targets):** Mọi nút bấm, tab chuyển đổi, ô nhập liệu đều có chiều cao tối thiểu `40px–44px` (`min-h-10` / `min-h-11`).
-3. **Độ tương phản Màu sắc (Contrast Ratio):** Không dùng chữ xám nhạt dưới `slate-500` trên nền sáng; trên nền `#133F68` chỉ dùng `#FFFFFF`, `#DED1BE` hoặc `#FCB900` (đạt tỷ lệ tương phản $\ge 4.5:1$).
-4. **Ngữ nghĩa HTML & ARIA:** Đầy đủ `main#main-content`, `nav[aria-label]`, `aria-current="page"`, `role="tablist"`, `role="tab"`, `aria-selected`, `aria-expanded` và `<label htmlFor>` cho mọi trường dữ liệu.
+1. **Quy tắc Bo góc (Sharp & Architectural):**
+   - **Thẻ (Cards), Khối ảnh, Bảng (Tables), Thanh tiêu đề `#133F68`, Menu dọc cột trái:** **`0px` (`rounded-none`)** — vuông vức, sắc nét tuyệt đối giống 100% hình chụp `eiu.edu.vn` và `lib.eiu.edu.vn`.
+   - **Ô nhập liệu (Input, Select) & Nút bấm hành động (`Hủy`, `Lưu`, `Search`):** Bo góc nhẹ **`4px` (`rounded`)**.
+   - **Nút chuyển Tab (`TIN TỨC` / `SỰ KIỆN`) & Nút lối tắt dưới thanh Search:** Bo tròn hoàn toàn **`9999px` (`rounded-full`)**.
+2. **Khung Lưới (Container & Grid):**
+   - Độ rộng khung chuẩn: **`1140px` (`max-w-[1140px]`)**, căn giữa màn hình.
+   - Khoảng cách giữa các thẻ trong lưới (Grid Gap): **`16px – 20px` (`gap-4` / `gap-5`)**.
+   - Khoảng cách giữa các Section lớn: **`48px – 64px` (`py-12` / `py-16`)**.
+
+---
+
+## 5. 06 Mẫu Thiết kế Đặc trưng (Signature Design Patterns) Áp dụng vào Cổng HSV EIU
+
+1. **Header 2 Tầng chuẩn EIU / EIU Library:**
+   - Tầng trên (`#133F68`, cao `34px`): Bên phải hiển thị tên người dùng đang đăng nhập `TRƯƠNG CHÂU PHƯỚC LỘC (MSSV) ▾ | HỒ SƠ SV5T | E-OFFICE | TRA CỨU GCN`.
+   - Tầng dưới (`#FFFFFF`, cao `76px`): Bên trái là `EIU | HỘI SINH VIÊN`, bên phải là 6 mục menu gọn gàng.
+2. **Banner Trang Con với Khối Đỏ Đô Nghiêng (`#C10230` Slanted Overlay) + Dải Breadcrumb `#F5F5F5`:**
+   - Dùng cho các trang `/gioi-thieu`, `/to-chuc`, `/su-kien`, `/van-ban`, `/tra-cuu-gcn`, `/portal`.
+3. **Bố cục Trang Con Có Menu Dọc Cột Trái (3/9 Layout — Mẫu trang `Đội ngũ EIU`):**
+   - Cột trái (3 phần): Menu dọc góc vuông — mục đang chọn màu **Đỏ đô `#C10230` chữ trắng**, các mục khác màu **Vàng kem `#EAE3D2` chữ đen**.
+   - Cột phải (9 phần): Hiển thị nội dung của đúng mục đang chọn (ví dụ: ở trang *Bộ máy*, chọn *Ban Chấp hành* | *Ban Thư ký* | *Ban Kiểm tra* | *Văn phòng* | *Ban TC-XDH* | *Ban TG-PT*; ở trang *Hồ sơ SV*, chọn *Tiến độ SV5T* | *Máy tính GPA* | *Đặt lịch / Hộp thư*).
+4. **Lưới Thẻ Bento Ghép Đôi 50/50 & Thẻ Dọc Vuông Vức (Mẫu Trang chủ `eiu.edu.vn` & `lib.eiu.edu.vn`):**
+   - Kết hợp thẻ ngang 50/50 (1 bên nền màu đặc `#133F68` / `#C10230` / `#52813B` / `#B44425`, 1 bên hình ảnh) và thẻ dọc 4 cột (ảnh trên, chữ dưới, đáy có `> XEM THÊM`).
+5. **Nút Chuyển Tab Viên Thuốc Đỏ/Trắng (`#C10230` Pill Switcher):**
+   - Đặt ngay dưới tiêu đề Section căn giữa (ví dụ: chuyển giữa `[ TIN TỨC ]` và `[ SỰ KIỆN ]`, hoặc `[ 30 CÂU LẠC BỘ ]` và `[ 25 CHI HỘI ]`).
+6. **Bảng & Biểu mẫu Thanh Ngang `#133F68` + Khối Tóm tắt Đỏ `#C10230` (Mẫu trang `Đặt phòng học` & `Học phí`):**
+   - Dùng cho **Hồ sơ SV5T (`/portal`)**, **Tra cứu GCN (`/tra-cuu-gcn`)** và **E-Office (`/workspace`)**: Dải tiêu đề từng mục màu `#133F68` chữ trắng, các dòng dữ liệu 2 cột gọn gàng, bên phải có hộp tóm tắt màu đỏ `#C10230` kèm gạch trắng `—`.
