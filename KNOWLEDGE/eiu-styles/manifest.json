@@ -1,0 +1,3572 @@
+{
+  "all_stylesheets": {
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css": {
+      "id": "eae-css-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793462912",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__plugins__addon-elements-for-elementor-page-builder__assets__css__eae.min.css",
+      "size_bytes": 276745
+    },
+    "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css": {
+      "id": "eae-peel-css-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__addon-elements-for-elementor-page-builder__assets__lib__peel__peel.css",
+      "size_bytes": 981
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css": {
+      "id": "font-awesome-4-shim-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__lib__font-awesome__css__v4-shims.min.css",
+      "size_bytes": 26702
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css": {
+      "id": "font-awesome-5-all-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__lib__font-awesome__css__all.min.css",
+      "size_bytes": 59344
+    },
+    "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css": {
+      "id": "vegas-css-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__addon-elements-for-elementor-page-builder__assets__lib__vegas__vegas.min.css",
+      "size_bytes": 9503
+    },
+    "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css": {
+      "id": "hello-elementor-css",
+      "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__themes__hello-elementor__style.min.css",
+      "size_bytes": 5501
+    },
+    "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css": {
+      "id": "hello-elementor-theme-style-css",
+      "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__themes__hello-elementor__theme.min.css",
+      "size_bytes": 5142
+    },
+    "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css": {
+      "id": "hello-elementor-header-footer-css",
+      "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__themes__hello-elementor__header-footer.min.css",
+      "size_bytes": 7234
+    },
+    "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css": {
+      "id": "chld_thm_cfg_child-css",
+      "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__themes__hello-elementor-child02__style.css",
+      "size_bytes": 1059
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css": {
+      "id": "elementor-frontend-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__frontend.min.css",
+      "size_bytes": 54666
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css": {
+      "id": "elementor-post-7-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-7.css",
+      "size_bytes": 1746
+    },
+    "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css": {
+      "id": "dflip-style-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__3d-flipbook-dflip-lite__assets__css__dflip.min.css",
+      "size_bytes": 53285
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css": {
+      "id": "elementor-post-9090-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-9090.css",
+      "size_bytes": 2416
+    },
+    "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css": {
+      "id": "happy-icons-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__happy-elementor-addons__assets__fonts__style.min.css",
+      "size_bytes": 27324
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css": {
+      "id": "font-awesome-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__lib__font-awesome__css__font-awesome.min.css",
+      "size_bytes": 30999
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css": {
+      "id": "widget-nav-menu-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-nav-menu.min.css",
+      "size_bytes": 27362
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css": {
+      "id": "widget-heading-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-heading.min.css",
+      "size_bytes": 560
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css": {
+      "id": "widget-mega-menu-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-mega-menu.min.css",
+      "size_bytes": 19891
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css": {
+      "id": "widget-image-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-image.min.css",
+      "size_bytes": 214
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css": {
+      "id": "e-sticky-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__modules__sticky.min.css",
+      "size_bytes": 162
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css": {
+      "id": "widget-icon-list-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-icon-list.min.css",
+      "size_bytes": 10255
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css": {
+      "id": "widget-form-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-form.min.css",
+      "size_bytes": 6797
+    },
+    "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css": {
+      "id": "cpel-language-switcher-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__connect-polylang-elementor__assets__css__language-switcher.min.css",
+      "size_bytes": 7560
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css": {
+      "id": "swiper-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+      "pages": [
+        "home",
+        "en-home",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__lib__swiper__v8__css__swiper.min.css",
+      "size_bytes": 16471
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css": {
+      "id": "e-swiper-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__conditionals__e-swiper.min.css",
+      "size_bytes": 5486
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css": {
+      "id": "widget-image-carousel-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-image-carousel.min.css",
+      "size_bytes": 342
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css": {
+      "id": "widget-nested-tabs-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-nested-tabs.min.css",
+      "size_bytes": 14818
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css": {
+      "id": "widget-spacer-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "khoa",
+        "nghien-cuu",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-spacer.min.css",
+      "size_bytes": 1793
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-18.css": {
+      "id": "elementor-post-18-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-18.css?ver=1793401685",
+      "pages": [
+        "home"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-18.css",
+      "size_bytes": 184585
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css": {
+      "id": "elementor-post-5773-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+      "pages": [
+        "home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-5773.css",
+      "size_bytes": 77508
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css": {
+      "id": "elementor-post-157-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+      "pages": [
+        "home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-157.css",
+      "size_bytes": 45366
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css": {
+      "id": "elementor-gf-local-montserrat-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__google-fonts__css__montserrat.css",
+      "size_bytes": 35262
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css": {
+      "id": "elementor-gf-local-crimsontext-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__uploads__elementor__google-fonts__css__crimsontext.css",
+      "size_bytes": 7977
+    },
+    "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css": {
+      "id": "elementor-icons-huge-icons-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tuyen-sinh-2026"
+      ],
+      "local_file": "wp-content__plugins__happy-elementor-addons__assets__fonts__huge-icons__huge-icons.min.css",
+      "size_bytes": 170232
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css": {
+      "id": "owl-carousel-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css?wpr_t=1793462912",
+      "pages": [
+        "home",
+        "en-home"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__plugins__unlimited-elements-for-elementor-premium__assets_libraries__owl-carousel-new__assets__owl.carousel.css",
+      "size_bytes": 4768
+    },
+    "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css": {
+      "id": "lity-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css",
+      "pages": [
+        "home",
+        "en-home"
+      ],
+      "local_file": "wp-content__plugins__unlimited-elements-for-elementor-premium__assets_libraries__lity__lity.min.css",
+      "size_bytes": 3383
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css": {
+      "id": "widget-search-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-search.min.css",
+      "size_bytes": 13446
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css": {
+      "id": "e-popup-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+      "pages": [
+        "home",
+        "en-home",
+        "tuyen-sinh",
+        "hoc-tap",
+        "khoa",
+        "nghien-cuu",
+        "kham-pha",
+        "ve-chung-toi",
+        "sinh-vien",
+        "cuu-sinh-vien",
+        "phu-huynh",
+        "chuong-trinh-cu-nhan",
+        "tin-tuyen-sinh",
+        "tuyen-sinh-2026",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__conditionals__popup.min.css",
+      "size_bytes": 995
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-4698.css": {
+      "id": "elementor-post-4698-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-4698.css?ver=1793402477",
+      "pages": [
+        "en-home"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-4698.css",
+      "size_bytes": 187153
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8398.css": {
+      "id": "elementor-post-8398-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8398.css?ver=1793401681",
+      "pages": [
+        "en-home"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-8398.css",
+      "size_bytes": 73045
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8421.css": {
+      "id": "elementor-post-8421-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8421.css?ver=1793401681",
+      "pages": [
+        "en-home"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-8421.css",
+      "size_bytes": 32312
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css": {
+      "id": "widget-nested-accordion-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css?ver=4.3.4",
+      "pages": [
+        "tuyen-sinh",
+        "phu-huynh",
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-nested-accordion.min.css",
+      "size_bytes": 5206
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css": {
+      "id": "widget-divider-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.4",
+      "pages": [
+        "tuyen-sinh",
+        "cuu-sinh-vien"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-divider.min.css",
+      "size_bytes": 4258
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-555.css": {
+      "id": "elementor-post-555-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-555.css?ver=1793402078&wpr_t=1793467186",
+      "pages": [
+        "tuyen-sinh"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-555.css",
+      "size_bytes": 124994
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-557.css": {
+      "id": "elementor-post-557-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-557.css?ver=1793405841&wpr_t=1793431041",
+      "pages": [
+        "hoc-tap"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-557.css",
+      "size_bytes": 70870
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-2267.css": {
+      "id": "elementor-post-2267-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-2267.css?ver=1793402247&wpr_t=1793431041",
+      "pages": [
+        "khoa"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-2267.css",
+      "size_bytes": 74573
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-558.css": {
+      "id": "elementor-post-558-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-558.css?ver=1793405847&wpr_t=1793431047",
+      "pages": [
+        "nghien-cuu"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-558.css",
+      "size_bytes": 52345
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-559.css": {
+      "id": "elementor-post-559-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-559.css?ver=1793404818&wpr_t=1793431048",
+      "pages": [
+        "kham-pha"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-559.css",
+      "size_bytes": 47947
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-3817.css": {
+      "id": "elementor-post-3817-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-3817.css?ver=1793404669&wpr_t=1793431048",
+      "pages": [
+        "ve-chung-toi"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-3817.css",
+      "size_bytes": 75737
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-slides.min.css": {
+      "id": "widget-slides-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-slides.min.css?ver=4.3.1",
+      "pages": [
+        "sinh-vien"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-slides.min.css",
+      "size_bytes": 2341
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14644.css": {
+      "id": "elementor-post-14644-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14644.css?ver=1793401669&wpr_t=1793431517",
+      "pages": [
+        "sinh-vien"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-14644.css",
+      "size_bytes": 30643
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-common.min.css": {
+      "id": "widget-loop-common-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-common.min.css?ver=4.3.1",
+      "pages": [
+        "cuu-sinh-vien"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-loop-common.min.css",
+      "size_bytes": 207
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-carousel.min.css": {
+      "id": "widget-loop-carousel-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-carousel.min.css?ver=4.3.1",
+      "pages": [
+        "cuu-sinh-vien"
+      ],
+      "local_file": "wp-content__plugins__elementor-pro__assets__css__widget-loop-carousel.min.css",
+      "size_bytes": 8444
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14711.css": {
+      "id": "elementor-post-14711-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14711.css?ver=1793406049&wpr_t=1793431548",
+      "pages": [
+        "cuu-sinh-vien"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-14711.css",
+      "size_bytes": 13236
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css": {
+      "id": "widget-icon-box-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css?ver=4.3.4",
+      "pages": [
+        "cuu-sinh-vien"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-icon-box.min.css",
+      "size_bytes": 4726
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-28377.css": {
+      "id": "elementor-post-28377-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-28377.css?ver=1793405605&wpr_t=1793431599",
+      "pages": [
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-28377.css",
+      "size_bytes": 4897
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26625.css": {
+      "id": "elementor-post-26625-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26625.css?ver=1793405605&wpr_t=1793431599",
+      "pages": [
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-26625.css",
+      "size_bytes": 4844
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-box.min.css": {
+      "id": "widget-image-box-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-box.min.css?ver=4.3.4",
+      "pages": [
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-image-box.min.css",
+      "size_bytes": 1657
+    },
+    "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css": {
+      "id": "widget-menu-anchor-css",
+      "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css?ver=4.3.4",
+      "pages": [
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__plugins__elementor__assets__css__widget-menu-anchor.min.css",
+      "size_bytes": 69
+    },
+    "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-24709.css": {
+      "id": "elementor-post-24709-css",
+      "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-24709.css?ver=1793405606",
+      "pages": [
+        "phu-huynh"
+      ],
+      "local_file": "wp-content__uploads__elementor__css__post-24709.css",
+      "size_bytes": 95896
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5018.css": {
+      "id": "elementor-post-5018-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5018.css?ver=1793444935&wpr_t=1793470136",
+      "pages": [
+        "chuong-trinh-cu-nhan"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-5018.css",
+      "size_bytes": 69990
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5065.css": {
+      "id": "elementor-post-5065-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5065.css?ver=1793444936&wpr_t=1793470137",
+      "pages": [
+        "tin-tuyen-sinh"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-5065.css",
+      "size_bytes": 13799
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26087.css": {
+      "id": "elementor-post-26087-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26087.css?ver=1793444938&wpr_t=1793470138",
+      "pages": [
+        "tuyen-sinh-2026"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-26087.css",
+      "size_bytes": 25493
+    },
+    "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5198.css": {
+      "id": "elementor-post-5198-css",
+      "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5198.css?ver=1793444939&wpr_t=1793470139",
+      "pages": [
+        "hoc-phi-hoc-bong"
+      ],
+      "local_file": "wp-content__cache__background-css__eiu.edu.vn__wp-content__uploads__elementor__css__post-5198.css",
+      "size_bytes": 21124
+    }
+  },
+  "page_stylesheets": {
+    "home": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793462912",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css"
+      },
+      {
+        "id": "e-swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css"
+      },
+      {
+        "id": "widget-image-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css"
+      },
+      {
+        "id": "widget-nested-tabs-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-18-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-18.css?ver=1793401685",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-18.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "owl-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css?wpr_t=1793462912",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css"
+      },
+      {
+        "id": "lity-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "en-home": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793465796",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css"
+      },
+      {
+        "id": "e-swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css"
+      },
+      {
+        "id": "widget-image-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css"
+      },
+      {
+        "id": "widget-nested-tabs-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-tabs.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-4698-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-4698.css?ver=1793402477",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-4698.css"
+      },
+      {
+        "id": "elementor-post-8398-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8398.css?ver=1793401681",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8398.css"
+      },
+      {
+        "id": "elementor-post-8421-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8421.css?ver=1793401681",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-8421.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "owl-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css?wpr_t=1793465796",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/owl-carousel-new/assets/owl.carousel.css"
+      },
+      {
+        "id": "lity-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/unlimited-elements-for-elementor-premium/assets_libraries/lity/lity.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "tuyen-sinh": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793467186",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-nested-accordion-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css"
+      },
+      {
+        "id": "widget-divider-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-555-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-555.css?ver=1793402078&wpr_t=1793467186",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-555.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "hoc-tap": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431041",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "elementor-post-557-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-557.css?ver=1793405841&wpr_t=1793431041",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-557.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "khoa": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431041",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-2267-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-2267.css?ver=1793402247&wpr_t=1793431041",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-2267.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "nghien-cuu": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431047",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-558-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-558.css?ver=1793405847&wpr_t=1793431047",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-558.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "kham-pha": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431048",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "elementor-post-559-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-559.css?ver=1793404818&wpr_t=1793431048",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-559.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "ve-chung-toi": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431048",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-3817-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-3817.css?ver=1793404669&wpr_t=1793431048",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-3817.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "sinh-vien": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431517",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css"
+      },
+      {
+        "id": "e-swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css"
+      },
+      {
+        "id": "widget-slides-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-slides.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-slides.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-14644-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14644.css?ver=1793401669&wpr_t=1793431517",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14644.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "cuu-sinh-vien": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431548",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css"
+      },
+      {
+        "id": "e-swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css"
+      },
+      {
+        "id": "widget-loop-common-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-common.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-common.min.css"
+      },
+      {
+        "id": "widget-loop-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-carousel.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-loop-carousel.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-14711-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14711.css?ver=1793406049&wpr_t=1793431548",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-14711.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "widget-icon-box-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-box.min.css"
+      },
+      {
+        "id": "widget-divider-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-divider.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "phu-huynh": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793431599",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793401652",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "elementor-post-28377-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-28377.css?ver=1793405605&wpr_t=1793431599",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-28377.css"
+      },
+      {
+        "id": "elementor-post-26625-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26625.css?ver=1793405605&wpr_t=1793431599",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26625.css"
+      },
+      {
+        "id": "swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css?ver=8.4.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/swiper/v8/css/swiper.min.css"
+      },
+      {
+        "id": "e-swiper-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/conditionals/e-swiper.min.css"
+      },
+      {
+        "id": "widget-image-carousel-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-carousel.min.css"
+      },
+      {
+        "id": "widget-image-box-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-box.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image-box.min.css"
+      },
+      {
+        "id": "widget-menu-anchor-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-menu-anchor.min.css"
+      },
+      {
+        "id": "widget-nested-accordion-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-24709-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-24709.css?ver=1793405606",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-24709.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793401654",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793401655",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "chuong-trinh-cu-nhan": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793470136",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-spacer-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-spacer.min.css"
+      },
+      {
+        "id": "elementor-post-5018-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5018.css?ver=1793444935&wpr_t=1793470136",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5018.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793444793",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793444794",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "tin-tuyen-sinh": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793470137",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "elementor-post-5065-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5065.css?ver=1793444936&wpr_t=1793470137",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5065.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793444793",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793444794",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "tuyen-sinh-2026": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793470138",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "elementor-post-26087-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26087.css?ver=1793444938&wpr_t=1793470138",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-26087.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793444793",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793444794",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "elementor-icons-huge-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/huge-icons/huge-icons.min.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ],
+    "hoc-phi-hoc-bong": [
+      {
+        "id": "eae-css-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css?ver=1.14.5&wpr_t=1793470139",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/css/eae.min.css"
+      },
+      {
+        "id": "eae-peel-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css?ver=1.14.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/peel/peel.css"
+      },
+      {
+        "id": "font-awesome-4-shim-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/v4-shims.min.css"
+      },
+      {
+        "id": "font-awesome-5-all-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css?ver=1.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/all.min.css"
+      },
+      {
+        "id": "vegas-css-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css?ver=2.4.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/addon-elements-for-elementor-page-builder/assets/lib/vegas/vegas.min.css"
+      },
+      {
+        "id": "hello-elementor-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/style.min.css"
+      },
+      {
+        "id": "hello-elementor-theme-style-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/theme.min.css"
+      },
+      {
+        "id": "hello-elementor-header-footer-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css?ver=3.4.2",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor/header-footer.min.css"
+      },
+      {
+        "id": "chld_thm_cfg_child-css",
+        "href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css?ver=3.4.2.1751442111",
+        "clean_href": "https://eiu.edu.vn/wp-content/themes/hello-elementor-child02/style.css"
+      },
+      {
+        "id": "elementor-frontend-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/frontend.min.css"
+      },
+      {
+        "id": "elementor-post-7-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-7.css"
+      },
+      {
+        "id": "dflip-style-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css?ver=2.4.37",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/3d-flipbook-dflip-lite/assets/css/dflip.min.css"
+      },
+      {
+        "id": "elementor-post-9090-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css?ver=1793444791",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-9090.css"
+      },
+      {
+        "id": "happy-icons-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css?ver=3.50.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/happy-elementor-addons/assets/fonts/style.min.css"
+      },
+      {
+        "id": "font-awesome-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css?ver=4.7.0",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/lib/font-awesome/css/font-awesome.min.css"
+      },
+      {
+        "id": "widget-nav-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-nav-menu.min.css"
+      },
+      {
+        "id": "widget-heading-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-heading.min.css"
+      },
+      {
+        "id": "widget-mega-menu-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-mega-menu.min.css"
+      },
+      {
+        "id": "widget-image-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-image.min.css"
+      },
+      {
+        "id": "e-sticky-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/modules/sticky.min.css"
+      },
+      {
+        "id": "widget-icon-list-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-icon-list.min.css"
+      },
+      {
+        "id": "widget-form-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-form.min.css"
+      },
+      {
+        "id": "cpel-language-switcher-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css?ver=2.5.5",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/connect-polylang-elementor/assets/css/language-switcher.min.css"
+      },
+      {
+        "id": "widget-nested-accordion-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css?ver=4.3.4",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor/assets/css/widget-nested-accordion.min.css"
+      },
+      {
+        "id": "elementor-post-5198-css",
+        "href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5198.css?ver=1793444939&wpr_t=1793470139",
+        "clean_href": "https://eiu.edu.vn/wp-content/cache/background-css/eiu.edu.vn/wp-content/uploads/elementor/css/post-5198.css"
+      },
+      {
+        "id": "elementor-post-5773-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css?ver=1793444793",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-5773.css"
+      },
+      {
+        "id": "elementor-post-157-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css?ver=1793444794",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/css/post-157.css"
+      },
+      {
+        "id": "elementor-gf-local-montserrat-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css?ver=1751809617",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/montserrat.css"
+      },
+      {
+        "id": "elementor-gf-local-crimsontext-css",
+        "href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css?ver=1751809620",
+        "clean_href": "https://eiu.edu.vn/wp-content/uploads/elementor/google-fonts/css/crimsontext.css"
+      },
+      {
+        "id": "widget-search-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/widget-search.min.css"
+      },
+      {
+        "id": "e-popup-css",
+        "href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css?ver=4.3.1",
+        "clean_href": "https://eiu.edu.vn/wp-content/plugins/elementor-pro/assets/css/conditionals/popup.min.css"
+      }
+    ]
+  }
+}

@@ -5,73 +5,90 @@ import { ChevronRight } from 'lucide-react';
 interface SubpageBannerProps {
   title: string;
   subtitle?: string;
+  kicker?: string;
   breadcrumbs: { label: string; href?: string }[];
+  wide?: boolean;
 }
 
 export function SubpageBanner({
   title,
   subtitle,
+  kicker,
   breadcrumbs,
+  wide = false,
 }: SubpageBannerProps) {
+  const containerClass = wide ? 'max-w-[1200px]' : 'max-w-[1140px]';
+
   return (
     <div>
-      {/* Banner với khối hình thang nghiêng Đỏ đô #C10230 chuẩn lib.eiu.edu.vn */}
+      {/* Banner Kiến trúc EIU × HSV với Khối đa giác nghiêng Đỏ đô #C10230 */}
       <div className="relative bg-[#133F68] overflow-hidden border-b border-slate-200">
-        {/* Nền họa tiết trang nhã mô phỏng không gian học thuật EIU */}
         <div
-          className="absolute inset-0 opacity-20"
+          className="absolute inset-0 opacity-30"
           style={{
             backgroundImage:
-              'radial-gradient(circle at 80% 30%, #A68556 0%, transparent 55%), linear-gradient(120deg, #0D2E4D 0%, #133F68 60%, #1E568A 100%)',
+              'radial-gradient(circle at 82% 30%, #A68556 0%, transparent 52%), linear-gradient(120deg, #02294E 0%, #133F68 58%, #0054A6 100%)',
           }}
           aria-hidden="true"
         />
+        <div className="absolute inset-0 eiu-arch-pattern" aria-hidden="true" />
 
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-10 sm:py-14 relative z-10 flex items-center justify-between gap-6">
-          {/* Khối đa giác nghiêng màu Đỏ đô #C10230 giống hệt "Đặt phòng học" trên lib.eiu.edu.vn */}
+        <div
+          className={`${containerClass} mx-auto px-4 sm:px-6 py-9 sm:py-12 relative z-10 flex items-center justify-between gap-6`}
+        >
+          {/* Khối đa giác nghiêng #C10230 chuẩn lib.eiu.edu.vn & eiu.edu.vn */}
           <div
-            className="bg-[#C10230]/95 text-white px-7 py-6 sm:px-10 sm:py-8 max-w-xl w-full shadow-sm"
+            className="bg-[#C10230]/95 text-white px-7 py-6 sm:px-10 sm:py-7 max-w-2xl w-full shadow-md"
             style={{
-              clipPath: 'polygon(0 0, 100% 0, 90% 100%, 0% 100%)',
+              clipPath: 'polygon(0 0, 100% 0, 92% 100%, 0% 100%)',
             }}
           >
-            <div className="w-10 h-0.5 bg-white mb-3" aria-hidden="true" />
-            <h1 className="text-xl sm:text-2xl lg:text-[26px] font-bold tracking-tight leading-snug font-eiu-display">
+            <div className="flex items-center gap-3 mb-2.5">
+              <span className="w-9 h-0.5 bg-white" aria-hidden="true" />
+              {kicker && (
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#DED1BE]">
+                  {kicker}
+                </span>
+              )}
+            </div>
+            <h1 className="text-xl sm:text-2xl lg:text-[27px] font-bold tracking-tight leading-snug font-eiu-display pr-6">
               {title}
             </h1>
             {subtitle && (
-              <p className="text-xs sm:text-sm text-white/90 mt-1.5 pr-6">
+              <p className="text-[13.5px] sm:text-sm text-white/92 mt-2 pr-8 leading-relaxed">
                 {subtitle}
               </p>
             )}
           </div>
 
-          {/* Biểu trưng Đại hội II bên phải trên màn hình lớn */}
-          <div className="hidden md:flex items-center gap-4 bg-white/95 px-5 py-3 shadow-xs">
+          {/* Cụm Biểu trưng EIU | HSV Khóa II trang trọng bên phải */}
+          <div className="hidden md:flex items-center gap-4 bg-white/96 px-5 py-3.5 border-l-4 border-[#A68556] shadow-sm shrink-0">
             <img
               src="/images/eiu-logo-full.png"
               alt="EIU"
-              className="h-12 w-auto object-contain"
+              className="h-11 w-auto object-contain"
             />
-            <div className="h-10 w-px bg-slate-300" aria-hidden="true" />
+            <div className="h-9 w-px bg-slate-300" aria-hidden="true" />
             <img
               src="/images/hsv-logo.png"
               alt="Hội Sinh viên Việt Nam"
-              className="h-11 w-11 object-contain"
+              className="h-10 w-10 object-contain"
             />
           </div>
         </div>
       </div>
 
-      {/* Dải Breadcrumb nền #F5F5F5 chuẩn eiu.edu.vn & lib.eiu.edu.vn */}
+      {/* Dải Breadcrumb nền #F5F5F5 chuẩn eiu.edu.vn */}
       <nav
         aria-label="Đường dẫn trang"
-        className="bg-[#F5F5F5] border-b border-slate-200/80"
+        className="bg-[#F5F5F5] border-b border-slate-200/90"
       >
-        <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-1.5 text-xs">
+        <div
+          className={`${containerClass} mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-1.5 text-[13px]`}
+        >
           <Link
             href="/"
-            className="text-[#0054A6] hover:underline font-medium"
+            className="text-[#0054A6] hover:text-[#133F68] hover:underline font-medium"
           >
             Trang chủ
           </Link>
@@ -81,12 +98,12 @@ export function SubpageBanner({
               {item.href && idx < breadcrumbs.length - 1 ? (
                 <Link
                   href={item.href}
-                  className="text-[#0054A6] hover:underline font-medium"
+                  className="text-[#0054A6] hover:text-[#133F68] hover:underline font-medium"
                 >
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-slate-800 font-semibold">
+                <span className="text-[#133F68] font-semibold">
                   {item.label}
                 </span>
               )}

@@ -1,28 +1,54 @@
 @import "tailwindcss";
 
 :root {
+  /* --- EIU Ecosystem Heritage Tokens (KNOWLEDGE/eiu-styles/eiu-guideline.css) --- */
   --background: #F5F5F5;
   --foreground: #0F172A;
-  --eiu-navy: #133F68;
+
+  --eiu-navy-primary: #133F68;
+  --eiu-navy-secondary: #144069;
+  --eiu-navy-deep: #02294E;
   --eiu-navy-dark: #0D2E4D;
+  --eiu-blue-medium: #0A568B;
+
+  /* --- HSV Youth Identity Accents --- */
+  --hsv-blue: #0054A6;
+  --eiu-cyan-badge: #00BCFF;
+
+  /* --- EIU Academic Gold, Sand & Crimson --- */
   --eiu-gold: #A68556;
   --eiu-sand: #DED1BE;
+  --eiu-sand-menu: #EAE3D2;
   --eiu-amber: #FCB900;
+  --eiu-amber-card: #EEB31D;
   --eiu-crimson: #C10230;
-  --hsv-blue: #0054A6;
+  --eiu-terracotta: #B44625;
+  --eiu-green-campus: #51803A;
+
+  /* --- Surfaces & Borders --- */
+  --eiu-surface: #FFFFFF;
+  --eiu-muted: #EFEFEF;
+  --eiu-border: #D9D9D9;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-eiu-navy: #133F68;
+  --color-eiu-navy-secondary: #144069;
+  --color-eiu-navy-deep: #02294E;
   --color-eiu-gold: #A68556;
   --color-eiu-sand: #DED1BE;
+  --color-eiu-sand-menu: #EAE3D2;
   --color-eiu-amber: #FCB900;
   --color-eiu-crimson: #C10230;
+  --color-eiu-terracotta: #B44625;
+  --color-eiu-green: #51803A;
   --color-hsv-blue: #0054A6;
+  --color-hsv-cyan: #00BCFF;
   --font-sans: var(--font-be-vietnam), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-montserrat), var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", Times, serif;
   --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
 }
 
@@ -34,17 +60,70 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-be-vietnam), system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .font-eiu-display {
+h1,
+h2,
+h3,
+h4,
+.font-eiu-display {
   font-family: var(--font-montserrat), var(--font-be-vietnam), system-ui, sans-serif;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.012em;
+}
+
+.font-eiu-serif {
+  font-family: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", serif;
+}
+
+/* Họa tiết lưới kiến trúc EIU × HSV tinh tế cho Graphic Card Header & Banner */
+.eiu-arch-pattern {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Chuẩn Bảng Học thuật EIU (post-5198.css / eiu-guideline.css) */
+.eiu-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #FFFFFF;
+}
+
+.eiu-table thead tr {
+  background-color: #133F68;
+  color: #FFFFFF;
+}
+
+.eiu-table th {
+  font-family: var(--font-montserrat), var(--font-be-vietnam), sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  padding: 12px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  text-align: left;
+}
+
+.eiu-table td {
+  font-size: 13.5px;
+  padding: 12px 15px;
+  border: 1px solid #E2E8F0;
+  vertical-align: middle;
+}
+
+.eiu-table tbody tr:nth-child(even) {
+  background-color: #FAFAFA;
+}
+
+.eiu-table tbody tr:hover {
+  background-color: #F0F6FC;
 }
 
 /* Chuẩn Accessibility WCAG 2.1 AA cho điều hướng bàn phím */
 :focus-visible {
-  outline: 2px solid #133F68;
+  outline: 2px solid #0054A6;
   outline-offset: 2px;
 }

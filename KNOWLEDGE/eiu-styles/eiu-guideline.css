@@ -1,0 +1,851 @@
+/**
+ * ============================================================================
+ * EASTERN INTERNATIONAL UNIVERSITY (EIU) — DESIGN SYSTEM & CSS GUIDELINE
+ * Extracted from https://eiu.edu.vn/ and its main subpages
+ * ============================================================================
+ *
+ * Stack Overview on eiu.edu.vn:
+ * - CMS: WordPress + Polylang (Vietnamese / English)
+ * - Base Theme: Hello Elementor v3.4.2 + Child Theme (hello-elementor-child02)
+ * - Page Builder: Elementor v4.3.4 + Elementor Pro v4.3.1
+ * - Addon Libraries:
+ *     * Unlimited Elements Premium (Owl Carousel Post Carousels & Post Lists)
+ *     * Happy Elementor Addons v3.50.1 (Happy Icons, Huge Icons, Scroll-to-Top)
+ *     * Elementor Addon Elements (EAE v1.14.5, Vegas Slider, Peel)
+ *     * DearFlip (dflip v2.4.37 3D Flipbook)
+ *
+ * How to use this stylesheet:
+ * 1. Standalone / Sub-application development:
+ *    Link this stylesheet and use the `.eiu-*` semantic classes or CSS variables.
+ * 2. Direct integration into eiu.edu.vn (WordPress/Elementor):
+ *    The `:root` / `.elementor-kit-7` variables and `.elementor-*` widget classes
+ *    match the upstream site's Global Kit (post-7), Header (post-5773 / post-8398),
+ *    and Footer (post-157 / post-8421) without style collisions.
+ */
+
+/* ==========================================================================
+   1. GOOGLE FONTS IMPORTS
+   Primary UI & Headings: Montserrat (weights 300..800)
+   Footer & Editorial Serif: Crimson Text (weights 400, 600, 700)
+   ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&display=swap');
+
+/* ==========================================================================
+   2. DESIGN TOKENS & GLOBAL CSS VARIABLES
+   Includes upstream Elementor Kit-7 variables + semantic EIU aliases
+   ========================================================================== */
+:root,
+.elementor-kit-7 {
+  /* --- Upstream Elementor Global Kit (post-7.css) --- */
+  --e-global-color-primary: #FFFFFF;
+  --e-global-color-secondary: #133F68;
+  --e-global-color-text: #000000;
+  --e-global-color-accent: #A68556;
+  --e-global-color-2750f59: #C10230;
+  --e-global-color-00e8715: #7E7E7E;
+
+  --e-global-typography-primary-font-family: "Montserrat";
+  --e-global-typography-primary-font-size: 32px;
+  --e-global-typography-primary-font-weight: 700;
+
+  --e-global-typography-secondary-font-family: "Montserrat";
+  --e-global-typography-secondary-font-size: 25px;
+  --e-global-typography-secondary-font-weight: 700;
+
+  --e-global-typography-text-font-family: "Montserrat";
+  --e-global-typography-text-font-size: 17px;
+  --e-global-typography-text-font-weight: 400;
+
+  --e-global-typography-accent-font-family: "Montserrat";
+  --e-global-typography-accent-font-weight: 500;
+
+  /* --- Semantic EIU Brand Color Palette --- */
+  --eiu-navy-primary: #133F68;      /* Main brand navy (Header, Footer, Primary Titles, Active Tabs) */
+  --eiu-navy-secondary: #144069;    /* Secondary brand navy (Dropdowns, Card Titles, Links, Submenus) */
+  --eiu-navy-deep: #02294E;         /* Deep navy (Admissions / Feature highlight blocks) */
+  --eiu-blue-medium: #0A568B;       /* Medium accent blue (Quick links / Feature tiles) */
+  --eiu-cyan-badge: #00BCFF;        /* Category tag / badge cyan */
+
+  --eiu-gold-accent: #A68556;       /* Brand warm gold/bronze (Nav hover, Post meta, Default buttons) */
+  --eiu-beige-footer: #DED1BE;      /* Warm beige (Footer links & secondary text on dark navy) */
+  --eiu-beige-light: #E9E1D6;       /* Light warm beige (Subtle borders / dividers on dark backgrounds) */
+  --eiu-amber-active: #FCB900;      /* Active nav item highlight yellow-gold */
+  --eiu-amber-card: #EEB31D;        /* Highlight feature box amber (Admissions) */
+
+  --eiu-crimson-red: #C10230;       /* Brand crimson red (Alerts, CTAs, Highlights) */
+  --eiu-terracotta: #B44625;        /* Feature block terracotta/orange-red */
+  --eiu-green-campus: #51803A;      /* Feature block forest green */
+
+  /* --- Neutral & Surface Colors --- */
+  --eiu-bg-page: #F5F5F5;           /* Default body background on .elementor-kit-7 */
+  --eiu-bg-surface: #FFFFFF;        /* Card, container, and main header surface */
+  --eiu-bg-muted: #EFEFEF;          /* Muted section / table / input background */
+  --eiu-bg-empty: #E8E8E8;          /* Empty state / notice background */
+  --eiu-text-primary: #000000;      /* Main body & article title text */
+  --eiu-text-dark: #323232;         /* Dark charcoal text */
+  --eiu-text-muted: #7E7E7E;        /* Secondary / muted text */
+  --eiu-placeholder: #A9A9A9;       /* Input placeholder color */
+  --eiu-border-light: #D9D9D9;      /* Subtle card/section border */
+  --eiu-border-medium: #C4C4C4;     /* Standard box/input border */
+
+  /* --- Typography Tokens --- */
+  --eiu-font-sans: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --eiu-font-serif: "Crimson Text", Georgia, serif;
+
+  /* --- Layout, Containers & Spacing --- */
+  --container-max-width: 1140px;
+  --eiu-container-wide: 1200px;
+  --eiu-container-narrow: 800px;
+  --widgets-spacing: 20px 20px;
+  --widgets-spacing-row: 20px;
+  --widgets-spacing-column: 20px;
+
+  /* --- Elevation / Box Shadows --- */
+  --eiu-shadow-card-hover: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);
+  --eiu-shadow-elevated: 2px 2px 5px 0px rgba(0, 0, 0, 0.5);
+  --eiu-shadow-soft: 0px 4px 16px rgba(19, 63, 104, 0.12);
+
+  /* --- Border Radius --- */
+  --eiu-radius-none: 0px;           /* Most EIU cards, images, and sections use sharp 0px corners */
+  --eiu-radius-sm: 3px;             /* Form inputs & default Hello Elementor buttons */
+  --eiu-radius-md: 5px;             /* Category badges & tags */
+  --eiu-radius-pill: 100px;         /* Pill buttons & search bars */
+
+  /* --- Transitions --- */
+  --eiu-transition-fast: 0.2s ease-in-out;
+  --eiu-transition-base: 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+  :root,
+  .elementor-kit-7 {
+    --container-max-width: 1024px;
+  }
+}
+
+@media (max-width: 767px) {
+  :root,
+  .elementor-kit-7 {
+    --container-max-width: 767px;
+  }
+}
+
+/* ==========================================================================
+   3. BASE & RESET STYLES (Hello Elementor + Kit-7)
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--eiu-text-primary);
+  background-color: var(--eiu-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-block-start: 0.5rem;
+  margin-block-end: 1rem;
+  font-family: var(--eiu-font-sans);
+  font-weight: 700;
+  line-height: 1.3;
+  color: var(--eiu-navy-primary);
+}
+
+/* Typography Scale used across EIU pages */
+h1, .eiu-h1 {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+h2, .eiu-h2 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--eiu-navy-primary);
+}
+
+h3, .eiu-h3 {
+  font-size: 25px;
+  font-weight: 700;
+  color: var(--eiu-navy-primary);
+}
+
+h4, .eiu-h4 {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 2em;
+}
+
+h5, .eiu-h5 {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 2em;
+  color: var(--eiu-navy-secondary);
+}
+
+h6, .eiu-h6 {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* Hero Banner Display Title (Used on Admissions, Academics, Faculties, etc.) */
+.eiu-hero-display-title {
+  font-family: var(--eiu-font-sans);
+  font-size: clamp(36px, 7vw, 100px);
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: #FFFFFF;
+}
+
+p {
+  margin-block-start: 0;
+  margin-block-end: 0.9rem;
+  font-size: 14px;
+  line-height: 2em;
+}
+
+a {
+  background-color: transparent;
+  text-decoration: none;
+  color: var(--eiu-navy-primary);
+  font-size: inherit;
+  transition: color var(--eiu-transition-base);
+}
+
+a:hover,
+a:focus {
+  color: var(--eiu-gold-accent);
+}
+
+img {
+  border-style: none;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* ==========================================================================
+   4. LAYOUT & GRID CONTAINERS
+   Matches Elementor Boxed Section & Flexbox Container (.e-con)
+   ========================================================================== */
+.eiu-container,
+.elementor-section.elementor-section-boxed > .elementor-container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: 15px;
+}
+
+.eiu-section {
+  padding-block: 40px;
+}
+
+.eiu-section--white {
+  background-color: #FFFFFF;
+}
+
+.eiu-section--gray {
+  background-color: var(--eiu-bg-page);
+}
+
+.eiu-section--navy {
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+}
+
+.eiu-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.eiu-grid--2 { grid-template-columns: repeat(2, 1fr); }
+.eiu-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.eiu-grid--4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 1024px) {
+  .eiu-grid--4 { grid-template-columns: repeat(2, 1fr); }
+  .eiu-grid--3 { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 767px) {
+  .eiu-grid--2,
+  .eiu-grid--3,
+  .eiu-grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   5. HEADER & NAVIGATION (Matches post-5773.css / post-8398.css)
+   Two-tier structure:
+   - Tier 1 (Top Utility Bar): Navy #133F68, 13px Montserrat links with 1px white dividers,
+     language switcher, and search trigger.
+   - Tier 2 (Main Brand & Mega Menu Bar): White #FFFFFF surface, EIU Logo on left,
+     Mega Menu / Primary Navigation on right (15px medium/semibold, #133F68 / #144069).
+   ========================================================================== */
+.eiu-header {
+  position: relative;
+  z-index: 99999;
+  width: 100%;
+  background-color: #FFFFFF;
+}
+
+/* Tier 1: Top Utility Bar */
+.eiu-topbar {
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+  font-family: var(--eiu-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  padding: 6px 0;
+}
+
+.eiu-topbar__inner {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding-inline: 15px;
+}
+
+.eiu-topbar__nav {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eiu-topbar__nav li {
+  display: flex;
+  align-items: center;
+}
+
+.eiu-topbar__nav li + li::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background-color: #FFFFFF;
+}
+
+.eiu-topbar__nav a {
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 400;
+  padding: 2px 10px;
+  transition: color var(--eiu-transition-fast);
+}
+
+.eiu-topbar__nav a:hover,
+.eiu-topbar__nav a:focus {
+  color: var(--eiu-gold-accent);
+}
+
+.eiu-topbar__nav a.is-active {
+  color: var(--eiu-amber-active);
+}
+
+/* Tier 2: Main Navbar & Mega Menu */
+.eiu-navbar {
+  background-color: #FFFFFF;
+  border-bottom: 1px solid rgba(19, 63, 104, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.eiu-navbar__inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: var(--container-max-width);
+  margin-inline: auto;
+  padding: 10px 15px;
+}
+
+.eiu-navbar__logo img {
+  max-height: 60px;
+  width: auto;
+}
+
+.eiu-navbar__menu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.eiu-navbar__item {
+  position: relative;
+}
+
+.eiu-navbar__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--eiu-font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--eiu-navy-primary);
+  padding: 12px 16px;
+  transition: color var(--eiu-transition-fast), background-color var(--eiu-transition-fast);
+}
+
+.eiu-navbar__link:hover,
+.eiu-navbar__link:focus,
+.eiu-navbar__link.is-active {
+  color: var(--eiu-gold-accent);
+}
+
+/* Dropdown & Mega Menu Panel */
+.eiu-navbar__dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 240px;
+  background-color: var(--eiu-navy-secondary);
+  color: #FFFFFF;
+  z-index: 999999;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: none;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+}
+
+.eiu-navbar__item:hover > .eiu-navbar__dropdown,
+.eiu-navbar__item:focus-within > .eiu-navbar__dropdown {
+  display: block;
+}
+
+.eiu-navbar__dropdown a {
+  display: block;
+  padding: 10px 20px;
+  color: #FFFFFF;
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.eiu-navbar__dropdown a:hover,
+.eiu-navbar__dropdown a:focus {
+  background-color: var(--eiu-navy-primary);
+  color: var(--eiu-gold-accent);
+}
+
+/* ==========================================================================
+   6. FOOTER (Matches post-157.css / post-8421.css)
+   Uses Navy #133F68 background with Crimson Text serif typography:
+   - Column Headings: Crimson Text, 17px (or 25px), weight 600/700, #FFFFFF
+   - Footer Links / Body: Crimson Text, 17px, weight 400, line-height 1.5em, #DED1BE
+   ========================================================================== */
+.eiu-footer {
+  background-color: var(--eiu-navy-primary);
+  color: var(--eiu-beige-footer);
+  font-family: var(--eiu-font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5em;
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+.eiu-footer__title {
+  font-family: var(--eiu-font-serif);
+  font-size: 17px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.eiu-footer__title--large {
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.eiu-footer__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.eiu-footer a,
+.eiu-footer__list a {
+  font-family: var(--eiu-font-serif);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.5em;
+  color: var(--eiu-beige-footer);
+  transition: color var(--eiu-transition-fast);
+}
+
+.eiu-footer a:hover,
+.eiu-footer a:focus {
+  color: #FFFFFF;
+}
+
+.eiu-footer a[href^="tel:"] {
+  color: #FFFFFF;
+}
+
+/* ==========================================================================
+   7. BUTTONS & LINKS (Matches .elementor-button & EIU Card CTAs)
+   ========================================================================== */
+.eiu-btn,
+.elementor-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 12px 24px;
+  border-radius: var(--eiu-radius-sm);
+  transition: all var(--eiu-transition-base);
+}
+
+/* Primary Navy Button */
+.eiu-btn--primary {
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+  border-color: var(--eiu-navy-primary);
+}
+
+.eiu-btn--primary:hover,
+.eiu-btn--primary:focus {
+  background-color: var(--eiu-gold-accent);
+  border-color: var(--eiu-gold-accent);
+  color: #FFFFFF;
+}
+
+/* Gold / Accent Button (Default .elementor-button in Kit-7) */
+.eiu-btn--accent {
+  background-color: var(--eiu-gold-accent);
+  color: #FFFFFF;
+}
+
+.eiu-btn--accent:hover,
+.eiu-btn--accent:focus {
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+}
+
+/* Light Surface Button (Used in Admissions post-555) */
+.eiu-btn--light {
+  background-color: var(--eiu-bg-page);
+  color: var(--eiu-text-primary);
+}
+
+.eiu-btn--light:hover,
+.eiu-btn--light:focus {
+  color: var(--eiu-navy-primary);
+  background-color: #E8E8E8;
+}
+
+/* Transparent Uppercase Read-More CTA (Used on Cards across Home, Academics, Faculties)
+   In Elementor CSS: background-color: #61CE7000; font-size: 13px; text-transform: uppercase; color: #144069; padding: 0; */
+.eiu-btn--link,
+.eiu-read-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: transparent;
+  color: var(--eiu-navy-secondary);
+  fill: var(--eiu-navy-secondary);
+  font-family: var(--eiu-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  text-transform: uppercase;
+  padding: 0;
+  border: none;
+}
+
+.eiu-btn--link:hover,
+.eiu-read-more:hover {
+  color: var(--eiu-gold-accent);
+  fill: var(--eiu-gold-accent);
+}
+
+/* On Dark Navy Card Variant */
+.eiu-card--navy .eiu-btn--link,
+.eiu-card--navy .eiu-read-more {
+  color: #FFFFFF;
+  fill: #FFFFFF;
+}
+
+/* ==========================================================================
+   8. CARDS, FEATURE BOXES & POST ITEMS
+   Matches Home (post-18), Academics (post-557), Faculties (post-2267),
+   Parents (post-24709), and Unlimited Elements Post Carousels/Lists
+   ========================================================================== */
+
+/* Standard Content / Program Card */
+.eiu-card {
+  background-color: #FFFFFF;
+  border-radius: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow var(--eiu-transition-base), transform var(--eiu-transition-base);
+}
+
+.eiu-card:hover {
+  box-shadow: var(--eiu-shadow-card-hover);
+}
+
+/* Pre-elevated Card (Used on Parents page post-24709) */
+.eiu-card--elevated {
+  box-shadow: var(--eiu-shadow-elevated);
+}
+
+/* Navy Variant Card (Used on Home alternating blocks) */
+.eiu-card--navy {
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+}
+
+.eiu-card__image {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 0px;
+}
+
+.eiu-card__image img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform var(--eiu-transition-base);
+}
+
+.eiu-card__body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.eiu-card__title {
+  font-family: var(--eiu-font-sans);
+  font-size: 17px;
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 2em;
+  color: var(--eiu-navy-secondary);
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.eiu-card--navy .eiu-card__title {
+  color: #FFFFFF;
+}
+
+.eiu-card__text {
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 2em;
+  text-align: justify;
+  color: var(--eiu-text-primary);
+  margin-bottom: 16px;
+  flex-grow: 1;
+}
+
+.eiu-card--navy .eiu-card__text {
+  color: #FFFFFF;
+}
+
+/* News / Blog Post Card (Matches Unlimited Elements Post Carousel & Post List) */
+.eiu-post-card {
+  background-color: #FFFFFF;
+  border-radius: 0px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: box-shadow var(--eiu-transition-base);
+}
+
+.eiu-post-card__category {
+  display: inline-block;
+  background-color: var(--eiu-cyan-badge);
+  color: #FFFFFF;
+  font-family: var(--eiu-font-sans);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: var(--eiu-radius-md);
+  white-space: nowrap;
+}
+
+.eiu-post-card__title {
+  font-family: var(--eiu-font-sans);
+  font-size: 16px;
+  font-weight: 700;
+  color: #000000;
+  margin: 10px 0 6px;
+  /* 2-line clamp enforced via custom CSS on Home (post-18 / post-4698) */
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  line-clamp: 2 !important;
+  overflow: hidden !important;
+}
+
+.eiu-post-card__title--carousel {
+  font-size: 21px;
+}
+
+.eiu-post-card__meta {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-family: var(--eiu-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1em;
+  color: var(--eiu-gold-accent);
+}
+
+.eiu-post-card__excerpt {
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  margin-top: 10px;
+}
+
+/* Admissions / Feature Color Tiles (post-555.css) */
+.eiu-tile--green  { background-color: var(--eiu-green-campus); color: #FFFFFF; }
+.eiu-tile--amber  { background-color: var(--eiu-amber-card);   color: #FFFFFF; }
+.eiu-tile--orange { background-color: var(--eiu-terracotta);   color: #FFFFFF; }
+.eiu-tile--navy   { background-color: var(--eiu-navy-deep);    color: #FFFFFF; }
+
+/* ==========================================================================
+   9. SEARCH & FORMS (Matches post-9090.css & Hello Elementor inputs)
+   ========================================================================== */
+.eiu-input,
+input[type="text"],
+input[type="email"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="number"],
+input[type="password"],
+select,
+textarea {
+  width: 100%;
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--eiu-text-primary);
+  background-color: #FFFFFF;
+  border: 1px solid #666666;
+  border-radius: var(--eiu-radius-sm);
+  padding: 0.5rem 1rem;
+  transition: border-color var(--eiu-transition-base);
+}
+
+.eiu-input::placeholder {
+  color: var(--eiu-placeholder);
+}
+
+.eiu-input:focus {
+  outline: none;
+  border-color: var(--eiu-navy-primary);
+}
+
+/* Global Search Widget (post-9090.css) */
+.eiu-search-form {
+  display: flex;
+  align-items: stretch;
+}
+
+.eiu-search-form__input {
+  flex: 1;
+  border: 1px solid var(--eiu-border-medium);
+  border-right: none;
+  border-radius: 0;
+  color: #000000;
+}
+
+.eiu-search-form__submit {
+  background-color: var(--eiu-navy-primary);
+  border: 1px solid var(--eiu-navy-primary);
+  color: #FFFFFF;
+  padding: 0 18px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+/* ==========================================================================
+   10. TABLES & UTILITY COMPONENTS
+   ========================================================================== */
+.eiu-table,
+table {
+  background-color: transparent;
+  width: 100%;
+  margin-block-end: 15px;
+  font-size: 0.9em;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.eiu-table td,
+.eiu-table th,
+table td,
+table th {
+  padding: 15px;
+  line-height: 1.5;
+  vertical-align: top;
+  border: 1px solid hsla(0, 0%, 50.2%, 0.5);
+}
+
+.eiu-table th,
+table th {
+  font-weight: 700;
+  background-color: var(--eiu-navy-primary);
+  color: #FFFFFF;
+}
+
+/* Empty State / Notice Box (from post-555 .ue-no-posts-found) */
+.eiu-empty-state {
+  color: #000000;
+  background-color: var(--eiu-bg-empty);
+  padding: 20px;
+  border: 1px solid var(--eiu-border-medium);
+  font-family: var(--eiu-font-sans);
+  font-size: 14px;
+}

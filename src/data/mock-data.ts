@@ -3,8 +3,12 @@ import {
   ClubUnit,
   EventItem,
   FacultyCode,
+  IssuedCertificateRecord,
   NewsPost,
+  OfficeAssetItem,
   OfficialDocumentItem,
+  OnlineQuizQuestion,
+  PlanSubmissionItem,
   StaffMember,
 } from '@/types';
 
@@ -2090,7 +2094,8 @@ export const CLUB_UNITS: ClubUnit[] = [
 ];
 
 // ============================================================================
-// 5. DỮ LIỆU TIN TỨC, SỰ KIỆN & VĂN BẢN PHÁP LÝ MẪU (BÁM SÁT /KNOWLEDGE)
+// 5. DỮ LIỆU TIN TỨC, SỰ KIỆN, VĂN BẢN, E-CERTIFICATE & E-OFFICE MẪU
+// (Chuẩn hóa 100% theo /KNOWLEDGE: QĐ 09/QĐ-HSV 2026, QĐ 23, QĐ 24, QĐ 28, TB 04)
 // ============================================================================
 
 export const NEWS_POSTS: NewsPost[] = [
@@ -2102,11 +2107,38 @@ export const NEWS_POSTS: NewsPost[] = [
     category: 'SINH_VIEN_5_TOT',
     categoryLabel: 'Phong trào Sinh viên 5 Tốt',
     summary:
-      'Ban Thư ký Hội Sinh viên trường chính thức công bố Quy định kèm Quyết định 09/QĐ-HSV về tiêu chuẩn Đạo đức tốt, Học tập tốt (GPA >= 3.0/4.0), Thể lực tốt, Tình nguyện tốt (>= 5 ngày/năm) và Hội nhập tốt.',
+      'Ban Thư ký Hội Sinh viên trường công bố Quyết định 09/QĐ-HSV sửa đổi 2026: chuẩn Học tập tốt GPA ≥ 3.00/4.00 (tự động lấy điểm cao hơn giữa GPA năm học gia quyền và GPA tích lũy), quy trình xét duyệt 3 cấp và trần Top 10% Tiêu biểu.',
     publishedAt: '2026-09-10',
     authorUnit: 'Ban Tuyên giáo - Phong trào',
     viewCount: 1420,
     isFeatured: true,
+    readMinutes: 5,
+    relatedDocNumber: '09/QĐ-HSV',
+    leadQuote:
+      'Mỗi hội viên EIU được hỗ trợ theo dõi tự động tiến độ rèn luyện 05 tiêu chuẩn ngay trên Sổ tay Kỹ thuật số, minh bạch hóa 3 cấp xét duyệt từ Cơ sở đến Thường trực Hội.',
+    sections: [
+      {
+        heading: '1. Chuẩn hóa tiêu chuẩn "Học tập tốt" theo học chế Quý tại EIU',
+        paragraphs: [
+          'Theo Quyết định số 09/QĐ-HSV sửa đổi, bổ sung năm 2026 do Ban Thư ký Hội Sinh viên Trường Đại học Quốc tế Miền Đông ban hành, tiêu chuẩn "Học tập tốt" yêu cầu Điểm trung bình chung năm học hoặc Điểm tích lũy đạt từ 3.00/4.00 trở lên.',
+          'Đặc biệt, phù hợp với mô hình đào tạo 03 Học kỳ chính (Thu – Đông – Xuân) và Học kỳ Hè tại EIU, hệ thống Sổ tay Hội viên tự động tính bình quân gia quyền theo số tín chỉ và ưu tiên lấy giá trị cao hơn giữa GPA trung bình năm học và GPA tích lũy hiện tại, kết hợp tối thiểu 01 tiêu chí phụ về nghiên cứu khoa học, cuộc thi học thuật hoặc sinh hoạt định kỳ tại CLB học thuật có xác nhận của Giảng viên Mentor.',
+        ],
+        bullets: [
+          'Đạo đức tốt: Điểm rèn luyện ≥ 80/100, không vi phạm quy chế + ≥ 01 tiêu chí phụ.',
+          'Học tập tốt: MAX(GPA năm học gia quyền, GPA tích lũy) ≥ 3.00/4.00 + ≥ 01 tiêu chí phụ.',
+          'Thể lực tốt: Hoàn thành đủ 03 môn GDTC + đạt "Sinh viên khỏe" hoặc rèn luyện CLB thể thao.',
+          'Tình nguyện tốt: Tích lũy ≥ 05 ngày tình nguyện/năm + tham gia hiến máu hoặc hoạt động CLB CTXH.',
+          'Hội nhập tốt: Hoàn thành ≥ 01 khóa kỹ năng (Phụ lục 3) hoặc khen thưởng Đoàn – Hội + ≥ 01 hoạt động hội nhập + ≥ 01 tiêu chí phụ ngoại ngữ/giao lưu quốc tế.',
+        ],
+      },
+      {
+        heading: '2. Cơ chế xét chọn "SV5T Tiêu biểu Toàn trường" (Top 10%) và "Tập thể SV5T"',
+        paragraphs: [
+          'Ứng viên "Sinh viên 5 Tốt Tiêu biểu Toàn trường" được hệ thống lọc tự động từ các cá nhân đã đạt chuẩn SV5T cấp trường, đồng thời đạt từ 02 tiêu chí phụ trở lên ở cả 04 tiêu chuẩn (Đạo đức, Học tập, Thể lực, Hội nhập) và đạt tiêu chí ưu tiên ở tiêu chuẩn Tình nguyện tốt, xếp hạng từ cao xuống thấp với tỷ lệ tối đa 10%.',
+          'Đối với 25 Chi hội trực thuộc 04 Cụm Khoa và các CLB/Đội/Nhóm, danh hiệu "Tập thể Sinh viên 5 Tốt" yêu cầu đồng thời 03 điều kiện: 100% sinh viên đăng ký phấn đấu trên cổng thông tin, ít nhất 30% sinh viên đạt danh hiệu SV5T cấp trường và không có sinh viên vi phạm kỷ luật.',
+        ],
+      },
+    ],
   },
   {
     id: 'post-02',
@@ -2116,11 +2148,31 @@ export const NEWS_POSTS: NewsPost[] = [
     category: 'THONG_BAO',
     categoryLabel: 'Văn bản – Chỉ đạo',
     summary:
-      'Chuẩn hóa quy trình xin ý kiến công nhận ngày tình nguyện trước ít nhất 03 ngày tổ chức, sắp xếp danh sách tăng dần theo MSSV và cam kết SLA 07 ngày làm việc ban hành Quyết định công nhận.',
+      'Chuẩn hóa quy trình xin ý kiến công nhận ngày tình nguyện trước ít nhất 03 ngày tổ chức qua Trưởng Ban TC-XDH, xuất danh sách Phụ lục 1 tăng dần MSSV và cam kết SLA 07 ngày làm việc ban hành Quyết định công nhận.',
     publishedAt: '2026-09-02',
     authorUnit: 'Văn phòng Hội Sinh viên (206.B06)',
     viewCount: 1185,
     isFeatured: true,
+    readMinutes: 4,
+    relatedDocNumber: '28/QĐ-HSV',
+    leadQuote:
+      '100% Giấy chứng nhận điện tử của Hội Sinh viên EIU tích hợp mã QR trỏ trực tiếp về Quyết định công nhận, đảm bảo tính pháp lý và chống làm giả minh chứng.',
+    sections: [
+      {
+        heading: '1. Nguyên tắc thẩm định trước 03 ngày và Bảng hệ số Ngày tình nguyện',
+        paragraphs: [
+          'Điều 4 Quyết định 28/QĐ-HSV quy định mọi chương trình của Chi hội, CLB, Đội, Nhóm có đề xuất quy đổi ngày tình nguyện bắt buộc phải gửi tờ trình xin ý kiến Ban Thư ký (thông qua Trưởng Ban Tổ chức và Xây dựng Hội) trước thời gian tổ chức ít nhất 03 ngày (72 giờ).',
+          'Đối với lĩnh vực 06 - Công tác Đoàn – Hội (Phụ lục 2, QĐ 09/QĐ-HSV), số ngày tình nguyện được nhân hệ số theo mức độ đóng góp: Trưởng/Phó các Ban, Đội, Đội hình BTC hưởng Hệ số 3; Thành viên Ban Tổ chức hưởng Hệ số 2; Cộng tác viên hỗ trợ, Chiến sĩ và Sinh viên tham gia hưởng Hệ số 1. Riêng hoạt động Hiến máu tình nguyện (04 - Sức khỏe) được công nhận cố định 5.0 ngày/lần.',
+        ],
+      },
+      {
+        heading: '2. Mẫu danh sách Phụ lục 1, SLA 07 ngày làm việc và Quy chuẩn Phụ lục 2',
+        paragraphs: [
+          'Sau khi kết thúc hoạt động, đơn vị tổ chức kết xuất danh sách theo Mẫu Phụ lục 1 bắt buộc sắp xếp tăng dần theo Mã số sinh viên (10 chữ số). Kể từ ngày nhận đủ hồ sơ hợp lệ cuối cùng, Ban Thư ký và Văn phòng Hội (Phòng 206.B06) xử lý và ban hành Quyết định trong tối đa 07 ngày làm việc (không tính Thứ Bảy, Chủ nhật, ngày lễ).',
+          'Bản E-Certificate (Phụ lục 2) hiển thị số thứ tự trùng khớp STT sinh viên trong Quyết định, đính kèm mã QR xác thực trực tuyến và mặc định trình bày chữ "(Đã ký)" đúng quy chuẩn văn thư.',
+        ],
+      },
+    ],
   },
   {
     id: 'post-03',
@@ -2130,10 +2182,29 @@ export const NEWS_POSTS: NewsPost[] = [
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tổ chức – Xây dựng Hội',
     summary:
-      'Ra mắt cơ cấu tổ chức gồm 15 đ/c Ủy viên BCH, 05 đ/c Ban Thư ký, 05 đ/c Ban Kiểm tra, 03 Ban chuyên môn cấp trường cùng mạng lưới 25 Chi hội (4 Khoa, 6 Khóa) và 30 CLB/Đội/Nhóm.',
+      'Ra mắt cơ cấu tổ chức 3 cấp gồm 15 đ/c Ủy viên BCH, 05 đ/c Ban Thư ký, 05 đ/c Ban Kiểm tra, 03 đơn vị chuyên môn cấp trường cùng mạng lưới 25 Chi hội (4 Khoa, 6 Khóa) và 30 CLB/Đội/Nhóm.',
     publishedAt: '2026-09-01',
     authorUnit: 'Ban Tổ chức và Xây dựng Hội',
     viewCount: 980,
+    readMinutes: 4,
+    relatedDocNumber: '04/TB-HSV',
+    leadQuote:
+      'Bộ máy Khóa II vận hành theo mô hình phân cụm khoa học, kết hợp cơ chế kiêm nhiệm đa vị trí giúp kết nối xuyên suốt từ Thường trực Hội đến từng Chi hội và Câu lạc bộ.',
+    sections: [
+      {
+        heading: '1. Cấp lãnh đạo, chỉ đạo & giám sát toàn trường (Cấp 01)',
+        paragraphs: [
+          'Ban Chấp hành Hội Sinh viên trường Khóa II gồm 15 đồng chí, trong đó Ban Thư ký gồm 05 đồng chí do Đ/c Trương Châu Phước Lộc giữ chức vụ Chủ tịch Hội Sinh viên trường; Đ/c Nguyễn Như Quỳnh giữ chức vụ Phó Chủ tịch Thường trực; Đ/c Trần Thị Thu Huyền giữ chức vụ Phó Chủ tịch kiêm Trưởng Ban Kiểm tra.',
+          'Ban Kiểm tra Hội Sinh viên trường gồm 05 đồng chí thực hiện nhiệm vụ giám sát việc tuân thủ Điều lệ Hội, quy chế làm việc (23/QĐ-HSV) và tiếp nhận phản ánh từ Hộp thư Lắng nghe Sinh viên.',
+        ],
+      },
+      {
+        heading: '2. Khối 03 đơn vị chuyên môn (Cấp 02) và Hệ thống cơ sở Hội (Cấp 03)',
+        paragraphs: [
+          'Khối chuyên môn cấp trường gồm: Văn phòng Hội Sinh viên (Phòng 206.B06) vận hành theo cơ chế đồng điều hành giữa Chánh Văn phòng (đối ngoại) và Tổng Thư ký (nội bộ); Ban Tổ chức và Xây dựng Hội phụ trách 04 Cụm Khoa (25 Chi hội) và Cụm 30 CLB/Đội/Nhóm; Ban Tuyên giáo - Phong trào gồm Mảng Tuyên giáo (Design, Video, Photo) và Mảng Phong trào (Tài chính, Nội dung - Kịch bản, MC cùng Đội CTV Xung kích quản lý 02 Tiểu ban Hậu cần - Sân khấu và Lễ tân - Khánh tiết - Văn thể mỹ).',
+        ],
+      },
+    ],
   },
   {
     id: 'post-04',
@@ -2143,17 +2214,77 @@ export const NEWS_POSTS: NewsPost[] = [
     category: 'TUYEN_TRUYEN',
     categoryLabel: 'Tuyên giáo – Bền vững (SDGs)',
     summary:
-      'Đồng hành cùng Báo cáo Phát triển Bền vững EIU (Sustainability Report), các hoạt động Đoàn - Hội tích hợp phân loại rác tại nguồn, trạm thu gom pin và chương trình EIU Green Giving.',
+      'Đồng hành cùng Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report), các chương trình Đoàn – Hội áp dụng tiêu chuẩn "Sự kiện Xanh", trạm thu gom pin cũ và chuỗi hoạt động EIU Green Giving.',
     publishedAt: '2026-10-15',
     authorUnit: 'Ban Tuyên giáo - Phong trào',
     viewCount: 760,
+    readMinutes: 3,
+    leadQuote:
+      'Tinh thần "Nhân bản – Cộng đồng – Sáng tạo – Bền vững" của EIU được cụ thể hóa thành cam kết xanh trên từng kế hoạch sự kiện sinh viên.',
+    sections: [
+      {
+        heading: '1. Chuẩn "Sự kiện Xanh" bắt buộc trong hồ sơ trình duyệt kế hoạch',
+        paragraphs: [
+          'Bám sát định hướng phát triển bền vững của Trường Đại học Quốc tế Miền Đông và 17 Mục tiêu Phát triển Bền vững của Liên Hợp Quốc (UN SDGs), Ban Thư ký Hội Sinh viên trường tích hợp tiêu chí "Sự kiện Xanh" ngay trong biểu mẫu trình duyệt kế hoạch trực tuyến trên E-Office.',
+          'Các Chi hội và Câu lạc bộ thay thế hoàn toàn chai nhựa dùng một lần bằng bình nước cá nhân tại các trạm nước lọc EIU, sử dụng ấn phẩm số (QR Standee, tài liệu Họp không giấy) và phân loại rác tại nguồn sau mỗi chương trình.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-05',
+    title:
+      'Tổng kết Hội nghị Tập huấn Cán bộ Đoàn – Hội chủ chốt năm học 2026 – 2027 & Ban hành Quyết định 32/QĐ-HSV cấp E-Certificate',
+    slug: 'tong-ket-hoi-nghi-tap-huan-can-bo-doan-hoi-chu-chot-2026-2027',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Đào tạo – Tập huấn Cán bộ',
+    summary:
+      '125 cán bộ chủ chốt từ 25 Chi hội và 30 CLB/Đội/Nhóm hoàn thành chương trình tập huấn nghiệp vụ điều hành Họp không giấy, thể thức văn bản và đã được cấp E-Certificate xác thực QR chỉ sau 02 ngày làm việc.',
+    publishedAt: '2026-10-20',
+    authorUnit: 'Ban Tổ chức và Xây dựng Hội',
+    viewCount: 845,
+    readMinutes: 3,
+    relatedDocNumber: '32/QĐ-HSV',
+    sections: [
+      {
+        heading: '1. Chuẩn hóa kỹ năng vận hành E-Office cho đội ngũ Cấp 3 & Cấp 4',
+        paragraphs: [
+          'Tại Hội trường B11.202 và Phòng 206.B06, 125 đồng chí Chi hội trưởng, Chi hội phó, Chủ nhiệm, Phó Chủ nhiệm các CLB/Đội/Nhóm đã thực hành trực tiếp quy trình lập tờ trình công nhận ngày tình nguyện trước 03 ngày, quét QR điểm danh động và sơ duyệt Cấp 1 hồ sơ Sinh viên 5 Tốt.',
+          'Ngay sau hội nghị, Ban Thư ký đã ký ban hành Quyết định số 32/QĐ-HSV ngày 19/10/2026 (vượt chuẩn SLA 07 ngày làm việc). Hội viên có thể tra cứu trực tiếp theo MSSV hoặc số Quyết định 32/QĐ-HSV tại chuyên mục Tra cứu GCN.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-06',
+    title:
+      'Mở cổng đăng ký Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 & Chuỗi Workshop Kỹ năng Thực hành Xã hội Phụ lục 3',
+    slug: 'mo-cong-dang-ky-giot-hong-bo-cau-trang-va-workshop-phu-luc-3',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 Tốt',
+    summary:
+      'Cơ hội hoàn thành đồng thời tiêu chuẩn cứng "Tình nguyện tốt" (+5.0 ngày tình nguyện/lần hiến máu) và khung Kỹ năng thực hành xã hội "Hội nhập tốt" ngay trong Học kỳ Thu năm học 2026 – 2027.',
+    publishedAt: '2026-10-28',
+    authorUnit: 'CLB Blood Donation & CLB Sinh viên 5 tốt',
+    viewCount: 1090,
+    readMinutes: 3,
+    sections: [
+      {
+        heading: '1. Lộ trình tích lũy sớm tiêu chuẩn Tình nguyện tốt & Hội nhập tốt',
+        paragraphs: [
+          'CLB Cộng đồng Blood Donation Club phối hợp cùng Hội Chữ thập đỏ tổ chức Ngày hội "Giọt Hồng Bồ Câu Trắng EIU" vào sáng 05/11/2026 tại Sảnh Tòa nhà B6. Theo Phụ lục 2 Quyết định 09/QĐ-HSV, mỗi lượt hiến máu tình nguyện thành công được công nhận 5.0 ngày tình nguyện và đáp ứng điều kiện cứng của tiêu chuẩn Tình nguyện tốt.',
+          'Song song đó, CLB Cộng đồng Sinh viên 5 tốt và CLB Học thuật EIU IT Club triển khai Workshop "Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số" vào chiều 12/11/2026 tại B3.102, thuộc nhóm Kỹ năng thực hành xã hội Phụ lục 3.',
+        ],
+      },
+    ],
   },
 ];
 
 export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-01',
-    title: 'Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 – Năm học 2026–2027',
+    title:
+      'Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 – Năm học 2026–2027',
     slug: 'ngay-hoi-hien-mau-tinh-nguyen-giot-hong-bo-cau-trang-2026',
     organizerUnit: 'CLB Cộng đồng Blood Donation Club',
     organizerCode: 'CLB-BLOOD',
@@ -2161,7 +2292,8 @@ export const EVENT_ITEMS: EventItem[] = [
     startTime: '2026-11-05T07:30:00+07:00',
     endTime: '2026-11-05T11:30:00+07:00',
     category: 'Sức khỏe cộng đồng',
-    volunteerCategory: '04 - Sức khỏe (Hiến máu tình nguyện = 5.0 ngày/lần)',
+    volunteerCategory: '04 - Sức khỏe (Hiến máu tình nguyện cố định 5.0 ngày/lần)',
+    isUnionWorkMultiplierEligible: false,
     baseVolunteerDays: 5.0,
     preApprovalStatus: 'approved_3days_prior',
     certWorkflowStatus: 'upcoming',
@@ -2171,36 +2303,81 @@ export const EVENT_ITEMS: EventItem[] = [
     isGreenEvent: true,
   },
   {
-    id: 'evt-02',
-    title: 'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
-    slug: 'tap-huan-can-bo-doan-hoi-cac-cap-2026',
-    organizerUnit: 'Ban Tổ chức và Xây dựng Hội',
-    organizerCode: 'BAN-TCXDH',
-    location: 'Hội trường B11.202 & Phòng 206.B06',
-    startTime: '2026-10-17T08:00:00+07:00',
-    endTime: '2026-10-17T16:30:00+07:00',
-    category: 'Công tác Đoàn – Hội',
-    volunteerCategory: '06 - Công tác Đoàn – Hội (Nhân hệ số 1, 2, 3)',
+    id: 'evt-04',
+    title:
+      'Workshop Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số',
+    slug: 'workshop-ky-nang-nhan-dien-lua-dao-khong-gian-mang',
+    organizerUnit: 'CLB Cộng đồng Sinh viên 5 tốt & CLB EIU IT Club',
+    organizerCode: 'CLB-SV5T',
+    location: 'Phòng Hội thảo B3.102',
+    startTime: '2026-11-12T13:30:00+07:00',
+    endTime: '2026-11-12T16:30:00+07:00',
+    category: 'Kỹ năng thực hành xã hội (Phụ lục 3)',
+    volunteerCategory: '06 - Công tác Đoàn – Hội (Workshop ≤ 1 ngày = 0.5 ngày)',
+    isUnionWorkMultiplierEligible: true,
+    baseVolunteerDays: 0.5,
+    preApprovalStatus: 'pending_tcxdh',
+    certWorkflowStatus: 'upcoming',
+    sv5tCriterion: 'Hội nhập tốt',
+    registeredCount: 112,
+    maxParticipants: 150,
+    isGreenEvent: true,
+  },
+  {
+    id: 'evt-05',
+    title:
+      'Ngày Chủ nhật Xanh EIU & Trạm Đổi Pin Cũ Lấy Cây Xanh — Hưởng ứng UN SDGs',
+    slug: 'ngay-chu-nhat-xanh-eiu-tram-doi-pin-lay-cay-xanh-2026',
+    organizerUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
+    organizerCode: 'DOI-CTVXK',
+    location: 'Khuôn viên Tòa B10 – B11 & Trạm EIU Green Giving',
+    startTime: '2026-11-22T07:00:00+07:00',
+    endTime: '2026-11-22T11:30:00+07:00',
+    category: 'Môi trường & Phát triển bền vững',
+    volunteerCategory: '06 - Công tác Đoàn – Hội (Chương trình tình nguyện = 1.0 ngày)',
+    isUnionWorkMultiplierEligible: true,
+    baseVolunteerDays: 1.0,
+    preApprovalStatus: 'approved_3days_prior',
+    certWorkflowStatus: 'upcoming',
+    sv5tCriterion: 'Tình nguyện tốt',
+    registeredCount: 136,
+    maxParticipants: 180,
+    isGreenEvent: true,
+  },
+  {
+    id: 'evt-06',
+    title:
+      'Diễn đàn Học thuật Sinh viên EIU Research & Innovation Symposium 2026',
+    slug: 'dien-dan-hoc-thuat-eiu-research-innovation-symposium-2026',
+    organizerUnit: 'CLB BBS Honors Club & CLB EIU Student Technical Club',
+    organizerCode: 'CLB-HONORS',
+    location: 'Hội trường B11.202 & Không gian Sáng tạo FabLab 204.B11',
+    startTime: '2026-11-28T08:00:00+07:00',
+    endTime: '2026-11-28T16:00:00+07:00',
+    category: 'Nghiên cứu Khoa học & Học thuật',
+    volunteerCategory: '06 - Công tác Đoàn – Hội (Seminar/Hội thảo ≤ 1 ngày = 0.5 ngày)',
+    isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 0.5,
     preApprovalStatus: 'approved_3days_prior',
-    certWorkflowStatus: 'decision_issued',
-    decisionNumber: '32/QĐ-HSV',
-    sv5tCriterion: 'Hội nhập tốt',
-    registeredCount: 125,
-    maxParticipants: 130,
+    certWorkflowStatus: 'upcoming',
+    sv5tCriterion: 'Học tập tốt',
+    registeredCount: 164,
+    maxParticipants: 200,
     isGreenEvent: true,
   },
   {
     id: 'evt-03',
-    title: 'Ngày hội Kiểm tra Thể lực & Cấp Giấy chứng nhận "Sinh viên Khỏe" Cấp Trường năm 2026',
+    title:
+      'Ngày hội Kiểm tra Thể lực & Cấp Giấy chứng nhận "Sinh viên Khỏe" Cấp Trường năm 2026',
     slug: 'ngay-hoi-kiem-tra-the-luc-sinh-vien-khoe-2026',
     organizerUnit: 'Ban Tuyên giáo - Phong trào (Mảng Phong trào)',
     organizerCode: 'BAN-TGPT',
     location: 'Khu Liên hợp Thể thao EIU',
     startTime: '2026-10-25T07:00:00+07:00',
     endTime: '2026-10-25T17:00:00+07:00',
-    category: 'Rèn luyện Thể lực',
+    category: 'Rèn luyện Thể lực (Phụ lục 1)',
     volunteerCategory: '06 - Công tác Đoàn – Hội (Hội thi/Giải thể thao = 1.0 ngày)',
+    isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 1.0,
     preApprovalStatus: 'approved_3days_prior',
     certWorkflowStatus: 'list_submitted_sla',
@@ -2211,22 +2388,25 @@ export const EVENT_ITEMS: EventItem[] = [
     isGreenEvent: true,
   },
   {
-    id: 'evt-04',
-    title: 'Workshop Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số',
-    slug: 'workshop-ky-nang-nhan-dien-lua-dao-khong-gian-mang',
-    organizerUnit: 'CLB Cộng đồng Sinh viên 5 tốt & CLB EIU IT Club',
-    organizerCode: 'CLB-SV5T',
-    location: 'Phòng Hội thảo B3.102',
-    startTime: '2026-11-12T13:30:00+07:00',
-    endTime: '2026-11-12T16:30:00+07:00',
-    category: 'Kỹ năng thực hành xã hội (Phụ lục 3)',
-    volunteerCategory: '06 - Công tác Đoàn – Hội (Workshop <= 1 ngày = 0.5 ngày)',
+    id: 'evt-02',
+    title:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    slug: 'tap-huan-can-bo-doan-hoi-cac-cap-2026',
+    organizerUnit: 'Ban Tổ chức và Xây dựng Hội',
+    organizerCode: 'BAN-TCXDH',
+    location: 'Hội trường B11.202 & Phòng 206.B06',
+    startTime: '2026-10-17T08:00:00+07:00',
+    endTime: '2026-10-17T16:30:00+07:00',
+    category: 'Công tác Đoàn – Hội',
+    volunteerCategory: '06 - Công tác Đoàn – Hội (Nhân hệ số 1, 2, 3)',
+    isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 0.5,
-    preApprovalStatus: 'pending_tcxdh',
-    certWorkflowStatus: 'upcoming',
+    preApprovalStatus: 'approved_3days_prior',
+    certWorkflowStatus: 'decision_issued',
+    decisionNumber: '32/QĐ-HSV',
     sv5tCriterion: 'Hội nhập tốt',
-    registeredCount: 112,
-    maxParticipants: 150,
+    registeredCount: 125,
+    maxParticipants: 130,
     isGreenEvent: true,
   },
 ];
@@ -2243,7 +2423,13 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
     summary:
-      'Quy định chi tiết 5 tiêu chuẩn xét chọn cá nhân, trần 10% Sinh viên 5 tốt tiêu biểu toàn trường, tiêu chuẩn Tập thể SV5T (100% đăng ký, >= 30% đạt) cùng 3 Phụ lục: Sinh viên khỏe, Bảng quy đổi ngày tình nguyện và Khung kỹ năng thực hành xã hội.',
+      'Quy định chi tiết 5 tiêu chuẩn xét chọn cá nhân (GPA ≥ 3.00/4.00 lấy điểm cao hơn giữa năm học và tích lũy), trần Top 10% SV5T Tiêu biểu toàn trường, tiêu chuẩn Tập thể SV5T (100% đăng ký, ≥ 30% đạt, 0 kỷ luật) cùng 3 Phụ lục đính kèm.',
+    keyPoints: [
+      'Học tập tốt: MAX(GPA năm học gia quyền, GPA tích lũy) ≥ 3.00/4.00 + ≥ 01 tiêu chí phụ.',
+      'Đạo đức tốt: Điểm rèn luyện ≥ 80/100, không vi phạm pháp luật/quy chế + ≥ 01 tiêu chí phụ.',
+      'Tình nguyện tốt: ≥ 05 ngày tình nguyện/năm + tham gia hiến máu hoặc hoạt động tích cực CLB CTXH.',
+      'Xét duyệt 3 cấp điện tử: Cấp 1 (Cơ sở Hội) → Cấp 2 (Ban Chuyên môn) → Cấp 3 (Thường trực chốt duyệt).',
+    ],
     qrSlug: 'qd-09-hsv-2026',
   },
   {
@@ -2257,7 +2443,11 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
     summary:
-      'Quy định trách nhiệm, quyền hạn của BCH (15 đ/c), Ban Thư ký (05 đ/c), Chủ tịch, các Phó Chủ tịch và chế độ họp thường kỳ hàng tháng/quý.',
+      'Quy định nguyên tắc tập trung dân chủ, trách nhiệm và quyền hạn của BCH (15 đ/c), Ban Thư ký (05 đ/c), Thường trực Hội và chế độ Họp không giấy định kỳ hàng tháng/quý.',
+    keyPoints: [
+      'Ban Chấp hành gồm 15 đồng chí; Ban Thư ký gồm 05 đồng chí; Ban Kiểm tra gồm 05 đồng chí.',
+      'Họp Ban Thư ký định kỳ hàng tháng và họp Ban Chấp hành mở rộng hàng quý theo mô hình Paperless Meeting.',
+    ],
     qrSlug: 'qd-23-hsv-2026',
   },
   {
@@ -2271,7 +2461,11 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
     summary:
-      'Quy định cơ cấu và chức năng của Văn phòng HSV (Phòng 206.B06, quản lý con dấu/tài sản), Ban Tuyên giáo - Phong trào và Ban Tổ chức và Xây dựng Hội.',
+      'Quy định cơ cấu và chức năng của Văn phòng HSV (Phòng 206.B06, đồng điều hành Chánh VP & Tổng Thư ký), Ban Tổ chức và Xây dựng Hội (05 Cụm) và Ban Tuyên giáo - Phong trào (02 Mảng, 06 Tiểu ban & Đội CTVXK).',
+    keyPoints: [
+      'Văn phòng HSV (206.B06): Chánh Văn phòng phụ trách đối ngoại trường; Tổng Thư ký điều hành tác vụ nội bộ.',
+      'Quản lý tập trung văn thư đi/đến, rà soát thể thức kế hoạch, sổ mượn tài sản và nhật ký đóng dấu Mộc.',
+    ],
     qrSlug: 'qd-24-hsv-2026',
   },
   {
@@ -2285,7 +2479,12 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
     summary:
-      'Quy định nguyên tắc xin công nhận ngày tình nguyện trước ít nhất 03 ngày, mẫu danh sách Phụ lục 1 (tăng dần theo MSSV), thời hạn xử lý tối đa 07 ngày làm việc và quy chuẩn trình bày Giấy chứng nhận Phụ lục 2.',
+      'Quy định nguyên tắc xin công nhận ngày tình nguyện trước ít nhất 03 ngày qua Trưởng Ban TC-XDH, mẫu danh sách Phụ lục 1 (tăng dần theo MSSV), cam kết SLA tối đa 07 ngày làm việc và quy chuẩn Giấy chứng nhận Phụ lục 2.',
+    keyPoints: [
+      'Điều 4: Xin ý kiến công nhận ngày tình nguyện trước thời điểm tổ chức ít nhất 03 ngày (72 giờ).',
+      'Phụ lục 1: Danh sách đề nghị cấp GCN bắt buộc sắp xếp tăng dần theo Mã số sinh viên (10 chữ số).',
+      'Điều 6 & Phụ lục 2: SLA tối đa 07 ngày làm việc; E-Certificate gắn mã QR xác thực và mặc định ghi "(Đã ký)".',
+    ],
     qrSlug: 'qd-28-hsv-2026',
   },
   {
@@ -2299,7 +2498,429 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     signerTitle: 'KT. Chủ tịch – Phó Chủ tịch (Trưởng Ban Tổ chức và Xây dựng Hội)',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
     summary:
-      'Phân công chi tiết 20 đồng chí trong Ban Thường trực, BCH, BKT và chủ chốt cơ sở Hội phụ trách Văn phòng, Ban TG-PT, Ban TC-XDH và 5 Cụm hoạt động.',
+      'Phân công chi tiết 20 đồng chí trong Thường trực, BCH, BKT và chủ chốt cơ sở Hội phụ trách Văn phòng 206.B06, Ban TG-PT, Ban TC-XDH, 04 Cụm Khoa (25 Chi hội) và Cụm 30 CLB/Đội/Nhóm.',
+    keyPoints: [
+      'Phân công 04 Phó Ban TC-XDH làm Cụm trưởng 04 Cụm Khoa (QTKD, Kỹ thuật, CNTT, KHSK) và 01 Phó Ban phụ trách 30 CLB.',
+      'Xác lập rõ cơ chế kiêm nhiệm đa vị trí từ cấp Trường xuống cấp Chi hội và Câu lạc bộ.',
+    ],
     qrSlug: 'tb-04-hsv-2026',
   },
+  {
+    id: 'doc-32qd',
+    documentNumber: '32/QĐ-HSV',
+    docType: 'QUYẾT ĐỊNH',
+    title:
+      'Về việc công nhận hoàn thành chương trình và cấp Giấy chứng nhận điện tử "Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy năm học 2026 – 2027"',
+    signedDate: '19/10/2026',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    summary:
+      'Công nhận danh sách Phụ lục 1 (sắp xếp tăng dần theo MSSV) và quy đổi ngày tình nguyện lĩnh vực 06 - Công tác Đoàn – Hội theo Hệ số 1 – 2 – 3 cho Ban Tổ chức, Cộng tác viên và Đại biểu hoàn thành tập huấn.',
+    keyPoints: [
+      'Ban hành chỉ sau 02 ngày làm việc kể từ ngày kết thúc chương trình (vượt cam kết SLA 07 ngày làm việc).',
+      'Kích hoạt toàn bộ mã QR xác thực trực tuyến cho từng Giấy chứng nhận theo chuẩn Phụ lục 2 Quyết định 28/QĐ-HSV.',
+    ],
+    qrSlug: 'qd-32-hsv-2026',
+  },
 ];
+
+// Danh sách Phụ lục 1 của Quyết định 32/QĐ-HSV — BẮT BUỘC SẮP XẾP TĂNG DẦN THEO MSSV (QĐ 28/QĐ-HSV)
+export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
+  {
+    id: 'cert-32-01',
+    certSerialNumber: 1,
+    certCode: '32-001/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2331100044',
+    fullName: 'Nguyễn Đức Lê Hoàng',
+    email: 'hoang.nguyenduc.set23@eiu.edu.vn',
+    unitName: 'CLB Nghệ thuật EIU The Voice Up Club',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Thành viên Ban Tổ chức (Dẫn chương trình)',
+    multiplierApplied: 2,
+    volunteerDays: 1.0,
+    evidenceNote: 'QR Check-in 02 buổi & Biên bản BTC',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-02',
+    certSerialNumber: 2,
+    certCode: '32-002/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2331120012',
+    fullName: 'Đào Văn Thanh',
+    email: 'thanh.dao.set23@eiu.edu.vn',
+    unitName: 'Văn phòng HSV Trường / CLB EIU BEAM Club',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Thành viên Ban Tổ chức (Hậu cần – Kỹ thuật)',
+    multiplierApplied: 2,
+    volunteerDays: 1.0,
+    evidenceNote: 'QR Check-in 02 buổi & Biên bản BTC',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-03',
+    certSerialNumber: 3,
+    certCode: '32-003/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2331200066',
+    fullName: 'Trương Châu Phước Lộc',
+    email: 'loc.truongchau.cit23@eiu.edu.vn',
+    unitName: 'Thường trực Ban Thư ký HSV Trường',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Trưởng Ban Tổ chức Hội nghị (Hệ số ×3)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'Kế hoạch 12/KH-HSV & Báo cáo tổng kết',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-04',
+    certSerialNumber: 4,
+    certCode: '32-004/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2332300311',
+    fullName: 'Nguyễn Mai Gia Tường',
+    email: 'tuong.nguyenmai.bbs23@eiu.edu.vn',
+    unitName: 'Ban Tuyên giáo - Phong trào / CLB Sinh viên 5 tốt',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Phó Trưởng Ban Tổ chức (Báo cáo viên chuyên đề SV5T)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'QR Check-in & Tài liệu chuyên đề QĐ 09',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-05',
+    certSerialNumber: 5,
+    certCode: '32-005/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2432410098',
+    fullName: 'Nguyễn Như Quỳnh',
+    email: 'quynh.nguyen.bbs24@eiu.edu.vn',
+    unitName: 'Văn phòng HSV Trường / Chi hội 24QTKD01',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Phó Trưởng Ban Thường trực BTC (Hệ số ×3)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'QR Check-in & Biên bản điều phối Văn phòng',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-06',
+    certSerialNumber: 6,
+    certCode: '32-006/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531150011',
+    fullName: 'Nguyễn Thanh Đạt',
+    email: 'dat.nguyenthanh.set25@eiu.edu.vn',
+    unitName: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Đội trưởng Đội hình Hậu cần – Khánh tiết (Hệ số ×3)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'QR Check-in & Nhật ký điều phối Đội CTVXK',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-07',
+    certSerialNumber: 7,
+    certCode: '32-007/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531200065',
+    fullName: 'Trần Thị Thu Huyền',
+    email: 'huyen.tranthi.cit25@eiu.edu.vn',
+    unitName: 'Ban Tổ chức và Xây dựng Hội / Chi hội 25CNTT01',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Phó Trưởng Ban Tổ chức (Điều hành nội dung Tập huấn)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'Kế hoạch 12/KH-HSV & Danh sách điểm danh QR',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-08',
+    certSerialNumber: 8,
+    certCode: '32-008/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531200155',
+    fullName: 'Đặng Trí Toàn',
+    email: 'toan.dang.cit25@eiu.edu.vn',
+    unitName: 'Ban Tuyên giáo - Phong trào / Chi hội 25CNTT02',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Trưởng Tiểu ban Truyền thông Hội nghị (Hệ số ×3)',
+    multiplierApplied: 3,
+    volunteerDays: 1.5,
+    evidenceNote: 'QR Check-in & Bộ ấn phẩm số Hội nghị',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-09',
+    certSerialNumber: 9,
+    certCode: '32-009/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531200188',
+    fullName: 'Nguyễn Minh Khôi',
+    email: 'khoi.nguyenminh.cit25@eiu.edu.vn',
+    unitName: 'Chi hội 25CNTT01 (Khoa Công nghệ Thông tin)',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Cộng tác viên hỗ trợ / Đại biểu tham dự (Hệ số ×1)',
+    multiplierApplied: 1,
+    volunteerDays: 0.5,
+    evidenceNote: 'QR Check-in đủ 02 buổi & Đạt bài thu hoạch 95/100',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-10',
+    certSerialNumber: 10,
+    certCode: '32-010/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531220065',
+    fullName: 'Trần Nguyễn Quỳnh Trân',
+    email: 'tran.trannguyen.cit25@eiu.edu.vn',
+    unitName: 'Ban Tổ chức và Xây dựng Hội (Cụm CNTT) / Chi hội 25CNTT01',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Thành viên Ban Tổ chức (Điều phối Cụm CNTT - Hệ số ×2)',
+    multiplierApplied: 2,
+    volunteerDays: 1.0,
+    evidenceNote: 'QR Check-in 02 buổi & Biên bản Cụm CNTT',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+  {
+    id: 'cert-32-11',
+    certSerialNumber: 11,
+    certCode: '32-011/GCN-HSV',
+    decisionNumber: '32/QĐ-HSV',
+    decisionDate: '19/10/2026',
+    headerMode: 'DOAN_HOI',
+    studentId: '2531400139',
+    fullName: 'Phạm Thị Thanh Thủy',
+    email: 'thuy.phamthi.sns25@eiu.edu.vn',
+    unitName: 'Ban Tổ chức và Xây dựng Hội (Cụm KHSK) / Chi hội 25KHSK01',
+    eventId: 'evt-02',
+    eventTitle:
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+    roleTitle: 'Thành viên Ban Tổ chức (Điều phối Cụm KHSK - Hệ số ×2)',
+    multiplierApplied: 2,
+    volunteerDays: 1.0,
+    evidenceNote: 'QR Check-in 02 buổi & Biên bản Cụm KHSK',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
+];
+
+export const ONLINE_QUIZ_QUESTIONS: OnlineQuizQuestion[] = [
+  {
+    id: 'quiz-01',
+    topic: 'Quy định Sinh viên 5 Tốt (09/QĐ-HSV sửa đổi 2026)',
+    sv5tTarget: 'Đạo đức tốt',
+    question:
+      'Theo Quyết định 09/QĐ-HSV sửa đổi, bổ sung năm 2026 của Hội Sinh viên Trường ĐHQTMĐ, ngưỡng điểm chuẩn cứng của tiêu chuẩn "Học tập tốt" cấp Trường được quy định như thế nào?',
+    options: [
+      'GPA từ 2.50/4.00 trở lên tính riêng học kỳ gần nhất',
+      'GPA từ 2.70/4.00 trở lên chỉ tính điểm tích lũy toàn khóa',
+      'GPA từ 3.00/4.00 trở lên (ưu tiên lấy điểm cao hơn giữa GPA trung bình năm học gia quyền tín chỉ và GPA tích lũy) kèm ít nhất 01 tiêu chí phụ',
+      'GPA từ 3.20/4.00 trở lên và bắt buộc có bài báo quốc tế',
+    ],
+    correctIndex: 2,
+    explanation:
+      'Theo QĐ 09/QĐ-HSV sửa đổi 2026, chuẩn Học tập tốt là GPA ≥ 3.00/4.00, tự động ưu tiên lấy điểm cao hơn giữa Điểm TB năm học (gia quyền tín chỉ) và Điểm tích lũy, kèm ≥ 01 tiêu chí phụ.',
+  },
+  {
+    id: 'quiz-02',
+    topic: 'Quy định Cấp Giấy chứng nhận & Ngày tình nguyện (28/QĐ-HSV)',
+    sv5tTarget: 'Đạo đức tốt',
+    question:
+      'Theo Điều 4 và Điều 6 Quyết định 28/QĐ-HSV, thời hạn xin công nhận ngày tình nguyện trước sự kiện và cam kết SLA ban hành Quyết định cấp GCN sau khi nhận danh sách hợp lệ là bao lâu?',
+    options: [
+      'Xin trước ít nhất 01 ngày; cấp GCN trong 14 ngày làm việc',
+      'Xin trước ít nhất 03 ngày (qua Trưởng Ban TC-XDH trình BTK); cấp Quyết định trong tối đa 07 ngày làm việc',
+      'Xin trước ít nhất 07 ngày; cấp GCN trong 30 ngày',
+      'Không cần xin ý kiến trước khi tổ chức sự kiện',
+    ],
+    correctIndex: 1,
+    explanation:
+      'Đơn vị đề nghị phải gửi tờ trình trước ít nhất 03 ngày qua Trưởng Ban TC-XDH trình Ban Thư ký; SLA xử lý và ban hành Quyết định tối đa 07 ngày làm việc (danh sách Phụ lục 1 sắp xếp MSSV tăng dần).',
+  },
+  {
+    id: 'quiz-03',
+    topic: 'Cơ cấu Tổ chức HSV EIU Khóa II (2026 – 2028)',
+    sv5tTarget: 'Đạo đức tốt',
+    question:
+      'Hệ thống cơ sở Hội trực thuộc Hội Sinh viên Trường Đại học Quốc tế Miền Đông Khóa II hiện bao gồm bao nhiêu đơn vị?',
+    options: [
+      '15 Chi hội và 20 Câu lạc bộ',
+      '20 Chi hội và 25 Câu lạc bộ',
+      '25 Chi hội (thuộc 04 Cụm Khoa, 06 Khóa) và 30 Câu lạc bộ – Đội – Nhóm (chia 04 khối lĩnh vực)',
+      '30 Chi hội và 30 Câu lạc bộ',
+    ],
+    correctIndex: 2,
+    explanation:
+      'Cấp cơ sở Hội gồm chính xác 25 Chi hội (QTKD: 06, Kỹ thuật: 06, CNTT: 07, KHSK: 06) và 30 CLB/Đội/Nhóm trực thuộc.',
+  },
+  {
+    id: 'quiz-04',
+    topic: 'Phát triển Bền vững EIU & Hội nhập Quốc tế (UN SDGs)',
+    sv5tTarget: 'Hội nhập tốt',
+    question:
+      'Tiêu chuẩn "Sự kiện Xanh" gắn với Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report) khuyến khích cam kết cốt lõi nào tại các chương trình của Hội Sinh viên?',
+    options: [
+      'In toàn bộ tài liệu giấy cho đại biểu tham dự',
+      'Không sử dụng chai nhựa dùng một lần, ưu tiên ấn phẩm số QR / Họp không giấy và phân loại rác tại nguồn',
+      'Chỉ tổ chức sự kiện trực tuyến 100%',
+      'Không giới hạn vật liệu nhựa dùng một lần',
+    ],
+    correctIndex: 1,
+    explanation:
+      '100% sự kiện hướng tới không sử dụng chai nhựa dùng một lần, kết hợp trạm nước EIU, ấn phẩm QR, Họp không giấy và EIU Green Giving.',
+  },
+  {
+    id: 'quiz-05',
+    topic: 'Danh hiệu Tập thể Sinh viên 5 Tốt (09/QĐ-HSV)',
+    sv5tTarget: 'Hội nhập tốt',
+    question:
+      'Để một Chi hội hoặc CLB đạt danh hiệu "Tập thể Sinh viên 5 Tốt" cấp Trường, đơn vị cần thỏa mãn bộ 03 điều kiện nào sau đây?',
+    options: [
+      '50% hội viên đăng ký, ≥ 10% đạt SV5T, không quá 2 vụ kỷ luật',
+      '80% hội viên đăng ký, ≥ 20% đạt SV5T, 0% vi phạm kỷ luật',
+      '100% sinh viên đăng ký phấn đấu SV5T, ít nhất 30% sinh viên đạt SV5T cấp Trường và không có sinh viên vi phạm kỷ luật',
+      'Chỉ cần Chi hội trưởng đạt danh hiệu SV5T cấp Trường',
+    ],
+    correctIndex: 2,
+    explanation:
+      'Chuẩn Tập thể SV5T yêu cầu đồng thời: 100% SV đăng ký phấn đấu + ≥ 30% SV đạt SV5T cấp Trường + 0% vi phạm pháp luật/quy chế.',
+  },
+];
+
+export const OFFICE_206_ASSETS: OfficeAssetItem[] = [
+  {
+    id: 'ast-01',
+    assetCode: 'TS-206-BD01',
+    name: 'Bộ đàm điều phối sự kiện Motorola (Bộ 10 máy)',
+    category: 'Âm thanh & Bộ đàm',
+    totalQty: 10,
+    availableQty: 4,
+    borrowerUnit: 'CLB Blood Donation Club',
+    borrowerName: 'Trịnh Nguyễn Nguyệt Ánh',
+    dueDate: '06/11/2026',
+    status: 'borrowed',
+  },
+  {
+    id: 'ast-02',
+    assetCode: 'TS-206-LOA02',
+    name: 'Loa kéo di động công suất lớn + 02 Micro không dây',
+    category: 'Âm thanh & Bộ đàm',
+    totalQty: 2,
+    availableQty: 2,
+    status: 'available',
+  },
+  {
+    id: 'ast-03',
+    assetCode: 'TS-206-STD05',
+    name: 'Khung Standee chữ X & Khung QR Check-in chuẩn EIU (60×160cm)',
+    category: 'Thiết bị Sự kiện',
+    totalQty: 12,
+    availableQty: 8,
+    borrowerUnit: 'CLB Cộng đồng Sinh viên 5 tốt',
+    borrowerName: 'Nguyễn Mai Gia Tường',
+    dueDate: '13/11/2026',
+    status: 'borrowed',
+  },
+  {
+    id: 'ast-04',
+    assetCode: 'TS-206-CO01',
+    name: 'Bộ Cờ Tổ quốc, Cờ Hội Sinh viên Việt Nam & Áo khoác BCH',
+    category: 'Ấn phẩm & Cờ Hội',
+    totalQty: 20,
+    availableQty: 20,
+    status: 'available',
+  },
+];
+
+export const PLAN_SUBMISSIONS: PlanSubmissionItem[] = [
+  {
+    id: 'plan-01',
+    planCode: '18/KH-CLB-SV5T',
+    title:
+      'Kế hoạch Workshop Kỹ năng Nhận diện Lừa đảo Không gian mạng & Tư duy Phản biện số',
+    submittingUnit: 'CLB Cộng đồng Sinh viên 5 tốt',
+    clusterName: 'Cụm 30 CLB / Đội / Nhóm (Đ/c Nguyễn Mỹ Hạnh)',
+    eventDate: '12/11/2026',
+    hasVolunteerDays: true,
+    stage: 'office_format_checked',
+  },
+  {
+    id: 'plan-02',
+    planCode: '09/KH-25CNTT01',
+    title:
+      'Kế hoạch Sinh hoạt Chuyên đề "Hành trang Học tập tốt GPA ≥ 3.0 & Nghiên cứu Khoa học CIT"',
+    submittingUnit: 'Chi hội 25CNTT01',
+    clusterName: 'Cụm Khoa CNTT (Đ/c Trần Nguyễn Quỳnh Trân)',
+    eventDate: '18/11/2026',
+    hasVolunteerDays: false,
+    stage: 'cluster_reviewed',
+  },
+  {
+    id: 'plan-03',
+    planCode: '21/KH-CTVXK',
+    title:
+      'Kế hoạch Ngày Chủ nhật Xanh EIU & Trạm Đổi Pin Cũ Lấy Cây Xanh Đợt 2/2026',
+    submittingUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
+    clusterName: 'Ban TG-PT – Mảng Phong trào (Đ/c Nguyễn Mai Gia Tường)',
+    eventDate: '22/11/2026',
+    hasVolunteerDays: true,
+    stage: 'btk_approved',
+  },
+];
+

@@ -47,9 +47,19 @@ export interface StaffMember {
   facultyCode: FacultyCode;
   cohortYear: number | null;
   youthUnionTitle: string;
-  bchRole: 'Chủ tịch' | 'Phó Chủ tịch thường trực' | 'Phó Chủ tịch' | 'Ủy viên Ban Thư ký' | 'Ủy viên Ban Chấp hành' | 'Không';
+  bchRole:
+    | 'Chủ tịch'
+    | 'Phó Chủ tịch thường trực'
+    | 'Phó Chủ tịch'
+    | 'Ủy viên Ban Thư ký'
+    | 'Ủy viên Ban Chấp hành'
+    | 'Không';
   isBtkMember: boolean;
-  bktRole: 'Trưởng Ban Kiểm tra' | 'Phó trưởng Ban Kiểm tra' | 'Ủy viên Ban Kiểm tra' | 'Không';
+  bktRole:
+    | 'Trưởng Ban Kiểm tra'
+    | 'Phó trưởng Ban Kiểm tra'
+    | 'Ủy viên Ban Kiểm tra'
+    | 'Không';
   internalDeptRole: string;
   internalDeptCode: 'VP-HSV' | 'BAN-TCXDH' | 'BAN-TGPT' | 'NONE';
   tgptWing?: 'TUYEN_GIAO' | 'PHONG_TRAO' | 'BOTH';
@@ -103,6 +113,12 @@ export interface ClubUnit {
   highlights: string[];
 }
 
+export interface NewsArticleSection {
+  heading: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
 export interface NewsPost {
   id: string;
   title: string;
@@ -114,6 +130,10 @@ export interface NewsPost {
   authorUnit: string;
   viewCount: number;
   isFeatured?: boolean;
+  readMinutes?: number;
+  relatedDocNumber?: string;
+  leadQuote?: string;
+  sections?: NewsArticleSection[];
 }
 
 export interface EventItem {
@@ -127,12 +147,25 @@ export interface EventItem {
   endTime: string;
   category: string;
   volunteerCategory: string;
+  isUnionWorkMultiplierEligible?: boolean; // Chỉ nhóm 06 - Công tác Đoàn - Hội mới nhân hệ số 1-2-3
   baseVolunteerDays: number;
-  preApprovalStatus: 'approved_3days_prior' | 'pending_tcxdh' | 'no_volunteer_days';
-  certWorkflowStatus: 'upcoming' | 'ongoing' | 'list_submitted_sla' | 'decision_issued';
+  preApprovalStatus:
+    | 'approved_3days_prior'
+    | 'pending_tcxdh'
+    | 'no_volunteer_days';
+  certWorkflowStatus:
+    | 'upcoming'
+    | 'ongoing'
+    | 'list_submitted_sla'
+    | 'decision_issued';
   slaDaysRemaining?: number;
   decisionNumber?: string;
-  sv5tCriterion: 'Đạo đức tốt' | 'Học tập tốt' | 'Thể lực tốt' | 'Tình nguyện tốt' | 'Hội nhập tốt';
+  sv5tCriterion:
+    | 'Đạo đức tốt'
+    | 'Học tập tốt'
+    | 'Thể lực tốt'
+    | 'Tình nguyện tốt'
+    | 'Hội nhập tốt';
   registeredCount: number;
   maxParticipants: number;
   isGreenEvent: boolean; // Theo Báo cáo Phát triển bền vững EIU (Không chai nhựa 1 lần)
@@ -148,5 +181,65 @@ export interface OfficialDocumentItem {
   signerTitle: string;
   issuingBody: string;
   summary: string;
+  keyPoints?: string[];
   qrSlug: string;
+}
+
+export interface IssuedCertificateRecord {
+  id: string;
+  certSerialNumber: number; // Trùng STT trong Phụ lục 1 của Quyết định (QĐ 28/QĐ-HSV)
+  certCode: string; // VD: '32-03/GCN-HSV'
+  decisionNumber: string; // VD: '32/QĐ-HSV'
+  decisionDate: string; // VD: '19/10/2026'
+  headerMode: 'DOAN_HOI' | 'HOI_SINH_VIEN';
+  studentId: string; // 10 chữ số EIU, sắp xếp tăng dần trong Phụ lục 1
+  fullName: string;
+  email: string;
+  unitName: string;
+  eventId: string;
+  eventTitle: string;
+  roleTitle: string;
+  multiplierApplied: 1 | 2 | 3;
+  volunteerDays: number;
+  evidenceNote: string;
+  signerName: string;
+  signerTitle: string;
+}
+
+export interface OnlineQuizQuestion {
+  id: string;
+  topic: string;
+  sv5tTarget: 'Đạo đức tốt' | 'Hội nhập tốt';
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+}
+
+export interface OfficeAssetItem {
+  id: string;
+  assetCode: string;
+  name: string;
+  category: 'Âm thanh & Bộ đàm' | 'Ấn phẩm & Cờ Hội' | 'Thiết bị Sự kiện';
+  totalQty: number;
+  availableQty: number;
+  borrowerUnit?: string;
+  borrowerName?: string;
+  dueDate?: string;
+  status: 'available' | 'borrowed' | 'maintenance';
+}
+
+export interface PlanSubmissionItem {
+  id: string;
+  planCode: string;
+  title: string;
+  submittingUnit: string;
+  clusterName: string;
+  eventDate: string;
+  hasVolunteerDays: boolean;
+  stage:
+    | 'unit_submitted'
+    | 'cluster_reviewed'
+    | 'office_format_checked'
+    | 'btk_approved';
 }

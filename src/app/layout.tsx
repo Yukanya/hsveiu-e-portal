@@ -1,6 +1,11 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import { Be_Vietnam_Pro, JetBrains_Mono, Montserrat } from 'next/font/google';
+import {
+  Be_Vietnam_Pro,
+  Crimson_Text,
+  JetBrains_Mono,
+  Montserrat,
+} from 'next/font/google';
 import './globals.css';
 import { RoleProvider } from '@/context/role-context';
 import { PersonaSwitcherBar } from '@/components/shared/persona-switcher';
@@ -15,6 +20,13 @@ const beVietnamPro = Be_Vietnam_Pro({
   variable: '--font-be-vietnam',
   subsets: ['latin', 'vietnamese'],
   weight: ['400', '500', '600', '700'],
+});
+
+const crimsonText = Crimson_Text({
+  variable: '--font-crimson-text',
+  subsets: ['latin', 'vietnamese'],
+  weight: ['400', '600', '700'],
+  style: ['normal', 'italic'],
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -100,7 +112,7 @@ export default function RootLayout({
     <html
       lang="vi"
       suppressHydrationWarning
-      className={`${montserrat.variable} ${beVietnamPro.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${beVietnamPro.variable} ${crimsonText.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <head suppressHydrationWarning>
         <script
@@ -110,18 +122,18 @@ export default function RootLayout({
       </head>
       <body
         suppressHydrationWarning
-        className="min-h-full flex flex-col bg-[#F5F5F5] text-[#0F172A]"
+        className="min-h-full flex flex-col bg-[#F5F5F5] text-[#0F172A] text-[14px]"
       >
         {/* Skip-to-Content Link chuẩn WCAG 2.1 AA */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:rounded-lg focus:bg-[#133F68] focus:text-white focus:font-semibold focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2.5 focus:bg-[#133F68] focus:text-white focus:font-semibold focus:shadow-lg"
         >
           Chuyển thẳng tới nội dung chính
         </a>
 
         <RoleProvider>
-          <Suspense fallback={<div className="h-10 bg-[#133F68]" />}>
+          <Suspense fallback={<div className="h-9 bg-[#133F68]" />}>
             <PersonaSwitcherBar />
           </Suspense>
           <div suppressHydrationWarning className="flex-1 flex flex-col">
