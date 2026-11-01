@@ -3,7 +3,6 @@ import { Suspense } from 'react';
 import {
   Be_Vietnam_Pro,
   Crimson_Text,
-  JetBrains_Mono,
   Montserrat,
 } from 'next/font/google';
 import './globals.css';
@@ -27,12 +26,6 @@ const crimsonText = Crimson_Text({
   subsets: ['latin', 'vietnamese'],
   weight: ['400', '600', '700'],
   style: ['normal', 'italic'],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: '--font-jetbrains-mono',
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
 });
 
 export const metadata: Metadata = {
@@ -112,7 +105,7 @@ export default function RootLayout({
     <html
       lang="vi"
       suppressHydrationWarning
-      className={`${montserrat.variable} ${beVietnamPro.variable} ${crimsonText.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${montserrat.variable} ${beVietnamPro.variable} ${crimsonText.variable} h-full antialiased`}
     >
       <head suppressHydrationWarning>
         <script

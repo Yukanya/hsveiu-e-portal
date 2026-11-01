@@ -162,11 +162,11 @@ function VanBanContent({
                 <tbody>
                   {filteredDocs.map((doc, idx) => (
                     <tr key={doc.id}>
-                      <td className="text-center font-mono text-xs text-slate-600">
+                      <td className="text-center font-eiu-serif text-xs text-slate-600">
                         {idx + 1}
                       </td>
                       <td>
-                        <div className="font-mono font-bold text-[#133F68]">
+                        <div className="font-eiu-serif font-bold text-[#133F68]">
                           {doc.documentNumber}
                         </div>
                         <span className="inline-block mt-1 px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[10px] font-bold font-eiu-display">
@@ -185,7 +185,7 @@ function VanBanContent({
                           {doc.summary}
                         </div>
                       </td>
-                      <td className="font-mono text-xs text-slate-700">
+                      <td className="font-eiu-serif text-xs text-slate-700">
                         {doc.signedDate}
                       </td>
                       <td className="text-xs">
@@ -274,7 +274,7 @@ function VanBanContent({
               <div className="flex items-center gap-2.5">
                 <FileCheck2 className="w-5 h-5 text-[#FCB900] shrink-0" />
                 <div>
-                  <div className="text-xs font-mono text-[#00BCFF] font-bold">
+                  <div className="text-xs font-eiu-serif text-[#00BCFF] font-bold">
                     {selectedDoc.docType} SỐ {selectedDoc.documentNumber} • KÝ
                     NGÀY {selectedDoc.signedDate}
                   </div>
@@ -327,7 +327,7 @@ function VanBanContent({
                     <QrCode className="w-11 h-11 text-[#133F68]" />
                   </div>
                   <div className="space-y-0.5">
-                    <div className="font-mono font-bold text-[#133F68]">
+                    <div className="font-eiu-serif font-bold text-[#133F68]">
                       Mã định danh QR: {selectedDoc.qrSlug}
                     </div>
                     <div className="text-slate-600">

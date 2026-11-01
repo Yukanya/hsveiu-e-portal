@@ -169,13 +169,13 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                 <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
                   KHÔNG GIAN HỘI VIÊN SSO (@EIU.EDU.VN)
                 </span>
-                <span className="font-mono text-xs text-[#FCB900] font-bold">
+                <span className="font-eiu-serif text-xs text-[#FCB900] font-bold">
                   Phân quyền hiện tại: Cấp {activePosition.roleLevel}/6
                 </span>
               </div>
               <h1 className="text-xl sm:text-2xl font-bold font-eiu-display">
                 {currentPersona.fullName}{' '}
-                <span className="text-sm font-mono font-normal text-[#DED1BE]">
+                <span className="text-sm font-eiu-serif font-normal text-[#DED1BE]">
                   (
                   {currentPersona.studentId !== '-'
                     ? `MSSV: ${currentPersona.studentId}`
@@ -226,10 +226,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               onClick={() => setActiveTab('sv5t')}
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Tiêu chuẩn SV5T đạt
               </div>
-              <div className="text-xl font-extrabold font-mono text-[#00BCFF] mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-[#00BCFF] mt-0.5">
                 0{metCriteriaCount} / 05
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -242,11 +242,11 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               onClick={() => setActiveTab('gpa')}
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 GPA Xét chọn tốt nhất
               </div>
               <div
-                className={`text-xl font-extrabold font-mono mt-0.5 ${
+                className={`text-xl font-extrabold font-eiu-serif mt-0.5 ${
                   isGpaQualified ? 'text-[#FCB900]' : 'text-rose-400'
                 }`}
               >
@@ -264,10 +264,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               onClick={() => setActiveTab('certs')}
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Ngày Tình nguyện Năm học
               </div>
-              <div className="text-xl font-extrabold font-mono text-emerald-300 mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-emerald-300 mt-0.5">
                 7.5 / 5.0 ngày
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -280,10 +280,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               onClick={() => setActiveTab('certs')}
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Kho E-Cert &amp; Quiz Số
               </div>
-              <div className="text-xl font-extrabold font-mono text-white mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
                 {personalCerts.length} GCN •{' '}
                 {quizSubmitted ? `${quizCorrectCount}/5` : '5 Câu'}
               </div>
@@ -325,7 +325,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       <span>{item.label}</span>
                       {item.badge && (
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-[#133F68] text-white'
@@ -382,7 +382,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                     <div className="text-xs font-bold uppercase tracking-wider text-[#133F68] font-eiu-display">
                       Quy trình Xét duyệt Điện tử 03 Cấp (09/QĐ-HSV)
                     </div>
-                    <span className="px-2.5 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-mono text-[11px] font-bold">
+                    <span className="px-2.5 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-eiu-serif text-[11px] font-bold">
                       {dossierSubmitted
                         ? 'TRẠNG THÁI: ĐÃ NỘP LÊN CẤP 1 (CƠ SỞ HỘI)'
                         : 'TRẠNG THÁI: ĐANG HOÀN THIỆN MINH CHỨNG'}
@@ -415,7 +415,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             : 'bg-[#F8FAFC] border-slate-200'
                         }`}
                       >
-                        <div className="font-mono font-bold text-[#133F68]">
+                        <div className="font-eiu-serif font-bold text-[#133F68]">
                           {st.lvl}
                         </div>
                         <div className="text-slate-600 mt-0.5">{st.actor}</div>
@@ -442,7 +442,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         </td>
                         <td className="text-xs">
                           Điểm rèn luyện năm học:{' '}
-                          <strong className="font-mono text-[#133F68]">
+                          <strong className="font-eiu-serif text-[#133F68]">
                             92 / 100
                           </strong>{' '}
                           (Chuẩn ≥ 80, không vi phạm kỷ luật)
@@ -452,7 +452,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             ? `✓ Đạt ${quizCorrectCount}/5 bài thi Online Quiz Nghị quyết`
                             : '✓ Tham gia Hội thi Tìm hiểu Tư tưởng Hồ Chí Minh'}
                         </td>
-                        <td className="text-right font-mono text-xs font-bold text-emerald-700">
+                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
                           ✓ ĐẠT CHUẨN
                         </td>
                       </tr>
@@ -464,7 +464,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         <td className="text-xs">
                           MAX(Năm học {weightedYearGpa.toFixed(2)}, Tích lũy{' '}
                           {cumulativeGpa.toFixed(2)}) ={' '}
-                          <strong className="font-mono text-[#0054A6]">
+                          <strong className="font-eiu-serif text-[#0054A6]">
                             {effectiveGpa.toFixed(2)} / 4.00
                           </strong>{' '}
                           (Chuẩn ≥ 3.00)
@@ -473,7 +473,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ 01 Tham luận NCKH / Sinh hoạt CLB Học thuật có xác
                           nhận Mentor
                         </td>
-                        <td className="text-right font-mono text-xs font-bold">
+                        <td className="text-right font-eiu-serif text-xs font-bold">
                           {isGpaQualified ? (
                             <span className="text-emerald-700">✓ ĐẠT CHUẨN</span>
                           ) : (
@@ -499,7 +499,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ Đạt Giấy chứng nhận &ldquo;Sinh viên Khỏe&rdquo; cấp
                           Trường 2026 (Phụ lục 1)
                         </td>
-                        <td className="text-right font-mono text-xs font-bold text-emerald-700">
+                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
                           ✓ ĐẠT CHUẨN
                         </td>
                       </tr>
@@ -510,7 +510,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         </td>
                         <td className="text-xs">
                           Tích lũy:{' '}
-                          <strong className="font-mono text-[#133F68]">
+                          <strong className="font-eiu-serif text-[#133F68]">
                             7.5 / 5.0 ngày
                           </strong>{' '}
                           tình nguyện trong năm học (Phụ lục 2)
@@ -519,7 +519,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ Tham gia Ngày hội Hiến máu tình nguyện EIU (+5.0
                           ngày) &amp; Tập huấn Đoàn – Hội
                         </td>
-                        <td className="text-right font-mono text-xs font-bold text-emerald-700">
+                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
                           ✓ ĐẠT CHUẨN
                         </td>
                       </tr>
@@ -536,7 +536,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ Đạt chuẩn Tiếng Anh B1 / Giao lưu sinh viên quốc tế
                           tại EIU
                         </td>
-                        <td className="text-right font-mono text-xs font-bold text-emerald-700">
+                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
                           ✓ ĐẠT CHUẨN
                         </td>
                       </tr>
@@ -608,7 +608,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             onChange={(e) =>
                               handleQuarterChange(idx, 'credits', e.target.value)
                             }
-                            className="w-full h-9 px-3 border border-slate-300 rounded font-mono text-xs text-slate-900"
+                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs text-slate-900"
                           />
                         </div>
                         <div className="sm:col-span-3">
@@ -628,7 +628,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             onChange={(e) =>
                               handleQuarterChange(idx, 'gpa4', e.target.value)
                             }
-                            className="w-full h-9 px-3 border border-slate-300 rounded font-mono text-xs font-bold text-[#0054A6]"
+                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs font-bold text-[#0054A6]"
                           />
                         </div>
                       </div>
@@ -662,7 +662,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                               )
                             )
                           }
-                          className="w-full sm:w-48 h-9 px-3 border-2 border-[#0054A6] rounded font-mono text-xs font-bold text-[#133F68] bg-white"
+                          className="w-full sm:w-48 h-9 px-3 border-2 border-[#0054A6] rounded font-eiu-serif text-xs font-bold text-[#133F68] bg-white"
                         />
                       </div>
                     </div>
@@ -675,7 +675,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                     <div className="text-[11px] font-bold uppercase text-slate-500 font-eiu-display">
                       GPA Năm học (Gia quyền)
                     </div>
-                    <div className="text-2xl font-extrabold font-mono text-[#133F68] mt-1">
+                    <div className="text-2xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
                       {weightedYearGpa.toFixed(2)}
                     </div>
                     <div className="text-[11px] text-slate-500 mt-1">
@@ -689,7 +689,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                     <div className="text-[11px] font-bold uppercase text-slate-500 font-eiu-display">
                       GPA Tích lũy Hiện tại
                     </div>
-                    <div className="text-2xl font-extrabold font-mono text-[#133F68] mt-1">
+                    <div className="text-2xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
                       {cumulativeGpa.toFixed(2)}
                     </div>
                     <div className="text-[11px] text-slate-500 mt-1">
@@ -708,7 +708,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       Mức GPA Xét SV5T (MAX)
                     </div>
                     <div
-                      className={`text-2xl font-extrabold font-mono mt-1 ${
+                      className={`text-2xl font-extrabold font-eiu-serif mt-1 ${
                         isGpaQualified ? 'text-emerald-800' : 'text-[#C10230]'
                       }`}
                     >
@@ -755,10 +755,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         >
                           <div className="space-y-1">
                             <div className="flex flex-wrap items-center gap-2 text-xs">
-                              <span className="px-2 py-0.5 bg-[#133F68] text-white font-mono font-bold">
+                              <span className="px-2 py-0.5 bg-[#133F68] text-white font-eiu-serif font-bold">
                                 {cert.certCode}
                               </span>
-                              <span className="font-mono text-[#0054A6] font-bold">
+                              <span className="font-eiu-serif text-[#0054A6] font-bold">
                                 Kèm theo: {cert.decisionNumber} ({cert.decisionDate})
                               </span>
                             </div>
@@ -768,7 +768,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             <div className="text-xs text-slate-600">
                               Vai trò: <strong>{cert.roleTitle}</strong> • Quy
                               đổi:{' '}
-                              <strong className="font-mono text-[#C10230]">
+                              <strong className="font-eiu-serif text-[#C10230]">
                                 +{cert.volunteerDays.toFixed(1)} ngày TN
                               </strong>
                             </div>
@@ -818,7 +818,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </div>
                             <div className="text-slate-600">
                               {ev.organizerUnit} •{' '}
-                              <span className="font-mono text-[#C10230] font-bold">
+                              <span className="font-eiu-serif text-[#C10230] font-bold">
                                 +{ev.baseVolunteerDays.toFixed(1)} ngày gốc
                               </span>
                             </div>
@@ -884,7 +884,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         className="bg-white border border-slate-200 p-5 space-y-3.5"
                       >
                         <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
-                          <span className="font-mono font-bold text-[#0054A6]">
+                          <span className="font-eiu-serif font-bold text-[#0054A6]">
                             CÂU 0{qIdx + 1} • {q.topic}
                           </span>
                           <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] font-bold font-eiu-display">
@@ -931,7 +931,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                                     : 'cursor-pointer'
                                 }`}
                               >
-                                <span className="font-mono font-bold shrink-0">
+                                <span className="font-eiu-serif font-bold shrink-0">
                                   {String.fromCharCode(65 + optIdx)}.
                                 </span>
                                 <span>{opt}</span>
@@ -957,7 +957,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                   <div className="bg-white border border-slate-200 p-4 flex items-center justify-between gap-3">
                     <span className="text-xs text-slate-600">
                       Đã chọn{' '}
-                      <strong className="font-mono text-[#133F68]">
+                      <strong className="font-eiu-serif text-[#133F68]">
                         {Object.keys(quizAnswers).length}/
                         {ONLINE_QUIZ_QUESTIONS.length}
                       </strong>{' '}
@@ -1017,7 +1017,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                   <div className="p-6 flex flex-col sm:flex-row items-center gap-6">
                     <div className="w-32 h-32 border-2 border-[#133F68] p-2 flex flex-col items-center justify-center shrink-0 bg-[#F8FAFC]">
                       <QrCode className="w-24 h-24 text-[#133F68]" />
-                      <span className="text-[9.5px] font-mono font-bold text-[#0054A6] mt-1">
+                      <span className="text-[9.5px] font-eiu-serif font-bold text-[#0054A6] mt-1">
                         QR CHECK-IN 2 CHIỀU
                       </span>
                     </div>
@@ -1029,7 +1029,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
                         <div>
                           <span className="text-slate-500">Mã định danh:</span>
-                          <div className="font-mono font-bold text-slate-900">
+                          <div className="font-eiu-serif font-bold text-slate-900">
                             {currentPersona.studentId !== '-'
                               ? currentPersona.studentId
                               : 'CÁN BỘ CTSV'}
@@ -1037,7 +1037,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         </div>
                         <div>
                           <span className="text-slate-500">Email SSO:</span>
-                          <div className="font-mono font-semibold text-[#0054A6] break-all">
+                          <div className="font-eiu-serif font-semibold text-[#0054A6] break-all">
                             {currentPersona.email}
                           </div>
                         </div>
@@ -1075,10 +1075,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="font-mono font-bold text-[#133F68]">
+                          <td className="font-eiu-serif font-bold text-[#133F68]">
                             X1X2 (2 số đầu)
                           </td>
-                          <td className="font-mono font-bold text-[#0054A6]">
+                          <td className="font-eiu-serif font-bold text-[#0054A6]">
                             {currentPersona.studentId.slice(0, 2)}
                           </td>
                           <td className="text-xs">
@@ -1088,10 +1088,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           </td>
                         </tr>
                         <tr>
-                          <td className="font-mono font-bold text-[#133F68]">
+                          <td className="font-eiu-serif font-bold text-[#133F68]">
                             X3 (Số thứ 3)
                           </td>
-                          <td className="font-mono font-bold text-[#0054A6]">
+                          <td className="font-eiu-serif font-bold text-[#0054A6]">
                             {currentPersona.studentId.slice(2, 3)}
                           </td>
                           <td className="text-xs">
@@ -1099,10 +1099,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           </td>
                         </tr>
                         <tr>
-                          <td className="font-mono font-bold text-[#133F68]">
+                          <td className="font-eiu-serif font-bold text-[#133F68]">
                             X4 (Số thứ 4)
                           </td>
-                          <td className="font-mono font-bold text-[#0054A6]">
+                          <td className="font-eiu-serif font-bold text-[#0054A6]">
                             {currentPersona.studentId.slice(3, 4)}
                           </td>
                           <td className="text-xs">
@@ -1110,10 +1110,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           </td>
                         </tr>
                         <tr>
-                          <td className="font-mono font-bold text-[#133F68]">
+                          <td className="font-eiu-serif font-bold text-[#133F68]">
                             X5X6 (Số 5 – 6)
                           </td>
-                          <td className="font-mono font-bold text-[#0054A6]">
+                          <td className="font-eiu-serif font-bold text-[#0054A6]">
                             {idDecoded.majorCode}
                           </td>
                           <td className="text-xs">
@@ -1121,10 +1121,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           </td>
                         </tr>
                         <tr>
-                          <td className="font-mono font-bold text-[#133F68]">
+                          <td className="font-eiu-serif font-bold text-[#133F68]">
                             X7X8X9X10 (4 số cuối)
                           </td>
-                          <td className="font-mono font-bold text-[#0054A6]">
+                          <td className="font-eiu-serif font-bold text-[#0054A6]">
                             {idDecoded.serialNumber}
                           </td>
                           <td className="text-xs">

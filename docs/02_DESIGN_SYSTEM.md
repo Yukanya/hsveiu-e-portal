@@ -29,14 +29,15 @@
 
 ---
 
-## 3. Hệ thống Chữ viết 4 Tầng (4-Tier Typography Scale)
+## 3. Hệ thống Chữ viết 3 Bộ Font Chuẩn (Typography Scale)
 
-| Tầng chữ | Font Family | Weights | Cỡ chữ & Quy cách Hiển thị |
+Toàn bộ hệ thống Cổng thông tin & E-Office HSV EIU chỉ sử dụng duy nhất 03 bộ font chữ:
+
+| Nhóm chức năng | Font Family | Weights | Cỡ chữ & Quy cách Hiển thị |
 | :--- | :--- | :--- | :--- |
-| **1. Heading, Nav & CTA** | `Montserrat` | `500, 600, 700, 800` | Banner H1 `24px – 32px`, Section H2 `22px – 26px` IN HOA `#133F68`, Card H3 `16px – 17px`, Main Nav `13.5px – 14px` Bold, Dropdown Item `13.5px`. |
-| **2. Nội dung & Bảng biểu** | `Be Vietnam Pro` | `400, 500, 600, 700` | Cỡ chữ chuẩn **`14px`** (`line-height: 1.65`), đảm bảo dấu tiếng Việt trong văn bản pháp lý, bài viết và bảng quản trị E-Office rõ nét, thoáng mắt. |
-| **3. Footer Học thuật** | `Crimson Text` (Serif) | `400, 600, 700` | Cỡ chữ **`17px`** (`line-height: 1.5`), tiêu đề cột `#FFFFFF` SemiBold, liên kết `#DED1BE` Regular (hover `#FFFFFF`) chuẩn `post-157.css` của `eiu.edu.vn`. |
-| **4. Mã định danh & Số liệu** | `JetBrains Mono` | `400, 500, 600, 700` | Cỡ chữ `12.5px – 14px` cho MSSV 10 chữ số, Số hiệu văn bản (`28/QĐ-HSV`), Mã Chi hội (`25CNTT01`), điểm GPA và đồng hồ SLA. |
+| **1. Heading, Menu & CTA** | `Montserrat` | `500, 600, 700, 800` | Banner H1 `24px – 32px`, Section H2 `22px – 26px` IN HOA `#133F68`, Card H3 `16px – 17px`, Main Nav `13.5px – 14px` Bold, Dropdown Item `13.5px`. |
+| **2. Nội dung, Form & Bảng biểu** | `Be Vietnam Pro` | `400, 500, 600, 700` | Cỡ chữ nền chuẩn **`14px`** (`line-height: 1.65`), tối ưu độ đọc cho tiếng Việt có dấu trong văn bản pháp lý, bài viết, biểu mẫu tác nghiệp và bảng dữ liệu E-Office. |
+| **3. Footer Học thuật & Mã số / Số liệu** | `Crimson Text` (Serif) | `400, 600, 700` | Cỡ chữ **`17px`** (`line-height: 1.5`) cho Chân trang học thuật (`.font-eiu-serif` chuẩn `post-157.css` của `eiu.edu.vn`). Đồng thời **thay thế toàn bộ font `JetBrains Mono`** cho MSSV 10 chữ số, Số hiệu văn bản (`28/QĐ-HSV`), Mã đơn vị (`25CNTT01`), điểm GPA và chỉ số KPI. |
 
 ---
 

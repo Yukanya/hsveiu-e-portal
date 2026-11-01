@@ -213,7 +213,7 @@ function PublicNavbarInner() {
                         >
                           <span className="leading-snug">{sub.label}</span>
                           {sub.badge ? (
-                            <span className="text-[10px] font-mono font-bold px-1.5 py-0.5 bg-[#00BCFF]/20 text-[#00BCFF] shrink-0">
+                            <span className="text-[10px] font-eiu-serif font-bold px-1.5 py-0.5 bg-[#00BCFF]/20 text-[#00BCFF] shrink-0">
                               {sub.badge}
                             </span>
                           ) : (

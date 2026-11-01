@@ -249,7 +249,7 @@ function ToChucContent({
                     >
                       <span>{item.label}</span>
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                        className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                           isSelected
                             ? 'bg-white/20 text-white'
                             : 'bg-white/80 text-[#133F68]'
@@ -285,7 +285,7 @@ function ToChucContent({
                     >
                       <span>{item.label}</span>
                       <span
-                        className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                        className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                           isSelected
                             ? 'bg-white/20 text-white'
                             : 'bg-white/80 text-[#133F68]'
@@ -353,7 +353,7 @@ function ToChucContent({
                     <Filter className="w-3.5 h-3.5 text-[#0054A6]" />
                     <span>
                       Hiển thị{' '}
-                      <strong className="font-mono text-[#133F68]">
+                      <strong className="font-eiu-serif text-[#133F68]">
                         {filteredClubs.length}
                       </strong>{' '}
                       đơn vị
@@ -452,7 +452,7 @@ function ToChucContent({
                             </span>
 
                             <span
-                              className={`px-1.5 py-0.5 text-[9.5px] font-mono font-bold uppercase ${
+                              className={`px-1.5 py-0.5 text-[9.5px] font-eiu-serif font-bold uppercase ${
                                 club.recruitmentOpen
                                   ? 'bg-emerald-500/25 text-emerald-100 border border-emerald-300/40'
                                   : 'bg-black/25 text-white/75'
@@ -465,10 +465,10 @@ function ToChucContent({
                           </div>
 
                           <div className="flex items-end justify-between gap-2 pt-2 border-t border-white/15">
-                            <div className="font-mono text-xs font-bold tracking-wider text-[#DED1BE]">
+                            <div className="font-eiu-serif text-xs font-bold tracking-wider text-[#DED1BE]">
                               #{String(club.stt).padStart(2, '0')} • {club.code}
                             </div>
-                            <div className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-white">
+                            <div className="inline-flex items-center gap-1 text-[11px] font-eiu-serif font-semibold text-white">
                               <Users className="w-3.5 h-3.5 opacity-85" />
                               <span>{club.memberCount} TV</span>
                             </div>
@@ -588,10 +588,10 @@ function ToChucContent({
 
                         return (
                           <tr key={b.id}>
-                            <td className="text-center font-mono text-xs text-slate-600">
+                            <td className="text-center font-eiu-serif text-xs text-slate-600">
                               {idx + 1}
                             </td>
-                            <td className="font-mono font-bold text-[#133F68]">
+                            <td className="font-eiu-serif font-bold text-[#133F68]">
                               <Link
                                 href={`/to-chuc/${b.slug}`}
                                 className="hover:text-[#C10230] hover:underline"
@@ -606,7 +606,7 @@ function ToChucContent({
                               <div className="font-semibold text-[#133F68]">
                                 {FACULTY_METADATA[b.facultyCode].nameVi}
                               </div>
-                              <div className="text-[11px] text-slate-500 font-mono">
+                              <div className="text-[11px] text-slate-500 font-eiu-serif">
                                 Khóa 20{b.cohortYear} (K{b.cohortYear})
                               </div>
                             </td>
@@ -622,7 +622,7 @@ function ToChucContent({
                             </td>
                             <td>
                               <div className="space-y-1.5">
-                                <div className="flex items-center justify-between text-[11px] font-mono">
+                                <div className="flex items-center justify-between text-[11px] font-eiu-serif">
                                   <span
                                     className={`font-bold ${
                                       isQualified

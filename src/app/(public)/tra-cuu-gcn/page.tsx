@@ -82,7 +82,7 @@ function CertificatePreviewPhuLuc2({
           <div className="text-xs font-bold text-slate-900 underline underline-offset-4">
             Độc lập – Tự do – Hạnh phúc
           </div>
-          <div className="pt-2 text-[11px] font-mono text-slate-500">
+          <div className="pt-2 text-[11px] font-eiu-serif text-slate-500">
             Số thứ tự Phụ lục 1:{' '}
             <strong className="text-[#133F68]">
               #{String(cert.certSerialNumber).padStart(2, '0')}
@@ -105,7 +105,7 @@ function CertificatePreviewPhuLuc2({
           <div className="text-lg sm:text-xl font-bold text-[#133F68] font-eiu-display">
             {cert.fullName}
           </div>
-          <div className="text-xs font-mono text-slate-700">
+          <div className="text-xs font-eiu-serif text-slate-700">
             Mã số sinh viên: <strong>{cert.studentId}</strong> • Đơn vị:{' '}
             <strong className="font-sans">{cert.unitName}</strong>
           </div>
@@ -116,11 +116,11 @@ function CertificatePreviewPhuLuc2({
           <strong className="text-[#133F68]">{cert.roleTitle}</strong> trong
           chương trình <strong>&ldquo;{cert.eventTitle}&rdquo;</strong> — được
           công nhận quy đổi{' '}
-          <strong className="font-mono text-[#C10230]">
+          <strong className="font-eiu-serif text-[#C10230]">
             +{cert.volunteerDays.toFixed(1)} ngày tình nguyện
           </strong>{' '}
           theo Phụ lục 2 Quyết định 09/QĐ-HSV và Quyết định số{' '}
-          <strong className="font-mono">{cert.decisionNumber}</strong>.
+          <strong className="font-eiu-serif">{cert.decisionNumber}</strong>.
         </p>
       </div>
 
@@ -134,7 +134,7 @@ function CertificatePreviewPhuLuc2({
           >
             <QrCode className="w-15 h-15 text-[#133F68]" />
           </Link>
-          <div className="space-y-1 text-[11px] text-slate-700 font-mono">
+          <div className="space-y-1 text-[11px] text-slate-700 font-eiu-serif">
             <div className="font-bold text-[#133F68]">Số: {cert.certCode}</div>
             <div>Kèm theo: {cert.decisionNumber}</div>
             <Link
@@ -231,7 +231,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
           <div className="lg:col-span-8 bg-white border border-slate-200">
             <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
               <span>Cổng Xác thực Hồ sơ E-Certificate Trực tuyến</span>
-              <span className="font-mono text-[#00BCFF]">
+              <span className="font-eiu-serif text-[#00BCFF]">
                 CSDL VĂN PHÒNG 206.B06
               </span>
             </div>
@@ -254,7 +254,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                     onChange={(e) => setInputVal(e.target.value)}
                     placeholder="Nhập MSSV (VD: 2331200066), Số QĐ (32/QĐ-HSV) hoặc Mã GCN..."
                     aria-label="Nhập MSSV, Số Quyết định hoặc Mã Giấy chứng nhận"
-                    className="w-full h-10 pl-10 pr-3 border border-slate-300 rounded font-mono text-xs sm:text-sm text-slate-900"
+                    className="w-full h-10 pl-10 pr-3 border border-slate-300 rounded font-eiu-serif text-xs sm:text-sm text-slate-900"
                   />
                 </div>
                 <button
@@ -275,7 +275,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                     key={sq.value}
                     type="button"
                     onClick={() => executeLookup(sq.value)}
-                    className={`px-2.5 py-1 border text-[11px] font-mono transition-colors cursor-pointer ${
+                    className={`px-2.5 py-1 border text-[11px] font-eiu-serif transition-colors cursor-pointer ${
                       submittedQuery === sq.value
                         ? 'bg-[#133F68] text-white border-[#133F68] font-bold'
                         : 'bg-[#F5F5F5] text-[#133F68] border-slate-300 hover:border-[#133F68]'
@@ -299,7 +299,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                   {matchedDecisionDoc && (
                     <div className="text-emerald-900/90">
                       Căn cứ pháp lý:{' '}
-                      <strong className="font-mono">
+                      <strong className="font-eiu-serif">
                         Quyết định số {matchedDecisionDoc.documentNumber}
                       </strong>{' '}
                       ký ngày {matchedDecisionDoc.signedDate} bởi{' '}
@@ -308,7 +308,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                     </div>
                   )}
                   {decodedMssv && decodedMssv.isValid && (
-                    <div className="text-slate-700 font-mono text-[11px] pt-0.5">
+                    <div className="text-slate-700 font-eiu-serif text-[11px] pt-0.5">
                       Cấu trúc MSSV EIU hợp lệ: Khóa {decodedMssv.enrollmentYear}{' '}
                       • {decodedMssv.degreeLevel} • {decodedMssv.majorName}
                     </div>
@@ -404,13 +404,13 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                         key={cert.id}
                         className={isPreviewing ? 'bg-[#F0F6FC]' : undefined}
                       >
-                        <td className="text-center font-mono text-xs font-bold text-[#133F68]">
+                        <td className="text-center font-eiu-serif text-xs font-bold text-[#133F68]">
                           {String(cert.certSerialNumber).padStart(2, '0')}
                         </td>
-                        <td className="font-mono text-xs font-bold text-[#0054A6]">
+                        <td className="font-eiu-serif text-xs font-bold text-[#0054A6]">
                           {cert.certCode}
                         </td>
-                        <td className="font-mono text-xs font-bold text-slate-900">
+                        <td className="font-eiu-serif text-xs font-bold text-slate-900">
                           {cert.studentId}
                         </td>
                         <td className="text-xs">
@@ -427,7 +427,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                             {cert.evidenceNote}
                           </div>
                         </td>
-                        <td className="text-center font-mono text-xs font-extrabold text-[#C10230]">
+                        <td className="text-center font-eiu-serif text-xs font-extrabold text-[#C10230]">
                           +{cert.volunteerDays.toFixed(1)} (×
                           {cert.multiplierApplied})
                         </td>

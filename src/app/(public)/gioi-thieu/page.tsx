@@ -155,7 +155,7 @@ function StaffCompactCard({
         <span className="font-bold font-eiu-display tracking-wide group-hover:scale-105 transition-transform">
           {initials}
         </span>
-        <span className="text-[9px] font-mono text-[#DED1BE] leading-none mt-0.5">
+        <span className="text-[9px] font-eiu-serif text-[#DED1BE] leading-none mt-0.5">
           {member.cohortYear ? `K${member.cohortYear}` : 'CTSV'}
         </span>
       </div>
@@ -173,7 +173,7 @@ function StaffCompactCard({
             {roleHighlight}
           </span>
           {member.positions.length > 1 && (
-            <span className="px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] font-mono text-[10px] font-bold">
+            <span className="px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] font-eiu-serif text-[10px] font-bold">
               {member.positions.length} vị trí
             </span>
           )}
@@ -191,7 +191,7 @@ function StaffCompactCard({
           {subLabel || member.internalDeptRole}
         </div>
 
-        <div className="pt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-slate-500 font-mono">
+        <div className="pt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-slate-500 font-eiu-serif">
           <span>
             {member.studentId !== '-'
               ? `MSSV: ${member.studentId}`
@@ -364,7 +364,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <span>{tab.label}</span>
                       {tab.badge && (
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-[#133F68] text-white'
@@ -401,7 +401,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <span>{tab.label}</span>
                       {tab.badge && (
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-white/80 text-[#133F68]'
@@ -537,7 +537,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       onClick={() => setActiveTab(stat.tab)}
                       className="bg-white border border-slate-200 hover:border-[#0054A6] p-4 text-left transition-colors cursor-pointer"
                     >
-                      <div className="text-xl font-extrabold font-mono text-[#0054A6]">
+                      <div className="text-xl font-extrabold font-eiu-serif text-[#0054A6]">
                         {stat.num}
                       </div>
                       <div className="text-xs font-bold text-[#133F68] mt-1 font-eiu-display">
@@ -621,7 +621,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           className="px-4 py-2.5 flex items-center justify-between gap-3 hover:bg-[#F5F5F5] transition-colors"
                         >
                           <div>
-                            <span className="font-mono font-bold text-[#0054A6] mr-2">
+                            <span className="font-eiu-serif font-bold text-[#0054A6] mr-2">
                               {doc.code}
                             </span>
                             <span className="text-slate-700">{doc.desc}</span>
@@ -644,21 +644,21 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="bg-white border-2 border-[#133F68] p-5 sm:p-6 space-y-5">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#133F68] text-white text-xs font-mono font-bold">
+                      <span className="px-2.5 py-1 bg-[#133F68] text-white text-xs font-eiu-serif font-bold">
                         CẤP 01
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
                         Cấp Lãnh đạo, Chỉ đạo &amp; Giám sát Toàn trường
                       </h3>
                     </div>
-                    <span className="text-[11px] font-mono text-slate-500">
+                    <span className="text-[11px] font-eiu-serif text-slate-500">
                       Nhấp vào từng khối để xem nhân sự chi tiết
                     </span>
                   </div>
 
                   {/* Đỉnh sơ đồ: Đại hội II */}
                   <div className="max-w-lg mx-auto bg-[#02294E] text-white p-3.5 text-center border-b-3 border-[#A68556]">
-                    <div className="text-[10.5px] font-mono uppercase tracking-widest text-[#FCB900]">
+                    <div className="text-[10.5px] font-eiu-serif uppercase tracking-widest text-[#FCB900]">
                       CƠ QUAN QUYỀN LỰC CAO NHẤT
                     </div>
                     <div className="text-xs sm:text-sm font-bold font-eiu-display mt-0.5">
@@ -680,7 +680,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#00BCFF]">
                             BAN CHẤP HÀNH HSV TRƯỜNG
                           </span>
-                          <span className="px-2 py-0.5 bg-white/15 font-mono text-xs font-bold">
+                          <span className="px-2 py-0.5 bg-white/15 font-eiu-serif text-xs font-bold">
                             15 ĐỒNG CHÍ
                           </span>
                         </div>
@@ -703,7 +703,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#FCB900]">
                             BAN THƯ KÝ &amp; THƯỜNG TRỰC HỘI
                           </span>
-                          <span className="px-2 py-0.5 bg-white/20 font-mono text-xs font-bold">
+                          <span className="px-2 py-0.5 bg-white/20 font-eiu-serif text-xs font-bold">
                             05 ĐỒNG CHÍ
                           </span>
                         </div>
@@ -730,7 +730,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                               <ShieldCheck className="w-4 h-4" />
                               <span>BAN KIỂM TRA HSV TRƯỜNG</span>
                             </span>
-                            <span className="px-2 py-0.5 bg-[#C10230] text-white font-mono text-xs font-bold">
+                            <span className="px-2 py-0.5 bg-[#C10230] text-white font-eiu-serif text-xs font-bold">
                               05 Đ/C
                             </span>
                           </div>
@@ -771,14 +771,14 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="bg-white border-2 border-[#0054A6] p-5 sm:p-6 space-y-5">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#0054A6] text-white text-xs font-mono font-bold">
+                      <span className="px-2.5 py-1 bg-[#0054A6] text-white text-xs font-eiu-serif font-bold">
                         CẤP 02
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
                         Văn phòng &amp; Các Ban Chuyên môn Cấp Trường (03 Đơn vị)
                       </h3>
                     </div>
-                    <span className="text-[11px] font-mono text-[#0054A6] font-bold">
+                    <span className="text-[11px] font-eiu-serif text-[#0054A6] font-bold">
                       Quyết định 24/QĐ-HSV
                     </span>
                   </div>
@@ -792,7 +792,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#133F68] text-white text-[10.5px] font-mono font-bold">
+                          <span className="px-2 py-0.5 bg-[#133F68] text-white text-[10.5px] font-eiu-serif font-bold">
                             PHÒNG 206.B06
                           </span>
                           <Building2 className="w-4 h-4 text-[#133F68]" />
@@ -828,7 +828,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#0054A6] text-white text-[10.5px] font-mono font-bold">
+                          <span className="px-2 py-0.5 bg-[#0054A6] text-white text-[10.5px] font-eiu-serif font-bold">
                             05 CỤM QUẢN LÝ
                           </span>
                           <Layers className="w-4 h-4 text-[#0054A6]" />
@@ -864,7 +864,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#C10230] text-white text-[10.5px] font-mono font-bold">
+                          <span className="px-2 py-0.5 bg-[#C10230] text-white text-[10.5px] font-eiu-serif font-bold">
                             02 MẢNG + ĐỘI CTVXK
                           </span>
                           <GitBranch className="w-4 h-4 text-[#C10230]" />
@@ -904,7 +904,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="bg-white border-2 border-[#A68556] p-5 sm:p-6 space-y-4">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#A68556] text-white text-xs font-mono font-bold">
+                      <span className="px-2.5 py-1 bg-[#A68556] text-white text-xs font-eiu-serif font-bold">
                         CẤP 03
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
@@ -935,7 +935,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           K26.
                         </p>
                       </div>
-                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-mono">
+                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-eiu-serif">
                         <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
                           BBS: 06
                         </span>
@@ -969,7 +969,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           thuật, nghệ thuật, thể thao, cộng đồng.
                         </p>
                       </div>
-                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-mono">
+                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-eiu-serif">
                         <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#C10230] font-bold">
                           Cộng đồng: 07
                         </span>
@@ -1160,7 +1160,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       quản lý con dấu Mộc và tài sản dùng chung
                     </span>
                   </div>
-                  <span className="font-mono font-bold text-[#0054A6]">
+                  <span className="font-eiu-serif font-bold text-[#0054A6]">
                     Quyết định 24/QĐ-HSV
                   </span>
                 </div>
@@ -1272,7 +1272,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         <strong>Tiểu ban Photo</strong>
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 bg-[#133F68] text-white font-mono text-[11px] font-bold">
+                    <span className="px-2.5 py-1 bg-[#133F68] text-white font-eiu-serif text-[11px] font-bold">
                       03 TIỂU BAN
                     </span>
                   </div>
@@ -1312,7 +1312,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         &amp; <strong>Lễ tân – Khánh tiết – Văn thể mỹ</strong>)
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 bg-[#C10230] text-white font-mono text-[11px] font-bold">
+                    <span className="px-2.5 py-1 bg-[#C10230] text-white font-eiu-serif text-[11px] font-bold">
                       03 TB + ĐỘI CTVXK
                     </span>
                   </div>
@@ -1359,7 +1359,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <div className="text-sm font-bold font-eiu-display">
                     HỒ SƠ CÁN BỘ HỘI — Đ/c {selectedStaff.fullName}
                   </div>
-                  <div className="text-[11px] font-mono text-[#DED1BE]">
+                  <div className="text-[11px] font-eiu-serif text-[#DED1BE]">
                     {selectedStaff.studentId !== '-'
                       ? `MSSV: ${selectedStaff.studentId}`
                       : 'Chuyên viên Phòng Công tác Sinh viên'}{' '}
@@ -1434,7 +1434,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           {pos.divisionName ? ` — ${pos.divisionName}` : ''}
                         </div>
                       </div>
-                      <span className="px-2 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-mono text-[10.5px] font-bold shrink-0">
+                      <span className="px-2 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-eiu-serif text-[10.5px] font-bold shrink-0">
                         Cấp {pos.roleLevel}/6
                       </span>
                     </div>

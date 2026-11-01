@@ -27,39 +27,42 @@ import {
 } from 'lucide-react';
 
 const HERO_SLIDES = [
-  {
-    id: 'slide-term2',
-    kicker: 'ĐẠI HỘI II • NHIỆM KỲ 2026 – 2028',
-    title: 'HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐẠI HỌC QUỐC TẾ MIỀN ĐÔNG',
-    subtitle:
-      'Cổng thông tin Điện tử, Sổ tay Hội viên Số & Hệ thống Điều hành E-Office chính thức của Ban Chấp hành Hội Sinh viên trường Khóa II.',
-    primaryCta: { label: 'Sơ đồ Tổ chức 3 Cấp', href: '/gioi-thieu?tab=chart' },
-    secondaryCta: { label: '25 Chi hội & 30 CLB', href: '/to-chuc' },
-    metricLabel: 'BỘ MÁY CHỦ CHỐT',
-    metricValue: '15 BCH • 05 BTK • 05 BKT',
-  },
-  {
-    id: 'slide-sv5t',
-    kicker: 'QUYẾT ĐỊNH 09/QĐ-HSV • SỬA ĐỔI NĂM 2026',
-    title: 'PHONG TRÀO SINH VIÊN 5 TỐT & TẬP THỂ SINH VIÊN 5 TỐT',
-    subtitle:
-      'Chuẩn hóa Học tập tốt GPA ≥ 3.00/4.00 (lấy điểm cao hơn giữa năm học gia quyền và tích lũy), xét duyệt điện tử 3 cấp và vinh danh Top 10% Tiêu biểu toàn trường.',
-    primaryCta: { label: 'Mở Sổ tay SV5T Số', href: '/portal?tab=sv5t' },
-    secondaryCta: { label: 'Tính GPA Quý EIU', href: '/portal?tab=gpa' },
-    metricLabel: 'CHUẨN HỌC TẬP 2026',
-    metricValue: 'MAX(GPA) ≥ 3.00 / 4.00',
-  },
-  {
-    id: 'slide-ecert',
-    kicker: 'QUYẾT ĐỊNH 28/QĐ-HSV • UN SDGs GREEN EVENT',
-    title: 'GIẤY CHỨNG NHẬN ĐIỆN TỬ QR & CAM KẾT SỰ KIỆN XANH EIU',
-    subtitle:
-      'Thẩm định ngày tình nguyện trước 03 ngày, xuất danh sách Phụ lục 1 tăng dần MSSV, cấp Quyết định trong SLA 07 ngày làm việc và 100% sự kiện không chai nhựa một lần.',
-    primaryCta: { label: 'Tra cứu E-Certificate', href: '/tra-cuu-gcn' },
-    secondaryCta: { label: 'Đăng ký Sự kiện 1-Chạm', href: '/su-kien' },
-    metricLabel: 'CAM KẾT SLA PHÁP LÝ',
-    metricValue: '≤ 07 NGÀY LÀM VIỆC',
-  },
+    {
+        id: "slide-term2",
+        kicker: "",
+        title: "HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐẠI HỌC QUỐC TẾ MIỀN ĐÔNG",
+        subtitle:
+            "Cổng thông tin Điện tử của Ban Chấp hành Hội Sinh viên trường Đại học Quốc tế Miền Đông.",
+        primaryCta: {
+            label: "Sơ đồ Tổ chức 3 Cấp",
+            href: "/gioi-thieu?tab=chart",
+        },
+        secondaryCta: { label: "25 Chi hội & 30 CLB", href: "/to-chuc" },
+        metricLabel: "Vì sinh viên EIU:",
+        metricValue: "Trí sáng - Đồng tâm - Vươn tầm - Cất cánh",
+    },
+    {
+        id: "slide-sv5t",
+        kicker: "QUYẾT ĐỊNH 09/QĐ-HSV • SỬA ĐỔI NĂM 2026",
+        title: "PHONG TRÀO SINH VIÊN 5 TỐT & TẬP THỂ SINH VIÊN 5 TỐT",
+        subtitle:
+            "Chuẩn hóa Học tập tốt GPA ≥ 3.00/4.00 (lấy điểm cao hơn giữa năm học gia quyền và tích lũy), xét duyệt điện tử 3 cấp và vinh danh Top 10% Tiêu biểu toàn trường.",
+        primaryCta: { label: "Mở Sổ tay SV5T Số", href: "/portal?tab=sv5t" },
+        secondaryCta: { label: "Tính GPA Quý EIU", href: "/portal?tab=gpa" },
+        metricLabel: "CHUẨN HỌC TẬP 2026",
+        metricValue: "MAX(GPA) ≥ 3.00 / 4.00",
+    },
+    {
+        id: "slide-ecert",
+        kicker: "QUYẾT ĐỊNH 28/QĐ-HSV • UN SDGs GREEN EVENT",
+        title: "GIẤY CHỨNG NHẬN ĐIỆN TỬ QR & CAM KẾT SỰ KIỆN XANH EIU",
+        subtitle:
+            "Thẩm định ngày tình nguyện trước 03 ngày, xuất danh sách Phụ lục 1 tăng dần MSSV, cấp Quyết định trong SLA 07 ngày làm việc và 100% sự kiện không chai nhựa một lần.",
+        primaryCta: { label: "Tra cứu E-Certificate", href: "/tra-cuu-gcn" },
+        secondaryCta: { label: "Đăng ký Sự kiện 1-Chạm", href: "/su-kien" },
+        metricLabel: "CAM KẾT SLA PHÁP LÝ",
+        metricValue: "≤ 07 NGÀY LÀM VIỆC",
+    },
 ];
 
 const SV5T_PILLARS_2026 = [
@@ -191,7 +194,7 @@ export default function HomePage() {
             >
               <div className="flex items-center gap-3 mb-3">
                 <span className="w-10 h-0.5 bg-white" aria-hidden="true" />
-                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#FCB900]">
+                <span className="text-[11px] font-eiu-serif font-bold uppercase tracking-widest text-[#FCB900]">
                   {activeSlide.kicker}
                 </span>
               </div>
@@ -234,7 +237,7 @@ export default function HomePage() {
                     aria-selected={heroIdx === idx}
                     aria-label={`Tiêu điểm 0${idx + 1}`}
                     onClick={() => setHeroIdx(idx)}
-                    className={`h-8 px-3 font-mono text-xs font-bold transition-colors cursor-pointer ${
+                    className={`h-8 px-3 font-eiu-serif text-xs font-bold transition-colors cursor-pointer ${
                       heroIdx === idx
                         ? 'bg-[#FCB900] text-[#02294E]'
                         : 'bg-white/10 text-white/80 hover:bg-white/20'
@@ -264,10 +267,10 @@ export default function HomePage() {
                 />
               </div>
               <div className="bg-[#133F68] text-white px-6 py-3.5 flex items-center justify-between border-t border-slate-100">
-                <span className="text-[11px] font-mono uppercase tracking-wider text-[#DED1BE]">
+                <span className="text-[11px] font-eiu-serif uppercase tracking-wider text-[#DED1BE]">
                   {activeSlide.metricLabel}
                 </span>
-                <span className="text-xs sm:text-sm font-mono font-extrabold text-[#00BCFF]">
+                <span className="text-xs sm:text-sm font-eiu-serif font-extrabold text-[#00BCFF]">
                   {activeSlide.metricValue}
                 </span>
               </div>
@@ -309,7 +312,7 @@ export default function HomePage() {
                 href={stat.href}
                 className="py-4 px-4 hover:bg-[#F5F5F5] transition-colors group block"
               >
-                <div className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-[#A68556]">
+                <div className="text-[10.5px] font-eiu-serif font-bold uppercase tracking-wider text-[#A68556]">
                   {stat.label}
                 </div>
                 <div className="text-base font-extrabold text-[#133F68] group-hover:text-[#0054A6] font-eiu-display mt-0.5">
@@ -471,17 +474,17 @@ export default function HomePage() {
                       {featuredNews.categoryLabel}
                     </span>
                     {featuredNews.relatedDocNumber && (
-                      <span className="font-mono text-xs font-bold text-[#FCB900]">
+                      <span className="font-eiu-serif text-xs font-bold text-[#FCB900]">
                         {featuredNews.relatedDocNumber}
                       </span>
                     )}
                   </div>
 
                   <div className="space-y-2">
-                    <div className="text-[11px] font-mono uppercase tracking-widest text-[#DED1BE]">
+                    <div className="text-[11px] font-eiu-serif uppercase tracking-widest text-[#DED1BE]">
                       TIÊU ĐIỂM NHIỆM KỲ KHÓA II
                     </div>
-                    <div className="text-2xl sm:text-3xl font-extrabold font-mono text-white">
+                    <div className="text-2xl sm:text-3xl font-extrabold font-eiu-serif text-white">
                       GPA ≥ 3.00 / 4.00
                     </div>
                     <p className="text-xs text-[#DED1BE]">
@@ -491,7 +494,7 @@ export default function HomePage() {
 
                   <div className="flex items-center justify-between text-xs text-white/80 pt-3 border-t border-white/15">
                     <span>{featuredNews.authorUnit}</span>
-                    <span className="font-mono text-[#FCB900]">
+                    <span className="font-eiu-serif text-[#FCB900]">
                       {featuredNews.publishedAt}
                     </span>
                   </div>
@@ -525,7 +528,7 @@ export default function HomePage() {
                       <ChevronRight className="w-4 h-4" />
                       <span>ĐỌC TOÀN VĂN BÀI VIẾT</span>
                     </Link>
-                    <span className="text-xs text-slate-500 font-mono">
+                    <span className="text-xs text-slate-500 font-eiu-serif">
                       {featuredNews.viewCount.toLocaleString('vi-VN')} lượt xem •{' '}
                       {featuredNews.readMinutes || 4} phút đọc
                     </span>
@@ -566,7 +569,7 @@ export default function HomePage() {
                             {post.authorUnit}
                           </span>
                           {post.relatedDocNumber && (
-                            <span className="font-mono text-xs font-bold text-[#FCB900]">
+                            <span className="font-eiu-serif text-xs font-bold text-[#FCB900]">
                               {post.relatedDocNumber}
                             </span>
                           )}
@@ -593,7 +596,7 @@ export default function HomePage() {
                             <ChevronRight className="w-3.5 h-3.5" />
                             <span>XEM CHI TIẾT</span>
                           </Link>
-                          <span className="font-mono text-[#A68556] font-semibold">
+                          <span className="font-eiu-serif text-[#A68556] font-semibold">
                             {post.publishedAt}
                           </span>
                         </div>
@@ -624,7 +627,7 @@ export default function HomePage() {
                     <div className="h-38 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between">
                       <div className="flex items-start justify-between gap-2">
                         <div className="bg-white text-[#133F68] px-2.5 py-1 text-center leading-tight shrink-0">
-                          <div className="text-base font-extrabold font-mono">
+                          <div className="text-base font-extrabold font-eiu-serif">
                             {dayStr}
                           </div>
                           <div className="text-[10px] font-bold uppercase text-[#C10230]">
@@ -633,7 +636,7 @@ export default function HomePage() {
                         </div>
 
                         <div className="flex flex-col items-end gap-1">
-                          <span className="font-mono text-xs font-bold px-2 py-0.5 bg-[#FCB900] text-[#02294E]">
+                          <span className="font-eiu-serif text-xs font-bold px-2 py-0.5 bg-[#FCB900] text-[#02294E]">
                             +{ev.baseVolunteerDays.toFixed(1)} NGÀY TN
                           </span>
                           {ev.isGreenEvent && (
@@ -649,7 +652,7 @@ export default function HomePage() {
                         <span className="text-[#00BCFF] font-semibold">
                           Tiêu chuẩn: {ev.sv5tCriterion}
                         </span>
-                        <span className="text-[#DED1BE] font-mono text-[11px]">
+                        <span className="text-[#DED1BE] font-eiu-serif text-[11px]">
                           {isOpen ? 'ĐANG MỞ ĐK' : ev.decisionNumber || 'SLA 07 NGÀY'}
                         </span>
                       </div>
@@ -665,7 +668,7 @@ export default function HomePage() {
                           <span className="line-clamp-1">{ev.location}</span>
                         </p>
                         <div className="space-y-1 pt-1">
-                          <div className="flex justify-between text-[11px] text-slate-600 font-mono">
+                          <div className="flex justify-between text-[11px] text-slate-600 font-eiu-serif">
                             <span>Đăng ký: {ev.registeredCount}/{ev.maxParticipants}</span>
                             <span>{fillPct}%</span>
                           </div>
@@ -723,7 +726,7 @@ export default function HomePage() {
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6 space-y-7">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-3">
             <div>
-              <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#A68556]">
+              <div className="text-xs font-eiu-serif font-bold uppercase tracking-widest text-[#A68556]">
                 QUYẾT ĐỊNH 09/QĐ-HSV (SỬA ĐỔI, BỔ SUNG NĂM 2026)
               </div>
               <h2
@@ -747,7 +750,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 bg-[#F5F5F5] border border-slate-200">
               <div className="bg-[#B44625] text-white p-6 flex flex-col justify-between gap-5">
                 <div className="space-y-2">
-                  <span className="text-[10.5px] font-mono uppercase tracking-widest text-white/80">
+                  <span className="text-[10.5px] font-eiu-serif uppercase tracking-widest text-white/80">
                     DANH HIỆU CÁ NHÂN
                   </span>
                   <h3 className="text-lg font-bold font-eiu-display">
@@ -766,7 +769,7 @@ export default function HomePage() {
                 </Link>
               </div>
               <div className="p-6 flex flex-col justify-center bg-white space-y-2">
-                <div className="text-3xl font-extrabold font-mono text-[#B44625]">
+                <div className="text-3xl font-extrabold font-eiu-serif text-[#B44625]">
                   Top 10%
                 </div>
                 <div className="text-sm font-bold text-[#133F68] font-eiu-display">
@@ -781,7 +784,7 @@ export default function HomePage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 bg-[#F5F5F5] border border-slate-200">
               <div className="bg-[#51803A] text-white p-6 flex flex-col justify-between gap-5">
                 <div className="space-y-2">
-                  <span className="text-[10.5px] font-mono uppercase tracking-widest text-white/80">
+                  <span className="text-[10.5px] font-eiu-serif uppercase tracking-widest text-white/80">
                     DANH HIỆU TẬP THỂ
                   </span>
                   <h3 className="text-lg font-bold font-eiu-display">
@@ -800,7 +803,7 @@ export default function HomePage() {
                 </Link>
               </div>
               <div className="p-6 flex flex-col justify-center bg-white space-y-2">
-                <div className="text-2xl font-extrabold font-mono text-[#51803A]">
+                <div className="text-2xl font-extrabold font-eiu-serif text-[#51803A]">
                   100% • ≥30% • 0%
                 </div>
                 <div className="text-sm font-bold text-[#133F68] font-eiu-display">
@@ -822,7 +825,7 @@ export default function HomePage() {
               >
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold text-slate-400">
+                    <span className="font-eiu-serif text-xs font-bold text-slate-400">
                       TIÊU CHUẨN {p.num}
                     </span>
                     <Sparkles className="w-3.5 h-3.5 text-[#A68556]" />
@@ -830,7 +833,7 @@ export default function HomePage() {
                   <h3 className="text-[15px] font-bold text-[#133F68] font-eiu-display">
                     {p.title}
                   </h3>
-                  <div className="inline-block px-2 py-0.5 bg-white border border-slate-200 font-mono text-xs font-bold text-[#0054A6]">
+                  <div className="inline-block px-2 py-0.5 bg-white border border-slate-200 font-eiu-serif text-xs font-bold text-[#0054A6]">
                     {p.threshold}
                   </div>
                   <p className="text-xs text-slate-600 leading-relaxed pt-1">
@@ -854,7 +857,7 @@ export default function HomePage() {
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6 relative z-10 space-y-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="text-xs font-mono font-bold uppercase tracking-widest text-[#FCB900]">
+              <div className="text-xs font-eiu-serif font-bold uppercase tracking-widest text-[#FCB900]">
                 CẤP 03A &amp; 03B • QUẢN LÝ BỞI BAN TỔ CHỨC VÀ XÂY DỰNG HỘI
               </div>
               <h2
@@ -904,10 +907,10 @@ export default function HomePage() {
                       className="bg-[#133F68] hover:bg-[#144069] border border-white/15 hover:border-[#A68556] p-4 transition-colors block"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-xs font-bold text-[#00BCFF]">
+                        <span className="font-eiu-serif text-xs font-bold text-[#00BCFF]">
                           CỤM {meta.shortCode} ({code})
                         </span>
-                        <span className="font-mono text-xs font-bold px-2 py-0.5 bg-white/10 text-[#FCB900]">
+                        <span className="font-eiu-serif text-xs font-bold px-2 py-0.5 bg-white/10 text-[#FCB900]">
                           0{count} Chi hội
                         </span>
                       </div>
@@ -973,7 +976,7 @@ export default function HomePage() {
                     className="bg-[#133F68] hover:bg-[#144069] border border-white/15 hover:border-[#A68556] p-4 transition-colors block"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-xs font-bold text-[#FCB900]">
+                      <span className="font-eiu-serif text-xs font-bold text-[#FCB900]">
                         {blk.count}
                       </span>
                       <ChevronRight className="w-3.5 h-3.5 text-white/60" />
@@ -1025,10 +1028,10 @@ export default function HomePage() {
                 >
                   <div className="space-y-1">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 bg-[#133F68] text-white">
+                      <span className="font-eiu-serif text-xs font-bold px-2 py-0.5 bg-[#133F68] text-white">
                         {doc.documentNumber}
                       </span>
-                      <span className="text-xs font-mono text-[#A68556] font-semibold">
+                      <span className="text-xs font-eiu-serif text-[#A68556] font-semibold">
                         Ban hành: {doc.signedDate}
                       </span>
                     </div>
@@ -1092,7 +1095,7 @@ export default function HomePage() {
                     className={`block bg-[#F5F5F5] hover:bg-[#F0F6FC] border border-slate-200 border-l-4 ${dept.bar} p-4.5 transition-colors group`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#A68556]">
+                      <span className="font-eiu-serif text-[11px] font-bold uppercase tracking-wider text-[#A68556]">
                         {dept.code}
                       </span>
                       <Icon className="w-4 h-4 text-[#133F68]" />

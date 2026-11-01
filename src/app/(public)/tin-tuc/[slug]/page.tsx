@@ -80,7 +80,7 @@ function TinTucDetailInner({
                 </span>
               </div>
 
-              <div className="flex items-center gap-4 text-slate-500 font-mono">
+              <div className="flex items-center gap-4 text-slate-500 font-eiu-serif">
                 <span className="inline-flex items-center gap-1 text-[#A68556] font-semibold">
                   <Calendar className="w-3.5 h-3.5" />
                   {article.publishedAt}
@@ -164,7 +164,7 @@ function TinTucDetailInner({
                     <FileCheck2 className="w-4 h-4 text-[#FCB900]" />
                     <span>Văn bản Pháp lý Gốc</span>
                   </span>
-                  <span className="font-mono text-[#00BCFF]">
+                  <span className="font-eiu-serif text-[#00BCFF]">
                     {relatedDoc.documentNumber}
                   </span>
                 </div>
@@ -174,7 +174,7 @@ function TinTucDetailInner({
                   </div>
                   <div className="text-slate-600 space-y-1">
                     <div>
-                      Ngày ký: <strong className="font-mono">{relatedDoc.signedDate}</strong>
+                      Ngày ký: <strong className="font-eiu-serif">{relatedDoc.signedDate}</strong>
                     </div>
                     <div>
                       Người ký: <strong>{relatedDoc.signerName}</strong> ({relatedDoc.signerTitle})
@@ -235,7 +235,7 @@ function TinTucDetailInner({
                       <span className="font-bold text-[#0054A6]">
                         {rp.categoryLabel}
                       </span>
-                      <span className="font-mono text-[#A68556]">
+                      <span className="font-eiu-serif text-[#A68556]">
                         {rp.publishedAt}
                       </span>
                     </div>

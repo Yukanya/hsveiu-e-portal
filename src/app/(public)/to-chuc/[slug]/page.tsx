@@ -147,7 +147,7 @@ function UnitMicrositeInner({
               <div className="bg-white border border-slate-200">
                 <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
                   <span>Hồ sơ Định danh &amp; Cơ cấu Ban Chủ nhiệm</span>
-                  <span className="font-mono text-[#00BCFF]">{club.code}</span>
+                  <span className="font-eiu-serif text-[#00BCFF]">{club.code}</span>
                 </div>
 
                 <div className="divide-y divide-slate-200 text-[13.5px]">
@@ -231,7 +231,7 @@ function UnitMicrositeInner({
                       Quy mô &amp; Truyền thông:
                     </div>
                     <div className="sm:col-span-8 flex flex-wrap items-center gap-4">
-                      <span className="inline-flex items-center gap-1.5 font-mono text-xs font-bold text-[#133F68]">
+                      <span className="inline-flex items-center gap-1.5 font-eiu-serif text-xs font-bold text-[#133F68]">
                         <Users className="w-4 h-4 text-[#0054A6]" />
                         {club.memberCount} thành viên đang sinh hoạt
                       </span>
@@ -306,7 +306,7 @@ function UnitMicrositeInner({
                       </span>
                       <div className="sm:col-span-8 bg-[#F8FAFC] border border-slate-200 px-3 py-2 text-slate-800">
                         <strong>{currentPersona.fullName}</strong> • MSSV:{' '}
-                        <span className="font-mono">
+                        <span className="font-eiu-serif">
                           {currentPersona.studentId}
                         </span>{' '}
                         ({currentPersona.email})
@@ -470,7 +470,7 @@ function UnitMicrositeInner({
                         <div className="text-xs font-bold text-[#133F68] group-hover:text-[#C10230]">
                           {sc.name}
                         </div>
-                        <div className="text-[11px] text-slate-500 font-mono">
+                        <div className="text-[11px] text-slate-500 font-eiu-serif">
                           {sc.code} • {sc.memberCount} TV
                         </div>
                       </div>
@@ -529,7 +529,7 @@ function UnitMicrositeInner({
                   </span>
                 </span>
                 <span
-                  className={`px-2 py-0.5 font-mono text-[11px] font-bold ${
+                  className={`px-2 py-0.5 font-eiu-serif text-[11px] font-bold ${
                     isCollectiveQualified
                       ? 'bg-[#51803A] text-white'
                       : 'bg-[#FCB900] text-[#02294E]'
@@ -546,7 +546,7 @@ function UnitMicrositeInner({
                   <div className="text-[11px] font-bold uppercase text-slate-500 font-eiu-display">
                     Điều kiện 1: Đăng ký
                   </div>
-                  <div className="text-2xl font-extrabold font-mono text-[#0054A6]">
+                  <div className="text-2xl font-extrabold font-eiu-serif text-[#0054A6]">
                     {b.sv5tRegisteredRate}%
                   </div>
                   <div className="w-full h-2 bg-slate-200">
@@ -565,7 +565,7 @@ function UnitMicrositeInner({
                     Điều kiện 2: Đạt SV5T Trường
                   </div>
                   <div
-                    className={`text-2xl font-extrabold font-mono ${
+                    className={`text-2xl font-extrabold font-eiu-serif ${
                       b.sv5tAchievedRate >= 30
                         ? 'text-emerald-700'
                         : 'text-[#C10230]'
@@ -602,7 +602,7 @@ function UnitMicrositeInner({
                   <div className="text-[11px] font-bold uppercase text-slate-500 font-eiu-display">
                     Điều kiện 3: Kỷ luật
                   </div>
-                  <div className="text-2xl font-extrabold font-mono text-emerald-700">
+                  <div className="text-2xl font-extrabold font-eiu-serif text-emerald-700">
                     {b.hasDisciplineViolation ? 'CÓ VI PHẠM' : '0% VI PHẠM'}
                   </div>
                   <div className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700 pt-1">
@@ -623,7 +623,7 @@ function UnitMicrositeInner({
                   <div className="sm:col-span-4 font-bold text-slate-900">
                     Mã định danh &amp; Khóa:
                   </div>
-                  <div className="sm:col-span-8 font-mono font-bold text-[#133F68]">
+                  <div className="sm:col-span-8 font-eiu-serif font-bold text-[#133F68]">
                     {b.code} • Khóa tuyển sinh 20{b.cohortYear} ({b.totalMembers}{' '}
                     hội viên)
                   </div>
@@ -766,7 +766,7 @@ function UnitMicrositeInner({
                     className="p-3.5 flex items-center justify-between gap-2 hover:bg-[#F5F5F5] transition-colors group"
                   >
                     <div>
-                      <div className="text-xs font-mono font-bold text-[#133F68] group-hover:text-[#C10230]">
+                      <div className="text-xs font-eiu-serif font-bold text-[#133F68] group-hover:text-[#C10230]">
                         {sb.code} — Khóa 20{sb.cohortYear}
                       </div>
                       <div className="text-[11px] text-slate-500">

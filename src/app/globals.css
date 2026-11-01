@@ -49,7 +49,7 @@
   --font-sans: var(--font-be-vietnam), var(--font-montserrat), ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-montserrat), var(--font-be-vietnam), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", Times, serif;
-  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, monospace;
+  --font-mono: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
 html {
@@ -74,7 +74,16 @@ h4,
   letter-spacing: -0.012em;
 }
 
-.font-eiu-serif {
+.font-eiu-serif,
+.font-crimson {
+  font-family: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", serif;
+}
+
+/* Thay thế toàn bộ JetBrains Mono bằng Crimson Text */
+code,
+kbd,
+samp,
+pre {
   font-family: var(--font-crimson-text), Georgia, Cambria, "Times New Roman", serif;
 }
 

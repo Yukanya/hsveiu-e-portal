@@ -46,7 +46,7 @@ export function SubpageBanner({
             <div className="flex items-center gap-3 mb-2.5">
               <span className="w-9 h-0.5 bg-white" aria-hidden="true" />
               {kicker && (
-                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#DED1BE]">
+                <span className="text-[11px] font-eiu-serif font-bold uppercase tracking-widest text-[#DED1BE]">
                   {kicker}
                 </span>
               )}

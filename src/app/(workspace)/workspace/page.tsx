@@ -409,7 +409,7 @@ function WorkspaceContent({
                 <span className="px-2.5 py-0.5 bg-[#C10230] text-white text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
                   HỆ THỐNG QUẢN TRỊ NỘI BỘ E-OFFICE KHÓA II
                 </span>
-                <span className="px-2 py-0.5 bg-[#00BCFF]/20 text-[#00BCFF] font-mono text-xs font-bold">
+                <span className="px-2 py-0.5 bg-[#00BCFF]/20 text-[#00BCFF] font-eiu-serif text-xs font-bold">
                   RBAC: CẤP {activePosition.roleLevel}/6
                 </span>
               </div>
@@ -430,7 +430,7 @@ function WorkspaceContent({
               <div className="bg-[#133F68] border border-white/15 p-2.5">
                 <label
                   htmlFor="eoffice-persona-select"
-                  className="block text-[10px] font-mono uppercase text-[#DED1BE] mb-1"
+                  className="block text-[10px] font-eiu-serif uppercase text-[#DED1BE] mb-1"
                 >
                   Đóng vai Cán bộ / Hội viên (6 Cấp):
                 </label>
@@ -451,7 +451,7 @@ function WorkspaceContent({
               <div className="bg-[#133F68] border border-white/15 p-2.5">
                 <label
                   htmlFor="eoffice-pos-select"
-                  className="block text-[10px] font-mono uppercase text-[#DED1BE] mb-1"
+                  className="block text-[10px] font-eiu-serif uppercase text-[#DED1BE] mb-1"
                 >
                   Ngữ cảnh Kiêm nhiệm ({currentPersona.positions.length} vị
                   trí):
@@ -479,10 +479,10 @@ function WorkspaceContent({
               onClick={() => selectModule('certificates')}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Hàng đợi QĐ 28 &amp; SLA
               </div>
-              <div className="text-xl font-extrabold font-mono text-[#FCB900] mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-[#FCB900] mt-0.5">
                 0{pendingCertEvents.length} Hồ sơ
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -495,10 +495,10 @@ function WorkspaceContent({
               onClick={() => selectModule('documents')}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Kế hoạch Trình duyệt
               </div>
-              <div className="text-xl font-extrabold font-mono text-[#00BCFF] mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-[#00BCFF] mt-0.5">
                 0{pendingPlans.length} / 0{plansState.length} KH
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -511,10 +511,10 @@ function WorkspaceContent({
               onClick={() => selectModule('collective')}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Tập thể SV5T Đạt chuẩn
               </div>
-              <div className="text-xl font-extrabold font-mono text-emerald-300 mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-emerald-300 mt-0.5">
                 {qualifiedCollectiveBranches.length} / {BRANCH_UNITS.length} CH
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -527,10 +527,10 @@ function WorkspaceContent({
               onClick={() => selectModule('office')}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
-              <div className="text-[10.5px] font-mono uppercase text-[#DED1BE]">
+              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Văn phòng 206.B06 &amp; Mộc
               </div>
-              <div className="text-xl font-extrabold font-mono text-white mt-0.5">
+              <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
                 0{borrowedAssets.length} Thiết bị
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
@@ -571,7 +571,7 @@ function WorkspaceContent({
                       <span>{item.label}</span>
                       {item.badge && (
                         <span
-                          className={`text-[10px] font-mono px-1.5 py-0.5 font-bold ${
+                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-white/85 text-[#133F68]'
@@ -676,7 +676,7 @@ function WorkspaceContent({
                 <div className="bg-white border border-slate-200">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
                     <span>Hàng đợi Phê duyệt Ưu tiên (QĐ 28/QĐ-HSV &amp; Văn thư)</span>
-                    <span className="font-mono text-[#FCB900]">
+                    <span className="font-eiu-serif text-[#FCB900]">
                       SLA CAM KẾT ≤ 07 NGÀY LÀM VIỆC
                     </span>
                   </div>
@@ -693,7 +693,7 @@ function WorkspaceContent({
                           <div className="text-slate-600">
                             Đơn vị: <strong>{ev.organizerUnit}</strong> • Quy
                             đổi gốc:{' '}
-                            <strong className="font-mono text-[#C10230]">
+                            <strong className="font-eiu-serif text-[#C10230]">
                               +{ev.baseVolunteerDays.toFixed(1)} ngày
                             </strong>
                           </div>
@@ -780,10 +780,10 @@ function WorkspaceContent({
                       <tbody>
                         {ISSUED_CERTIFICATES.map((cert) => (
                           <tr key={cert.id}>
-                            <td className="text-center font-mono text-xs font-bold">
+                            <td className="text-center font-eiu-serif text-xs font-bold">
                               {String(cert.certSerialNumber).padStart(2, '0')}
                             </td>
-                            <td className="font-mono text-xs font-bold text-[#133F68]">
+                            <td className="font-eiu-serif text-xs font-bold text-[#133F68]">
                               {cert.studentId}
                             </td>
                             <td className="text-xs">
@@ -797,7 +797,7 @@ function WorkspaceContent({
                             <td className="text-xs text-slate-700">
                               {cert.roleTitle}
                             </td>
-                            <td className="text-right font-mono text-xs font-bold text-[#C10230]">
+                            <td className="text-right font-eiu-serif text-xs font-bold text-[#C10230]">
                               +{cert.volunteerDays.toFixed(1)} (×
                               {cert.multiplierApplied})
                             </td>
@@ -831,7 +831,7 @@ function WorkspaceContent({
                             </div>
                           </td>
                           <td className="text-xs">
-                            <div className="font-mono font-bold text-[#C10230]">
+                            <div className="font-eiu-serif font-bold text-[#C10230]">
                               Gốc: +{ev.baseVolunteerDays.toFixed(1)} ngày
                             </div>
                             <div className="text-[11px] text-slate-600 mt-0.5">
@@ -941,7 +941,7 @@ function WorkspaceContent({
                     </button>
                   </div>
 
-                  <span className="text-xs font-mono text-slate-600">
+                  <span className="text-xs font-eiu-serif text-slate-600">
                     Cấp 1 Cơ sở → Cấp 2 Ban CM → Cấp 3 Thường trực
                   </span>
                 </div>
@@ -963,7 +963,7 @@ function WorkspaceContent({
                             <div className="font-bold text-[#133F68]">
                               {c.fullName}
                             </div>
-                            <div className="text-xs font-mono text-slate-500">
+                            <div className="text-xs font-eiu-serif text-slate-500">
                               {c.studentId} • {c.branchCode}
                             </div>
                             {c.isTop10Eligible && (
@@ -975,11 +975,11 @@ function WorkspaceContent({
                           <td className="text-xs text-slate-700 space-y-1">
                             <div>
                               ĐRL: <strong>{c.ethicsScore}</strong> • GPA MAX:{' '}
-                              <strong className="font-mono text-[#0054A6]">
+                              <strong className="font-eiu-serif text-[#0054A6]">
                                 {c.gpaMax.toFixed(2)}/4.00
                               </strong>{' '}
                               • TN:{' '}
-                              <strong className="font-mono text-[#C10230]">
+                              <strong className="font-eiu-serif text-[#C10230]">
                                 {c.volunteerDays.toFixed(1)} ngày
                               </strong>
                             </div>
@@ -1078,7 +1078,7 @@ function WorkspaceContent({
                           !branch.hasDisciplineViolation;
                         return (
                           <tr key={branch.id}>
-                            <td className="font-mono font-bold text-[#133F68]">
+                            <td className="font-eiu-serif font-bold text-[#133F68]">
                               <Link
                                 href={`/to-chuc/${branch.slug}`}
                                 className="hover:text-[#C10230] hover:underline"
@@ -1097,12 +1097,12 @@ function WorkspaceContent({
                                 {branch.clusterLeaderName}
                               </div>
                             </td>
-                            <td className="text-center font-mono text-xs font-bold text-[#0054A6]">
+                            <td className="text-center font-eiu-serif text-xs font-bold text-[#0054A6]">
                               {branch.sv5tRegisteredRate}%
                             </td>
                             <td>
                               <div className="space-y-1">
-                                <div className="flex justify-between font-mono text-xs font-bold">
+                                <div className="flex justify-between font-eiu-serif text-xs font-bold">
                                   <span
                                     className={
                                       isQualified
@@ -1185,7 +1185,7 @@ function WorkspaceContent({
                         const stageMeta = PLAN_STAGE_LABELS[plan.stage];
                         return (
                           <tr key={plan.id}>
-                            <td className="font-mono text-xs font-bold text-[#133F68]">
+                            <td className="font-eiu-serif text-xs font-bold text-[#133F68]">
                               {plan.planCode}
                               <div className="text-[10.5px] font-normal text-slate-500">
                                 Tổ chức: {plan.eventDate}
@@ -1247,14 +1247,14 @@ function WorkspaceContent({
                         className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                       >
                         <div>
-                          <span className="font-mono font-bold text-[#0054A6] mr-2">
+                          <span className="font-eiu-serif font-bold text-[#0054A6] mr-2">
                             {doc.documentNumber}
                           </span>
                           <span className="font-semibold text-[#133F68]">
                             {doc.title}
                           </span>
                         </div>
-                        <span className="font-mono text-slate-500 shrink-0">
+                        <span className="font-eiu-serif text-slate-500 shrink-0">
                           {doc.signedDate}
                         </span>
                       </div>
@@ -1287,7 +1287,7 @@ function WorkspaceContent({
                         02 Phó Trưởng ban: <strong>Đ/c Võ Chí Kiên</strong> •{' '}
                         <strong>Đ/c Liêu Gia Kỳ</strong>
                       </div>
-                      <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5 font-mono text-[11px]">
+                      <div className="pt-2 border-t border-slate-100 flex flex-wrap gap-1.5 font-eiu-serif text-[11px]">
                         <span className="px-2 py-1 bg-[#F0F6FC] border border-slate-200 text-[#133F68] font-bold">
                           Tiểu ban Design
                         </span>
@@ -1364,7 +1364,7 @@ function WorkspaceContent({
                           <td className="text-xs text-slate-700">
                             {post.categoryLabel}
                           </td>
-                          <td className="text-center font-mono text-xs text-slate-600">
+                          <td className="text-center font-eiu-serif text-xs text-slate-600">
                             {post.viewCount.toLocaleString('vi-VN')}
                           </td>
                           <td className="text-right">
@@ -1448,7 +1448,7 @@ function WorkspaceContent({
                     <tbody>
                       {assetsState.map((ast) => (
                         <tr key={ast.id}>
-                          <td className="font-mono text-xs font-bold text-[#133F68]">
+                          <td className="font-eiu-serif text-xs font-bold text-[#133F68]">
                             {ast.assetCode}
                           </td>
                           <td className="space-y-0.5 text-xs">
@@ -1466,7 +1466,7 @@ function WorkspaceContent({
                               </div>
                             )}
                           </td>
-                          <td className="text-center font-mono text-xs font-bold">
+                          <td className="text-center font-eiu-serif text-xs font-bold">
                             {ast.availableQty} / {ast.totalQty}
                           </td>
                           <td className="text-right">
@@ -1505,7 +1505,7 @@ function WorkspaceContent({
                           <span>
                             {log.docNumber} — {log.docTitle}
                           </span>
-                          <span className="font-mono text-slate-500">
+                          <span className="font-eiu-serif text-slate-500">
                             {log.date}
                           </span>
                         </div>
@@ -1535,7 +1535,7 @@ function WorkspaceContent({
                         (23/QĐ-HSV)
                       </span>
                     </span>
-                    <span className="font-mono text-[#00BCFF]">
+                    <span className="font-eiu-serif text-[#00BCFF]">
                       PHÒNG 206.B06
                     </span>
                   </div>
@@ -1573,7 +1573,7 @@ function WorkspaceContent({
                         <div className="font-bold text-emerald-800 uppercase font-eiu-display">
                           Tán thành
                         </div>
-                        <div className="text-xl font-extrabold font-mono text-[#133F68] mt-1">
+                        <div className="text-xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
                           {14 + (myVote === 'APPROVE' ? 1 : 0)} / 15 phiếu
                         </div>
                       </button>
@@ -1596,7 +1596,7 @@ function WorkspaceContent({
                         <div className="font-bold text-[#C10230] uppercase font-eiu-display">
                           Không tán thành
                         </div>
-                        <div className="text-xl font-extrabold font-mono text-[#133F68] mt-1">
+                        <div className="text-xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
                           {myVote === 'REJECT' ? 1 : 0} / 15 phiếu
                         </div>
                       </button>
@@ -1619,7 +1619,7 @@ function WorkspaceContent({
                         <div className="font-bold text-[#A68556] uppercase font-eiu-display">
                           Ý kiến khác
                         </div>
-                        <div className="text-xl font-extrabold font-mono text-[#133F68] mt-1">
+                        <div className="text-xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
                           {myVote === 'ABSTAIN' ? 1 : 0} / 15 phiếu
                         </div>
                       </button>

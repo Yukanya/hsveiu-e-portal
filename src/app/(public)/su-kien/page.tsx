@@ -219,10 +219,10 @@ function SuKienContent({
                           : 'bg-[#133F68] text-white'
                       }`}
                     >
-                      <span className="text-lg font-extrabold font-mono leading-none">
+                      <span className="text-lg font-extrabold font-eiu-serif leading-none">
                         {dateInfo.dayMonth}
                       </span>
-                      <span className="text-[11px] font-mono text-white/85 sm:mt-1.5">
+                      <span className="text-[11px] font-eiu-serif text-white/85 sm:mt-1.5">
                         {dateInfo.timeRange}
                       </span>
                       <span className="text-[9.5px] font-bold uppercase tracking-wider px-1.5 py-0.5 bg-black/20 sm:mt-2 font-eiu-display">
@@ -249,7 +249,7 @@ function SuKienContent({
                         )}
 
                         <span
-                          className={`px-2 py-0.5 text-[10.5px] font-mono font-bold ${
+                          className={`px-2 py-0.5 text-[10.5px] font-eiu-serif font-bold ${
                             ev.preApprovalStatus === 'approved_3days_prior'
                               ? 'bg-[#EAE3D2] text-[#133F68]'
                               : 'bg-amber-50 border border-amber-200 text-amber-800'
@@ -281,7 +281,7 @@ function SuKienContent({
                       {/* Thanh sĩ số & Quy đổi ngày TN gốc */}
                       <div className="pt-2 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2 text-xs">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono text-[11px] text-slate-600">
+                          <span className="font-eiu-serif text-[11px] text-slate-600">
                             Sĩ số:{' '}
                             <strong>
                               {ev.registeredCount +
@@ -297,7 +297,7 @@ function SuKienContent({
                           </div>
                         </div>
 
-                        <span className="font-mono font-bold text-[#C10230]">
+                        <span className="font-eiu-serif font-bold text-[#C10230]">
                           +{ev.baseVolunteerDays.toFixed(1)} ngày gốc
                           {ev.isUnionWorkMultiplierEligible
                             ? ' (Hệ số 1–2–3)'
@@ -320,7 +320,7 @@ function SuKienContent({
                   Phiếu Đăng ký &amp; Quy đổi Ngày TN
                 </span>
                 <span
-                  className={`px-2 py-0.5 text-[10.5px] font-mono font-bold uppercase ${
+                  className={`px-2 py-0.5 text-[10.5px] font-eiu-serif font-bold uppercase ${
                     selectedEvent.certWorkflowStatus === 'decision_issued'
                       ? 'bg-[#51803A] text-white'
                       : selectedEvent.certWorkflowStatus ===
@@ -349,7 +349,7 @@ function SuKienContent({
                   <div className="text-slate-600 space-y-1 pt-1">
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5 text-[#A68556] shrink-0" />
-                      <span className="font-mono">
+                      <span className="font-eiu-serif">
                         {formatViDateBlock(selectedEvent.startTime).fullText}
                       </span>
                     </div>
@@ -409,7 +409,7 @@ function SuKienContent({
                       <strong>Quy đổi cố định (Hệ số ×1):</strong> Chương trình
                       thuộc nhóm ngoài <em>06 - Công tác Đoàn – Hội</em> nên ghi
                       nhận cố định{' '}
-                      <strong className="font-mono text-[#C10230]">
+                      <strong className="font-eiu-serif text-[#C10230]">
                         +{selectedEvent.baseVolunteerDays.toFixed(1)} ngày/lần
                       </strong>
                       , không nhân hệ số 1 – 2 – 3.
@@ -420,7 +420,7 @@ function SuKienContent({
                     <span className="font-bold text-slate-900">
                       Số ngày dự kiến ghi nhận:
                     </span>
-                    <span className="text-base font-extrabold font-mono text-[#C10230]">
+                    <span className="text-base font-extrabold font-eiu-serif text-[#C10230]">
                       +{computedVolunteerDays.toFixed(1)} ngày TN
                     </span>
                   </div>
@@ -435,7 +435,7 @@ function SuKienContent({
                     <div className="font-bold text-[#133F68]">
                       {currentPersona.fullName}
                     </div>
-                    <div className="font-mono text-[11px] text-slate-600">
+                    <div className="font-eiu-serif text-[11px] text-slate-600">
                       MSSV: {currentPersona.studentId} • {currentPersona.email}
                     </div>
                   </div>
@@ -529,7 +529,7 @@ function SuKienContent({
         >
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
-              <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#C10230]">
+              <span className="text-[11px] font-eiu-serif font-bold uppercase tracking-widest text-[#C10230]">
                 QUYẾT ĐỊNH 28/QĐ-HSV &amp; PHỤ LỤC 2 QUYẾT ĐỊNH 09/QĐ-HSV
               </span>
               <h2 className="text-lg sm:text-xl font-bold uppercase text-[#133F68] font-eiu-display mt-0.5">
@@ -586,7 +586,7 @@ function SuKienContent({
                   className="bg-[#F8FAFC] border border-slate-200 p-4 space-y-2 border-t-3 border-t-[#133F68]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-mono text-[11px] font-bold text-[#C10230]">
+                    <span className="font-eiu-serif text-[11px] font-bold text-[#C10230]">
                       {item.step}
                     </span>
                     <Icon className="w-4 h-4 text-[#0054A6]" />

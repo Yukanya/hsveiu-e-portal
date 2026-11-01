@@ -180,7 +180,7 @@ export function PersonaSwitcherBar() {
             }`}
           >
             <span>E-OFFICE</span>
-            <span className="hidden sm:inline font-mono text-[10px] px-1.5 py-0.5 bg-white/15 text-[#FCB900]">
+            <span className="hidden sm:inline font-eiu-serif text-[10px] px-1.5 py-0.5 bg-white/15 text-[#FCB900]">
               CẤP {activePosition.roleLevel}/6
             </span>
           </Link>
@@ -278,7 +278,7 @@ export function PersonaSwitcherBar() {
                             onClick={() => setOpenDrawer('NONE')}
                             className="block hover:text-[#FCB900]"
                           >
-                            <span className="font-mono text-[#00BCFF]">{c.studentId}</span> —{' '}
+                            <span className="font-eiu-serif text-[#00BCFF]">{c.studentId}</span> —{' '}
                             <strong>{c.fullName}</strong> ({c.decisionNumber})
                           </Link>
                         </li>
@@ -290,7 +290,7 @@ export function PersonaSwitcherBar() {
                             onClick={() => setOpenDrawer('NONE')}
                             className="block hover:text-[#FCB900] line-clamp-1"
                           >
-                            <span className="font-mono text-[#DED1BE]">{d.documentNumber}</span>:{' '}
+                            <span className="font-eiu-serif text-[#DED1BE]">{d.documentNumber}</span>:{' '}
                             {d.title}
                           </Link>
                         </li>
