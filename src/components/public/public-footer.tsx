@@ -230,7 +230,7 @@ function PublicFooterInner() {
           <div className="font-eiu-serif text-[14.5px] leading-snug text-[#DED1BE] space-y-1">
             <p className="text-white font-semibold">
               Văn phòng Hội Sinh viên: <br />
-              Phòng 206.B06; Số 81, Đường Nam Kỳ Khởi Nghĩa, Phường Định Hòa, TP. Thủ Dầu Một, Tỉnh Bình Dương
+              Phòng 206.B06 - Số 81, Đường Nam Kỳ Khởi Nghĩa, Phường Bình Dương, Thành phố Hồ Chí Minh
             </p>
             <p>
               Hội viên và Sinh viên EIU liên hệ:{' '}
