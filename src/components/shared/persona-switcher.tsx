@@ -36,11 +36,7 @@ export function PersonaSwitcherBar() {
   );
   const [globalQuery, setGlobalQuery] = useState('');
 
-  const isWideWorkspace =
-    pathname.startsWith('/workspace') || pathname.startsWith('/portal');
-  const containerClass = isWideWorkspace
-    ? 'max-w-[1200px]'
-    : 'max-w-[1140px]';
+  const containerClass = 'max-w-[1200px] xl:max-w-[1240px]';
 
   const quickResults = useMemo(() => {
     const q = globalQuery.trim().toLowerCase();

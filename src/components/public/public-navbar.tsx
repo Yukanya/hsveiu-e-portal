@@ -22,7 +22,7 @@ const NAV_ITEMS: NavItem[] = [
   { href: '/', label: 'TRANG CHỦ' },
   {
     href: '/gioi-thieu',
-    label: 'GIỚI THIỆU & BỘ MÁY',
+    label: 'GIỚI THIỆU VÀ BỘ MÁY',
     children: [
       { label: 'Tổng quan HSV EIU Khóa II (2026–2028)', href: '/gioi-thieu?tab=overview' },
       { label: 'Sơ đồ Cơ cấu Tổ chức 3 Cấp', href: '/gioi-thieu?tab=chart', badge: '3 CẤP' },
@@ -31,15 +31,15 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Ban Kiểm tra HSV Trường (05 đ/c)', href: '/gioi-thieu?tab=bkt' },
       { label: 'Văn phòng Hội Sinh viên (Phòng 206.B06)', href: '/gioi-thieu?tab=vp' },
       { label: 'Ban Tổ chức và Xây dựng Hội (05 Cụm)', href: '/gioi-thieu?tab=tcxdh' },
-      { label: 'Ban Tuyên giáo – Phong trào & Đội CTVXK', href: '/gioi-thieu?tab=tgpt' },
+      { label: 'Ban Tuyên giáo – Phong trào và Đội CTVXK', href: '/gioi-thieu?tab=tgpt' },
     ],
   },
   {
     href: '/to-chuc',
-    label: 'CHI HỘI & CLB',
+    label: 'CHI HỘI VÀ CLB',
     children: [
       { label: 'Danh bạ 30 Câu lạc bộ – Đội – Nhóm', href: '/to-chuc?tab=clubs', badge: '30 CLB' },
-      { label: 'Khối Cộng đồng & Tình nguyện (07)', href: '/to-chuc?tab=clubs&category=CONG_DONG' },
+      { label: 'Khối Cộng đồng và Tình nguyện (07)', href: '/to-chuc?tab=clubs&category=CONG_DONG' },
       { label: 'Khối Học thuật – Nghiên cứu (06)', href: '/to-chuc?tab=clubs&category=HOC_THUAT' },
       { label: 'Khối Văn hóa – Nghệ thuật (10)', href: '/to-chuc?tab=clubs&category=NGHE_THUAT' },
       { label: 'Khối Thể dục – Thể thao (07)', href: '/to-chuc?tab=clubs&category=THE_THAO' },
@@ -54,7 +54,7 @@ const NAV_ITEMS: NavItem[] = [
     href: '/tin-tuc',
     label: 'TIN TỨC',
     children: [
-      { label: 'Tất cả Tin tức & Điểm tin Phong trào', href: '/tin-tuc' },
+      { label: 'Tất cả Tin tức và Điểm tin Phong trào', href: '/tin-tuc' },
       { label: 'Chuyên mục Sinh viên 5 Tốt', href: '/tin-tuc?category=SINH_VIEN_5_TOT' },
       { label: 'Tổ chức – Xây dựng Hội', href: '/tin-tuc?category=TIN_HOAT_DONG' },
       { label: 'Tuyên giáo – Phát triển Bền vững (SDGs)', href: '/tin-tuc?category=TUYEN_TRUYEN' },
@@ -65,10 +65,10 @@ const NAV_ITEMS: NavItem[] = [
     href: '/su-kien',
     label: 'SỰ KIỆN',
     children: [
-      { label: 'Lịch Sự kiện & Đăng ký 1-Chạm', href: '/su-kien' },
+      { label: 'Lịch Sự kiện và Đăng ký 1-Chạm', href: '/su-kien' },
       { label: 'Chương trình Đang mở Đăng ký', href: '/su-kien?status=upcoming' },
       { label: 'Chương trình Đã ban hành Quyết định GCN', href: '/su-kien?status=decision_issued' },
-      { label: 'Quy trình 5 Bước & Hệ số Ngày TN (QĐ 28)', href: '/su-kien#quy-trinh-qd28' },
+      { label: 'Quy trình 5 Bước và Hệ số Ngày TN (QĐ 28)', href: '/su-kien#quy-trinh-qd28' },
     ],
   },
   {
@@ -77,8 +77,8 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Kho Văn bản Pháp lý Hiện hành', href: '/van-ban' },
       { label: 'QĐ 09/QĐ-HSV — Chuẩn Sinh viên 5 Tốt (2026)', href: '/van-ban?doc=09/QĐ-HSV' },
-      { label: 'QĐ 28/QĐ-HSV — Cấp E-Certificate & Ngày TN', href: '/van-ban?doc=28/QĐ-HSV' },
-      { label: 'QĐ 23 & 24/QĐ-HSV — Quy chế BCH & Các Ban', href: '/van-ban?doc=23/QĐ-HSV' },
+      { label: 'QĐ 28/QĐ-HSV — Cấp E-Certificate và Ngày TN', href: '/van-ban?doc=28/QĐ-HSV' },
+      { label: 'QĐ 23 và 24/QĐ-HSV — Quy chế BCH và Các Ban', href: '/van-ban?doc=23/QĐ-HSV' },
       { label: 'TB 04/TB-HSV — Phân công Nhân sự Chủ chốt', href: '/van-ban?doc=04/TB-HSV' },
     ],
   },
@@ -95,11 +95,7 @@ function PublicNavbarInner() {
     null
   );
 
-  const isWideWorkspace =
-    pathname.startsWith('/workspace') || pathname.startsWith('/portal');
-  const containerClass = isWideWorkspace
-    ? 'max-w-[1200px]'
-    : 'max-w-[1140px]';
+  const containerClass = 'max-w-[1200px] xl:max-w-[1240px]';
 
   return (
     <header
@@ -117,31 +113,31 @@ function PublicNavbarInner() {
           <Link
             href="/"
             aria-label="Trang chủ Hội Sinh viên Trường Đại học Quốc tế Miền Đông"
-            className="flex items-center gap-3 shrink-0 py-1 group"
+            className="flex items-center gap-2.5 xl:gap-3 shrink-0 py-1 group"
           >
             <Image
               src="/images/eiu-logo-full.png"
               alt="Trường Đại học Quốc tế Miền Đông (EIU)"
-              width={180}
-              height={52}
+              width={160}
+              height={44}
               priority
-              className="h-11 sm:h-13 w-auto object-contain"
+              className="h-10 sm:h-11 w-auto object-contain"
             />
-            <div className="h-9 w-px bg-slate-300" aria-hidden="true" />
-            <div className="flex items-center gap-2.5">
+            <div className="h-8 w-px bg-slate-300" aria-hidden="true" />
+            <div className="flex items-center gap-2">
               <Image
                 src="/images/hsv-logo.png"
                 alt="Hội Sinh viên Việt Nam"
-                width={40}
-                height={40}
+                width={36}
+                height={36}
                 priority
-                className="h-9 w-9 sm:h-10 sm:w-10 object-contain"
+                className="h-8 w-8 sm:h-9 sm:w-9 object-contain"
               />
               <div className="hidden sm:block">
-                <div className="text-[14px] sm:text-[15px] font-extrabold tracking-wide text-[#133F68] group-hover:text-[#0054A6] transition-colors leading-tight font-eiu-display">
+                <div className="text-[13px] sm:text-[14px] font-extrabold tracking-wide text-[#133F68] group-hover:text-[#0054A6] transition-colors leading-tight font-eiu-display whitespace-nowrap">
                   HỘI SINH VIÊN
                 </div>
-                <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#A68556]">
+                <div className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#A68556] whitespace-nowrap">
                   STUDENT ASSOCIATION
                 </div>
               </div>
@@ -151,7 +147,7 @@ function PublicNavbarInner() {
           {/* Menu Ngang + Dropdown #144069 Góc vuông 0px chuẩn post-5773.css của eiu.edu.vn */}
           <nav
             aria-label="Điều hướng chính"
-            className="hidden xl:flex items-center gap-0.5 h-full"
+            className="hidden xl:flex items-center gap-0.5 xl:gap-1 2xl:gap-1.5 h-full shrink-0"
           >
             {NAV_ITEMS.map((item) => {
               const isActive =
@@ -164,7 +160,7 @@ function PublicNavbarInner() {
               return (
                 <div
                   key={item.href}
-                  className="relative h-full flex items-center"
+                  className="relative h-full flex items-center shrink-0"
                   onMouseEnter={() =>
                     item.children && setOpenDesktopDropdown(item.href)
                   }
@@ -182,23 +178,23 @@ function PublicNavbarInner() {
                     aria-current={isActive ? 'page' : undefined}
                     aria-haspopup={item.children ? 'true' : undefined}
                     aria-expanded={item.children ? isDropdownOpen : undefined}
-                    className={`px-2.5 py-2 min-h-10 inline-flex items-center gap-1 text-[13px] font-bold tracking-wide font-eiu-display transition-colors relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
+                    className={`px-2 xl:px-2.5 2xl:px-3 py-2 min-h-10 inline-flex items-center gap-1 text-[12.5px] xl:text-[13px] font-bold tracking-tight xl:tracking-normal font-eiu-display whitespace-nowrap shrink-0 transition-colors relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                       isActive
                         ? 'text-[#C10230]'
                         : 'text-[#133F68] hover:text-[#A68556]'
                     }`}
                   >
-                    <span>{item.label}</span>
+                    <span className="whitespace-nowrap">{item.label}</span>
                     {item.children && (
                       <ChevronDown
-                        className={`w-3.5 h-3.5 transition-transform duration-150 ${
+                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-150 ${
                           isDropdownOpen ? 'rotate-180 text-[#A68556]' : 'opacity-75'
                         }`}
                       />
                     )}
                     {isActive && (
                       <span
-                        className="absolute bottom-0 left-2.5 right-2.5 h-[3px] bg-[#C10230]"
+                        className="absolute bottom-0 left-2 right-2 h-[3px] bg-[#C10230]"
                         aria-hidden="true"
                       />
                     )}
