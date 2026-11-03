@@ -178,22 +178,22 @@ const PLAN_STAGE_LABELS: Record<
 > = {
   unit_submitted: {
     label: 'Bước 1/4: Cơ sở nộp',
-    badgeClass: 'bg-slate-100 text-slate-800',
+    badgeClass: 'bg-slate-100 text-slate-800 border border-slate-200',
     nextAction: 'Cụm trưởng duyệt →',
   },
   cluster_reviewed: {
     label: 'Bước 2/4: Cụm trưởng đã thẩm định',
-    badgeClass: 'bg-blue-50 text-[#0054A6] border border-blue-200',
+    badgeClass: 'bg-[#0054A6]/10 text-[#0054A6] border border-[#0054A6]/30',
     nextAction: 'VP 206.B06 rà thể thức →',
   },
   office_format_checked: {
     label: 'Bước 3/4: VP 206.B06 đã duyệt thể thức',
-    badgeClass: 'bg-[#FFF9F0] text-[#A68556] border border-[#A68556]/40',
+    badgeClass: 'bg-[#FCB900]/15 text-[#8F5200] border border-[#FCB900]/40',
     nextAction: 'BTK ký ban hành →',
   },
   btk_approved: {
     label: 'Bước 4/4: BTK đã ký ban hành',
-    badgeClass: 'bg-emerald-50 text-emerald-800 border border-emerald-200',
+    badgeClass: 'bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30',
   },
 };
 
@@ -391,7 +391,7 @@ function WorkspaceContent({
         <div
           role="status"
           aria-live="polite"
-          className="fixed bottom-5 right-5 z-50 max-w-md bg-[#133F68] text-white border-l-4 border-[#FCB900] p-4 shadow-xl text-xs"
+          className="fixed bottom-5 right-5 z-50 max-w-md bg-[#133F68] text-white border-t-2 border-[#FCB900] border-x border-b border-white/15 p-4 shadow-2xl text-xs"
         >
           <div className="font-bold uppercase tracking-wider text-[#00BCFF] mb-1 font-eiu-display">
             E-Office HSV EIU • Phòng 206.B06
@@ -438,7 +438,7 @@ function WorkspaceContent({
                   id="eoffice-persona-select"
                   value={currentPersona.id}
                   onChange={(e) => setPersonaById(e.target.value)}
-                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold"
+                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                 >
                   {allPersonas.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -460,7 +460,7 @@ function WorkspaceContent({
                   id="eoffice-pos-select"
                   value={activePosition.id}
                   onChange={(e) => setActivePositionById(e.target.value)}
-                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold"
+                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                 >
                   {currentPersona.positions.map((pos) => (
                     <option key={pos.id} value={pos.id}>
@@ -477,23 +477,23 @@ function WorkspaceContent({
             <button
               type="button"
               onClick={() => selectModule('certificates')}
-              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
+              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
-                Hàng đợi QĐ 28 &amp; SLA
+                Hàng đợi QĐ 28 và SLA
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-[#FCB900] mt-0.5">
                 0{pendingCertEvents.length} Hồ sơ
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
-                Duyệt trước 3N &amp; Cấp E-Cert
+                Duyệt trước 3N và Cấp E-Cert
               </div>
             </button>
 
             <button
               type="button"
               onClick={() => selectModule('documents')}
-              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
+              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Kế hoạch Trình duyệt
@@ -509,7 +509,7 @@ function WorkspaceContent({
             <button
               type="button"
               onClick={() => selectModule('collective')}
-              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
+              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Tập thể SV5T Đạt chuẩn
@@ -525,10 +525,10 @@ function WorkspaceContent({
             <button
               type="button"
               onClick={() => selectModule('office')}
-              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
+              className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
-                Văn phòng 206.B06 &amp; Mộc
+                Văn phòng 206.B06 và Mộc
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
                 0{borrowedAssets.length} Thiết bị
@@ -562,7 +562,7 @@ function WorkspaceContent({
                       type="button"
                       onClick={() => selectModule(item.id)}
                       aria-current={isSelected ? 'page' : undefined}
-                      className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
+                      className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-inset ${
                         isSelected
                           ? 'bg-[#C10230] text-white font-bold'
                           : 'bg-[#EAE3D2] text-slate-900 hover:bg-[#dfd5be]'
@@ -601,7 +601,7 @@ function WorkspaceContent({
 
           {/* CỘT PHẢI (9/12): Không gian làm việc rộng rãi cho Bảng dữ liệu & Quy trình */}
           <div className="lg:col-span-9 space-y-6">
-            <div className="bg-white border border-slate-200 p-5 border-l-4 border-l-[#133F68]">
+            <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5">
               <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
                 {currentModuleMeta.title}
               </h2>
@@ -613,7 +613,7 @@ function WorkspaceContent({
             {activePosition.roleLevel === 1 && (
               <div
                 role="alert"
-                className="bg-[#FFF9F0] border-l-4 border-[#C10230] p-4 flex flex-wrap items-center justify-between gap-3 text-xs"
+                className="bg-[#FFF9F0] border border-[#C10230]/40 p-4 flex flex-wrap items-center justify-between gap-3 text-xs"
               >
                 <div>
                   <strong className="text-[#133F68]">
@@ -647,7 +647,7 @@ function WorkspaceContent({
                     </div>
                     <p className="text-xs text-slate-600 leading-relaxed">
                       03 đơn vị chuyên môn trực thuộc: Văn phòng 206.B06 (Đồng
-                      điều hành), Ban Tổ chức &amp; Xây dựng Hội (05 Cụm), Ban
+                      điều hành), Ban Tổ chức và Xây dựng Hội (05 Cụm), Ban
                       Tuyên giáo – Phong trào (02 Mảng + Đội CTVXK).
                     </p>
                   </div>
@@ -675,7 +675,7 @@ function WorkspaceContent({
                 {/* Hàng đợi phê duyệt ưu tiên */}
                 <div className="bg-white border border-slate-200">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                    <span>Hàng đợi Phê duyệt Ưu tiên (QĐ 28/QĐ-HSV &amp; Văn thư)</span>
+                    <span>Hàng đợi Phê duyệt Ưu tiên (QĐ 28/QĐ-HSV và Văn thư)</span>
                     <span className="font-eiu-serif text-[#FCB900]">
                       SLA CAM KẾT ≤ 07 NGÀY LÀM VIỆC
                     </span>
@@ -718,7 +718,7 @@ function WorkspaceContent({
                             }
                             className="px-4 py-2 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-300 text-white rounded text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
                           >
-                            Ký QĐ &amp; Cấp E-Cert (SLA 0{ev.slaDaysRemaining}N)
+                            Ký QĐ và Cấp E-Cert (SLA 0{ev.slaDaysRemaining}N)
                           </button>
                         )}
                       </div>
@@ -812,9 +812,9 @@ function WorkspaceContent({
                   <table className="eiu-table">
                     <thead>
                       <tr>
-                        <th>Chương trình &amp; Đơn vị tổ chức</th>
+                        <th>Chương trình và Đơn vị tổ chức</th>
                         <th className="w-44">Cơ chế Quy đổi Ngày TN</th>
-                        <th className="w-44">Tiến độ QĐ 28 &amp; SLA</th>
+                        <th className="w-44">Tiến độ QĐ 28 và SLA</th>
                         <th className="w-40 text-right">Thao tác duyệt</th>
                       </tr>
                     </thead>
@@ -842,22 +842,22 @@ function WorkspaceContent({
                           </td>
                           <td className="text-xs">
                             {ev.certWorkflowStatus === 'decision_issued' ? (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">
-                                <CheckCircle2 className="w-3.5 h-3.5" />
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] font-bold">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#51803A]" />
                                 <span>Đã cấp {ev.decisionNumber}</span>
                               </span>
                             ) : ev.certWorkflowStatus ===
                               'list_submitted_sla' ? (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#FFF9F0] border border-[#A68556] text-[#133F68] font-bold">
-                                <Clock className="w-3.5 h-3.5 text-[#A68556]" />
+                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#FCB900]/15 border border-[#FCB900]/40 text-[#8F5200] font-bold">
+                                <Clock className="w-3.5 h-3.5 text-[#8F5200]" />
                                 <span>SLA còn 0{ev.slaDaysRemaining}/07N</span>
                               </span>
                             ) : ev.preApprovalStatus === 'pending_tcxdh' ? (
-                              <span className="px-2 py-0.5 bg-rose-50 border border-rose-200 text-[#C10230] font-bold">
+                              <span className="px-2 py-0.5 bg-[#C10230]/10 border border-[#C10230]/30 text-[#9E0024] font-bold">
                                 Chờ duyệt trước 03 ngày
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] font-semibold">
+                              <span className="px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] font-semibold">
                                 ✓ Đã duyệt chủ trương 3N
                               </span>
                             )}
@@ -884,7 +884,7 @@ function WorkspaceContent({
                                 }
                                 className="px-3 py-1.5 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-300 text-white rounded text-xs font-bold cursor-pointer"
                               >
-                                Ký QĐ &amp; E-Cert
+                                Ký QĐ và E-Cert
                               </button>
                             ) : ev.certWorkflowStatus === 'decision_issued' ? (
                               <Link
@@ -990,15 +990,15 @@ function WorkspaceContent({
                           </td>
                           <td className="text-xs">
                             {c.reviewStage === 3 ? (
-                              <span className="px-2 py-0.5 bg-emerald-50 border border-emerald-200 text-emerald-800 font-bold">
+                              <span className="px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] font-bold">
                                 ✓ Cấp 3: Thường trực đã chốt
                               </span>
                             ) : c.reviewStage === 2 ? (
-                              <span className="px-2 py-0.5 bg-blue-50 border border-blue-200 text-[#0054A6] font-bold">
+                              <span className="px-2 py-0.5 bg-[#0054A6]/10 border border-[#0054A6]/30 text-[#0054A6] font-bold">
                                 Cấp 2: Ban TG-PT/TC-XDH duyệt
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] font-bold">
+                              <span className="px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] font-bold">
                                 Cấp 1: Cơ sở Hội sơ duyệt
                               </span>
                             )}
@@ -1064,7 +1064,7 @@ function WorkspaceContent({
                     <thead>
                       <tr>
                         <th className="w-28">Mã Chi hội</th>
-                        <th>Cụm Khoa &amp; Cụm trưởng</th>
+                        <th>Cụm Khoa và Cụm trưởng</th>
                         <th className="w-24 text-center">ĐK SV5T</th>
                         <th className="w-52">Tỷ lệ Đạt SV5T (≥ 30%)</th>
                         <th className="w-32 text-right">Xếp loại</th>
@@ -1175,7 +1175,7 @@ function WorkspaceContent({
                     <thead>
                       <tr>
                         <th className="w-32">Số KH</th>
-                        <th>Tên Kế hoạch &amp; Đơn vị trình</th>
+                        <th>Tên Kế hoạch và Đơn vị trình</th>
                         <th className="w-52">Bước xử lý hiện tại</th>
                         <th className="w-44 text-right">Luân chuyển</th>
                       </tr>
@@ -1304,7 +1304,7 @@ function WorkspaceContent({
                   <div className="bg-white border border-slate-200">
                     <div className="bg-[#C10230] text-white px-4 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                       <GitBranch className="w-4 h-4 text-[#FCB900]" />
-                      <span>Mảng Phong trào &amp; Đội CTV Xung kích</span>
+                      <span>Mảng Phong trào và Đội CTV Xung kích</span>
                     </div>
                     <div className="p-4 space-y-2.5 text-xs">
                       <div>
@@ -1327,7 +1327,7 @@ function WorkspaceContent({
                         </div>
                         <div className="text-[11px] text-[#C10230] font-semibold">
                           • Đội CTV Xung kích quản lý 02 Tiểu ban:{' '}
-                          <strong>Hậu cần – Sân khấu</strong> &amp;{' '}
+                          <strong>Hậu cần – Sân khấu</strong> và{' '}
                           <strong>Lễ tân – Khánh tiết – Văn thể mỹ</strong>
                         </div>
                       </div>
@@ -1395,7 +1395,7 @@ function WorkspaceContent({
                     <Building2 className="w-4 h-4 text-[#FCB900]" />
                     <span>
                       Lịch trực Hành chính Văn phòng 206.B06 (Đồng điều hành:
-                      Chánh VP Nguyễn Mỹ Hạnh &amp; Tổng Thư ký Nguyễn Như Quỳnh)
+                      Chánh VP Nguyễn Mỹ Hạnh và Tổng Thư ký Nguyễn Như Quỳnh)
                     </span>
                   </div>
                   <table className="eiu-table">
@@ -1433,14 +1433,14 @@ function WorkspaceContent({
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                     <Package className="w-4 h-4 text-[#00BCFF]" />
                     <span>
-                      Sổ Quản lý Tài sản &amp; Thiết bị Dùng chung Phòng 206.B06
+                      Sổ Quản lý Tài sản và Thiết bị Dùng chung Phòng 206.B06
                     </span>
                   </div>
                   <table className="eiu-table">
                     <thead>
                       <tr>
                         <th className="w-32">Mã tài sản</th>
-                        <th>Tên thiết bị &amp; Đơn vị đang mượn</th>
+                        <th>Tên thiết bị và Đơn vị đang mượn</th>
                         <th className="w-28 text-center">Tồn kho</th>
                         <th className="w-36 text-right">Cập nhật</th>
                       </tr>
@@ -1531,7 +1531,7 @@ function WorkspaceContent({
                     <span className="inline-flex items-center gap-2">
                       <Vote className="w-4 h-4 text-[#FCB900]" />
                       <span>
-                        Phiên Họp Không Giấy &amp; Biểu quyết Nghị quyết Điện tử
+                        Phiên Họp Không Giấy và Biểu quyết Nghị quyết Điện tử
                         (23/QĐ-HSV)
                       </span>
                     </span>
@@ -1544,7 +1544,7 @@ function WorkspaceContent({
                     <div className="space-y-1">
                       <div className="text-sm font-bold text-[#133F68] font-eiu-display">
                         Dự thảo Nghị quyết Hội nghị Ban Chấp hành Mở rộng Quý
-                        IV/2026 (15 đ/c BCH &amp; 05 đ/c BKT)
+                        IV/2026 (15 đ/c BCH và 05 đ/c BKT)
                       </div>
                       <p className="text-slate-600 leading-relaxed">
                         Nội dung biểu quyết: Thông qua chỉ tiêu hỗ trợ 04 Chi
@@ -1566,11 +1566,11 @@ function WorkspaceContent({
                         }}
                         className={`p-3 border text-left cursor-pointer disabled:cursor-not-allowed ${
                           myVote === 'APPROVE'
-                            ? 'border-2 border-[#51803A] bg-emerald-50'
+                            ? 'border-2 border-[#51803A] bg-[#51803A]/10'
                             : 'border-slate-200 bg-[#F8FAFC] hover:border-[#133F68]'
                         }`}
                       >
-                        <div className="font-bold text-emerald-800 uppercase font-eiu-display">
+                        <div className="font-bold text-[#2E521D] uppercase font-eiu-display">
                           Tán thành
                         </div>
                         <div className="text-xl font-extrabold font-eiu-serif text-[#133F68] mt-1">

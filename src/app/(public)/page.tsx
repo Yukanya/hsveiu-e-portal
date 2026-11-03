@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   EVENT_ITEMS,
   NEWS_POSTS,
@@ -59,15 +60,21 @@ export default function HomePage() {
           <div className="lg:col-span-5">
             <div className="bg-white border-t-4 border-[#A68556] shadow-xl">
               <div className="p-6 sm:p-7 flex items-center justify-center gap-6">
-                <img
+                <Image
                   src="/images/eiu-logo-full.png"
                   alt="Trường Đại học Quốc tế Miền Đông"
+                  width={240}
+                  height={100}
+                  priority
                   className="h-22 sm:h-25 w-auto object-contain"
                 />
                 <div className="h-20 w-px bg-slate-200" aria-hidden="true" />
-                <img
+                <Image
                   src="/images/hsv-bch-dh2.png"
                   alt="Biểu trưng Đại hội II Hội Sinh viên EIU (2026 - 2028)"
+                  width={140}
+                  height={100}
+                  priority
                   className="h-22 sm:h-25 w-auto object-contain"
                 />
               </div>
@@ -91,7 +98,7 @@ export default function HomePage() {
               id="news-events-heading"
               className="text-xl sm:text-2xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display"
             >
-              TIN TỨC PHONG TRÀO &amp; LỊCH SỰ KIỆN SINH VIÊN
+              TIN TỨC PHONG TRÀO VÀ LỊCH SỰ KIỆN SINH VIÊN
             </h2>
 
             {/* Cặp nút Pill Đỏ #C10230 / Trắng viền #133F68 chuẩn eiu.edu.vn */}
@@ -105,10 +112,10 @@ export default function HomePage() {
                 role="tab"
                 aria-selected={newsTab === 'NEWS'}
                 onClick={() => setNewsTab('NEWS')}
-                className={`min-w-36 py-2 px-6 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display ${
+                className={`min-w-36 py-2 px-6 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                   newsTab === 'NEWS'
                     ? 'bg-[#C10230] text-white border border-[#C10230]'
-                    : 'bg-white text-[#133F68] border border-[#133F68] hover:bg-slate-100'
+                    : 'bg-white text-[#133F68] border border-[#133F68] hover:bg-[#EAE3D2]/30'
                 }`}
               >
                 TIN TỨC ({NEWS_POSTS.length})
@@ -118,10 +125,10 @@ export default function HomePage() {
                 role="tab"
                 aria-selected={newsTab === 'EVENTS'}
                 onClick={() => setNewsTab('EVENTS')}
-                className={`min-w-36 py-2 px-6 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display ${
+                className={`min-w-36 py-2 px-6 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                   newsTab === 'EVENTS'
                     ? 'bg-[#C10230] text-white border border-[#C10230]'
-                    : 'bg-white text-[#133F68] border border-[#133F68] hover:bg-slate-100'
+                    : 'bg-white text-[#133F68] border border-[#133F68] hover:bg-[#EAE3D2]/30'
                 }`}
               >
                 SỰ KIỆN ({EVENT_ITEMS.length})
@@ -188,7 +195,7 @@ export default function HomePage() {
                   <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100">
                     <Link
                       href={`/tin-tuc/${featuredNews.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0054A6] hover:text-[#C10230] font-eiu-display"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
                     >
                       <ChevronRight className="w-4 h-4" />
                       <span>ĐỌC TOÀN VĂN BÀI VIẾT</span>
@@ -223,9 +230,11 @@ export default function HomePage() {
                           <span className="px-2 py-0.5 bg-[#00BCFF] text-[#02294E] text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
                             {post.categoryLabel}
                           </span>
-                          <img
+                          <Image
                             src="/images/hsv-logo.png"
                             alt=""
+                            width={28}
+                            height={28}
                             className="w-7 h-7 object-contain opacity-90"
                           />
                         </div>
@@ -261,7 +270,7 @@ export default function HomePage() {
                             <ChevronRight className="w-3.5 h-3.5" />
                             <span>XEM CHI TIẾT</span>
                           </Link>
-                          <span className="font-eiu-serif text-[#A68556] font-semibold">
+                          <span className="font-eiu-serif text-[#8E6D3E] font-semibold">
                             {post.publishedAt}
                           </span>
                         </div>
@@ -339,7 +348,13 @@ export default function HomePage() {
                           </div>
                           <div className="h-1.5 bg-slate-200 overflow-hidden">
                             <div
-                              className="h-full bg-[#0054A6]"
+                              className={`h-full transition-all ${
+                                fillPct >= 100
+                                  ? 'bg-[#51803A]'
+                                  : fillPct >= 85
+                                  ? 'bg-[#EEB31D]'
+                                  : 'bg-[#0054A6]'
+                              }`}
                               style={{ width: `${fillPct}%` }}
                             />
                           </div>
@@ -368,7 +383,7 @@ export default function HomePage() {
           <div className="flex justify-end">
             <Link
               href={newsTab === 'NEWS' ? '/tin-tuc' : '/su-kien'}
-              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-2 rounded-xs"
             >
               <ChevronRight className="w-4 h-4" />
               <span>XEM THÊM</span>

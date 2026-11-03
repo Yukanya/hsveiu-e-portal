@@ -133,11 +133,13 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
     'BKT' | 'BAN_TGPT'
   >('BKT');
   const [feedbackCategory, setFeedbackCategory] = useState(
-    'Quy đổi Ngày tình nguyện & Cấp E-Certificate (28/QĐ-HSV)'
+    'Quy đổi Ngày tình nguyện và Cấp E-Certificate (28/QĐ-HSV)'
   );
   const [isAnonymous, setIsAnonymous] = useState(false);
   const [feedbackContent, setFeedbackContent] = useState('');
   const [feedbackSent, setFeedbackSent] = useState(false);
+  const [isSubmittingFeedback, setIsSubmittingFeedback] = useState(false);
+  const [feedbackError, setFeedbackError] = useState('');
 
   const handleQuarterChange = (
     index: number,
@@ -148,7 +150,13 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
     setQuarters((prev) =>
       prev.map((q, i) =>
         i === index
-          ? { ...q, [field]: field === 'gpa4' ? Math.min(4, num) : num }
+          ? {
+              ...q,
+              [field]:
+                field === 'gpa4'
+                  ? Math.min(4, Math.round(num * 100) / 100)
+                  : Math.min(30, Math.round(num)),
+            }
           : q
       )
     );
@@ -281,7 +289,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
-                Kho E-Cert &amp; Quiz Số
+                Kho E-Cert và Quiz Số
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
                 {personalCerts.length} GCN •{' '}
@@ -305,7 +313,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
           >
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                Sổ tay &amp; Tiện ích Hội viên
+                Sổ tay và Tiện ích Hội viên
               </div>
               <div className="divide-y divide-white">
                 {PORTAL_MENU.map((item) => {
@@ -362,7 +370,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
 
           {/* CỘT PHẢI (9/12): Không gian chức năng chi tiết */}
           <div className="lg:col-span-9 space-y-6">
-            <div className="bg-white border border-slate-200 p-5 border-l-4 border-l-[#133F68]">
+            <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5">
               <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
                 {currentMenu.title}
               </h2>
@@ -395,50 +403,72 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         lvl: 'CẤP 01 — CƠ SỞ HỘI',
                         actor: 'BCH Chi hội / BCN CLB sơ duyệt',
                         active: true,
+                        statusText: 'Đã hoàn tất sơ duyệt',
                       },
                       {
                         lvl: 'CẤP 02 — BAN CHUYÊN MÔN',
                         actor: 'Ban TG-PT & Ban TC-XDH thẩm định chéo',
                         active: dossierSubmitted,
+                        statusText: dossierSubmitted ? 'Đang thẩm định' : 'Chờ nộp hồ sơ',
                       },
                       {
                         lvl: 'CẤP 03 — THƯỜNG TRỰC HỘI',
-                        actor: 'Ban Thư ký chốt duyệt & Lọc Top 10%',
+                        actor: 'Ban Thư ký chốt duyệt và Lọc Top 10%',
                         active: false,
+                        statusText: 'Chờ chốt duyệt',
                       },
                     ].map((st) => (
                       <div
                         key={st.lvl}
-                        className={`p-3.5 border ${
+                        className={`p-3.5 border transition-colors ${
                           st.active
-                            ? 'bg-[#F0F6FC] border-[#0054A6]'
-                            : 'bg-[#F8FAFC] border-slate-200'
+                            ? 'bg-[#0054A6]/[0.05] border-[#0054A6]'
+                            : 'bg-[#F8FAFC] border-slate-200 opacity-80'
                         }`}
                       >
-                        <div className="font-eiu-serif font-bold text-[#133F68]">
-                          {st.lvl}
+                        <div className="flex items-center justify-between gap-1">
+                          <span className="font-eiu-serif font-bold text-[#133F68]">
+                            {st.lvl}
+                          </span>
+                          <span
+                            className={`text-[10px] font-bold px-1.5 py-0.5 ${
+                              st.active
+                                ? 'bg-[#0054A6] text-white'
+                                : 'bg-slate-200 text-slate-700'
+                            }`}
+                          >
+                            {st.statusText}
+                          </span>
                         </div>
-                        <div className="text-slate-600 mt-0.5">{st.actor}</div>
+                        <div className="text-slate-600 mt-1.5">{st.actor}</div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                {/* Bảng 05 Tiêu chuẩn Cứng & Tiêu chí Phụ */}
+                {/* Bảng 05 Tiêu chuẩn Cứng & Tiêu chí Phụ theo QĐ 09 */}
                 <div className="bg-white border border-slate-300 overflow-x-auto">
                   <table className="eiu-table">
                     <thead>
                       <tr>
-                        <th className="w-44">Tiêu chuẩn</th>
+                        <th className="w-52">Tiêu chuẩn SV5T</th>
                         <th>Chuẩn cứng bắt buộc (09/QĐ-HSV 2026)</th>
                         <th>Tiêu chí phụ đã tích lũy (≥ 01)</th>
-                        <th className="w-32 text-right">Kết luận</th>
+                        <th className="w-34 text-right">Kết luận</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="font-bold text-[#133F68]">
-                          1. Đạo đức tốt
+                        <td>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#133F68] shrink-0" aria-hidden="true" />
+                            <span className="font-bold text-[#133F68]">
+                              1. Đạo đức tốt
+                            </span>
+                          </div>
+                          <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
+                            Tư tưởng chính trị & Kỷ luật
+                          </span>
                         </td>
                         <td className="text-xs">
                           Điểm rèn luyện năm học:{' '}
@@ -452,14 +482,24 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             ? `✓ Đạt ${quizCorrectCount}/5 bài thi Online Quiz Nghị quyết`
                             : '✓ Tham gia Hội thi Tìm hiểu Tư tưởng Hồ Chí Minh'}
                         </td>
-                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
-                          ✓ ĐẠT CHUẨN
+                        <td className="text-right">
+                          <span className="inline-block px-2 py-0.5 bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30 font-eiu-serif text-xs font-bold">
+                            ✓ ĐẠT CHUẨN
+                          </span>
                         </td>
                       </tr>
 
                       <tr>
-                        <td className="font-bold text-[#133F68]">
-                          2. Học tập tốt
+                        <td>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#8E6D3E] shrink-0" aria-hidden="true" />
+                            <span className="font-bold text-[#133F68]">
+                              2. Học tập tốt
+                            </span>
+                          </div>
+                          <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
+                            Học thuật & Nghiên cứu khoa học
+                          </span>
                         </td>
                         <td className="text-xs">
                           MAX(Năm học {weightedYearGpa.toFixed(2)}, Tích lũy{' '}
@@ -473,14 +513,16 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ 01 Tham luận NCKH / Sinh hoạt CLB Học thuật có xác
                           nhận Mentor
                         </td>
-                        <td className="text-right font-eiu-serif text-xs font-bold">
+                        <td className="text-right">
                           {isGpaQualified ? (
-                            <span className="text-emerald-700">✓ ĐẠT CHUẨN</span>
+                            <span className="inline-block px-2 py-0.5 bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30 font-eiu-serif text-xs font-bold">
+                              ✓ ĐẠT CHUẨN
+                            </span>
                           ) : (
                             <button
                               type="button"
                               onClick={() => setActiveTab('gpa')}
-                              className="text-[#C10230] underline cursor-pointer"
+                              className="inline-block px-2 py-0.5 bg-[#C10230]/10 text-[#9E0024] border border-[#C10230]/30 font-eiu-serif text-xs font-bold underline cursor-pointer"
                             >
                               CẦN ≥ 3.00 →
                             </button>
@@ -489,8 +531,16 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       </tr>
 
                       <tr>
-                        <td className="font-bold text-[#133F68]">
-                          3. Thể lực tốt
+                        <td>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#51803A] shrink-0" aria-hidden="true" />
+                            <span className="font-bold text-[#133F68]">
+                              3. Thể lực tốt
+                            </span>
+                          </div>
+                          <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
+                            Rèn luyện thể thao & GDTC
+                          </span>
                         </td>
                         <td className="text-xs">
                           Hoàn thành đủ 03 môn GDTC theo chương trình đào tạo EIU
@@ -499,14 +549,24 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ Đạt Giấy chứng nhận &ldquo;Sinh viên Khỏe&rdquo; cấp
                           Trường 2026 (Phụ lục 1)
                         </td>
-                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
-                          ✓ ĐẠT CHUẨN
+                        <td className="text-right">
+                          <span className="inline-block px-2 py-0.5 bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30 font-eiu-serif text-xs font-bold">
+                            ✓ ĐẠT CHUẨN
+                          </span>
                         </td>
                       </tr>
 
                       <tr>
-                        <td className="font-bold text-[#133F68]">
-                          4. Tình nguyện tốt
+                        <td>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#0054A6] shrink-0" aria-hidden="true" />
+                            <span className="font-bold text-[#133F68]">
+                              4. Tình nguyện tốt
+                            </span>
+                          </div>
+                          <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
+                            Cống hiến & Ngày tình nguyện
+                          </span>
                         </td>
                         <td className="text-xs">
                           Tích lũy:{' '}
@@ -517,16 +577,26 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         </td>
                         <td className="text-xs text-slate-700">
                           ✓ Tham gia Ngày hội Hiến máu tình nguyện EIU (+5.0
-                          ngày) &amp; Tập huấn Đoàn – Hội
+                          ngày) và Tập huấn Đoàn – Hội
                         </td>
-                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
-                          ✓ ĐẠT CHUẨN
+                        <td className="text-right">
+                          <span className="inline-block px-2 py-0.5 bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30 font-eiu-serif text-xs font-bold">
+                            ✓ ĐẠT CHUẨN
+                          </span>
                         </td>
                       </tr>
 
                       <tr>
-                        <td className="font-bold text-[#133F68]">
-                          5. Hội nhập tốt
+                        <td>
+                          <div className="flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-[#B44625] shrink-0" aria-hidden="true" />
+                            <span className="font-bold text-[#133F68]">
+                              5. Hội nhập tốt
+                            </span>
+                          </div>
+                          <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
+                            Tiếng Anh & Kỹ năng toàn cầu
+                          </span>
                         </td>
                         <td className="text-xs">
                           Hoàn thành 01 khóa Kỹ năng thực hành xã hội (Phụ lục
@@ -536,8 +606,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           ✓ Đạt chuẩn Tiếng Anh B1 / Giao lưu sinh viên quốc tế
                           tại EIU
                         </td>
-                        <td className="text-right font-eiu-serif text-xs font-bold text-emerald-700">
-                          ✓ ĐẠT CHUẨN
+                        <td className="text-right">
+                          <span className="inline-block px-2 py-0.5 bg-[#51803A]/10 text-[#2E521D] border border-[#51803A]/30 font-eiu-serif text-xs font-bold">
+                            ✓ ĐẠT CHUẨN
+                          </span>
                         </td>
                       </tr>
                     </tbody>
@@ -578,7 +650,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                     <Calculator className="w-4 h-4 text-[#00BCFF]" />
                     <span>
-                      1. Nhập điểm 03 Học kỳ Quý chính (Thu – Đông – Xuân) &amp;
+                      1. Nhập điểm 03 Học kỳ Quý chính (Thu – Đông – Xuân) và
                       Học kỳ Hè
                     </span>
                   </div>
@@ -608,7 +680,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             onChange={(e) =>
                               handleQuarterChange(idx, 'credits', e.target.value)
                             }
-                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs text-slate-900"
+                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                           />
                         </div>
                         <div className="sm:col-span-3">
@@ -628,7 +700,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             onChange={(e) =>
                               handleQuarterChange(idx, 'gpa4', e.target.value)
                             }
-                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs font-bold text-[#0054A6]"
+                            className="w-full h-9 px-3 border border-slate-300 rounded font-eiu-serif text-xs font-bold text-[#0054A6] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                           />
                         </div>
                       </div>
@@ -662,7 +734,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                               )
                             )
                           }
-                          className="w-full sm:w-48 h-9 px-3 border-2 border-[#0054A6] rounded font-eiu-serif text-xs font-bold text-[#133F68] bg-white"
+                          className="w-full sm:w-48 h-9 px-3 border-2 border-[#0054A6] rounded font-eiu-serif text-xs font-bold text-[#133F68] bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                         />
                       </div>
                     </div>
@@ -800,7 +872,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                 {/* Danh sách sự kiện sắp tới đã đồng bộ vé QR */}
                 <div className="bg-white border border-slate-200">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider font-eiu-display">
-                    Lịch Sự kiện Sắp diễn ra &amp; Vé Điểm danh QR Cá nhân
+                    Lịch Sự kiện Sắp diễn ra và Vé Điểm danh QR Cá nhân
                   </div>
                   <div className="divide-y divide-slate-200 text-xs">
                     {EVENT_ITEMS.filter(
@@ -844,10 +916,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
               <div className="space-y-5">
                 {quizSubmitted && (
                   <div
-                    className={`p-5 border-l-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
+                    className={`p-5 border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
                       quizPassed
-                        ? 'bg-emerald-50 border-[#51803A] text-emerald-950'
-                        : 'bg-[#FFF9F0] border-[#C10230] text-slate-900'
+                        ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
+                        : 'bg-[#FFF9F0] border-amber-300 text-slate-900'
                     }`}
                   >
                     <div className="space-y-1">
@@ -977,7 +1049,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           : 'bg-[#0054A6] hover:bg-[#133F68] text-white cursor-pointer'
                       }`}
                     >
-                      Nộp bài &amp; Đồng bộ SV5T
+                      Nộp bài và Đồng bộ SV5T
                     </button>
                   </div>
                 )}
@@ -1070,7 +1142,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                         <tr>
                           <th>Vị trí ký số</th>
                           <th>Giá trị tách</th>
-                          <th>Ý nghĩa học vụ &amp; Định danh Khoa/Khóa</th>
+                          <th>Ý nghĩa học vụ và Định danh Khoa/Khóa</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -1153,14 +1225,27 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    setFeedbackSent(true);
+                    const trimmed = feedbackContent.trim();
+                    if (trimmed.length < 10) {
+                      setFeedbackError(
+                        'Vui lòng nhập tối thiểu 10 ký tự nội dung kiến nghị/phản ánh.'
+                      );
+                      return;
+                    }
+                    setIsSubmittingFeedback(true);
+                    setFeedbackError('');
+                    setTimeout(() => {
+                      setFeedbackSent(true);
+                      setIsSubmittingFeedback(false);
+                      setFeedbackContent('');
+                    }, 300);
                   }}
                   className="bg-white border border-slate-200"
                 >
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                     <MessageSquare className="w-4 h-4 text-[#00BCFF]" />
                     <span>
-                      Biểu mẫu Gửi Kiến nghị, Đề xuất &amp; Phản ánh Quyền lợi
+                      Biểu mẫu Gửi Kiến nghị, Đề xuất và Phản ánh Quyền lợi
                       Hội viên
                     </span>
                   </div>
@@ -1180,7 +1265,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                               : 'bg-[#F8FAFC] text-[#133F68] border-slate-300'
                           }`}
                         >
-                          Ban Kiểm tra HSV Trường (Giám sát &amp; Quyền lợi)
+                          Ban Kiểm tra HSV Trường (Giám sát và Quyền lợi)
                         </button>
                         <button
                           type="button"
@@ -1211,14 +1296,14 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           className="w-full h-9 px-3 border border-slate-300 rounded text-xs bg-white text-slate-900 font-medium"
                         >
                           <option>
-                            Quy đổi Ngày tình nguyện &amp; Cấp E-Certificate
+                            Quy đổi Ngày tình nguyện và Cấp E-Certificate
                             (28/QĐ-HSV)
                           </option>
                           <option>
                             Xét chọn Danh hiệu Sinh viên 5 Tốt (09/QĐ-HSV 2026)
                           </option>
                           <option>
-                            Hoạt động Chi hội Khoa &amp; Câu lạc bộ – Đội – Nhóm
+                            Hoạt động Chi hội Khoa và Câu lạc bộ – Đội – Nhóm
                           </option>
                           <option>
                             Đề xuất Chương trình mới / Sự kiện Xanh UN SDGs
@@ -1261,11 +1346,24 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           id="fb-body"
                           rows={4}
                           required
+                          maxLength={2000}
                           value={feedbackContent}
-                          onChange={(e) => setFeedbackContent(e.target.value)}
+                          onChange={(e) => {
+                            setFeedbackContent(e.target.value);
+                            if (feedbackError) setFeedbackError('');
+                          }}
                           placeholder="Trình bày cụ thể sự kiện, thời gian hoặc đề xuất của bạn để Ban Kiểm tra / Ban TG-PT phản hồi..."
-                          className="w-full p-3 border border-slate-300 rounded text-xs text-slate-900"
+                          className="w-full p-3 border border-slate-300 rounded text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                         />
+                        <div className="flex justify-between items-center text-[11px] text-slate-400 mt-1">
+                          <span>Tối thiểu 10 ký tự</span>
+                          <span>{feedbackContent.length}/2000 ký tự</span>
+                        </div>
+                        {feedbackError && (
+                          <p role="alert" className="text-xs text-[#C10230] font-semibold mt-1">
+                            {feedbackError}
+                          </p>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -1292,9 +1390,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                     </span>
                     <button
                       type="submit"
-                      className="px-6 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
+                      disabled={isSubmittingFeedback}
+                      className="px-6 py-2 bg-[#0054A6] hover:bg-[#133F68] disabled:opacity-60 text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                     >
-                      Gửi Kiến nghị
+                      {isSubmittingFeedback ? 'Đang gửi...' : 'Gửi Kiến nghị'}
                     </button>
                   </div>
                 </form>
@@ -1321,7 +1420,7 @@ export default function StudentPortalPage() {
     <Suspense
       fallback={
         <div className="max-w-[1200px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải Không gian Hội viên &amp; Sổ tay Sinh viên 5 Tốt...
+          Đang tải Không gian Hội viên và Sổ tay Sinh viên 5 Tốt...
         </div>
       }
     >

@@ -318,7 +318,7 @@ function ToChucContent({
           {/* CỘT PHẢI (9/12): Danh mục Đơn vị & Bộ lọc thông minh */}
           <div className="lg:col-span-9 space-y-5">
             {/* Header & Thanh tìm kiếm */}
-            <div className="bg-white border border-slate-200 p-5 space-y-4 border-l-4 border-l-[#133F68]">
+            <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5 space-y-4">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
@@ -573,7 +573,7 @@ function ToChucContent({
                       <tr>
                         <th className="w-12 text-center">TT</th>
                         <th className="w-28">Mã Chi hội</th>
-                        <th>Cụm Khoa &amp; Khóa tuyển sinh</th>
+                        <th>Cụm Khoa và Khóa tuyển sinh</th>
                         <th>Cụm trưởng / Chi hội trưởng</th>
                         <th className="w-56">Tiến độ Tập thể SV5T (≥ 30%)</th>
                         <th className="w-24 text-right">Hồ sơ</th>
@@ -731,7 +731,7 @@ export default function ToChucPage() {
     <Suspense
       fallback={
         <div className="max-w-[1140px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải hệ thống 25 Chi hội &amp; 30 Câu lạc bộ...
+          Đang tải hệ thống 25 Chi hội và 30 Câu lạc bộ...
         </div>
       }
     >

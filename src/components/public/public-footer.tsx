@@ -2,6 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { CheckCircle2, Send } from 'lucide-react';
 
@@ -9,6 +10,8 @@ function PublicFooterInner() {
   const pathname = usePathname();
   const [emailInput, setEmailInput] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const isWideWorkspace =
     pathname.startsWith('/workspace') || pathname.startsWith('/portal');
@@ -18,9 +21,22 @@ function PublicFooterInner() {
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!emailInput.trim()) return;
-    setSubscribed(true);
-    setEmailInput('');
+    const trimmed = emailInput.trim();
+    if (!trimmed) {
+      setErrorMsg('Vui lòng nhập địa chỉ email.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmed)) {
+      setErrorMsg('Định dạng email không hợp lệ.');
+      return;
+    }
+    setIsSubmitting(true);
+    setErrorMsg('');
+    setTimeout(() => {
+      setSubscribed(true);
+      setIsSubmitting(false);
+      setEmailInput('');
+    }, 250);
   };
 
   return (
@@ -31,18 +47,24 @@ function PublicFooterInner() {
           {/* Cột 1 (4/12): Cụm Logo EIU trắng và Logo Hội Sinh viên cân đối + Khẩu hiệu học thuật */}
           <div className="sm:col-span-2 lg:col-span-4 space-y-3.5 pr-0 lg:pr-6">
             <div className="flex items-center gap-4">
-              <img
+              <Image
                 src="/images/eiu-logo-full-white.png"
                 alt="Trường Đại học Quốc tế Miền Đông"
+                width={180}
+                height={70}
+                loading="lazy"
                 className="h-16 sm:h-18 w-auto object-contain"
               />
               <div
                 className="h-12 w-px bg-white/25"
                 aria-hidden="true"
               />
-              <img
+              <Image
                 src="/images/hsv-logo.png"
                 alt="Hội Sinh viên Việt Nam"
+                width={60}
+                height={60}
+                loading="lazy"
                 className="h-14 sm:h-15 w-auto object-contain"
               />
             </div>
@@ -69,7 +91,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/gioi-thieu?tab=overview"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tổng quan Khóa II
                 </Link>
@@ -77,7 +99,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/gioi-thieu?tab=chart"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Sơ đồ Tổ chức 3 Cấp
                 </Link>
@@ -85,7 +107,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/gioi-thieu?tab=vp"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Văn phòng 206.B06
                 </Link>
@@ -93,7 +115,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/to-chuc"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Chi hội và CLB
                 </Link>
@@ -110,7 +132,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/portal?tab=sv5t"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Sổ tay Sinh viên 5 Tốt
                 </Link>
@@ -118,7 +140,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/tin-tuc"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tin tức và Hoạt động
                 </Link>
@@ -126,7 +148,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/su-kien"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Lịch Sự kiện
                 </Link>
@@ -134,7 +156,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/portal?tab=voice"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Hộp thư Lắng nghe SV
                 </Link>
@@ -151,7 +173,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/tra-cuu-gcn"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tra cứu E-Certificate QR
                 </Link>
@@ -159,7 +181,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/van-ban"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Kho Văn bản Khóa II
                 </Link>
@@ -167,7 +189,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/van-ban?doc=09/QĐ-HSV"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Chuẩn SV5T (QĐ 09)
                 </Link>
@@ -175,7 +197,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/van-ban?doc=28/QĐ-HSV"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Quy định GCN (QĐ 28)
                 </Link>
@@ -192,7 +214,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/workspace"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Trung tâm E-Office
                 </Link>
@@ -202,7 +224,7 @@ function PublicFooterInner() {
                   href="https://eiu.edu.vn"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Trang chính EIU
                 </a>
@@ -212,7 +234,7 @@ function PublicFooterInner() {
                   href="https://www.facebook.com/eiuhsv"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Fanpage HSV EIU
                 </a>
@@ -260,32 +282,44 @@ function PublicFooterInner() {
                 </span>
               </div>
             ) : (
-              <form
-                onSubmit={handleSubscribe}
-                className="flex items-center"
-              >
-                <label htmlFor="footer-email" className="sr-only">
-                  Nhập email để nhận thông báo mới
-                </label>
-                <input
-                  id="footer-email"
-                  type="email"
-                  required
-                  value={emailInput}
-                  onChange={(e) =>
-                    setEmailInput(e.target.value)
-                  }
-                  placeholder="Nhập email để nhận thông báo mới"
-                  className="w-full sm:w-68 h-10 px-3.5 bg-white text-slate-900 text-xs focus:outline-none"
-                />
-                <button
-                  type="submit"
-                  className="h-10 px-5 bg-[#A68556] hover:bg-[#8e7046] text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors"
+              <div className="space-y-1.5">
+                <form
+                  onSubmit={handleSubscribe}
+                  noValidate
+                  className="flex items-center"
                 >
-                  <span>ĐĂNG KÝ</span>
-                  <Send className="w-3.5 h-3.5" />
-                </button>
-              </form>
+                  <label htmlFor="footer-email" className="sr-only">
+                    Nhập email để nhận thông báo mới
+                  </label>
+                  <input
+                    id="footer-email"
+                    type="email"
+                    required
+                    maxLength={100}
+                    autoComplete="email"
+                    value={emailInput}
+                    onChange={(e) => {
+                      setEmailInput(e.target.value);
+                      if (errorMsg) setErrorMsg('');
+                    }}
+                    placeholder="Nhập email để nhận thông báo mới"
+                    className="w-full sm:w-68 h-10 px-3.5 bg-white text-slate-900 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="h-10 px-5 bg-[#A68556] hover:bg-[#8e7046] disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                  >
+                    <span>{isSubmitting ? 'ĐANG GỬI...' : 'ĐĂNG KÝ'}</span>
+                    <Send className="w-3.5 h-3.5" />
+                  </button>
+                </form>
+                {errorMsg && (
+                  <p role="alert" className="text-xs text-[#FCB900] font-sans">
+                    {errorMsg}
+                  </p>
+                )}
+              </div>
             )}
           </div>
         </div>

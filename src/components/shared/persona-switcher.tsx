@@ -117,13 +117,6 @@ export function PersonaSwitcherBar() {
       <div
         className={`${containerClass} mx-auto px-4 sm:px-6 min-h-9 py-1.5 flex flex-wrap items-center justify-between gap-2 font-eiu-display`}
       >
-        {/* Trái: Trụ sở Văn phòng 206.B06 */}
-        <div className="hidden md:flex items-center text-white/90">
-          <span className="text-[#DED1BE] font-medium">
-            VP HỘI: PHÒNG 206.B06 (08:00 – 16:30)
-          </span>
-        </div>
-
         {/* Phải: Tìm kiếm toàn cổng | Sổ tay Hội viên | E-Office Nội bộ | Chuyển vai trò kiêm nhiệm */}
         <div className="flex flex-wrap items-center justify-end gap-2.5 sm:gap-3 ml-auto">
           <button
@@ -133,7 +126,7 @@ export function PersonaSwitcherBar() {
             }
             aria-expanded={openDrawer === 'SEARCH'}
             aria-controls="global-search-drawer"
-            className={`inline-flex items-center gap-1.5 uppercase tracking-wide font-semibold transition-colors cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 uppercase tracking-wide font-semibold transition-colors cursor-pointer px-1.5 py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] ${
               openDrawer === 'SEARCH'
                 ? 'text-[#FCB900]'
                 : 'text-white/95 hover:text-[#FCB900]'
@@ -147,7 +140,7 @@ export function PersonaSwitcherBar() {
 
           <Link
             href="/portal"
-            className={`uppercase tracking-wide transition-colors ${
+            className={`uppercase tracking-wide transition-colors px-1.5 py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] ${
               pathname.startsWith('/portal')
                 ? 'text-[#FCB900] font-bold'
                 : 'text-white/95 hover:text-[#DED1BE]'
@@ -160,7 +153,7 @@ export function PersonaSwitcherBar() {
 
           <Link
             href="/workspace"
-            className={`uppercase tracking-wide transition-colors ${
+            className={`uppercase tracking-wide transition-colors px-1.5 py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] ${
               pathname.startsWith('/workspace')
                 ? 'text-[#FCB900] font-bold'
                 : 'text-white/95 hover:text-[#DED1BE]'
@@ -179,7 +172,7 @@ export function PersonaSwitcherBar() {
             }
             aria-expanded={openDrawer === 'PERSONA'}
             aria-controls="persona-switcher-panel"
-            className={`inline-flex items-center gap-1.5 uppercase tracking-wide font-semibold transition-colors cursor-pointer ${
+            className={`inline-flex items-center gap-1.5 uppercase tracking-wide font-semibold transition-colors cursor-pointer px-1.5 py-0.5 rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] ${
               openDrawer === 'PERSONA'
                 ? 'text-[#FCB900]'
                 : 'text-white hover:text-[#FCB900]'
@@ -203,18 +196,21 @@ export function PersonaSwitcherBar() {
           id="global-search-drawer"
           role="region"
           aria-label="Tìm kiếm toàn cổng thông tin HSV EIU"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setOpenDrawer('NONE');
+          }}
           className="bg-[#02294E] border-t border-white/15 shadow-2xl"
         >
           <div className={`${containerClass} mx-auto px-4 sm:px-6 py-5 space-y-4`}>
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold uppercase tracking-wider text-[#00BCFF] font-eiu-display">
-                Tìm kiếm Toàn Cổng thông tin Điện tử HSV EIU (MSSV • Số QĐ • Tin tức • Chi hội &amp; CLB)
+                Tìm kiếm Toàn Cổng thông tin Điện tử HSV EIU (MSSV • Số QĐ • Tin tức • Chi hội và CLB)
               </span>
               <button
                 type="button"
                 onClick={() => setOpenDrawer('NONE')}
                 aria-label="Đóng khung tìm kiếm"
-                className="p-1 text-white/80 hover:text-white cursor-pointer"
+                className="p-1 text-white/80 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -231,14 +227,17 @@ export function PersonaSwitcherBar() {
                 id="global-portal-search"
                 type="text"
                 autoFocus
+                maxLength={120}
+                autoComplete="off"
+                spellCheck={false}
                 value={globalQuery}
                 onChange={(e) => setGlobalQuery(e.target.value)}
                 placeholder="Nhập MSSV (VD: 2331200066), Số QĐ (32/QĐ-HSV, 09/QĐ-HSV), tên CLB hoặc mã Chi hội (25CNTT01)..."
-                className="flex-1 h-10 px-3.5 bg-white text-slate-900 text-sm rounded focus:outline-none"
+                className="flex-1 h-10 px-3.5 bg-white text-slate-900 text-sm rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00BCFF]"
               />
               <button
                 type="submit"
-                className="h-10 px-6 bg-[#A68556] hover:bg-[#8e7046] text-white text-xs font-bold uppercase tracking-wider rounded cursor-pointer shrink-0"
+                className="h-10 px-6 bg-[#A68556] hover:bg-[#8e7046] text-white text-xs font-bold uppercase tracking-wider rounded cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
               >
                 Tìm kiếm ngay
               </button>
@@ -249,10 +248,10 @@ export function PersonaSwitcherBar() {
                 {/* Cột 1: E-Certificate & Văn bản */}
                 <div className="bg-[#133F68] border border-white/10 p-3.5 space-y-2">
                   <div className="font-bold uppercase tracking-wider text-[#FCB900] text-[11px]">
-                    Giấy chứng nhận &amp; Văn bản ({quickResults.certs.length + quickResults.docs.length})
+                    Giấy chứng nhận và Văn bản ({quickResults.certs.length + quickResults.docs.length})
                   </div>
                   {quickResults.certs.length === 0 && quickResults.docs.length === 0 ? (
-                    <p className="text-white/60">Không khớp hồ sơ GCN / Quyết định.</p>
+                    <p className="text-white/60">Không khớp hồ sơ GCN hoặc Quyết định.</p>
                   ) : (
                     <ul className="space-y-2">
                       {quickResults.certs.map((c) => (
@@ -260,7 +259,7 @@ export function PersonaSwitcherBar() {
                           <Link
                             href={`/tra-cuu-gcn?q=${encodeURIComponent(c.studentId)}`}
                             onClick={() => setOpenDrawer('NONE')}
-                            className="block hover:text-[#FCB900]"
+                            className="block hover:text-[#FCB900] focus-visible:outline-none focus-visible:text-[#FCB900]"
                           >
                             <span className="font-eiu-serif text-[#00BCFF]">{c.studentId}</span> —{' '}
                             <strong>{c.fullName}</strong> ({c.decisionNumber})
@@ -272,7 +271,7 @@ export function PersonaSwitcherBar() {
                           <Link
                             href={`/van-ban?doc=${encodeURIComponent(d.documentNumber)}`}
                             onClick={() => setOpenDrawer('NONE')}
-                            className="block hover:text-[#FCB900] line-clamp-1"
+                            className="block hover:text-[#FCB900] line-clamp-1 focus-visible:outline-none focus-visible:text-[#FCB900]"
                           >
                             <span className="font-eiu-serif text-[#DED1BE]">{d.documentNumber}</span>:{' '}
                             {d.title}
@@ -286,7 +285,7 @@ export function PersonaSwitcherBar() {
                 {/* Cột 2: Chi hội & CLB */}
                 <div className="bg-[#133F68] border border-white/10 p-3.5 space-y-2">
                   <div className="font-bold uppercase tracking-wider text-[#FCB900] text-[11px]">
-                    25 Chi hội &amp; 30 CLB ({quickResults.units.length})
+                    25 Chi hội và 30 CLB ({quickResults.units.length})
                   </div>
                   {quickResults.units.length === 0 ? (
                     <p className="text-white/60">Không khớp mã Chi hội hoặc tên CLB.</p>
@@ -297,7 +296,7 @@ export function PersonaSwitcherBar() {
                           <Link
                             href={u.href}
                             onClick={() => setOpenDrawer('NONE')}
-                            className="block hover:text-[#FCB900]"
+                            className="block hover:text-[#FCB900] focus-visible:outline-none focus-visible:text-[#FCB900]"
                           >
                             <strong className="text-white">{u.name}</strong>
                             <span className="block text-[11px] text-[#DED1BE]">{u.sub}</span>
@@ -311,7 +310,7 @@ export function PersonaSwitcherBar() {
                 {/* Cột 3: Tin tức & Sự kiện */}
                 <div className="bg-[#133F68] border border-white/10 p-3.5 space-y-2">
                   <div className="font-bold uppercase tracking-wider text-[#FCB900] text-[11px]">
-                    Tin tức &amp; Sự kiện ({quickResults.posts.length + quickResults.events.length})
+                    Tin tức và Sự kiện ({quickResults.posts.length + quickResults.events.length})
                   </div>
                   {quickResults.posts.length === 0 && quickResults.events.length === 0 ? (
                     <p className="text-white/60">Không khớp bài viết hoặc sự kiện.</p>
@@ -322,7 +321,7 @@ export function PersonaSwitcherBar() {
                           <Link
                             href={`/tin-tuc/${p.slug}`}
                             onClick={() => setOpenDrawer('NONE')}
-                            className="block hover:text-[#FCB900] line-clamp-1"
+                            className="block hover:text-[#FCB900] line-clamp-1 focus-visible:outline-none focus-visible:text-[#FCB900]"
                           >
                             [Tin tức] {p.title}
                           </Link>
@@ -333,7 +332,7 @@ export function PersonaSwitcherBar() {
                           <Link
                             href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
                             onClick={() => setOpenDrawer('NONE')}
-                            className="block hover:text-[#FCB900] line-clamp-1"
+                            className="block hover:text-[#FCB900] line-clamp-1 focus-visible:outline-none focus-visible:text-[#FCB900]"
                           >
                             [Sự kiện] {ev.title}
                           </Link>
@@ -357,7 +356,7 @@ export function PersonaSwitcherBar() {
                     key={tag.label}
                     href={tag.href}
                     onClick={() => setOpenDrawer('NONE')}
-                    className="px-2.5 py-1 bg-white/10 hover:bg-[#A68556] text-white transition-colors"
+                    className="px-2.5 py-1 bg-white/10 hover:bg-[#A68556] text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900]"
                   >
                     {tag.label}
                   </Link>
@@ -374,6 +373,9 @@ export function PersonaSwitcherBar() {
           id="persona-switcher-panel"
           role="region"
           aria-label="Chuyển đổi tài khoản và chức vụ kiêm nhiệm"
+          onKeyDown={(e) => {
+            if (e.key === 'Escape') setOpenDrawer('NONE');
+          }}
           className="bg-[#02294E] border-t border-white/15 shadow-2xl"
         >
           <div className={`${containerClass} mx-auto px-4 sm:px-6 py-4 space-y-3`}>
@@ -381,7 +383,7 @@ export function PersonaSwitcherBar() {
               <span className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#FCB900] font-eiu-display">
                 <ShieldCheck className="w-4 h-4 text-[#00BCFF]" />
                 <span>
-                  Giả lập Phiên Đăng nhập `@eiu.edu.vn` &amp; Chuyển Ngữ cảnh Kiêm nhiệm (Cấp{' '}
+                  Giả lập Phiên Đăng nhập `@eiu.edu.vn` và Chuyển Ngữ cảnh Kiêm nhiệm (Cấp{' '}
                   {activePosition.roleLevel}/6)
                 </span>
               </span>
@@ -389,7 +391,7 @@ export function PersonaSwitcherBar() {
                 type="button"
                 onClick={() => setOpenDrawer('NONE')}
                 aria-label="Đóng khay chuyển vai trò"
-                className="p-1 text-white/80 hover:text-white cursor-pointer"
+                className="p-1 text-white/80 hover:text-white cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -407,7 +409,7 @@ export function PersonaSwitcherBar() {
                   id="select-demo-persona"
                   value={currentPersona.id}
                   onChange={(e) => setPersonaById(e.target.value)}
-                  className="w-full min-h-9 rounded bg-white text-slate-900 px-3 py-1.5 text-xs font-medium"
+                  className="w-full min-h-9 rounded bg-white text-slate-900 px-3 py-1.5 text-xs font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BCFF]"
                 >
                   {allPersonas.map((p) => (
                     <option key={p.id} value={p.id}>
@@ -429,7 +431,7 @@ export function PersonaSwitcherBar() {
                   id="select-active-position"
                   value={activePosition.id}
                   onChange={(e) => setActivePositionById(e.target.value)}
-                  className="w-full min-h-9 rounded bg-white text-slate-900 px-3 py-1.5 text-xs font-semibold"
+                  className="w-full min-h-9 rounded bg-white text-slate-900 px-3 py-1.5 text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BCFF]"
                 >
                   {currentPersona.positions.map((pos) => (
                     <option key={pos.id} value={pos.id}>

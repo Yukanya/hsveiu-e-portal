@@ -291,7 +291,13 @@ function SuKienContent({
                           </span>
                           <div className="w-20 h-1.5 bg-slate-200 overflow-hidden">
                             <div
-                              className="h-full bg-[#0054A6]"
+                              className={`h-full transition-all ${
+                                fillPct >= 100
+                                  ? 'bg-[#51803A]'
+                                  : fillPct >= 85
+                                  ? 'bg-[#EEB31D]'
+                                  : 'bg-[#0054A6]'
+                              }`}
                               style={{ width: `${fillPct}%` }}
                             />
                           </div>
@@ -317,7 +323,7 @@ function SuKienContent({
               {/* Thanh tiêu đề trạng thái */}
               <div className="bg-[#133F68] text-white px-5 py-3.5 flex items-center justify-between gap-2">
                 <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
-                  Phiếu Đăng ký &amp; Quy đổi Ngày TN
+                  Phiếu Đăng ký và Quy đổi Ngày TN
                 </span>
                 <span
                   className={`px-2 py-0.5 text-[10.5px] font-eiu-serif font-bold uppercase ${
@@ -476,7 +482,7 @@ function SuKienContent({
                   </div>
                 ) : selectedEvent.certWorkflowStatus ===
                   'list_submitted_sla' ? (
-                  <div className="p-4 bg-[#FFF9F0] border-l-4 border-[#A68556] space-y-1.5">
+                  <div className="p-4 bg-[#FFFBF5] border border-slate-200 border-t-2 border-t-[#A68556] space-y-1.5">
                     <div className="font-bold text-[#133F68] flex items-center gap-1.5 uppercase font-eiu-display">
                       <Clock className="w-4 h-4 text-[#A68556]" />
                       <span>
@@ -494,11 +500,11 @@ function SuKienContent({
                     </p>
                   </div>
                 ) : (
-                  <div className="p-4 bg-emerald-50 border-l-4 border-[#51803A] space-y-2.5">
+                  <div className="p-4 bg-[#51803A]/10 border border-[#51803A]/30 border-t-2 border-t-[#51803A] space-y-2.5">
                     <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
                       <CheckCircle2 className="w-4 h-4 text-[#51803A]" />
                       <span>
-                        Đã ban hành Quyết định {selectedEvent.decisionNumber} &amp;
+                        Đã ban hành Quyết định {selectedEvent.decisionNumber} và
                         Cấp E-Certificate
                       </span>
                     </div>
@@ -512,7 +518,7 @@ function SuKienContent({
                       )}`}
                       className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display"
                     >
-                      <span>Tra cứu Phụ lục 1 &amp; E-Cert</span>
+                      <span>Tra cứu Phụ lục 1 và E-Cert</span>
                       <ArrowRight className="w-3.5 h-3.5" />
                     </Link>
                   </div>
@@ -530,10 +536,10 @@ function SuKienContent({
           <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
             <div>
               <span className="text-[11px] font-eiu-serif font-bold uppercase tracking-widest text-[#C10230]">
-                QUYẾT ĐỊNH 28/QĐ-HSV &amp; PHỤ LỤC 2 QUYẾT ĐỊNH 09/QĐ-HSV
+                QUYẾT ĐỊNH 28/QĐ-HSV và PHỤ LỤC 2 QUYẾT ĐỊNH 09/QĐ-HSV
               </span>
               <h2 className="text-lg sm:text-xl font-bold uppercase text-[#133F68] font-eiu-display mt-0.5">
-                Quy trình 05 Bước Công nhận Ngày Tình nguyện &amp; Cấp
+                Quy trình 05 Bước Công nhận Ngày Tình nguyện và Cấp
                 E-Certificate
               </h2>
             </div>
@@ -641,7 +647,7 @@ export default function SuKienPage() {
     <Suspense
       fallback={
         <div className="max-w-[1140px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải lịch Sự kiện &amp; Hoạt động Tình nguyện...
+          Đang tải lịch Sự kiện và Hoạt động Tình nguyện...
         </div>
       }
     >

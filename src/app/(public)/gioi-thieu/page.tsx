@@ -344,7 +344,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
           >
             <div className="border border-slate-200 bg-white">
               <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                Khám phá &amp; Sơ đồ Bộ máy
+                Khám phá và Sơ đồ Bộ máy
               </div>
               <div className="divide-y divide-white">
                 {discoverTabs.map((tab) => {
@@ -381,7 +381,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
             <div className="border border-slate-200 bg-white">
               <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                Lãnh đạo &amp; 03 Ban Chuyên môn
+                Lãnh đạo và 03 Ban Chuyên môn
               </div>
               <div className="divide-y divide-white">
                 {apparatusTabs.map((tab) => {
@@ -431,7 +431,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 href="/to-chuc"
                 className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#FCB900] hover:underline font-eiu-display pt-1"
               >
-                <span>XEM 25 CHI HỘI &amp; 30 CLB</span>
+                <span>XEM 25 CHI HỘI và 30 CLB</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
@@ -440,7 +440,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
           {/* CỘT PHẢI (9/12): Nội dung chuyên biệt theo từng Tab */}
           <div className="lg:col-span-9 space-y-6">
             {/* Tiêu đề & Mô tả học thuật */}
-            <div className="bg-white border border-slate-200 p-5 sm:p-6 border-l-4 border-l-[#133F68]">
+            <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5 sm:p-6">
               <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
                 {currentTabMeta.title}
               </h2>
@@ -555,7 +555,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <div className="bg-white border border-slate-200">
                     <div className="bg-[#133F68] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                       <Leaf className="w-4 h-4 text-[#00BCFF]" />
-                      <span>Hệ Giá trị EIU &amp; Cam kết Sự kiện Xanh SDGs</span>
+                      <span>Hệ Giá trị EIU và Cam kết Sự kiện Xanh SDGs</span>
                     </div>
                     <div className="p-5 space-y-3 text-[13.5px] text-slate-700 leading-relaxed">
                       <p>
@@ -590,7 +590,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <div className="bg-white border border-slate-200">
                     <div className="bg-[#133F68] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                       <FileCheck2 className="w-4 h-4 text-[#FCB900]" />
-                      <span>Nền tảng Quy chế &amp; Văn bản Pháp lý Khóa II</span>
+                      <span>Nền tảng Quy chế và Văn bản Pháp lý Khóa II</span>
                     </div>
                     <div className="divide-y divide-slate-100 text-xs">
                       {[
@@ -648,7 +648,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         CẤP 01
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
-                        Cấp Lãnh đạo, Chỉ đạo &amp; Giám sát Toàn trường
+                        Cấp Lãnh đạo, Chỉ đạo và Giám sát Toàn trường
                       </h3>
                     </div>
                     <span className="text-[11px] font-eiu-serif text-slate-500">
@@ -697,11 +697,11 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <button
                         type="button"
                         onClick={() => setActiveTab('btk')}
-                        className="w-full text-left bg-[#0054A6] hover:bg-[#133F68] text-white p-4 border-l-4 border-[#00BCFF] transition-colors cursor-pointer"
+                        className="w-full text-left bg-[#0054A6] hover:bg-[#133F68] text-white p-4 border border-[#00BCFF]/50 hover:border-[#00BCFF] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#FCB900]">
-                            BAN THƯ KÝ &amp; THƯỜNG TRỰC HỘI
+                            BAN THƯ KÝ và THƯỜNG TRỰC HỘI
                           </span>
                           <span className="px-2 py-0.5 bg-white/20 font-eiu-serif text-xs font-bold">
                             05 ĐỒNG CHÍ
@@ -775,7 +775,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         CẤP 02
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
-                        Văn phòng &amp; Các Ban Chuyên môn Cấp Trường (03 Đơn vị)
+                        Văn phòng và Các Ban Chuyên môn Cấp Trường (03 Đơn vị)
                       </h3>
                     </div>
                     <span className="text-[11px] font-eiu-serif text-[#0054A6] font-bold">
@@ -834,7 +834,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           <Layers className="w-4 h-4 text-[#0054A6]" />
                         </div>
                         <div className="text-sm font-bold text-[#133F68] font-eiu-display">
-                          02. Ban Tổ chức &amp; Xây dựng Hội
+                          02. Ban Tổ chức và Xây dựng Hội
                         </div>
                         <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1">
                           <div>
@@ -851,7 +851,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         </div>
                       </div>
                       <div className="text-[11.5px] text-slate-600 pt-2 border-t border-slate-200">
-                        Thẩm định Ngày tình nguyện trước ≥ 03 ngày &amp; Quản lý
+                        Thẩm định Ngày tình nguyện trước ≥ 03 ngày và Quản lý
                         cán bộ, hội viên
                       </div>
                     </button>
@@ -889,7 +889,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       </div>
                       <div className="text-[11.5px] text-slate-600 pt-2 border-t border-slate-200">
                         Đội CTVXK quản lý 02 Tiểu ban: <em>Hậu cần – Sân khấu</em>{' '}
-                        &amp; <em>Lễ tân – Khánh tiết – VTM</em>
+                        và <em>Lễ tân – Khánh tiết – VTM</em>
                       </div>
                     </button>
                   </div>
@@ -909,7 +909,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       </span>
                       <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
                         Hệ thống Cơ sở Hội Trực thuộc ({BRANCH_UNITS.length} Chi
-                        hội &amp; {CLUB_UNITS.length} CLB – Đội – Nhóm)
+                        hội và {CLUB_UNITS.length} CLB – Đội – Nhóm)
                       </h3>
                     </div>
                     <span className="text-[11px] text-slate-500">
@@ -964,7 +964,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                         </div>
                         <p className="text-xs text-slate-600 leading-relaxed">
                           Gồm 02 đơn vị nòng cốt của Hội (
-                          <strong>CLB Sinh viên 5 tốt</strong> &amp;{' '}
+                          <strong>CLB Sinh viên 5 tốt</strong> và{' '}
                           <strong>Đội CTV Xung kích</strong>) cùng 28 CLB học
                           thuật, nghệ thuật, thể thao, cộng đồng.
                         </p>
@@ -1167,7 +1167,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
                 <div className="space-y-2.5">
                   <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Ban Lãnh đạo Đồng điều hành (Đối ngoại &amp; Nội bộ)
+                    Ban Lãnh đạo Đồng điều hành (Đối ngoại và Nội bộ)
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {vpCoLeaders.map((m) => (
@@ -1193,7 +1193,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
                 <div className="space-y-2.5">
                   <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Phó Chánh Văn phòng &amp; Cán bộ Chuyên trách Văn phòng (04
+                    Phó Chánh Văn phòng và Cán bộ Chuyên trách Văn phòng (04
                     đồng chí)
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1235,7 +1235,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
                 <div className="space-y-2.5">
                   <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    04 Cụm trưởng Cụm Chi hội Khoa &amp; Phó Ban Quản lý 30 CLB
+                    04 Cụm trưởng Cụm Chi hội Khoa và Phó Ban Quản lý 30 CLB
                     – Đội – Nhóm
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -1263,7 +1263,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
                     <div>
                       <h3 className="text-sm font-bold uppercase text-[#133F68] font-eiu-display">
-                        I. Mảng Tuyên giáo — Truyền thông &amp; Nhận diện Số
+                        I. Mảng Tuyên giáo — Truyền thông và Nhận diện Số
                       </h3>
                       <p className="text-xs text-slate-600 mt-0.5">
                         Quản lý 03 Tiểu ban chuyên môn:{' '}
@@ -1299,7 +1299,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
                     <div>
                       <h3 className="text-sm font-bold uppercase text-[#133F68] font-eiu-display">
-                        II. Mảng Phong trào &amp; Đội Cộng tác viên Xung kích
+                        II. Mảng Phong trào và Đội Cộng tác viên Xung kích
                       </h3>
                       <p className="text-xs text-slate-600 mt-0.5">
                         03 Tiểu ban Phong trào (<strong>Tài chính</strong> •{' '}
@@ -1309,7 +1309,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           Đội CTV Xung kích
                         </strong>{' '}
                         quản lý 02 Tiểu ban (<strong>Hậu cần – Sân khấu</strong>{' '}
-                        &amp; <strong>Lễ tân – Khánh tiết – Văn thể mỹ</strong>)
+                        và <strong>Lễ tân – Khánh tiết – Văn thể mỹ</strong>)
                       </p>
                     </div>
                     <span className="px-2.5 py-1 bg-[#C10230] text-white font-eiu-serif text-[11px] font-bold">
@@ -1416,7 +1416,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="font-bold uppercase tracking-wider text-[#133F68] flex items-center gap-1.5 font-eiu-display">
                   <Users className="w-3.5 h-3.5 text-[#0054A6]" />
                   <span>
-                    Danh mục Vị trí &amp; Kiêm nhiệm ({selectedStaff.positions.length})
+                    Danh mục Vị trí và Kiêm nhiệm ({selectedStaff.positions.length})
                   </span>
                 </div>
                 <div className="space-y-2">
@@ -1463,7 +1463,7 @@ export default function GioiThieuPage() {
     <Suspense
       fallback={
         <div className="max-w-[1140px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải chuyên trang Giới thiệu &amp; Cơ cấu bộ máy...
+          Đang tải chuyên trang Giới thiệu và Cơ cấu bộ máy...
         </div>
       }
     >

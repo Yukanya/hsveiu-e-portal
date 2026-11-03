@@ -153,10 +153,10 @@ function VanBanContent({
                   <tr>
                     <th className="w-12 text-center">TT</th>
                     <th className="w-32">Số hiệu</th>
-                    <th>Trích yếu nội dung &amp; Cơ quan ban hành</th>
+                    <th>Trích yếu nội dung và Cơ quan ban hành</th>
                     <th className="w-30">Ngày ký</th>
                     <th className="w-44">Người ký</th>
-                    <th className="w-32 text-right">Trích yếu &amp; QR</th>
+                    <th className="w-32 text-right">Trích yếu và QR</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -203,7 +203,7 @@ function VanBanContent({
                           className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-[11px] font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
                         >
                           <QrCode className="w-3.5 h-3.5" />
-                          <span>Xem &amp; QR</span>
+                          <span>Xem và QR</span>
                         </button>
                       </td>
                     </tr>
@@ -298,7 +298,7 @@ function VanBanContent({
                 {selectedDoc.title}
               </h3>
 
-              <p className="text-slate-700 leading-relaxed bg-[#F8FAFC] border-l-4 border-[#A68556] p-4">
+              <p className="text-slate-700 leading-relaxed bg-[#FFFBF5] border border-slate-200 border-t-2 border-t-[#A68556] p-4">
                 {selectedDoc.summary}
               </p>
 
@@ -402,7 +402,7 @@ export default function VanBanPage() {
     <Suspense
       fallback={
         <div className="max-w-[1140px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải Kho Văn bản Pháp lý &amp; Quy chế...
+          Đang tải Kho Văn bản Pháp lý và Quy chế...
         </div>
       }
     >

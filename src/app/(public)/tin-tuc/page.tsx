@@ -271,7 +271,7 @@ function TinTucContent({
                             <ChevronRight className="w-3.5 h-3.5" />
                             <span>ĐỌC BÀI VIẾT</span>
                           </Link>
-                          <span className="inline-flex items-center gap-1 font-eiu-serif text-[#A68556] font-semibold">
+                          <span className="inline-flex items-center gap-1 font-eiu-serif text-[#8E6D3E] font-semibold">
                             <Calendar className="w-3 h-3" />
                             {post.publishedAt}
                           </span>

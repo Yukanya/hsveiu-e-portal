@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ChevronRight } from 'lucide-react';
 
 interface SubpageBannerProps {
@@ -62,16 +63,22 @@ export function SubpageBanner({
           </div>
 
           {/* Cụm Biểu trưng EIU | HSV Khóa II trang trọng bên phải */}
-          <div className="hidden md:flex items-center gap-4 bg-white/96 px-5 py-3.5 border-l-4 border-[#A68556] shadow-sm shrink-0">
-            <img
+          <div className="hidden md:flex items-center gap-4 bg-white/96 px-5 py-3.5 border border-slate-200 border-t-2 border-t-[#A68556] shadow-sm shrink-0">
+            <Image
               src="/images/eiu-logo-full.png"
               alt="EIU"
+              width={160}
+              height={44}
+              priority
               className="h-11 w-auto object-contain"
             />
             <div className="h-9 w-px bg-slate-300" aria-hidden="true" />
-            <img
+            <Image
               src="/images/hsv-logo.png"
               alt="Hội Sinh viên Việt Nam"
+              width={40}
+              height={40}
+              priority
               className="h-10 w-10 object-contain"
             />
           </div>

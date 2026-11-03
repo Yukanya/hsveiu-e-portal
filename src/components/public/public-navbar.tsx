@@ -2,6 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { ChevronDown, ChevronRight, Menu, X } from 'lucide-react';
 
@@ -118,16 +119,22 @@ function PublicNavbarInner() {
             aria-label="Trang chủ Hội Sinh viên Trường Đại học Quốc tế Miền Đông"
             className="flex items-center gap-3 shrink-0 py-1 group"
           >
-            <img
+            <Image
               src="/images/eiu-logo-full.png"
               alt="Trường Đại học Quốc tế Miền Đông (EIU)"
+              width={180}
+              height={52}
+              priority
               className="h-11 sm:h-13 w-auto object-contain"
             />
             <div className="h-9 w-px bg-slate-300" aria-hidden="true" />
             <div className="flex items-center gap-2.5">
-              <img
+              <Image
                 src="/images/hsv-logo.png"
                 alt="Hội Sinh viên Việt Nam"
+                width={40}
+                height={40}
+                priority
                 className="h-9 w-9 sm:h-10 sm:w-10 object-contain"
               />
               <div className="hidden sm:block">
@@ -175,7 +182,7 @@ function PublicNavbarInner() {
                     aria-current={isActive ? 'page' : undefined}
                     aria-haspopup={item.children ? 'true' : undefined}
                     aria-expanded={item.children ? isDropdownOpen : undefined}
-                    className={`px-2.5 py-2 min-h-10 inline-flex items-center gap-1 text-[13px] font-bold tracking-wide font-eiu-display transition-colors relative ${
+                    className={`px-2.5 py-2 min-h-10 inline-flex items-center gap-1 text-[13px] font-bold tracking-wide font-eiu-display transition-colors relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                       isActive
                         ? 'text-[#C10230]'
                         : 'text-[#133F68] hover:text-[#A68556]'
@@ -209,7 +216,7 @@ function PublicNavbarInner() {
                           href={sub.href}
                           role="menuitem"
                           onClick={() => setOpenDesktopDropdown(null)}
-                          className="px-4 py-2.5 flex items-center justify-between gap-2 text-[13px] font-medium text-white/95 hover:bg-[#133F68] hover:text-[#FCB900] border-l-2 border-transparent hover:border-[#FCB900] transition-colors"
+                          className="px-4 py-2.5 flex items-center justify-between gap-2 text-[13px] font-medium text-white/95 hover:bg-[#133F68] hover:text-[#FCB900] border-l-2 border-transparent hover:border-[#FCB900] transition-colors focus-visible:outline-none focus-visible:bg-[#133F68] focus-visible:text-[#FCB900]"
                         >
                           <span className="leading-snug">{sub.label}</span>
                           {sub.badge ? (
@@ -234,7 +241,7 @@ function PublicNavbarInner() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Đóng menu điều hướng' : 'Mở menu điều hướng'}
-            className="xl:hidden min-h-10 min-w-10 inline-flex items-center justify-center text-[#133F68] border border-slate-200 cursor-pointer"
+            className="xl:hidden min-h-10 min-w-10 inline-flex items-center justify-center text-[#133F68] border border-slate-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-1"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>

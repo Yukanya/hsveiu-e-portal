@@ -81,7 +81,7 @@ function TinTucDetailInner({
               </div>
 
               <div className="flex items-center gap-4 text-slate-500 font-eiu-serif">
-                <span className="inline-flex items-center gap-1 text-[#A68556] font-semibold">
+                <span className="inline-flex items-center gap-1 text-[#8E6D3E] font-semibold">
                   <Calendar className="w-3.5 h-3.5" />
                   {article.publishedAt}
                 </span>
@@ -102,7 +102,7 @@ function TinTucDetailInner({
             </p>
 
             {article.leadQuote && (
-              <blockquote className="bg-[#F5F5F5] border-l-4 border-[#A68556] p-4 sm:p-5 text-[14.5px] italic text-[#133F68] leading-relaxed">
+              <blockquote className="bg-[#FFFBF5] border border-slate-200 border-t-2 border-t-[#A68556] p-4 sm:p-5 text-[14.5px] italic text-[#133F68] leading-relaxed">
                 &ldquo;{article.leadQuote}&rdquo;
               </blockquote>
             )}
@@ -205,7 +205,7 @@ function TinTucDetailInner({
             <div className="bg-[#C10230] text-white p-6 space-y-3">
               <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
               <h3 className="text-base font-bold font-eiu-display">
-                Sổ tay Hội viên &amp; SV5T Số
+                Sổ tay Hội viên và SV5T Số
               </h3>
               <p className="text-[13px] text-white/92 leading-relaxed">
                 Đăng nhập bằng tài khoản `@eiu.edu.vn` để tự động tính GPA Quý EIU, làm bài thi Online Quiz và theo dõi E-Certificate cá nhân.
@@ -222,7 +222,7 @@ function TinTucDetailInner({
             {/* Danh sách Tin tức khác */}
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-4 py-3 text-xs font-bold uppercase tracking-wider font-eiu-display">
-                Tin tức &amp; Thông báo Khác
+                Tin tức và Thông báo Khác
               </div>
               <div className="divide-y divide-slate-200">
                 {relatedPosts.map((rp) => (
@@ -235,7 +235,7 @@ function TinTucDetailInner({
                       <span className="font-bold text-[#0054A6]">
                         {rp.categoryLabel}
                       </span>
-                      <span className="font-eiu-serif text-[#A68556]">
+                      <span className="font-eiu-serif text-[#8E6D3E] font-medium">
                         {rp.publishedAt}
                       </span>
                     </div>

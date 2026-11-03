@@ -288,7 +288,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
 
               {/* Kết quả tóm tắt trạng thái xác thực trung thực */}
               {matchedCerts.length > 0 ? (
-                <div className="bg-emerald-50 border-l-4 border-[#51803A] p-4 space-y-1.5 text-xs">
+                <div className="bg-[#51803A]/10 border border-[#51803A]/30 border-t-2 border-t-[#51803A] p-4 space-y-1.5 text-xs">
                   <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
                     <ShieldCheck className="w-4 h-4 text-[#51803A]" />
                     <span>
@@ -315,7 +315,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                   )}
                 </div>
               ) : (
-                <div className="bg-[#FFF9F0] border-l-4 border-[#C10230] p-4 space-y-1.5 text-xs">
+                <div className="bg-[#C10230]/[0.06] border border-[#C10230]/25 border-t-2 border-t-[#C10230] p-4 space-y-1.5 text-xs">
                   <div className="font-bold text-[#C10230] flex items-center gap-1.5 uppercase font-eiu-display">
                     <AlertCircle className="w-4 h-4 shrink-0" />
                     <span>
@@ -350,7 +350,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
             <div className="bg-[#C10230] text-white p-6 space-y-2.5">
               <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
               <h2 className="text-base font-bold font-eiu-display">
-                Quy chuẩn Phụ lục 1 &amp; Phụ lục 2
+                Quy chuẩn Phụ lục 1 và Phụ lục 2
               </h2>
               <p className="text-xs text-white/92 leading-relaxed">
                 Theo <strong>Quyết định 28/QĐ-HSV</strong>: Danh sách Phụ lục 1
@@ -391,7 +391,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                     <th className="w-34">Mã GCN</th>
                     <th className="w-28">MSSV (↑)</th>
                     <th>Họ và tên • Đơn vị</th>
-                    <th>Vai trò &amp; Hệ số</th>
+                    <th>Vai trò và Hệ số</th>
                     <th className="w-24 text-center">Ngày TN</th>
                     <th className="w-28 text-right">Bản Phụ lục 2</th>
                   </tr>

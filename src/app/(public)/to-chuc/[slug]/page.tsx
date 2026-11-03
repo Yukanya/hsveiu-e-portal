@@ -103,7 +103,7 @@ function UnitMicrositeInner({
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider"
           >
             <ArrowLeft className="w-4 h-4" />
-            <span>Quay lại Danh bạ Chi hội &amp; CLB</span>
+            <span>Quay lại Danh bạ Chi hội và CLB</span>
           </Link>
         </div>
       </div>
@@ -146,7 +146,7 @@ function UnitMicrositeInner({
               {/* 1. Bảng Định danh & Ban Chủ nhiệm 05 đồng chí */}
               <div className="bg-white border border-slate-200">
                 <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                  <span>Hồ sơ Định danh &amp; Cơ cấu Ban Chủ nhiệm</span>
+                  <span>Hồ sơ Định danh và Cơ cấu Ban Chủ nhiệm</span>
                   <span className="font-eiu-serif text-[#00BCFF]">{club.code}</span>
                 </div>
 
@@ -228,7 +228,7 @@ function UnitMicrositeInner({
 
                   <div className="grid grid-cols-1 sm:grid-cols-12 p-4 gap-1">
                     <div className="sm:col-span-4 font-bold text-slate-900">
-                      Quy mô &amp; Truyền thông:
+                      Quy mô và Truyền thông:
                     </div>
                     <div className="sm:col-span-8 flex flex-wrap items-center gap-4">
                       <span className="inline-flex items-center gap-1.5 font-eiu-serif text-xs font-bold text-[#133F68]">
@@ -256,7 +256,7 @@ function UnitMicrositeInner({
                 <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
                   <Sparkles className="w-4 h-4 text-[#FCB900]" />
                   <span>
-                    Hoạt động Trọng tâm &amp; Liên thông Tiêu chuẩn Sinh viên 5
+                    Hoạt động Trọng tâm và Liên thông Tiêu chuẩn Sinh viên 5
                     Tốt
                   </span>
                 </div>
@@ -273,7 +273,7 @@ function UnitMicrositeInner({
                     ))}
                   </ul>
 
-                  <div className="bg-[#F0F6FC] border-l-4 border-[#0054A6] p-4 space-y-1">
+                  <div className="bg-[#0054A6]/[0.04] border border-[#0054A6]/20 border-t-2 border-t-[#0054A6] p-4 space-y-1">
                     <div className="text-xs font-bold uppercase tracking-wider text-[#0054A6] font-eiu-display">
                       {sv5tBenefit.pillar}
                     </div>
@@ -356,7 +356,7 @@ function UnitMicrositeInner({
                         htmlFor="club-reason"
                         className="sm:col-span-4 font-bold text-slate-900 pt-2"
                       >
-                        Kỹ năng &amp; Nguyện vọng:
+                        Kỹ năng và Nguyện vọng:
                       </label>
                       <div className="sm:col-span-8">
                         <textarea
@@ -397,7 +397,7 @@ function UnitMicrositeInner({
                   </form>
                 ) : (
                   <div className="p-5 space-y-3 text-[13.5px]">
-                    <div className="bg-[#FFF9F0] border-l-4 border-[#A68556] p-4 space-y-1.5">
+                    <div className="bg-[#FFFBF5] border border-slate-200 border-t-2 border-t-[#A68556] p-4 space-y-1.5">
                       <div className="font-bold text-[#133F68] flex items-center gap-2 font-eiu-display text-xs uppercase">
                         <Lock className="w-4 h-4 text-[#A68556]" />
                         <span>
@@ -616,12 +616,12 @@ function UnitMicrositeInner({
             {/* 2. Thông tin Hành chính & BCH Chi hội 05 đồng chí */}
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider font-eiu-display">
-                Thông tin Hành chính &amp; Ban Chấp hành Chi hội
+                Thông tin Hành chính và Ban Chấp hành Chi hội
               </div>
               <div className="divide-y divide-slate-200 text-[13.5px]">
                 <div className="grid grid-cols-1 sm:grid-cols-12 p-4 gap-1">
                   <div className="sm:col-span-4 font-bold text-slate-900">
-                    Mã định danh &amp; Khóa:
+                    Mã định danh và Khóa:
                   </div>
                   <div className="sm:col-span-8 font-eiu-serif font-bold text-[#133F68]">
                     {b.code} • Khóa tuyển sinh 20{b.cohortYear} ({b.totalMembers}{' '}
@@ -670,7 +670,7 @@ function UnitMicrositeInner({
             {/* 3. Đề xuất Sinh hoạt Chuyên đề / Hỗ trợ Sơ duyệt SV5T Chi hội */}
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider font-eiu-display">
-                Liên hệ BCH {b.name} &amp; Đăng ký Hỗ trợ Hồ sơ SV5T Cấp 1
+                Liên hệ BCH {b.name} và Đăng ký Hỗ trợ Hồ sơ SV5T Cấp 1
               </div>
               <form
                 onSubmit={(e) => {
