@@ -108,7 +108,7 @@ function PublicNavbarInner() {
                 <div className="text-[13px] sm:text-[14px] font-extrabold tracking-wide text-[#133F68] group-hover:text-[#0054A6] transition-colors leading-tight font-eiu-display whitespace-nowrap">
                   HỘI SINH VIÊN
                 </div>
-                <div className="text-[9.5px] font-bold uppercase tracking-[0.14em] text-[#A68556] whitespace-nowrap">
+                <div className="text-[10px] sm:text-[10.5px] font-extrabold uppercase tracking-[0.16em] text-[#8E6D3E] whitespace-nowrap">
                   STUDENT ASSOCIATION
                 </div>
               </div>

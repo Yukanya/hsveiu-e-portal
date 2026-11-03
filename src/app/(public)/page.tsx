@@ -14,12 +14,16 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
+  ExternalLink,
   MapPin,
   Newspaper,
+  Pause,
+  Play,
   Sparkles,
   Star,
   Users,
 } from 'lucide-react';
+import { FALLBACK_HSV_NEWS } from '@/lib/services/facebook-news';
 
 function formatDateDot(dateStr: string) {
   const parts = dateStr.split('-');
@@ -74,7 +78,7 @@ function getEventCardMeta(ev: (typeof EVENT_ITEMS)[0]) {
     return {
       deadline: `17:00 ${pad(s.getDate())}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`,
       label: 'Đã đóng đăng ký',
-      bgClass: 'bg-slate-400 text-white',
+      bgClass: 'bg-slate-700 text-slate-100',
       isOpen: false,
     };
   }
@@ -106,6 +110,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Quản trị Kinh doanh',
     cohort: 'Khóa 2023',
     initials: 'GT',
+    image: '/images/sv5t/nguyen-mai-gia-tuong.jpg',
     themeBg: 'from-[#0D3259] to-[#041527]',
   },
   {
@@ -115,6 +120,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Quản trị Kinh doanh',
     cohort: 'Khóa 2024',
     initials: 'NQ',
+    image: '/images/sv5t/nguyen-nhu-quynh.jpg',
     themeBg: 'from-[#0D3259] to-[#041527]',
   },
   {
@@ -124,6 +130,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Quản trị Kinh doanh',
     cohort: 'Khóa 2025',
     initials: 'GH',
+    image: '/images/sv5t/luong-gia-han.jpg',
     themeBg: 'from-[#0D3259] to-[#041527]',
   },
   {
@@ -133,6 +140,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Công nghệ Thông tin',
     cohort: 'Khóa 2023',
     initials: 'PL',
+    image: '/images/sv5t/truong-chau-phuoc-loc.jpg',
     themeBg: 'from-[#0A3D62] to-[#041527]',
   },
   {
@@ -142,6 +150,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Công nghệ Thông tin',
     cohort: 'Khóa 2025',
     initials: 'TH',
+    image: '/images/sv5t/tran-thi-thu-huyen.jpg',
     themeBg: 'from-[#0A3D62] to-[#041527]',
   },
   {
@@ -151,6 +160,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Công nghệ Thông tin',
     cohort: 'Khóa 2025',
     initials: 'GK',
+    image: '/images/sv5t/lieu-gia-ky.jpg',
     themeBg: 'from-[#0A3D62] to-[#041527]',
   },
   {
@@ -160,6 +170,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Công nghệ Thông tin',
     cohort: 'Khóa 2025',
     initials: 'BN',
+    image: '/images/sv5t/nguyen-hoang-thi-bich-ngoc.jpg',
     themeBg: 'from-[#0A3D62] to-[#041527]',
   },
   {
@@ -169,6 +180,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Công nghệ Thông tin',
     cohort: 'Khóa 2025',
     initials: 'TT',
+    image: '/images/sv5t/dang-tri-toan.jpg',
     themeBg: 'from-[#0A3D62] to-[#041527]',
   },
   {
@@ -178,6 +190,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Kỹ thuật',
     cohort: 'Khóa 2023',
     initials: 'VT',
+    image: '/images/sv5t/dao-van-thanh.jpg',
     themeBg: 'from-[#08333D] to-[#041527]',
   },
   {
@@ -187,6 +200,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Khoa học Sức khỏe',
     cohort: 'Khóa 2025',
     initials: 'DH',
+    image: '/images/sv5t/vo-duy-huan.jpg',
     themeBg: 'from-[#3D141C] to-[#041527]',
   },
   {
@@ -196,6 +210,7 @@ const SV5T_HONOREES = [
     faculty: 'Khoa Khoa học Sức khỏe',
     cohort: 'Khóa 2025',
     initials: 'TT',
+    image: '/images/sv5t/pham-thi-thanh-thuy.jpg',
     themeBg: 'from-[#3D141C] to-[#041527]',
   },
 ];
@@ -216,10 +231,18 @@ export default function HomePage() {
       ? EVENT_ITEMS
       : EVENT_ITEMS.filter((ev) => ev.sv5tCriterion === eventFilter);
 
-  // Auto-scroll logic for infinite carousel
+  // Auto-scroll logic for infinite carousel (tôn trọng prefers-reduced-motion)
   useEffect(() => {
     const el = carouselRef.current;
     if (!el) return;
+
+    if (typeof window !== 'undefined') {
+      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if (mediaQuery.matches) {
+        setIsCarouselPaused(true);
+        return;
+      }
+    }
 
     let animId: number;
     let lastTime = performance.now();
@@ -323,7 +346,7 @@ export default function HomePage() {
                 />
               </div>
               <div className="bg-[#133F68] text-white px-6 py-3.5 flex items-center justify-center border-t border-slate-100 text-center">
-                <span className="text-xs sm:text-sm font-eiu-serif font-extrabold italic text-[#A68556]">
+                <span className="text-xs sm:text-sm font-eiu-serif font-extrabold italic text-[#FCB900]">
                   Trí sáng - Đồng tâm - Vươn tầm - Cất cánh
                 </span>
               </div>
@@ -339,6 +362,7 @@ export default function HomePage() {
         aria-label="Khám phá Hội Sinh viên EIU"
         className="py-10 sm:py-12 bg-white border-b border-slate-200/80"
       >
+        <h2 className="sr-only">Khám phá Hội Sinh viên EIU</h2>
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
             {/* THẺ 1 (Chiếm 2 cột): Giới thiệu về Hội Sinh viên EIU */}
@@ -579,7 +603,7 @@ export default function HomePage() {
          ===================================================================== */}
       <section aria-labelledby="news-heading" className="py-13 bg-[#F5F5F5]">
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6 space-y-7">
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-2.5">
             <h2
               id="news-heading"
               className="text-xl sm:text-2xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display"
@@ -704,10 +728,10 @@ export default function HomePage() {
                         {String(idx + 3).padStart(2, '0')}
                       </span>
                       <div className="min-w-0 space-y-1">
-                        <div className="flex items-center gap-2 text-[10.5px] uppercase font-bold tracking-wider font-eiu-display">
+                        <div className="flex items-center gap-2 text-[11px] uppercase font-bold tracking-wider font-eiu-display">
                           <span className="text-[#0054A6] truncate">{post.categoryLabel}</span>
                           <span className="text-slate-300">•</span>
-                          <span className="text-slate-500 font-eiu-serif shrink-0">
+                          <span className="text-slate-600 font-eiu-serif shrink-0">
                             {formatDateDot(post.publishedAt)}
                           </span>
                         </div>
@@ -717,14 +741,24 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <div className="w-20 sm:w-24 h-14 sm:h-16 shrink-0 bg-[#144069] eiu-arch-pattern text-white flex items-center justify-center border border-slate-200 overflow-hidden relative group-hover:border-[#0054A6] transition-colors">
-                      <Image
-                        src="/images/hsv-logo.png"
-                        alt=""
-                        width={26}
-                        height={26}
-                        className="w-6 h-6 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
-                      />
+                    <div className="w-20 sm:w-24 h-14 sm:h-16 shrink-0 bg-[#02294E] border border-slate-200 overflow-hidden relative group-hover:border-[#0054A6] transition-colors rounded-xs">
+                      {FALLBACK_HSV_NEWS[idx + 2]?.imageUrl ? (
+                        <Image
+                          src={FALLBACK_HSV_NEWS[idx + 2].imageUrl as string}
+                          alt=""
+                          fill
+                          sizes="96px"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
+                        />
+                      ) : (
+                        <Image
+                          src="/images/hsv-logo.png"
+                          alt=""
+                          width={26}
+                          height={26}
+                          className="w-6 h-6 object-contain opacity-80"
+                        />
+                      )}
                     </div>
                   </Link>
                 ))}
@@ -944,13 +978,25 @@ export default function HomePage() {
             </span>
           </h2>
 
-          {/* Nút điều hướng thủ công Prev / Next */}
+          {/* Nút điều hướng thủ công Prev / Pause / Next đạt chuẩn 44px touch target */}
           <div className="flex items-center gap-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => setIsCarouselPaused(!isCarouselPaused)}
+              aria-label={isCarouselPaused ? 'Tiếp tục tự cuộn' : 'Tạm dừng tự cuộn'}
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+            >
+              {isCarouselPaused ? (
+                <Play className="w-4 h-4 fill-white text-white ml-0.5" />
+              ) : (
+                <Pause className="w-4 h-4 fill-white text-white" />
+              )}
+            </button>
             <button
               type="button"
               onClick={scrollCarouselPrev}
               aria-label="Xem gương mặt trước"
-              className="w-10 h-10 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -958,7 +1004,7 @@ export default function HomePage() {
               type="button"
               onClick={scrollCarouselNext}
               aria-label="Xem gương mặt tiếp theo"
-              className="w-10 h-10 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -971,21 +1017,54 @@ export default function HomePage() {
           onScroll={handleCarouselScroll}
           onMouseEnter={() => setIsCarouselPaused(true)}
           onMouseLeave={() => setIsCarouselPaused(false)}
+          onFocus={() => setIsCarouselPaused(true)}
+          onBlur={() => setIsCarouselPaused(false)}
           className="flex items-center gap-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:none py-2 px-4 sm:px-6 relative z-10 cursor-grab active:cursor-grabbing"
         >
           {[...SV5T_HONOREES, ...SV5T_HONOREES].map((student, idx) => (
             <article
               key={`${student.id}-${idx}`}
-              className={`w-[270px] sm:w-[285px] h-[340px] sm:h-[360px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] transition-all flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-lg`}
+              className={`w-[270px] sm:w-[285px] h-[360px] sm:h-[380px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] transition-all flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-xl rounded-xs`}
             >
-              <div className="absolute inset-0 eiu-arch-pattern opacity-40 pointer-events-none" aria-hidden="true" />
+              {/* Ảnh chân dung sinh viên thật tràn viền với lớp gradient sang trọng */}
+              {student.image ? (
+                <>
+                  <Image
+                    src={student.image}
+                    alt={`Sinh viên 5 tốt ${student.name}`}
+                    fill
+                    sizes="(max-width: 640px) 270px, 285px"
+                    className="object-cover object-top filter brightness-[0.88] group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
+                  />
+                  {/* Lớp gradient chuyển từ trong suốt sang Navy đậm để đảm bảo độ tương phản chữ */}
+                  <div
+                    className="absolute inset-0 bg-gradient-to-t from-[#02294E] via-[#02294E]/20 to-transparent pointer-events-none"
+                    aria-hidden="true"
+                  />
+                </>
+              ) : (
+                <>
+                  <div className="absolute inset-0 eiu-arch-pattern opacity-40 pointer-events-none" aria-hidden="true" />
+                  <div className="relative z-10 my-auto py-2 flex flex-col items-center justify-center text-center">
+                    <div className="w-20 h-20 rounded-full border-2 border-[#FCB900]/70 bg-gradient-to-b from-[#133F68] to-[#02294E] flex flex-col items-center justify-center relative shadow-xl group-hover:border-[#FCB900] group-hover:scale-105 transition-all">
+                      <Star className="w-4 h-4 fill-[#FCB900] text-[#FCB900] mb-0.5" />
+                      <span className="font-eiu-serif font-bold text-base text-white tracking-wider">
+                        {student.initials}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              )}
 
-              {/* Hàng trên: Số thứ tự outline bên phải */}
-              <div className="relative z-10 flex items-center justify-end">
+              {/* Hàng trên: Tag Chi hội & Số thứ tự outline bên phải */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="px-2 py-0.5 bg-[#02294E]/90 border border-[#FCB900]/40 text-[#FCB900] text-[11px] font-bold font-eiu-display backdrop-blur-xs">
+                  Chi hội {student.branch}
+                </span>
                 <span
-                  className="font-eiu-serif text-2xl sm:text-3xl font-light select-none tracking-tight leading-none"
+                  className="font-eiu-serif text-2xl sm:text-3xl font-light select-none tracking-tight leading-none text-white/90"
                   style={{
-                    WebkitTextStroke: '1px rgba(255, 255, 255, 0.45)',
+                    WebkitTextStroke: '1px rgba(255, 255, 255, 0.65)',
                     color: 'transparent',
                   }}
                   aria-hidden="true"
@@ -994,34 +1073,18 @@ export default function HomePage() {
                 </span>
               </div>
 
-              {/* Phần giữa: Biểu trưng huy hiệu vinh danh SV5T */}
-              <div className="relative z-10 my-auto py-2 flex flex-col items-center justify-center text-center">
-                <div className="w-20 h-20 rounded-full border-2 border-[#FCB900]/70 bg-gradient-to-b from-[#133F68] to-[#02294E] flex flex-col items-center justify-center relative shadow-xl group-hover:border-[#FCB900] group-hover:scale-105 transition-all">
-                  <Star className="w-4 h-4 fill-[#FCB900] text-[#FCB900] mb-0.5" />
-                  <span className="font-eiu-serif font-bold text-base text-white tracking-wider">
-                    {student.initials}
-                  </span>
-                  <span className="text-[8.5px] font-bold uppercase tracking-widest text-[#FCB900] font-eiu-display mt-0.5">
-                    SV5T
-                  </span>
-                </div>
-                <span className="text-[11px] text-white/60 font-eiu-serif mt-2.5 tracking-wide">
-                  {student.cohort}
-                </span>
-              </div>
-
-              {/* Hàng dưới: Tag màu vàng, Họ và tên (Header) và Chi hội */}
-              <div className="relative z-10 space-y-2">
-                <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[10px] font-bold uppercase tracking-wider font-eiu-display self-start inline-block">
-                  Sinh viên 5 tốt cấp trường
+              {/* Hàng dưới: Tag vàng Sinh viên 5 tốt, Họ tên và Khoa */}
+              <div className="relative z-10 space-y-1.5 pt-4">
+                <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[11px] font-extrabold uppercase tracking-wider font-eiu-display self-start inline-block shadow-sm">
+                  Sinh viên 5 tốt
                 </span>
 
-                <h3 className="font-eiu-display font-bold text-lg text-white group-hover:text-[#FCB900] transition-colors leading-snug line-clamp-1">
+                <h3 className="font-eiu-display font-extrabold text-[17px] sm:text-[18px] text-white group-hover:text-[#FCB900] transition-colors leading-snug line-clamp-1 drop-shadow-sm">
                   {student.name}
                 </h3>
 
-                <p className="text-xs text-white/80 line-clamp-1 font-medium">
-                  Chi hội {student.branch}
+                <p className="text-[12px] text-white/90 line-clamp-1 font-medium drop-shadow-xs">
+                  {student.faculty}
                 </p>
               </div>
             </article>

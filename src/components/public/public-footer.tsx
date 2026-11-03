@@ -305,12 +305,12 @@ function PublicFooterInner() {
                       if (errorMsg) setErrorMsg('');
                     }}
                     placeholder="Nhập email để nhận thông báo mới"
-                    className="w-full sm:w-68 h-10 px-3.5 bg-white text-slate-900 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-full sm:w-68 h-10 px-3.5 bg-white text-slate-900 placeholder:text-slate-600 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="h-10 px-5 bg-[#A68556] hover:bg-[#8e7046] disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="h-10 px-5 bg-[#8E6D3E] hover:bg-[#78592B] disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <span>{isSubmitting ? 'ĐANG GỬI...' : 'ĐĂNG KÝ'}</span>
                     <Send className="w-3.5 h-3.5" />
@@ -324,6 +324,15 @@ function PublicFooterInner() {
               </div>
             )}
           </div>
+        </div>
+      </div>
+
+      {/* Dòng bản quyền & Nhóm sinh viên phát triển ở cuối chân trang */}
+      <div className="border-t border-white/10 bg-[#09223B] text-[#DED1BE] py-3.5">
+        <div className={`${containerClass} mx-auto px-4 sm:px-6 text-center text-xs sm:text-[12.5px] leading-relaxed`}>
+          <p>
+            © 2026 - Phát triển bởi nhóm sinh viên Trương Châu Phước Lộc, Bùi Nhật Linh, Vũ Đức Tùng dưới sự hướng dẫn của Thầy Nguyễn Xuân Cường
+          </p>
         </div>
       </div>
     </footer>
