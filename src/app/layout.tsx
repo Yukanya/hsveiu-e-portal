@@ -30,9 +30,9 @@ const crimsonText = Crimson_Text({
 
 export const metadata: Metadata = {
   title:
-    'Hội Sinh viên Việt Nam | Trường Đại học Quốc tế Miền Đông (EIU)',
+    'Hội Sinh viên EIU',
   description:
-    'Cổng thông tin Điện tử, Quản lý Sự kiện, Xét chọn Sinh viên 5 Tốt, Cấp Giấy chứng nhận Điện tử và Hệ thống E-Office Hội Sinh viên Trường Đại học Quốc tế Miền Đông Khóa II (2026 - 2028).',
+    'Cổng thông tin Điện tử của Hội Sinh viên Trường Đại học Quốc tế Miền Đông.',
 };
 
 const EXTENSION_CLEANUP_SCRIPT = `
