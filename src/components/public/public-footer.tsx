@@ -82,59 +82,34 @@ function PublicFooterInner() {
             </div>
           </div>
 
-          {/* Cột 2 (2/12): Tổ chức và Bộ máy */}
+          {/* Cột 2 (2/12): Nổi bật */}
           <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
-              Tổ chức và Bộ máy
+              Nổi bật
             </h2>
             <ul className="space-y-1.5 text-[#DED1BE]">
               <li>
                 <Link
-                  href="/gioi-thieu?tab=overview"
+                  href="/gioi-thieu"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Tổng quan Khóa II
+                  Về Hội Sinh viên EIU
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/gioi-thieu?tab=chart"
+                  href="/gioi-thieu?tab=staff"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Sơ đồ Tổ chức 3 Cấp
+                  Đội ngũ cán bộ
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/gioi-thieu?tab=vp"
+                  href="/portal"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Văn phòng 206.B06
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/to-chuc"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
-                >
-                  Chi hội và CLB
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cột 3 (2/12): Hội viên và Cơ sở */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
-            <h2 className="text-[15.5px] font-semibold text-white mb-2">
-              Hội viên và Cơ sở
-            </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
-              <li>
-                <Link
-                  href="/portal?tab=sv5t"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
-                >
-                  Sổ tay Sinh viên 5 Tốt
+                  Sinh viên 5 tốt
                 </Link>
               </li>
               <li>
@@ -142,73 +117,57 @@ function PublicFooterInner() {
                   href="/tin-tuc"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Tin tức và Hoạt động
+                  Tin tức Sinh viên
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Cột 3 (2/12): Hội viên – Sinh viên */}
+          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+            <h2 className="text-[15.5px] font-semibold text-white mb-2">
+              Hội viên – Sinh viên
+            </h2>
+            <ul className="space-y-1.5 text-[#DED1BE]">
               <li>
                 <Link
                   href="/su-kien"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Lịch Sự kiện
+                  Sự kiện phong trào
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/portal?tab=voice"
+                  href="/portal"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Hộp thư Lắng nghe SV
+                  Sổ tay hội viên
                 </Link>
               </li>
-            </ul>
-          </div>
-
-          {/* Cột 4 (2/12): Dịch vụ và Pháp lý */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
-            <h2 className="text-[15.5px] font-semibold text-white mb-2">
-              Dịch vụ và Pháp lý
-            </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
+              <li>
+                <Link
+                  href="/portal?tab=quiz"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                >
+                  Học tập và cuộc thi
+                </Link>
+              </li>
               <li>
                 <Link
                   href="/tra-cuu-gcn"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Tra cứu E-Certificate QR
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/van-ban"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
-                >
-                  Kho Văn bản Khóa II
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/van-ban?doc=09/QĐ-HSV"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
-                >
-                  Chuẩn SV5T (QĐ 09)
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/van-ban?doc=28/QĐ-HSV"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
-                >
-                  Quy định GCN (QĐ 28)
+                  Tra cứu GCN
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Cột 5 (2/12): E-Office và Kết nối */}
+          {/* Cột 4 (2/12): Cán bộ Hội */}
           <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
-              E-Office và Kết nối
+              Cán bộ Hội
             </h2>
             <ul className="space-y-1.5 text-[#DED1BE]">
               <li>
@@ -216,18 +175,41 @@ function PublicFooterInner() {
                   href="/workspace"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Trung tâm E-Office
+                  e-Office
                 </Link>
               </li>
               <li>
-                <a
-                  href="https://eiu.edu.vn"
-                  target="_blank"
-                  rel="noreferrer"
+                <Link
+                  href="/workspace?tab=meetings"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Trang chính EIU
-                </a>
+                  Phòng họp số
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/van-ban"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                >
+                  Văn bản
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Cột 5 (2/12): Kết nối với HSV */}
+          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+            <h2 className="text-[15.5px] font-semibold text-white mb-2">
+              Kết nối với HSV
+            </h2>
+            <ul className="space-y-1.5 text-[#DED1BE]">
+              <li>
+                <Link
+                  href="/"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                >
+                  Cổng thông tin
+                </Link>
               </li>
               <li>
                 <a
@@ -236,7 +218,27 @@ function PublicFooterInner() {
                   rel="noreferrer"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Fanpage HSV EIU
+                  Fanpage
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.instagram.com/hsv.eiu"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                >
+                  Instagram
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.tiktok.com/@hsv.eiu"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                >
+                  Tiktok
                 </a>
               </li>
             </ul>

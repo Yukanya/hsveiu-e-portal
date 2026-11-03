@@ -2404,7 +2404,7 @@ export const EVENT_ITEMS: EventItem[] = [
     preApprovalStatus: 'approved_3days_prior',
     certWorkflowStatus: 'decision_issued',
     decisionNumber: '32/QĐ-HSV',
-    sv5tCriterion: 'Hội nhập tốt',
+    sv5tCriterion: 'Đạo đức tốt',
     registeredCount: 125,
     maxParticipants: 130,
     isGreenEvent: true,

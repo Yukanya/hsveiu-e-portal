@@ -20,66 +20,37 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { href: '/', label: 'TRANG CHỦ' },
-  {
-    href: '/gioi-thieu',
-    label: 'GIỚI THIỆU VÀ BỘ MÁY',
-    children: [
-      { label: 'Tổng quan HSV EIU Khóa II (2026–2028)', href: '/gioi-thieu?tab=overview' },
-      { label: 'Sơ đồ Cơ cấu Tổ chức 3 Cấp', href: '/gioi-thieu?tab=chart', badge: '3 CẤP' },
-      { label: 'Ban Thư ký HSV Trường (05 đ/c)', href: '/gioi-thieu?tab=btk' },
-      { label: 'Ban Chấp hành HSV Trường (15 đ/c)', href: '/gioi-thieu?tab=bch' },
-      { label: 'Ban Kiểm tra HSV Trường (05 đ/c)', href: '/gioi-thieu?tab=bkt' },
-      { label: 'Văn phòng Hội Sinh viên (Phòng 206.B06)', href: '/gioi-thieu?tab=vp' },
-      { label: 'Ban Tổ chức và Xây dựng Hội (05 Cụm)', href: '/gioi-thieu?tab=tcxdh' },
-      { label: 'Ban Tuyên giáo – Phong trào và Đội CTVXK', href: '/gioi-thieu?tab=tgpt' },
-    ],
-  },
-  {
-    href: '/to-chuc',
-    label: 'CHI HỘI VÀ CLB',
-    children: [
-      { label: 'Danh bạ 30 Câu lạc bộ – Đội – Nhóm', href: '/to-chuc?tab=clubs', badge: '30 CLB' },
-      { label: 'Khối Cộng đồng và Tình nguyện (07)', href: '/to-chuc?tab=clubs&category=CONG_DONG' },
-      { label: 'Khối Học thuật – Nghiên cứu (06)', href: '/to-chuc?tab=clubs&category=HOC_THUAT' },
-      { label: 'Khối Văn hóa – Nghệ thuật (10)', href: '/to-chuc?tab=clubs&category=NGHE_THUAT' },
-      { label: 'Khối Thể dục – Thể thao (07)', href: '/to-chuc?tab=clubs&category=THE_THAO' },
-      { label: 'Hệ thống 25 Chi hội (04 Cụm Khoa)', href: '/to-chuc?tab=branches', badge: '25 CHI HỘI' },
-      { label: 'Cụm Khoa Quản trị Kinh doanh (06)', href: '/to-chuc?tab=branches&faculty=BBS' },
-      { label: 'Cụm Khoa Kỹ thuật (06)', href: '/to-chuc?tab=branches&faculty=SET' },
-      { label: 'Cụm Khoa Công nghệ Thông tin (07)', href: '/to-chuc?tab=branches&faculty=CIT' },
-      { label: 'Cụm Khoa Khoa học Sức khỏe (06)', href: '/to-chuc?tab=branches&faculty=SNS' },
-    ],
-  },
-  {
-    href: '/tin-tuc',
-    label: 'TIN TỨC',
-    children: [
-      { label: 'Tất cả Tin tức và Điểm tin Phong trào', href: '/tin-tuc' },
-      { label: 'Chuyên mục Sinh viên 5 Tốt', href: '/tin-tuc?category=SINH_VIEN_5_TOT' },
-      { label: 'Tổ chức – Xây dựng Hội', href: '/tin-tuc?category=TIN_HOAT_DONG' },
-      { label: 'Tuyên giáo – Phát triển Bền vững (SDGs)', href: '/tin-tuc?category=TUYEN_TRUYEN' },
-      { label: 'Thông báo – Văn bản Chỉ đạo', href: '/tin-tuc?category=THONG_BAO' },
-    ],
-  },
+  { href: '/tin-tuc', label: 'TIN TỨC' },
   {
     href: '/su-kien',
     label: 'SỰ KIỆN',
     children: [
-      { label: 'Lịch Sự kiện và Đăng ký 1-Chạm', href: '/su-kien' },
-      { label: 'Chương trình Đang mở Đăng ký', href: '/su-kien?status=upcoming' },
-      { label: 'Chương trình Đã ban hành Quyết định GCN', href: '/su-kien?status=decision_issued' },
-      { label: 'Quy trình 5 Bước và Hệ số Ngày TN (QĐ 28)', href: '/su-kien#quy-trinh-qd28' },
+      { label: 'Tham gia sự kiện', href: '/su-kien' },
+      { label: 'Cuộc thi trực tuyến', href: '/portal?tab=quiz' },
+      { label: 'Khảo sát', href: '/portal?tab=voice' },
+      { label: 'Học tập', href: '/portal?tab=sv5t' },
     ],
   },
   {
     href: '/van-ban',
     label: 'VĂN BẢN',
     children: [
-      { label: 'Kho Văn bản Pháp lý Hiện hành', href: '/van-ban' },
-      { label: 'QĐ 09/QĐ-HSV — Chuẩn Sinh viên 5 Tốt (2026)', href: '/van-ban?doc=09/QĐ-HSV' },
-      { label: 'QĐ 28/QĐ-HSV — Cấp E-Certificate và Ngày TN', href: '/van-ban?doc=28/QĐ-HSV' },
-      { label: 'QĐ 23 và 24/QĐ-HSV — Quy chế BCH và Các Ban', href: '/van-ban?doc=23/QĐ-HSV' },
-      { label: 'TB 04/TB-HSV — Phân công Nhân sự Chủ chốt', href: '/van-ban?doc=04/TB-HSV' },
+      { label: 'Kế hoạch', href: '/van-ban?type=ke-hoach' },
+      { label: 'Thông báo', href: '/van-ban?type=thong-bao' },
+      { label: 'Quyết định', href: '/van-ban?type=quyet-dinh' },
+      { label: 'Công văn', href: '/van-ban?type=cong-van' },
+      { label: 'Biểu mẫu', href: '/van-ban?type=bieu-mau' },
+    ],
+  },
+  {
+    href: '/gioi-thieu',
+    label: 'GIỚI THIỆU',
+    children: [
+      { label: 'Hội Sinh viên EIU', href: '/gioi-thieu?tab=overview' },
+      { label: 'Đại hội II', href: '/gioi-thieu?tab=overview' },
+      { label: 'Ban Chuyên môn', href: '/gioi-thieu?tab=tcxdh' },
+      { label: 'Chi hội', href: '/to-chuc?tab=branches' },
+      { label: 'CLB – Đội – Nhóm', href: '/to-chuc?tab=clubs' },
     ],
   },
   { href: '/tra-cuu-gcn', label: 'TRA CỨU GCN' },
@@ -154,7 +125,13 @@ function PublicNavbarInner() {
                 item.href === '/'
                   ? pathname === '/'
                   : pathname === item.href ||
-                    pathname.startsWith(`${item.href}/`);
+                    pathname.startsWith(`${item.href}/`) ||
+                    Boolean(
+                      item.children &&
+                        item.children.some(
+                          (sub) => pathname === sub.href.split('?')[0]
+                        )
+                    );
               const isDropdownOpen = openDesktopDropdown === item.href;
 
               return (
@@ -254,7 +231,14 @@ function PublicNavbarInner() {
             const isActive =
               item.href === '/'
                 ? pathname === '/'
-                : pathname.startsWith(item.href);
+                : pathname === item.href ||
+                  pathname.startsWith(`${item.href}/`) ||
+                  Boolean(
+                    item.children &&
+                      item.children.some(
+                        (sub) => pathname === sub.href.split('?')[0]
+                      )
+                  );
             const isExpanded = openMobileSubmenu === item.href;
 
             return (
