@@ -13,9 +13,7 @@ import {
   OFFICIAL_DOCUMENTS,
 } from '@/data/mock-data';
 import {
-  Building2,
   ChevronDown,
-  ExternalLink,
   Search,
   ShieldCheck,
   UserCheck,
@@ -119,21 +117,10 @@ export function PersonaSwitcherBar() {
       <div
         className={`${containerClass} mx-auto px-4 sm:px-6 min-h-9 py-1.5 flex flex-wrap items-center justify-between gap-2 font-eiu-display`}
       >
-        {/* Trái: Liên kết Hệ sinh thái EIU & Trụ sở Văn phòng 206.B06 */}
-        <div className="hidden md:flex items-center gap-3 text-white/90">
-          <a
-            href="https://eiu.edu.vn"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 font-semibold tracking-wide hover:text-[#FCB900] transition-colors"
-          >
-            <span>EIU.EDU.VN</span>
-            <ExternalLink className="w-3 h-3 opacity-80" />
-          </a>
-          <span className="h-3 w-px bg-white/30" aria-hidden="true" />
-          <span className="inline-flex items-center gap-1.5 text-[#DED1BE] font-medium">
-            <Building2 className="w-3.5 h-3.5 text-[#A68556]" />
-            <span>VP HỘI: PHÒNG 206.B06 (08:00 – 16:30)</span>
+        {/* Trái: Trụ sở Văn phòng 206.B06 */}
+        <div className="hidden md:flex items-center text-white/90">
+          <span className="text-[#DED1BE] font-medium">
+            VP HỘI: PHÒNG 206.B06 (08:00 – 16:30)
           </span>
         </div>
 
@@ -173,16 +160,13 @@ export function PersonaSwitcherBar() {
 
           <Link
             href="/workspace"
-            className={`inline-flex items-center gap-1 uppercase tracking-wide transition-colors ${
+            className={`uppercase tracking-wide transition-colors ${
               pathname.startsWith('/workspace')
                 ? 'text-[#FCB900] font-bold'
                 : 'text-white/95 hover:text-[#DED1BE]'
             }`}
           >
-            <span>E-OFFICE</span>
-            <span className="hidden sm:inline font-eiu-serif text-[10px] px-1.5 py-0.5 bg-white/15 text-[#FCB900]">
-              CẤP {activePosition.roleLevel}/6
-            </span>
+            E-OFFICE
           </Link>
 
           <span className="h-3 w-px bg-white/35" aria-hidden="true" />

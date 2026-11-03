@@ -135,7 +135,7 @@ function PublicNavbarInner() {
                   HỘI SINH VIÊN
                 </div>
                 <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#A68556]">
-                  STUDENT UNION
+                  STUDENT ASSOCIATION
                 </div>
               </div>
             </div>
