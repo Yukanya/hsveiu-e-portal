@@ -217,6 +217,8 @@ const SV5T_HONOREES = [
 
 export default function HomePage() {
   const [eventFilter, setEventFilter] = useState<string>('ALL');
+  const [isFiltering, setIsFiltering] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isCarouselPaused, setIsCarouselPaused] = useState(false);
@@ -225,6 +227,17 @@ export default function HomePage() {
   const featuredNews = NEWS_POSTS[0];
   const secondaryLead = NEWS_POSTS[1];
   const listNews = NEWS_POSTS.slice(2, 6);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  const handleFilterChange = (criterion: string) => {
+    if (criterion === eventFilter) return;
+    setIsFiltering(true);
+    setEventFilter(criterion);
+    setTimeout(() => setIsFiltering(false), 180);
+  };
 
   const filteredEvents =
     eventFilter === 'ALL'
@@ -323,9 +336,13 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Cột Phải (5/12): Khối Biểu trưng EIU × Đại hội II + Khẩu hiệu in nghiêng màu #A68556 căn giữa */}
-          <div className="lg:col-span-5">
-            <div className="bg-white border-t-4 border-[#A68556] shadow-xl">
+          {/* Cột Phải (5/12): Khối Biểu trưng EIU × Đại hội II + Khẩu hiệu */}
+          <div
+            className={`lg:col-span-5 transition-all duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
+            }`}
+          >
+            <div className="bg-white border-t-4 border-[#A68556] shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <div className="p-6 sm:p-7 flex items-center justify-center gap-6">
                 <Image
                   src="/images/eiu-logo-full.png"
@@ -333,7 +350,7 @@ export default function HomePage() {
                   width={240}
                   height={100}
                   priority
-                  className="h-22 sm:h-25 w-auto object-contain"
+                  className="h-22 sm:h-25 w-auto object-contain hover:scale-102 transition-transform duration-300"
                 />
                 <div className="h-20 w-px bg-slate-200" aria-hidden="true" />
                 <Image
@@ -342,7 +359,7 @@ export default function HomePage() {
                   width={140}
                   height={100}
                   priority
-                  className="h-22 sm:h-25 w-auto object-contain"
+                  className="h-22 sm:h-25 w-auto object-contain hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="bg-[#133F68] text-white px-6 py-3.5 flex items-center justify-center border-t border-slate-100 text-center">
@@ -366,7 +383,7 @@ export default function HomePage() {
         <div className="max-w-[1140px] mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 items-stretch">
             {/* THẺ 1 (Chiếm 2 cột): Giới thiệu về Hội Sinh viên EIU */}
-            <article className="sm:col-span-2 bg-[#02294E] border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col md:flex-row group shadow-2xs">
+            <article className="sm:col-span-2 bg-[#02294E] border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col md:flex-row group shadow-2xs motion-reduce:hover:translate-y-0">
               {/* Nửa trái: Tiêu đề Header, thông tin tôn chỉ và liên kết */}
               <div className="md:w-1/2 p-6 sm:p-7 flex flex-col justify-between gap-5 relative bg-[#02294E] eiu-arch-pattern text-white">
                 <div className="space-y-3">
@@ -384,7 +401,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#FCB900] group-hover:text-white font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] rounded-xs"
                   >
                     <span>TÌM HIỂU THÊM</span>
-                    <ChevronRight className="w-4 h-4" />
+                    <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
@@ -397,7 +414,7 @@ export default function HomePage() {
                     alt="Trường Đại học Quốc tế Miền Đông"
                     width={130}
                     height={50}
-                    className="h-10 w-auto object-contain"
+                    className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-300"
                   />
                   <div className="h-10 w-px bg-white/20" aria-hidden="true" />
                   <Image
@@ -405,7 +422,7 @@ export default function HomePage() {
                     alt="Biểu trưng Đại hội II"
                     width={60}
                     height={60}
-                    className="h-12 w-auto object-contain"
+                    className="h-12 w-auto object-contain hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="w-16 h-0.5 bg-[#A68556] my-3" aria-hidden="true" />
@@ -416,11 +433,11 @@ export default function HomePage() {
             </article>
 
             {/* THẺ 2: Sinh viên 5 tốt */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#0054A6] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#00478D] transition-colors">
                 <div className="flex items-center justify-between">
-                  <Award className="w-7 h-7 text-white/90 group-hover:scale-105 transition-transform" />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <Award className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   Sinh viên 5 tốt
@@ -438,14 +455,14 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>XEM TIÊU CHUẨN</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
             </article>
 
             {/* THẺ 3: Đại hội II */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#133F68] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#0E2F4F] transition-colors">
                 <div className="flex items-center justify-between">
                   <Image
@@ -453,9 +470,9 @@ export default function HomePage() {
                     alt=""
                     width={36}
                     height={36}
-                    className="w-9 h-9 object-contain opacity-95 group-hover:scale-105 transition-transform"
+                    className="w-9 h-9 object-contain opacity-95 group-hover:scale-110 transition-transform duration-200"
                   />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   Đại hội II
@@ -473,18 +490,18 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>VĂN KIỆN ĐẠI HỘI</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
             </article>
 
             {/* THẺ 4: Đội ngũ cán bộ */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#144069] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#0E2F4F] transition-colors">
                 <div className="flex items-center justify-between">
-                  <Users className="w-7 h-7 text-white/90 group-hover:scale-105 transition-transform" />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <Users className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   Đội ngũ cán bộ
@@ -502,18 +519,18 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>XEM DANH SÁCH</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
             </article>
 
             {/* THẺ 5: Chi hội */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#011C35] transition-colors">
                 <div className="flex items-center justify-between">
-                  <Building2 className="w-7 h-7 text-white/90 group-hover:scale-105 transition-transform" />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <Building2 className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   Chi hội
@@ -531,18 +548,18 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>DANH BẠ CHI HỘI</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
             </article>
 
             {/* THẺ 6: CLB – Đội – Nhóm */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#51803A] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#436C2F] transition-colors">
                 <div className="flex items-center justify-between">
-                  <Sparkles className="w-7 h-7 text-white/90 group-hover:scale-105 transition-transform" />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <Sparkles className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   CLB – Đội – Nhóm
@@ -560,18 +577,18 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>KHÁM PHÁ CLB</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
             </article>
 
             {/* THẺ 7: Tin tức nổi bật */}
-            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-all flex flex-col justify-between group shadow-2xs">
+            <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group shadow-2xs motion-reduce:hover:translate-y-0">
               <div className="h-36 bg-[#0054A6] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden group-hover:bg-[#00478D] transition-colors">
                 <div className="flex items-center justify-between">
-                  <Newspaper className="w-7 h-7 text-white/90 group-hover:scale-105 transition-transform" />
-                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+                  <Newspaper className="w-7 h-7 text-white/90 group-hover:scale-110 transition-transform duration-200" />
+                  <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
                 <h3 className="text-lg sm:text-[19px] font-bold text-white font-eiu-display leading-snug">
                   Tin tức nổi bật
@@ -589,7 +606,7 @@ export default function HomePage() {
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>XEM BẢN TIN</span>
-                    <ChevronRight className="w-3.5 h-3.5" />
+                    <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
               </div>
@@ -810,11 +827,11 @@ export default function HomePage() {
                     type="button"
                     role="tab"
                     aria-selected={isSelected}
-                    onClick={() => setEventFilter(pill.id)}
-                    className={`py-1.5 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
+                    onClick={() => handleFilterChange(pill.id)}
+                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[38px] ${
                       isSelected
-                        ? 'bg-[#C10230] text-white border border-[#C10230]'
-                        : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/30'
+                        ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs scale-[1.02]'
+                        : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40 hover:scale-[1.01]'
                     }`}
                   >
                     {pill.label} ({count})
@@ -840,7 +857,11 @@ export default function HomePage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div
+              className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 transition-all duration-200 ease-out motion-reduce:transition-none ${
+                isFiltering ? 'opacity-40 translate-y-1' : 'opacity-100 translate-y-0'
+              }`}
+            >
               {filteredEvents.map((ev) => {
                 const fillPct = Math.min(
                   100,
@@ -851,7 +872,7 @@ export default function HomePage() {
                 return (
                   <article
                     key={ev.id}
-                    className="bg-white border border-slate-200/90 hover:border-[#133F68] transition-colors flex flex-col justify-between"
+                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
                   >
                     {/* Header Thẻ Sự kiện: Tag Trạng thái bên trái, Box Tiêu chuẩn và Box Ngày TN bên phải — Chiều cao h-36 đồng bộ với Thẻ Tin tức */}
                     <div className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between">
@@ -902,7 +923,7 @@ export default function HomePage() {
                           </div>
                           <div className="h-1.5 bg-slate-200 overflow-hidden">
                             <div
-                              className={`h-full transition-all ${
+                              className={`h-full transition-all duration-700 ease-out ${
                                 fillPct >= 100
                                   ? 'bg-[#51803A]'
                                   : fillPct >= 85
@@ -925,9 +946,9 @@ export default function HomePage() {
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <Link
                           href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
-                          className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
+                          className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link"
                         >
-                          <ChevronRight className="w-3.5 h-3.5" />
+                          <ChevronRight className="w-3.5 h-3.5 transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 motion-reduce:transition-none" />
                           <span>{meta.isOpen ? 'ĐĂNG KÝ' : 'XEM TIẾN ĐỘ GCN'}</span>
                         </Link>
                       </div>
@@ -941,9 +962,9 @@ export default function HomePage() {
           <div className="flex justify-end pt-2">
             <Link
               href="/su-kien"
-              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-2 rounded-xs"
+              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-2 rounded-xs group"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1 motion-reduce:transition-none" />
               <span>XEM TẤT CẢ SỰ KIỆN</span>
             </Link>
           </div>
@@ -984,7 +1005,7 @@ export default function HomePage() {
               type="button"
               onClick={() => setIsCarouselPaused(!isCarouselPaused)}
               aria-label={isCarouselPaused ? 'Tiếp tục tự cuộn' : 'Tạm dừng tự cuộn'}
-              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] motion-reduce:active:scale-100"
             >
               {isCarouselPaused ? (
                 <Play className="w-4 h-4 fill-white text-white ml-0.5" />
@@ -996,7 +1017,7 @@ export default function HomePage() {
               type="button"
               onClick={scrollCarouselPrev}
               aria-label="Xem gương mặt trước"
-              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] motion-reduce:active:scale-100"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -1004,7 +1025,7 @@ export default function HomePage() {
               type="button"
               onClick={scrollCarouselNext}
               aria-label="Xem gương mặt tiếp theo"
-              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+              className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] motion-reduce:active:scale-100"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
@@ -1024,7 +1045,7 @@ export default function HomePage() {
           {[...SV5T_HONOREES, ...SV5T_HONOREES].map((student, idx) => (
             <article
               key={`${student.id}-${idx}`}
-              className={`w-[270px] sm:w-[285px] h-[360px] sm:h-[380px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] transition-all flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-xl rounded-xs`}
+              className={`w-[270px] sm:w-[285px] h-[360px] sm:h-[380px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-400 ease-out motion-reduce:hover:translate-y-0 flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-xl rounded-xs`}
             >
               {/* Ảnh chân dung sinh viên thật tràn viền với lớp gradient sang trọng */}
               {student.image ? (
@@ -1034,7 +1055,7 @@ export default function HomePage() {
                     alt={`Sinh viên 5 tốt ${student.name}`}
                     fill
                     sizes="(max-width: 640px) 270px, 285px"
-                    className="object-cover object-top filter brightness-[0.88] group-hover:scale-105 group-hover:brightness-100 transition-all duration-500"
+                    className="object-cover object-top filter brightness-[0.88] group-hover:scale-105 group-hover:brightness-100 transition-all duration-600 ease-out motion-reduce:group-hover:scale-100"
                   />
                   {/* Lớp gradient chuyển từ trong suốt sang Navy đậm để đảm bảo độ tương phản chữ */}
                   <div
