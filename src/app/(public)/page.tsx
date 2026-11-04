@@ -25,17 +25,21 @@ import {
 } from 'lucide-react';
 import { FALLBACK_HSV_NEWS } from '@/lib/services/facebook-news';
 
-function formatDateDot(dateStr: string) {
-  const parts = dateStr.split('-');
-  if (parts.length === 3) {
+function formatDateDot(dateStr?: string | null): string {
+  if (!dateStr || typeof dateStr !== 'string') return '';
+  const datePart = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  const parts = datePart.split('-');
+  if (parts.length === 3 && parts[0].length === 4) {
     return `${parts[2]}.${parts[1]}.${parts[0]}`;
   }
   return dateStr;
 }
 
-function formatEventTimeRange(startIso: string, endIso: string) {
+function formatEventTimeRange(startIso?: string | null, endIso?: string | null): string {
+  if (!startIso || !endIso) return 'Thời gian đang cập nhật';
   const s = new Date(startIso);
   const e = new Date(endIso);
+  if (isNaN(s.getTime()) || isNaN(e.getTime())) return 'Thời gian đang cập nhật';
   const pad = (n: number) => String(n).padStart(2, '0');
   const startHours = `${pad(s.getHours())}:${pad(s.getMinutes())}`;
   const endHours = `${pad(e.getHours())}:${pad(e.getMinutes())}`;
@@ -44,6 +48,15 @@ function formatEventTimeRange(startIso: string, endIso: string) {
 }
 
 function getEventCardMeta(ev: (typeof EVENT_ITEMS)[0]) {
+  if (!ev) {
+    return {
+      deadline: 'Đang cập nhật',
+      label: 'Sắp diễn ra',
+      bgClass: 'bg-[#51803A] text-white',
+      isOpen: false,
+    };
+  }
+
   const eventDeadlines: Record<
     string,
     { deadline: string; label: string; bgClass: string; isOpen: boolean }
@@ -72,21 +85,28 @@ function getEventCardMeta(ev: (typeof EVENT_ITEMS)[0]) {
     return eventDeadlines[ev.id];
   }
 
+  const s = ev.startTime ? new Date(ev.startTime) : new Date();
+  const isValidDate = !isNaN(s.getTime());
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const formattedDate = isValidDate
+    ? `${pad(s.getDate())}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`
+    : 'Đang cập nhật';
+
   if (ev.certWorkflowStatus !== 'upcoming') {
-    const s = new Date(ev.startTime);
-    const pad = (n: number) => String(n).padStart(2, '0');
     return {
-      deadline: `17:00 ${pad(s.getDate())}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`,
+      deadline: `17:00 ${formattedDate}`,
       label: 'Đã đóng đăng ký',
       bgClass: 'bg-slate-700 text-slate-100',
       isOpen: false,
     };
   }
 
-  const s = new Date(ev.startTime);
-  const pad = (n: number) => String(n).padStart(2, '0');
+  const regDeadline = isValidDate
+    ? `${pad(Math.max(1, s.getDate() - 2))}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`
+    : 'Đang cập nhật';
+
   return {
-    deadline: `17:00 ${pad(Math.max(1, s.getDate() - 2))}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`,
+    deadline: `17:00 ${regDeadline}`,
     label: 'Đang mở đăng ký',
     bgClass: 'bg-[#51803A] text-white',
     isOpen: true,
@@ -223,13 +243,69 @@ export default function HomePage() {
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isCarouselPaused, setIsCarouselPaused] = useState(false);
   const [activeHonoreeIndex, setActiveHonoreeIndex] = useState(1);
+  const [failedHonoreeImages, setFailedHonoreeImages] = useState<Record<string, boolean>>({});
+  const [failedNewsImages, setFailedNewsImages] = useState<Record<string, boolean>>({});
 
-  const featuredNews = NEWS_POSTS[0];
-  const secondaryLead = NEWS_POSTS[1];
+  // Pointer drag & gesture state
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startScrollLeftRef = useRef(0);
+  const activePointerIdRef = useRef<number | null>(null);
+  const [isDraggingState, setIsDraggingState] = useState(false);
+
+  const featuredNews = NEWS_POSTS[0] ?? {
+    id: 'fallback-lead-01',
+    title: 'Hội Sinh viên EIU đồng hành cùng sinh viên toàn diện',
+    slug: 'chao-mung-hsv-eiu',
+    summary: 'Cập nhật tin tức phong trào, hoạt động tình nguyện và các thông báo mới nhất từ Ban Chấp hành Hội Sinh viên Trường Đại học Quốc tế Miền Đông.',
+    publishedAt: '2026-11-01',
+    categoryLabel: 'TIÊU ĐIỂM',
+  };
+  const secondaryLead = NEWS_POSTS[1] ?? {
+    id: 'fallback-lead-02',
+    title: 'Kế hoạch trọng tâm công tác Hội và phong trào sinh viên',
+    slug: 'ke-hoach-cong-tac-hoi',
+    summary: 'Triển khai toàn diện 05 tiêu chuẩn Sinh viên 5 Tốt cấp trường.',
+    publishedAt: '2026-11-01',
+    categoryLabel: 'KẾ HOẠCH',
+  };
   const listNews = NEWS_POSTS.slice(2, 6);
 
   useEffect(() => {
     setIsMounted(true);
+
+    const handleWindowBlur = () => {
+      if (isDraggingRef.current && activePointerIdRef.current !== null) {
+        const el = carouselRef.current;
+        if (el) {
+          try {
+            el.releasePointerCapture(activePointerIdRef.current);
+          } catch {
+            // ignore
+          }
+        }
+        isDraggingRef.current = false;
+        activePointerIdRef.current = null;
+        setIsDraggingState(false);
+        setIsCarouselPaused(false);
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        setIsCarouselPaused(true);
+      } else {
+        setIsCarouselPaused(false);
+      }
+    };
+
+    window.addEventListener('blur', handleWindowBlur);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('blur', handleWindowBlur);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
   }, []);
 
   const handleFilterChange = (criterion: string) => {
@@ -261,13 +337,18 @@ export default function HomePage() {
     let lastTime = performance.now();
 
     const step = (time: number) => {
-      const delta = time - lastTime;
+      const delta = Math.min(100, time - lastTime);
       lastTime = time;
 
-      if (!isCarouselPaused && el) {
+      if (!isCarouselPaused && !isDraggingRef.current && el) {
+        const halfWidth = el.scrollWidth / 2;
         el.scrollLeft += (38 * delta) / 1000;
-        if (el.scrollLeft >= el.scrollWidth / 2) {
-          el.scrollLeft -= el.scrollWidth / 2;
+        if (halfWidth > 0) {
+          if (el.scrollLeft >= halfWidth) {
+            el.scrollLeft -= halfWidth;
+          } else if (el.scrollLeft <= 0) {
+            el.scrollLeft += halfWidth;
+          }
         }
       }
       animId = requestAnimationFrame(step);
@@ -277,26 +358,108 @@ export default function HomePage() {
     return () => cancelAnimationFrame(animId);
   }, [isCarouselPaused]);
 
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0) return;
+    if (activePointerIdRef.current !== null) return;
+
+    const el = carouselRef.current;
+    if (!el) return;
+
+    activePointerIdRef.current = e.pointerId;
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    startScrollLeftRef.current = el.scrollLeft;
+    setIsCarouselPaused(true);
+    setIsDraggingState(true);
+
+    try {
+      el.setPointerCapture(e.pointerId);
+    } catch {
+      // ignore
+    }
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || e.pointerId !== activePointerIdRef.current) return;
+    const el = carouselRef.current;
+    if (!el) return;
+
+    const deltaX = e.clientX - startXRef.current;
+    el.scrollLeft = startScrollLeftRef.current - deltaX;
+
+    const halfWidth = el.scrollWidth / 2;
+    if (halfWidth > 0) {
+      if (el.scrollLeft >= halfWidth) {
+        el.scrollLeft -= halfWidth;
+        startScrollLeftRef.current -= halfWidth;
+      } else if (el.scrollLeft <= 0) {
+        el.scrollLeft += halfWidth;
+        startScrollLeftRef.current += halfWidth;
+      }
+    }
+  };
+
+  const endDrag = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.pointerId !== activePointerIdRef.current) return;
+    const el = carouselRef.current;
+    if (el) {
+      try {
+        el.releasePointerCapture(e.pointerId);
+      } catch {
+        // ignore
+      }
+    }
+    isDraggingRef.current = false;
+    activePointerIdRef.current = null;
+    setIsDraggingState(false);
+    setIsCarouselPaused(false);
+  };
+
   const handleCarouselScroll = () => {
     const el = carouselRef.current;
     if (!el) return;
     const singleCardWidth = 280 + 20;
-    const normalizedScroll = el.scrollLeft % (el.scrollWidth / 2);
+    const halfWidth = el.scrollWidth / 2;
+    if (halfWidth <= 0) return;
+    const normalizedScroll = el.scrollLeft % halfWidth;
     const idx = Math.min(
       SV5T_HONOREES.length,
-      Math.floor(normalizedScroll / singleCardWidth) + 1
+      Math.max(1, Math.floor(normalizedScroll / singleCardWidth) + 1)
     );
     setActiveHonoreeIndex(idx);
   };
 
   const scrollCarouselPrev = () => {
-    if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    const el = carouselRef.current;
+    if (!el) return;
+    const halfWidth = el.scrollWidth / 2;
+    if (halfWidth > 0 && el.scrollLeft <= 320) {
+      el.scrollLeft += halfWidth;
+    }
+    el.scrollBy({ left: -300, behavior: 'smooth' });
   };
 
   const scrollCarouselNext = () => {
-    if (!carouselRef.current) return;
-    carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    const el = carouselRef.current;
+    if (!el) return;
+    const halfWidth = el.scrollWidth / 2;
+    if (halfWidth > 0 && el.scrollLeft >= halfWidth) {
+      el.scrollLeft -= halfWidth;
+    }
+    el.scrollBy({ left: 300, behavior: 'smooth' });
+  };
+
+  const handleCarouselKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      scrollCarouselPrev();
+    } else if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      scrollCarouselNext();
+    } else if (e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      setIsCarouselPaused((prev) => !prev);
+    }
   };
 
   return (
@@ -759,18 +922,24 @@ export default function HomePage() {
                     </div>
 
                     <div className="w-20 sm:w-24 h-14 sm:h-16 shrink-0 bg-[#02294E] border border-slate-200 overflow-hidden relative group-hover:border-[#0054A6] transition-colors rounded-xs">
-                      {FALLBACK_HSV_NEWS[idx + 2]?.imageUrl ? (
+                      {FALLBACK_HSV_NEWS[idx + 2]?.imageUrl && !failedNewsImages[post.id] ? (
                         <Image
                           src={FALLBACK_HSV_NEWS[idx + 2].imageUrl as string}
-                          alt=""
+                          alt={post.title}
                           fill
                           sizes="96px"
+                          onError={() =>
+                            setFailedNewsImages((prev) => ({
+                              ...prev,
+                              [post.id]: true,
+                            }))
+                          }
                           className="object-cover object-top group-hover:scale-105 transition-transform duration-300"
                         />
                       ) : (
                         <Image
                           src="/images/hsv-logo.png"
-                          alt=""
+                          alt="Hội Sinh viên EIU"
                           width={26}
                           height={26}
                           className="w-6 h-6 object-contain opacity-80"
@@ -846,12 +1015,12 @@ export default function HomePage() {
             <div className="bg-[#F5F5F5] border border-slate-200/90 p-8 text-center space-y-3">
               <p className="text-sm text-slate-600">
                 Hiện chưa có sự kiện nào thuộc tiêu chuẩn{' '}
-                <strong>{eventFilter}</strong> đang mở.
+                <strong className="text-[#133F68]">{eventFilter}</strong> đang mở.
               </p>
               <button
                 type="button"
-                onClick={() => setEventFilter('ALL')}
-                className="px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-[#0054A6] transition-colors"
+                onClick={() => handleFilterChange('ALL')}
+                className="px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-[#0054A6] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] focus-visible:ring-offset-2 min-h-[38px]"
               >
                 Xem tất cả sự kiện
               </button>
@@ -863,9 +1032,11 @@ export default function HomePage() {
               }`}
             >
               {filteredEvents.map((ev) => {
+                const maxParticipants = Number(ev.maxParticipants) || 1;
+                const registeredCount = Number(ev.registeredCount) || 0;
                 const fillPct = Math.min(
                   100,
-                  Math.round((ev.registeredCount / ev.maxParticipants) * 100)
+                  Math.max(0, Math.round((registeredCount / maxParticipants) * 100))
                 );
                 const meta = getEventCardMeta(ev);
 
@@ -890,7 +1061,7 @@ export default function HomePage() {
                             Tiêu chuẩn: {ev.sv5tCriterion}
                           </span>
                           <span className="font-eiu-serif text-xs font-bold px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-right">
-                            +{ev.baseVolunteerDays.toFixed(1)} Ngày Tình nguyện
+                            +{Number(ev.baseVolunteerDays ?? 0).toFixed(1)} Ngày Tình nguyện
                           </span>
                         </div>
                       </div>
@@ -899,26 +1070,26 @@ export default function HomePage() {
                     <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                       <div className="space-y-2">
                         {/* Tên chương trình */}
-                        <h3 className="text-[15.5px] font-bold text-[#133F68] leading-snug line-clamp-2 font-eiu-display">
+                        <h3 className="text-[15.5px] font-bold text-[#133F68] leading-snug line-clamp-2 break-words font-eiu-display">
                           {ev.title}
                         </h3>
 
                         {/* Vị trí */}
-                        <p className="text-xs text-slate-600 flex items-center gap-1.5">
+                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0">
                           <MapPin className="w-3.5 h-3.5 text-[#8E6D3E] shrink-0" />
-                          <span className="line-clamp-1">{ev.location}</span>
+                          <span className="line-clamp-1 truncate">{ev.location}</span>
                         </p>
 
                         {/* Thời gian diễn ra chương trình (giờ và ngày tháng năm) */}
-                        <p className="text-xs text-slate-600 flex items-center gap-1.5">
+                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0">
                           <Clock className="w-3.5 h-3.5 text-[#8E6D3E] shrink-0" />
-                          <span>{formatEventTimeRange(ev.startTime, ev.endTime)}</span>
+                          <span className="truncate">{formatEventTimeRange(ev.startTime, ev.endTime)}</span>
                         </p>
 
                         {/* Cây số lượng đăng ký và Hạn đăng ký */}
                         <div className="space-y-1.5 pt-1">
                           <div className="flex justify-between text-[11px] text-slate-600 font-eiu-serif">
-                            <span>Đăng ký: {ev.registeredCount}/{ev.maxParticipants}</span>
+                            <span>Đăng ký: {registeredCount}/{maxParticipants}</span>
                             <span>{fillPct}%</span>
                           </div>
                           <div className="h-1.5 bg-slate-200 overflow-hidden">
@@ -946,7 +1117,7 @@ export default function HomePage() {
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <Link
                           href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
-                          className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link"
+                          className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link min-h-[36px]"
                         >
                           <ChevronRight className="w-3.5 h-3.5 transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 motion-reduce:transition-none" />
                           <span>{meta.isOpen ? 'ĐĂNG KÝ' : 'XEM TIẾN ĐỘ GCN'}</span>
@@ -1035,81 +1206,109 @@ export default function HomePage() {
         {/* Khung Carousel tự cuộn từ phải sang trái (Infinite Seamless Loop) */}
         <div
           ref={carouselRef}
+          tabIndex={0}
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="Gương sáng Sinh viên 5 Tốt Trường Đại học Quốc tế Miền Đông"
+          onKeyDown={handleCarouselKeyDown}
           onScroll={handleCarouselScroll}
           onMouseEnter={() => setIsCarouselPaused(true)}
-          onMouseLeave={() => setIsCarouselPaused(false)}
+          onMouseLeave={() => !isDraggingRef.current && setIsCarouselPaused(false)}
           onFocus={() => setIsCarouselPaused(true)}
-          onBlur={() => setIsCarouselPaused(false)}
-          className="flex items-center gap-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:none py-2 px-4 sm:px-6 relative z-10 cursor-grab active:cursor-grabbing"
+          onBlur={() => !isDraggingRef.current && setIsCarouselPaused(false)}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMove}
+          onPointerUp={endDrag}
+          onPointerCancel={endDrag}
+          onLostPointerCapture={endDrag}
+          className={`flex items-center gap-5 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:none py-2 px-4 sm:px-6 relative z-10 touch-pan-x select-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] ${
+            isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
+          }`}
         >
-          {[...SV5T_HONOREES, ...SV5T_HONOREES].map((student, idx) => (
-            <article
-              key={`${student.id}-${idx}`}
-              className={`w-[270px] sm:w-[285px] h-[360px] sm:h-[380px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-400 ease-out motion-reduce:hover:translate-y-0 flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-xl rounded-xs`}
-            >
-              {/* Ảnh chân dung sinh viên thật tràn viền với lớp gradient sang trọng */}
-              {student.image ? (
-                <>
-                  <Image
-                    src={student.image}
-                    alt={`Sinh viên 5 tốt ${student.name}`}
-                    fill
-                    sizes="(max-width: 640px) 270px, 285px"
-                    className="object-cover object-top filter brightness-[0.88] group-hover:scale-105 group-hover:brightness-100 transition-all duration-600 ease-out motion-reduce:group-hover:scale-100"
-                  />
-                  {/* Lớp gradient chuyển từ trong suốt sang Navy đậm để đảm bảo độ tương phản chữ */}
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-[#02294E] via-[#02294E]/20 to-transparent pointer-events-none"
-                    aria-hidden="true"
-                  />
-                </>
-              ) : (
-                <>
-                  <div className="absolute inset-0 eiu-arch-pattern opacity-40 pointer-events-none" aria-hidden="true" />
-                  <div className="relative z-10 my-auto py-2 flex flex-col items-center justify-center text-center">
-                    <div className="w-20 h-20 rounded-full border-2 border-[#FCB900]/70 bg-gradient-to-b from-[#133F68] to-[#02294E] flex flex-col items-center justify-center relative shadow-xl group-hover:border-[#FCB900] group-hover:scale-105 transition-all">
-                      <Star className="w-4 h-4 fill-[#FCB900] text-[#FCB900] mb-0.5" />
-                      <span className="font-eiu-serif font-bold text-base text-white tracking-wider">
-                        {student.initials}
-                      </span>
+          {[...SV5T_HONOREES, ...SV5T_HONOREES].map((student, idx) => {
+            const hasImage = student.image && !failedHonoreeImages[student.id];
+
+            return (
+              <article
+                key={`${student.id}-${idx}`}
+                role="group"
+                aria-roledescription="slide"
+                aria-label={`${student.name}, Chi hội ${student.branch}, ${student.faculty}`}
+                className={`w-[270px] sm:w-[285px] h-[360px] sm:h-[380px] shrink-0 bg-gradient-to-br ${student.themeBg} border border-white/15 hover:border-[#FCB900] hover:-translate-y-1.5 hover:shadow-2xl transition-all duration-400 ease-out motion-reduce:hover:translate-y-0 flex flex-col justify-between p-5 relative overflow-hidden group select-none shadow-xl rounded-xs`}
+              >
+                {/* Ảnh chân dung sinh viên thật tràn viền với lớp gradient sang trọng */}
+                {hasImage ? (
+                  <>
+                    <Image
+                      src={student.image}
+                      alt={`Sinh viên 5 tốt ${student.name}`}
+                      fill
+                      sizes="(max-width: 640px) 270px, 285px"
+                      onError={() =>
+                        setFailedHonoreeImages((prev) => ({
+                          ...prev,
+                          [student.id]: true,
+                        }))
+                      }
+                      className="object-cover object-top filter brightness-[0.88] group-hover:scale-105 group-hover:brightness-100 transition-all duration-600 ease-out motion-reduce:group-hover:scale-100"
+                    />
+                    {/* Lớp gradient chuyển từ trong suốt sang Navy đậm để đảm bảo độ tương phản chữ */}
+                    <div
+                      className="absolute inset-0 bg-gradient-to-t from-[#02294E] via-[#02294E]/20 to-transparent pointer-events-none"
+                      aria-hidden="true"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <div
+                      className="absolute inset-0 eiu-arch-pattern opacity-40 pointer-events-none"
+                      aria-hidden="true"
+                    />
+                    <div className="relative z-10 my-auto py-2 flex flex-col items-center justify-center text-center">
+                      <div className="w-20 h-20 rounded-full border-2 border-[#FCB900]/70 bg-gradient-to-b from-[#133F68] to-[#02294E] flex flex-col items-center justify-center relative shadow-xl group-hover:border-[#FCB900] group-hover:scale-105 transition-all">
+                        <Star className="w-4 h-4 fill-[#FCB900] text-[#FCB900] mb-0.5" />
+                        <span className="font-eiu-serif font-bold text-base text-white tracking-wider">
+                          {student.initials}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </>
-              )}
+                  </>
+                )}
 
-              {/* Hàng trên: Tag Chi hội & Số thứ tự outline bên phải */}
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="px-2 py-0.5 bg-[#02294E]/90 border border-[#FCB900]/40 text-[#FCB900] text-[11px] font-bold font-eiu-display backdrop-blur-xs">
-                  Chi hội {student.branch}
-                </span>
-                <span
-                  className="font-eiu-serif text-2xl sm:text-3xl font-light select-none tracking-tight leading-none text-white/90"
-                  style={{
-                    WebkitTextStroke: '1px rgba(255, 255, 255, 0.65)',
-                    color: 'transparent',
-                  }}
-                  aria-hidden="true"
-                >
-                  {String((idx % SV5T_HONOREES.length) + 1).padStart(2, '0')}
-                </span>
-              </div>
+                {/* Hàng trên: Tag Chi hội & Số thứ tự outline bên phải */}
+                <div className="relative z-10 flex items-center justify-between gap-2">
+                  <span className="px-2 py-0.5 bg-[#02294E]/90 border border-[#FCB900]/40 text-[#FCB900] text-[11px] font-bold font-eiu-display backdrop-blur-xs truncate max-w-[170px]">
+                    Chi hội {student.branch}
+                  </span>
+                  <span
+                    className="font-eiu-serif text-2xl sm:text-3xl font-light select-none tracking-tight leading-none text-white/90 shrink-0"
+                    style={{
+                      WebkitTextStroke: '1px rgba(255, 255, 255, 0.65)',
+                      color: 'transparent',
+                    }}
+                    aria-hidden="true"
+                  >
+                    {String((idx % SV5T_HONOREES.length) + 1).padStart(2, '0')}
+                  </span>
+                </div>
 
-              {/* Hàng dưới: Tag vàng Sinh viên 5 tốt, Họ tên và Khoa */}
-              <div className="relative z-10 space-y-1.5 pt-4">
-                <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[11px] font-extrabold uppercase tracking-wider font-eiu-display self-start inline-block shadow-sm">
-                  Sinh viên 5 tốt
-                </span>
+                {/* Hàng dưới: Tag vàng Sinh viên 5 tốt, Họ tên và Khoa */}
+                <div className="relative z-10 space-y-1.5 pt-4">
+                  <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[11px] font-extrabold uppercase tracking-wider font-eiu-display self-start inline-block shadow-sm">
+                    Sinh viên 5 tốt
+                  </span>
 
-                <h3 className="font-eiu-display font-extrabold text-[17px] sm:text-[18px] text-white group-hover:text-[#FCB900] transition-colors leading-snug line-clamp-1 drop-shadow-sm">
-                  {student.name}
-                </h3>
+                  <h3 className="font-eiu-display font-extrabold text-[17px] sm:text-[18px] text-white group-hover:text-[#FCB900] transition-colors leading-snug line-clamp-1 break-words drop-shadow-sm">
+                    {student.name}
+                  </h3>
 
-                <p className="text-[12px] text-white/90 line-clamp-1 font-medium drop-shadow-xs">
-                  {student.faculty}
-                </p>
-              </div>
-            </article>
-          ))}
+                  <p className="text-[12px] text-white/90 line-clamp-1 break-words font-medium drop-shadow-xs">
+                    {student.faculty}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
         </div>
 
         {/* Thanh tiến độ và chỉ số đếm số lượng */}
