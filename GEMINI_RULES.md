@@ -8,7 +8,7 @@
 
 Trước khi thực hiện bất kỳ thao tác thêm/sửa/xóa mã nguồn, tạo giao diện hoặc thay đổi cơ sở dữ liệu nào, AI **BẮT BUỘC** phải tham chiếu và tuân thủ tuyệt đối 3 tệp tài liệu gốc trong thư mục `/docs`:
 1. **`/docs/01_PRD.md`**: Đặc tả nghiệp vụ, cơ cấu tổ chức HSV EIU Khóa II (NK 2026 – 2028), hệ thống phân quyền 6 cấp kết hợp kiêm nhiệm đa vị trí (`Context Switcher`), quy chế cấp GCN (QĐ 28/QĐ-HSV) và quy định xét chọn "Sinh viên 5 Tốt" (QĐ 09/QĐ-HSV).
-2. **`/docs/02_DESIGN_SYSTEM.md`**: Quy chuẩn màu sắc **Xanh Hội Sinh viên (`#0054A6`) kết hợp Xanh Navy đậm EIU (`#0B2545`)**, phong cách **Hành chính – Chuyên nghiệp (Clean Corporate First)**, bộ font `Be Vietnam Pro` / `JetBrains Mono` và bố cục 3 khu vực `(public)`, `(student-portal)`, `(workspace)`.
+2. **`DESIGN.md` & `/docs/02_DESIGN_SYSTEM.md`**: Quy chuẩn thiết kế cốt lõi **"70% Di sản Học thuật EIU × 30% Bản sắc Thanh niên HSV"**: hệ màu Xanh Navy `#02294E` / `#133F68` / `#144069`, Xanh Hội Sinh viên `#0054A6`, Cyan `#00BCFF`, Đỏ đô `#C10230`, Vàng hổ phách `#FCB900`, Vàng đồng `#A68556`; bộ 3 phông chữ `Montserrat` + `Be Vietnam Pro` + `Crimson Text` (thay thế font Mono cho số hiệu/MSSV/KPI); góc vuông kiến trúc `0px` (`rounded-none`); cùng toàn bộ các mẫu giao diện chuẩn (Hero đa giác, Bento showcase, Bento magazine news, Bộ lọc sự kiện 5 tốt, Carousel Gương sáng SV5T, Navbar & Footer học thuật).
 3. **`/docs/03_DATABASE_SCHEMA.md`**: Cấu trúc bảng, kiểu Enum và mối quan hệ dữ liệu trên Supabase.
 
 > **CẤM TUYỆT ĐỐI:** Không bao giờ tự ý thay đổi kiến trúc tổng quát, tự ý bỏ qua quy định nghiệp vụ trong `/KNOWLEDGE` và `/docs`, hoặc tự bịa thêm màu sắc/cấu trúc bảng lệch khỏi `/docs`.

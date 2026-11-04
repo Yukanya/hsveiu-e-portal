@@ -13,7 +13,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 Trước khi viết hoặc chỉnh sửa bất kỳ dòng code nào, Agent **BẮT BUỘC** phải đọc và tuân thủ:
 1. `GEMINI_RULES.md`
 2. `/docs/01_PRD.md`
-3. `/docs/02_DESIGN_SYSTEM.md`
+3. `DESIGN.md` & `/docs/02_DESIGN_SYSTEM.md`
 4. `/docs/03_DATABASE_SCHEMA.md`
 
 Use `agent-desktop` to see and operate desktop apps. Before the first use, run

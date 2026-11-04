@@ -80,7 +80,7 @@ Hệ thống chuyên biệt hóa cao độ theo bản sắc **"70% Di sản Họ
 
 ## Evidence on Hand
 
-- **Bộ Văn bản Pháp lý Gốc:** Các tệp đặc tả chi tiết trong thư mục `/KNOWLEDGE` và `/docs`: `01_PRD.md`, `02_DESIGN_SYSTEM.md`, `03_DATABASE_SCHEMA.md`, `GEMINI_RULES.md`.
+- **Bộ Văn bản Pháp lý & Thiết kế Gốc:** Các tệp đặc tả chi tiết trong thư mục gốc và `/docs`: `DESIGN.md`, `01_PRD.md`, `02_DESIGN_SYSTEM.md`, `03_DATABASE_SCHEMA.md`, `GEMINI_RULES.md`.
 - **Dữ liệu Cơ cấu Tổ chức Khóa II:** Dữ liệu chuẩn xác của 15 đ/c BCH, 05 đ/c BKT, 03 Ban Chuyên môn, 25 Chi hội (4 Khoa: BBS, SET, CIT, SNS) và 30 Câu lạc bộ – Đội – Nhóm tại `src/data/mock-data.ts`.
 - **Tài nguyên Hình ảnh & Logo:** Tệp logo trường EIU và biểu trưng Hội Sinh viên Đại hội II trong thư mục `/public/images/`.
 
