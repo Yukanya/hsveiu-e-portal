@@ -36,10 +36,10 @@
     "semantic_hash": "97223e87f0efb267ab0976d80ed7f8ac"
   },
   "next.config.ts": {
-    "mtime": 1793208714.705627,
-    "seen": 1793772438.244299,
-    "ast_hash": "59ace8843cd0f04a4328b2189aead87b",
-    "semantic_hash": "59ace8843cd0f04a4328b2189aead87b"
+    "mtime": 1793843849.074447,
+    "seen": 1793843894.7367208,
+    "ast_hash": "d6fcc661520cb95fe5904833a2d5d8be",
+    "semantic_hash": ""
   },
   "package.json": {
     "mtime": 1793208944.3991706,
@@ -66,21 +66,21 @@
     "semantic_hash": "5fe56906360872527557a601e99959d5"
   },
   "src/app/(public)/su-kien/page.tsx": {
-    "mtime": 1793681238.5902112,
-    "seen": 1793772438.24432,
-    "ast_hash": "81e05976e915578707519b59df1d4f48",
-    "semantic_hash": "81e05976e915578707519b59df1d4f48"
+    "mtime": 1793863711.0416217,
+    "seen": 1793863729.242937,
+    "ast_hash": "7016e207f588f330aab69fb29455e414",
+    "semantic_hash": ""
   },
   "src/app/(public)/tin-tuc/[slug]/page.tsx": {
-    "mtime": 1793681238.6317658,
-    "seen": 1793772438.2443242,
-    "ast_hash": "1ab7cef67f26e41fda66745c83de8017",
-    "semantic_hash": "1ab7cef67f26e41fda66745c83de8017"
+    "mtime": 1793841540.3954828,
+    "seen": 1793842411.7547982,
+    "ast_hash": "c03e0ac5857309c15743e5f2f0ecc28b",
+    "semantic_hash": ""
   },
   "src/app/(public)/tin-tuc/page.tsx": {
-    "mtime": 1793841107.5237231,
-    "seen": 1793841120.232824,
-    "ast_hash": "b4ce32ef7c10c564ddcc82f31eeedcdd",
+    "mtime": 1793843736.2648177,
+    "seen": 1793843894.736754,
+    "ast_hash": "1e308d03af34aae6be6a3b3b22688221",
     "semantic_hash": ""
   },
   "src/app/(public)/to-chuc/[slug]/page.tsx": {
@@ -174,9 +174,9 @@
     "semantic_hash": "4574a883bb05388f2ddd03b60599623a"
   },
   "src/data/mock-data.ts": {
-    "mtime": 1793840943.7048302,
-    "seen": 1793841039.850674,
-    "ast_hash": "15fa24a7c7b56ae257082c6ab06625f4",
+    "mtime": 1793863677.0616877,
+    "seen": 1793863729.2430022,
+    "ast_hash": "11e6d69cf08eac1dcbc2c196442617da",
     "semantic_hash": ""
   },
   "src/lib/services/facebook-news.ts": {
@@ -186,9 +186,9 @@
     "semantic_hash": "4f110009ffda1f611a1e304ba9c28591"
   },
   "src/types/index.ts": {
-    "mtime": 1793791470.6997068,
-    "seen": 1793791858.321116,
-    "ast_hash": "96f4a7b4fb02c8d2433f8da442076c5c",
+    "mtime": 1793862969.0702434,
+    "seen": 1793863217.389986,
+    "ast_hash": "51d7e335986f29b12d5fd06b9396d82b",
     "semantic_hash": ""
   },
   "tsconfig.json": {
@@ -675,6 +675,12 @@
     "mtime": 1793213318.56257,
     "seen": 1793775778.6322858,
     "ast_hash": "20e3b5ec9fe15e5db572cbc7418e908e",
+    "semantic_hash": ""
+  },
+  ".impeccable/critique/2026-11-05T01-25-16Z__src-app-public-tin-tuc-page-tsx.md": {
+    "mtime": 1793841916.9688978,
+    "seen": 1793842411.7549021,
+    "ast_hash": "a3a717027df898c3c2d8bd14da115b81",
     "semantic_hash": ""
   }
 }

@@ -1046,7 +1046,11 @@ export default function HomePage() {
                     className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
                   >
                     {/* Header Thẻ Sự kiện: Tag Trạng thái bên trái, Box Tiêu chuẩn và Box Ngày TN bên phải — Chiều cao h-36 đồng bộ với Thẻ Tin tức */}
-                    <div className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between">
+                    <Link
+                      href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
+                      className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between block cursor-pointer transition-all duration-200 hover:brightness-110"
+                      aria-label={`Xem chi tiết và đăng ký sự kiện: ${ev.title}`}
+                    >
                       <div className="flex items-start justify-between gap-3">
                         {/* Tag trạng thái sự kiện bên trái */}
                         <span
@@ -1065,13 +1069,18 @@ export default function HomePage() {
                           </span>
                         </div>
                       </div>
-                    </div>
+                    </Link>
 
                     <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                       <div className="space-y-2">
                         {/* Tên chương trình */}
                         <h3 className="text-[15.5px] font-bold text-[#133F68] leading-snug line-clamp-2 break-words font-eiu-display">
-                          {ev.title}
+                          <Link
+                            href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
+                            className="hover:text-[#C10230] transition-colors"
+                          >
+                            {ev.title}
+                          </Link>
                         </h3>
 
                         {/* Vị trí */}

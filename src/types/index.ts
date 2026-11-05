@@ -138,6 +138,15 @@ export interface NewsPost {
   sections?: NewsArticleSection[];
 }
 
+export type EventStatusTag =
+  | 'Chưa mở đăng ký'
+  | 'Đang mở đăng ký'
+  | 'Còn 5 ngày'
+  | 'Còn 2 ngày'
+  | 'Đã đóng đăng ký'
+  | 'Đang diễn ra'
+  | 'Đã kết thúc';
+
 export interface EventItem {
   id: string;
   title: string;
@@ -151,6 +160,11 @@ export interface EventItem {
   volunteerCategory: string;
   isUnionWorkMultiplierEligible?: boolean; // Chỉ nhóm 06 - Công tác Đoàn - Hội mới nhân hệ số 1-2-3
   baseVolunteerDays: number;
+  hasTrainingPoints?: boolean;
+  trainingPoints?: number;
+  locationArea?: 'EIU' | 'HCM' | 'OTHER';
+  timeSlot?: 'MORNING' | 'AFTERNOON' | 'EVENING' | 'MULTI_DAY';
+  statusTag?: EventStatusTag;
   preApprovalStatus:
     | 'approved_3days_prior'
     | 'pending_tcxdh'

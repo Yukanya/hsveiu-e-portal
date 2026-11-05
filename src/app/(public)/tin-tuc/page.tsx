@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -85,6 +85,33 @@ function matchesFilterPill(post: NewsPost, pillId: NewsFilterPillId): boolean {
   }
 }
 
+function getCategorySemantic(post: NewsPost): {
+  badgeBg: string;
+  badgeText: string;
+  fallbackBg: string;
+} {
+  if (post.category === 'SINH_VIEN_5_TOT') {
+    return {
+      badgeBg: 'bg-[#FCB900]',
+      badgeText: 'text-[#02294E]',
+      fallbackBg: 'bg-[#0054A6]',
+    };
+  }
+  const level = getPostLevel(post);
+  if (level === 'CO_SO_HOI') {
+    return {
+      badgeBg: 'bg-[#00BCFF]',
+      badgeText: 'text-[#02294E]',
+      fallbackBg: 'bg-[#51803A]',
+    };
+  }
+  return {
+    badgeBg: 'bg-[#00BCFF]',
+    badgeText: 'text-[#02294E]',
+    fallbackBg: 'bg-[#133F68]',
+  };
+}
+
 function TinTucContent({
   initialFilter,
   initialQuery,
@@ -96,6 +123,12 @@ function TinTucContent({
   const [query, setQuery] = useState(initialQuery);
   const [currentPage, setCurrentPage] = useState(1);
   const [isFiltering, setIsFiltering] = useState(false);
+  const gridTopRef = useRef<HTMLDivElement>(null);
+
+  const handlePageChange = (pageNum: number) => {
+    setCurrentPage(pageNum);
+    gridTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   // State cho section ngang chiếu 3 tin mới nhất
   const [featuredIndex, setFeaturedIndex] = useState(0);
@@ -194,46 +227,60 @@ function TinTucContent({
           onBlur={() => setIsFeaturedPaused(false)}
           className="bg-[#02294E] relative overflow-hidden border-b-4 border-[#A68556] text-white"
         >
-          {/* Ảnh nền sự kiện / sinh viên bên phải kết hợp lớp phủ đa sắc độ chuẩn EIU */}
-          {activeFeaturedPost.imageUrl &&
-            !failedImages[activeFeaturedPost.id] && (
+          {/* Ảnh nền sự kiện thực tế có cơ chế hòa sắc mượt mà (Cross-fade) giữa 03 slide */}
+          {latestThreePosts.map((post, idx) => {
+            const isSelected = featuredIndex === idx;
+            if (!post.imageUrl || failedImages[post.id]) return null;
+            return (
               <Image
-                key={activeFeaturedPost.id}
-                src={activeFeaturedPost.imageUrl}
-                alt={activeFeaturedPost.title}
+                key={post.id}
+                src={post.imageUrl}
+                alt={post.title}
                 fill
-                priority
+                priority={idx === 0}
                 sizes="100vw"
                 onError={() =>
                   setFailedImages((prev) => ({
                     ...prev,
-                    [activeFeaturedPost.id]: true,
+                    [post.id]: true,
                   }))
                 }
-                className="object-cover object-center opacity-45 scale-102 transition-all duration-700 ease-out"
+                className={`object-cover object-center transition-all duration-700 ease-out ${
+                  isSelected
+                    ? 'opacity-100 scale-100 z-0'
+                    : 'opacity-0 scale-102 pointer-events-none -z-10'
+                }`}
               />
-            )}
+            );
+          })}
 
-          {/* Lớp phủ chuyển sắc từ Xanh Navy đậm bên trái sang trong suốt bên phải để nổi bật chữ và hình ảnh */}
+          {/* Lớp phủ chuyển sắc mượt mà (Feathered Scrim Gradient) thương hiệu Navy #02294E, chuyển êm dịu không gắt và không ăn sâu vào ảnh */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute inset-0 pointer-events-none z-1 hidden sm:block"
             style={{
               backgroundImage:
-                'linear-gradient(90deg, #02294E 0%, rgba(2, 41, 78, 0.94) 48%, rgba(19, 63, 104, 0.62) 100%), radial-gradient(circle at 85% 20%, rgba(166, 133, 86, 0.28) 0%, transparent 50%)',
+                'linear-gradient(90deg, #02294E 0%, rgba(2, 41, 78, 0.96) 12%, rgba(2, 41, 78, 0.88) 22%, rgba(2, 41, 78, 0.72) 30%, rgba(2, 41, 78, 0.48) 38%, rgba(2, 41, 78, 0.22) 44%, rgba(2, 41, 78, 0.06) 48%, rgba(2, 41, 78, 0) 52%, transparent 100%)',
             }}
             aria-hidden="true"
           />
           <div
-            className="absolute inset-0 eiu-arch-pattern opacity-35 pointer-events-none"
+            className="absolute inset-0 pointer-events-none z-1 sm:hidden"
+            style={{
+              backgroundImage:
+                'linear-gradient(180deg, rgba(2, 41, 78, 0.96) 0%, rgba(2, 41, 78, 0.85) 65%, rgba(2, 41, 78, 0.45) 100%)',
+            }}
             aria-hidden="true"
           />
 
-          {/* Nội dung chính của Slide Tiêu điểm Ngang */}
+          {/* Nội dung chính của Slide Tiêu điểm Ngang (Hiệu ứng trượt mượt mà có kiểm soát) */}
           <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-10 pb-8 sm:pt-14 sm:pb-11 relative z-10">
-            <div className="max-w-2xl space-y-4">
+            <div
+              key={activeFeaturedPost.id}
+              className="max-w-2xl space-y-4 eiu-fade-slide-in motion-reduce:animate-none"
+            >
               {/* Nhãn TIÊU ĐIỂM màu vàng #FCB900 chuẩn mẫu */}
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#FCB900] font-eiu-display">
+                <span className="text-xs font-extrabold uppercase tracking-[0.22em] text-[#FCB900] font-eiu-display drop-shadow-xs">
                   TIÊU ĐIỂM
                 </span>
                 <span className="text-white/35" aria-hidden="true">
@@ -249,19 +296,19 @@ function TinTucContent({
                 href={`/tin-tuc/${activeFeaturedPost.slug}`}
                 className="block group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] rounded-xs"
               >
-                <h2 className="font-eiu-serif text-2xl sm:text-3xl lg:text-[36px] font-bold text-white group-hover:text-[#FCB900] transition-colors leading-[1.22] line-clamp-3 break-words">
+                <h2 className="font-eiu-serif text-2xl sm:text-3xl lg:text-[36px] font-bold text-white group-hover:text-[#FCB900] transition-colors leading-[1.22] line-clamp-3 break-words drop-shadow-[0_2px_4px_rgba(2,41,78,0.8)]">
                   {activeFeaturedPost.title}
                 </h2>
               </Link>
 
               {/* Tóm tắt bài viết */}
-              <p className="text-sm sm:text-[15px] text-white/85 leading-relaxed line-clamp-2 break-words font-sans">
+              <p className="text-sm sm:text-[15px] text-white/90 leading-relaxed line-clamp-2 break-words font-sans drop-shadow-xs">
                 {activeFeaturedPost.summary}
               </p>
 
               {/* Hàng Ngày đăng • Thời lượng đọc & Nút pill trắng "Đọc bài viết →" */}
               <div className="pt-2 flex flex-wrap items-center justify-between gap-4">
-                <div className="flex flex-wrap items-center gap-2 text-xs sm:text-[13px] font-eiu-serif text-[#DED1BE]">
+                <div className="flex flex-wrap items-center gap-2 text-xs sm:text-[13px] font-eiu-serif text-[#DED1BE] drop-shadow-xs">
                   <span>{formatDateDot(activeFeaturedPost.publishedAt)}</span>
                   <span aria-hidden="true">•</span>
                   <span>{activeFeaturedPost.authorUnit}</span>
@@ -280,7 +327,7 @@ function TinTucContent({
             </div>
           </div>
 
-          {/* Thanh điều hướng Slide đáy (01 / 03 + vạch tiến độ + nút < >) chuẩn mẫu */}
+          {/* Thanh điều hướng Slide đáy (01 / 03 + vạch tiến độ đếm giờ + nút < >) chuẩn mẫu */}
           <div className="border-t border-white/15 bg-[#02294E]/75 backdrop-blur-xs relative z-10">
             <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between gap-4">
               <div className="flex items-center gap-4">
@@ -290,7 +337,7 @@ function TinTucContent({
                   {String(latestThreePosts.length).padStart(2, '0')}
                 </span>
 
-                {/* 03 thanh ngang chỉ báo slide */}
+                {/* 03 thanh ngang chỉ báo slide kết hợp thanh tiến độ động (Progress countdown) */}
                 <div
                   className="flex items-center gap-1.5"
                   role="tablist"
@@ -309,24 +356,40 @@ function TinTucContent({
                         className="py-2 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900]"
                       >
                         <span
-                          className={`block h-1 rounded-full transition-all duration-300 ${
+                          className={`block h-1.5 rounded-full overflow-hidden transition-all duration-300 ${
                             isSelected
-                              ? 'w-8 bg-[#FCB900]'
+                              ? 'w-10 bg-white/25'
                               : 'w-5 bg-white/30 hover:bg-white/60'
                           }`}
-                        />
+                        >
+                          {isSelected && (
+                            <span
+                              key={`progress-${featuredIndex}-${isFeaturedPaused}`}
+                              className={`block h-full bg-[#FCB900] ${
+                                isFeaturedPaused
+                                  ? 'w-full'
+                                  : 'eiu-progress-active'
+                              }`}
+                              style={{
+                                animationPlayState: isFeaturedPaused
+                                  ? 'paused'
+                                  : 'running',
+                              }}
+                            />
+                          )}
+                        </span>
                       </button>
                     );
                   })}
                 </div>
 
-                {/* Nút chuyển trái / phải */}
+                {/* Nút chuyển trái / phải có phản hồi nhấp chuột đàn hồi nhẹ */}
                 <div className="flex items-center gap-2 pl-1">
                   <button
                     type="button"
                     onClick={handlePrevFeatured}
                     aria-label="Xem tin tiêu điểm trước"
-                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -334,7 +397,7 @@ function TinTucContent({
                     type="button"
                     onClick={handleNextFeatured}
                     aria-label="Xem tin tiêu điểm tiếp theo"
-                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
@@ -347,6 +410,9 @@ function TinTucContent({
 
       {/* PHÂN VÙNG 3: BỘ LỌC PILL, Ô TÌM KIẾM "Tìm" & LƯỚI TIN TỨC PHÂN TRANG */}
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9 space-y-8">
+        {/* Mốc cuộn mượt chính xác đến đầu danh sách tin tức */}
+        <div ref={gridTopRef} className="scroll-mt-6" />
+
         {/* Thanh lọc chuyên mục dạng Pill theo đúng thứ tự yêu cầu + Ô tìm kiếm placeholder="Tìm" */}
         <div className="bg-white border border-slate-200/90 p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs">
           <div
@@ -433,25 +499,54 @@ function TinTucContent({
               }`}
             >
               {paginatedGridPosts.map((post, idx) => {
-                const palettes = [
-                  'bg-[#144069]',
-                  'bg-[#0054A6]',
-                  'bg-[#51803A]',
-                  'bg-[#B44625]',
-                  'bg-[#02294E]',
-                ];
+                const semantic = getCategorySemantic(post);
                 return (
                   <article
                     key={post.id}
-                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
+                    style={{ animationDelay: `${Math.min(idx * 35, 250)}ms` }}
+                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0 eiu-card-entrance motion-reduce:animate-none"
                   >
-                    {/* Header từng tin: Góc trên bên trái là Tag tin tức, Góc trên bên phải là Logo Hội Sinh viên */}
+                    {/* Header từng tin: Ảnh sự kiện thực tế có lớp phủ Gradient Navy nhận diện EIU */}
                     <Link
                       href={`/tin-tuc/${post.slug}`}
-                      className={`h-38 min-h-[148px] ${palettes[idx % palettes.length]} eiu-arch-pattern text-white p-5 flex flex-col justify-between`}
+                      className={`relative h-44 overflow-hidden text-white p-4 flex flex-col justify-between group/header ${semantic.fallbackBg}`}
                     >
-                      <div className="flex items-center justify-between gap-2">
-                        <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[10.5px] font-bold uppercase tracking-wider font-eiu-display shadow-2xs">
+                      {/* Ảnh bìa sự kiện thực tế */}
+                      {post.imageUrl && !failedImages[post.id] ? (
+                        <Image
+                          src={post.imageUrl}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          onError={() =>
+                            setFailedImages((prev) => ({
+                              ...prev,
+                              [post.id]: true,
+                            }))
+                          }
+                          className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                        />
+                      ) : null}
+
+                      {/* Lớp phủ Gradient Navy nhận diện EIU */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          backgroundImage:
+                            'linear-gradient(to top, rgba(2, 41, 78, 0.94) 0%, rgba(2, 41, 78, 0.48) 55%, rgba(19, 63, 104, 0.35) 100%)',
+                        }}
+                        aria-hidden="true"
+                      />
+                      <div
+                        className="absolute inset-0 eiu-arch-pattern opacity-25 pointer-events-none"
+                        aria-hidden="true"
+                      />
+
+                      {/* Hàng trên: Góc trên bên trái là Tag tin tức (11.5px), Góc trên bên phải là Logo Hội Sinh viên */}
+                      <div className="relative z-10 flex items-center justify-between gap-2">
+                        <span
+                          className={`px-2.5 py-0.5 text-[11.5px] font-bold uppercase tracking-wider font-eiu-display shadow-sm ${semantic.badgeBg} ${semantic.badgeText}`}
+                        >
                           {post.categoryLabel}
                         </span>
                         <Image
@@ -459,13 +554,14 @@ function TinTucContent({
                           alt="Hội Sinh viên Việt Nam"
                           width={28}
                           height={28}
-                          className="w-7 h-7 object-contain opacity-95 shrink-0 drop-shadow-xs"
+                          className="w-7 h-7 object-contain shrink-0 drop-shadow-md"
                         />
                       </div>
 
-                      <div className="flex items-center justify-between text-xs text-white/90 gap-2">
-                        <span className="truncate">{post.authorUnit}</span>
-                        <span className="font-eiu-serif text-[11px] text-[#DED1BE] shrink-0">
+                      {/* Hàng dưới của Header: Đơn vị ban hành & Thời lượng đọc (trắng tinh rõ ràng trên gradient) */}
+                      <div className="relative z-10 flex items-center justify-between text-xs text-white gap-2 font-medium">
+                        <span className="truncate drop-shadow-xs">{post.authorUnit}</span>
+                        <span className="font-eiu-serif text-[12px] text-[#FCB900] shrink-0 font-bold drop-shadow-xs">
                           {post.readMinutes || 3} phút đọc
                         </span>
                       </div>
@@ -515,10 +611,7 @@ function TinTucContent({
                 <button
                   type="button"
                   disabled={safePage <= 1}
-                  onClick={() => {
-                    setCurrentPage((p) => Math.max(1, p - 1));
-                    window.scrollTo({ top: 380, behavior: 'smooth' });
-                  }}
+                  onClick={() => handlePageChange(Math.max(1, safePage - 1))}
                   aria-label="Trang trước"
                   className="h-10 px-4 bg-white border border-slate-300 hover:border-[#133F68] hover:text-[#133F68] disabled:opacity-35 disabled:pointer-events-none text-[#133F68] text-xs font-bold uppercase tracking-wider font-eiu-display inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                 >
@@ -533,10 +626,7 @@ function TinTucContent({
                       <button
                         key={pageNum}
                         type="button"
-                        onClick={() => {
-                          setCurrentPage(pageNum);
-                          window.scrollTo({ top: 380, behavior: 'smooth' });
-                        }}
+                        onClick={() => handlePageChange(pageNum)}
                         aria-current={isCurrent ? 'page' : undefined}
                         aria-label={`Trang ${pageNum}`}
                         className={`w-10 h-10 text-xs font-bold font-eiu-display transition-colors cursor-pointer shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] ${
@@ -554,10 +644,7 @@ function TinTucContent({
                 <button
                   type="button"
                   disabled={safePage >= totalPages}
-                  onClick={() => {
-                    setCurrentPage((p) => Math.min(totalPages, p + 1));
-                    window.scrollTo({ top: 380, behavior: 'smooth' });
-                  }}
+                  onClick={() => handlePageChange(Math.min(totalPages, safePage + 1))}
                   aria-label="Trang tiếp theo"
                   className="h-10 px-4 bg-white border border-slate-300 hover:border-[#133F68] hover:text-[#133F68] disabled:opacity-35 disabled:pointer-events-none text-[#133F68] text-xs font-bold uppercase tracking-wider font-eiu-display inline-flex items-center gap-1.5 transition-colors cursor-pointer shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                 >

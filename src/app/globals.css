@@ -175,3 +175,56 @@ pre {
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
 }
+
+/* Motion System: Authored Moments & Purposeful Transitions */
+@keyframes eiuFadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes eiuCardFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes eiuProgressBar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.eiu-fade-slide-in {
+  animation: eiuFadeSlideIn 420ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.eiu-card-entrance {
+  animation: eiuCardFadeUp 320ms cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+.eiu-progress-active {
+  animation: eiuProgressBar 5000ms linear forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eiu-fade-slide-in,
+  .eiu-card-entrance,
+  .eiu-progress-active {
+    animation: none !important;
+    transition: none !important;
+  }
+}
