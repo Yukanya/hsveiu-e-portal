@@ -204,16 +204,16 @@
     "semantic_hash": "a35fa83dd1374469f6bd1c0e00b799ec"
   },
   "AGENTS.md": {
-    "mtime": 1793671303.191587,
-    "seen": 1793772438.244419,
-    "ast_hash": "f89e2f5701f2fd09a32caf15f46227f2",
-    "semantic_hash": "f89e2f5701f2fd09a32caf15f46227f2"
+    "mtime": 1793775713.812024,
+    "seen": 1793775778.631892,
+    "ast_hash": "315f504c0033ee27cc4dc983b4ddc88a",
+    "semantic_hash": ""
   },
   "GEMINI_RULES.md": {
-    "mtime": 1793210337.4122477,
-    "seen": 1793772438.244423,
-    "ast_hash": "e6535474b50923e078c7ef2bf1b8d149",
-    "semantic_hash": "e6535474b50923e078c7ef2bf1b8d149"
+    "mtime": 1793775701.521193,
+    "seen": 1793775778.631902,
+    "ast_hash": "0a28d448a9b8675da09ce44b175197e5",
+    "semantic_hash": ""
   },
   "KNOWLEDGE/C\u01a0 C\u1ea4U T\u1ed4 CH\u1ee8C \u0110\u1ea6Y \u0110\u1ee6.html": {
     "mtime": 1793169893.0420842,
@@ -318,10 +318,10 @@
     "semantic_hash": "f72127c727fdbb56a94bdd5aab624f34"
   },
   "PRODUCT.md": {
-    "mtime": 1793678524.0914133,
-    "seen": 1793772438.244502,
-    "ast_hash": "4791d4ffd099057f94098d06c377989e",
-    "semantic_hash": "4791d4ffd099057f94098d06c377989e"
+    "mtime": 1793775729.4481416,
+    "seen": 1793775778.631985,
+    "ast_hash": "cb9d248d9bd68b84f4eb2754af8cde4b",
+    "semantic_hash": ""
   },
   "README.md": {
     "mtime": 1793208714.6926813,
@@ -336,10 +336,10 @@
     "semantic_hash": "e9be846dfcb024cc67cfcca51492f477"
   },
   "docs/02_DESIGN_SYSTEM.md": {
-    "mtime": 1793451732.1354969,
-    "seen": 1793772438.244514,
-    "ast_hash": "834646127dfe7c68fc601ba53a592c3e",
-    "semantic_hash": "834646127dfe7c68fc601ba53a592c3e"
+    "mtime": 1793775671.3713844,
+    "seen": 1793775778.6319969,
+    "ast_hash": "1d5810307ca5579c82d709da58194d0f",
+    "semantic_hash": ""
   },
   "docs/03_DATABASE_SCHEMA.md": {
     "mtime": 1793210268.4058187,
@@ -664,5 +664,17 @@
     "seen": 1793772438.2447948,
     "ast_hash": "a2760511c65806022ad20adf74370ff3",
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
+  },
+  "DESIGN.md": {
+    "mtime": 1793775636.7695065,
+    "seen": 1793775778.631897,
+    "ast_hash": "6214b24425ade2b62065757feddd1e9f",
+    "semantic_hash": ""
+  },
+  "package-lock.json": {
+    "mtime": 1793213318.56257,
+    "seen": 1793775778.6322858,
+    "ast_hash": "20e3b5ec9fe15e5db572cbc7418e908e",
+    "semantic_hash": ""
   }
 }

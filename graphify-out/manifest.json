@@ -72,16 +72,16 @@
     "semantic_hash": "81e05976e915578707519b59df1d4f48"
   },
   "src/app/(public)/tin-tuc/[slug]/page.tsx": {
-    "mtime": 1793681238.6317658,
-    "seen": 1793772438.2443242,
-    "ast_hash": "1ab7cef67f26e41fda66745c83de8017",
-    "semantic_hash": "1ab7cef67f26e41fda66745c83de8017"
+    "mtime": 1793841340.517454,
+    "seen": 1793841382.7137332,
+    "ast_hash": "c03e0ac5857309c15743e5f2f0ecc28b",
+    "semantic_hash": ""
   },
   "src/app/(public)/tin-tuc/page.tsx": {
-    "mtime": 1793681238.6742976,
-    "seen": 1793772438.2443311,
-    "ast_hash": "32bcf803d43bd581636248c269adedfd",
-    "semantic_hash": "32bcf803d43bd581636248c269adedfd"
+    "mtime": 1793841294.3894718,
+    "seen": 1793841382.713738,
+    "ast_hash": "296777462ee0ef48e7ee6c0338ba09c3",
+    "semantic_hash": ""
   },
   "src/app/(public)/to-chuc/[slug]/page.tsx": {
     "mtime": 1793681238.7164357,
@@ -156,10 +156,10 @@
     "semantic_hash": "12f435c78954dd5ba43806832b6128d0"
   },
   "src/components/public/subpage-banner.tsx": {
-    "mtime": 1793679682.4482415,
-    "seen": 1793772438.244385,
-    "ast_hash": "034d6c76fc3d455a111fe36694900669",
-    "semantic_hash": "034d6c76fc3d455a111fe36694900669"
+    "mtime": 1793792708.7956176,
+    "seen": 1793841039.85066,
+    "ast_hash": "40c7f7ec0c2509540e13827ea900f013",
+    "semantic_hash": ""
   },
   "src/components/shared/persona-switcher.tsx": {
     "mtime": 1793684615.7242708,
@@ -174,10 +174,10 @@
     "semantic_hash": "4574a883bb05388f2ddd03b60599623a"
   },
   "src/data/mock-data.ts": {
-    "mtime": 1793686655.2553456,
-    "seen": 1793772438.244398,
-    "ast_hash": "ec83ce0ef8c69beb200eb30d3fc05678",
-    "semantic_hash": "ec83ce0ef8c69beb200eb30d3fc05678"
+    "mtime": 1793840943.7048302,
+    "seen": 1793841039.850674,
+    "ast_hash": "15fa24a7c7b56ae257082c6ab06625f4",
+    "semantic_hash": ""
   },
   "src/lib/services/facebook-news.ts": {
     "mtime": 1793699422.7169693,
@@ -186,10 +186,10 @@
     "semantic_hash": "4f110009ffda1f611a1e304ba9c28591"
   },
   "src/types/index.ts": {
-    "mtime": 1793446736.5093184,
-    "seen": 1793772438.244406,
-    "ast_hash": "89e8a8cfb26f25f5361c9c375b78d938",
-    "semantic_hash": "89e8a8cfb26f25f5361c9c375b78d938"
+    "mtime": 1793791470.6997068,
+    "seen": 1793791858.321116,
+    "ast_hash": "96f4a7b4fb02c8d2433f8da442076c5c",
+    "semantic_hash": ""
   },
   "tsconfig.json": {
     "mtime": 1793208714.6941738,
@@ -204,14 +204,14 @@
     "semantic_hash": "a35fa83dd1374469f6bd1c0e00b799ec"
   },
   "AGENTS.md": {
-    "mtime": 1793775713.812024,
-    "seen": 1793775778.631892,
+    "mtime": 1793777064.0327704,
+    "seen": 1793791858.3211288,
     "ast_hash": "315f504c0033ee27cc4dc983b4ddc88a",
     "semantic_hash": ""
   },
   "GEMINI_RULES.md": {
-    "mtime": 1793775701.521193,
-    "seen": 1793775778.631902,
+    "mtime": 1793777064.0861075,
+    "seen": 1793791858.321138,
     "ast_hash": "0a28d448a9b8675da09ce44b175197e5",
     "semantic_hash": ""
   },
@@ -318,8 +318,8 @@
     "semantic_hash": "f72127c727fdbb56a94bdd5aab624f34"
   },
   "PRODUCT.md": {
-    "mtime": 1793775729.4481416,
-    "seen": 1793775778.631985,
+    "mtime": 1793777064.1537416,
+    "seen": 1793791858.3212202,
     "ast_hash": "cb9d248d9bd68b84f4eb2754af8cde4b",
     "semantic_hash": ""
   },
@@ -336,9 +336,9 @@
     "semantic_hash": "e9be846dfcb024cc67cfcca51492f477"
   },
   "docs/02_DESIGN_SYSTEM.md": {
-    "mtime": 1793775671.3713844,
-    "seen": 1793775778.6319969,
-    "ast_hash": "1d5810307ca5579c82d709da58194d0f",
+    "mtime": 1793777373.709285,
+    "seen": 1793791858.3212328,
+    "ast_hash": "60b16149006fb50ff77a0d8039711b8e",
     "semantic_hash": ""
   },
   "docs/03_DATABASE_SCHEMA.md": {
@@ -666,9 +666,9 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "DESIGN.md": {
-    "mtime": 1793775636.7695065,
-    "seen": 1793775778.631897,
-    "ast_hash": "6214b24425ade2b62065757feddd1e9f",
+    "mtime": 1793775799.8227763,
+    "seen": 1793791858.321134,
+    "ast_hash": "8a36c6e0b4809eb48d8cafaf45ab55d1",
     "semantic_hash": ""
   },
   "package-lock.json": {

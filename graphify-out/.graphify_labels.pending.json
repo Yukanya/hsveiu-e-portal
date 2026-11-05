@@ -1,9 +1,17 @@
 {
+  "4": "react",
+  "5": "workspace/page.tsx",
+  "8": "2.1. Phân hệ Tổ chức, Hồ sơ Sinh viên & Phân quyền Đa vị trí (Giai đoạn 2 & 6)",
+  "11": "to-chuc/page.tsx",
   "12": "portal/page.tsx",
-  "17": "facebook-news.ts",
-  "30": "react",
+  "15": "tin-tuc/page.tsx",
+  "17": "CLUB_UNITS",
+  "30": "workspace/page.tsx",
   "31": "5. Các Mẫu Thành Phần Nhận Diện Chuẩn (Signature Component Patterns)",
   "116": "su-kien/page.tsx",
-  "117": "tra-cuu-gcn/page.tsx",
-  "118": "to-chuc/[slug]/page.tsx"
+  "117": "persona-switcher.tsx",
+  "118": "role-context.tsx",
+  "119": "van-ban/page.tsx",
+  "120": "SubpageBanner",
+  "121": "next"
 }

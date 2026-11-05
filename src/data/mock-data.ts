@@ -2105,15 +2105,17 @@ export const NEWS_POSTS: NewsPost[] = [
       'Ban hành Quy định sửa đổi, bổ sung năm 2026 về tiêu chuẩn xét chọn danh hiệu "Sinh viên 5 Tốt" và "Tập thể Sinh viên 5 Tốt" cấp trường',
     slug: 'ban-hanh-quy-dinh-xet-chon-sinh-vien-5-tot-cap-truong-2026',
     category: 'SINH_VIEN_5_TOT',
-    categoryLabel: 'Phong trào Sinh viên 5 Tốt',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
     summary:
       'Ban Thư ký Hội Sinh viên trường công bố Quyết định 09/QĐ-HSV sửa đổi 2026: chuẩn Học tập tốt GPA ≥ 3.00/4.00 (tự động lấy điểm cao hơn giữa GPA năm học gia quyền và GPA tích lũy), quy trình xét duyệt 3 cấp và trần Top 10% Tiêu biểu.',
-    publishedAt: '2026-09-10',
+    publishedAt: '2026-11-04',
     authorUnit: 'Ban Tuyên giáo - Phong trào',
     viewCount: 1420,
     isFeatured: true,
     readMinutes: 5,
     relatedDocNumber: '09/QĐ-HSV',
+    imageUrl: '/images/sv5t/nguyen-mai-gia-tuong.jpg',
+    newsLevel: 'CAP_TRUONG',
     leadQuote:
       'Mỗi hội viên EIU được hỗ trợ theo dõi tự động tiến độ rèn luyện 05 tiêu chuẩn ngay trên Sổ tay Kỹ thuật số, minh bạch hóa 3 cấp xét duyệt từ Cơ sở đến Thường trực Hội.',
     sections: [
@@ -2146,15 +2148,17 @@ export const NEWS_POSTS: NewsPost[] = [
       'Triển khai Quy định số 28/QĐ-HSV về việc cấp Giấy chứng nhận điện tử (E-Certificate) và công nhận Ngày tình nguyện cho sinh viên EIU',
     slug: 'trien-khai-quy-dinh-28-qd-hsv-cap-giay-chung-nhan-va-ngay-tinh-nguyen',
     category: 'THONG_BAO',
-    categoryLabel: 'Văn bản – Chỉ đạo',
+    categoryLabel: 'Tin tức cấp trường',
     summary:
       'Chuẩn hóa quy trình xin ý kiến công nhận ngày tình nguyện trước ít nhất 03 ngày tổ chức qua Trưởng Ban TC-XDH, xuất danh sách Phụ lục 1 tăng dần MSSV và cam kết SLA 07 ngày làm việc ban hành Quyết định công nhận.',
-    publishedAt: '2026-09-02',
+    publishedAt: '2026-11-03',
     authorUnit: 'Văn phòng Hội Sinh viên (206.B06)',
     viewCount: 1185,
     isFeatured: true,
     readMinutes: 4,
     relatedDocNumber: '28/QĐ-HSV',
+    imageUrl: '/images/sv5t/truong-chau-phuoc-loc.jpg',
+    newsLevel: 'CAP_TRUONG',
     leadQuote:
       '100% Giấy chứng nhận điện tử của Hội Sinh viên EIU tích hợp mã QR trỏ trực tiếp về Quyết định công nhận, đảm bảo tính pháp lý và chống làm giả minh chứng.',
     sections: [
@@ -2175,12 +2179,353 @@ export const NEWS_POSTS: NewsPost[] = [
     ],
   },
   {
+    id: 'post-06',
+    title:
+      'Mở cổng đăng ký Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 & Chuỗi Workshop Kỹ năng Thực hành Xã hội Phụ lục 3',
+    slug: 'mo-cong-dang-ky-giot-hong-bo-cau-trang-va-workshop-phu-luc-3',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      'Cơ hội hoàn thành đồng thời tiêu chuẩn cứng "Tình nguyện tốt" (+5.0 ngày tình nguyện/lần hiến máu) và khung Kỹ năng thực hành xã hội "Hội nhập tốt" ngay trong Học kỳ Thu năm học 2026 – 2027.',
+    publishedAt: '2026-11-02',
+    authorUnit: 'CLB Blood Donation & CLB Sinh viên 5 tốt',
+    viewCount: 1090,
+    isFeatured: true,
+    readMinutes: 3,
+    imageUrl: '/images/sv5t/luong-gia-han.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Lộ trình tích lũy sớm tiêu chuẩn Tình nguyện tốt & Hội nhập tốt',
+        paragraphs: [
+          'CLB Cộng đồng Blood Donation Club phối hợp cùng Hội Chữ thập đỏ tổ chức Ngày hội "Giọt Hồng Bồ Câu Trắng EIU" vào sáng 05/11/2026 tại Sảnh Tòa nhà B6. Theo Phụ lục 2 Quyết định 09/QĐ-HSV, mỗi lượt hiến máu tình nguyện thành công được công nhận 5.0 ngày tình nguyện và đáp ứng điều kiện cứng của tiêu chuẩn Tình nguyện tốt.',
+          'Song song đó, CLB Cộng đồng Sinh viên 5 tốt và CLB Học thuật EIU IT Club triển khai Workshop "Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số" vào chiều 12/11/2026 tại B3.102, thuộc nhóm Kỹ năng thực hành xã hội Phụ lục 3.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-07',
+    title:
+      'Chi hội 25CNTT01 và CLB Học thuật EIU IT Club tổ chức Workshop "AI & An toàn Thông tin cho Sinh viên Kỷ nguyên Số"',
+    slug: 'chi-hoi-25cntt01-clb-it-club-workshop-ai-an-toan-thong-tin',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
+    summary:
+      'Hơn 150 hội viên Cụm Khoa Công nghệ Thông tin tham gia chuyên đề trang bị kỹ năng phòng chống lừa đảo trực tuyến và ứng dụng trí tuệ nhân tạo có trách nhiệm trong học tập, nghiên cứu.',
+    publishedAt: '2026-11-01',
+    authorUnit: 'Chi hội 25CNTT01 & CLB EIU IT Club',
+    viewCount: 920,
+    readMinutes: 4,
+    imageUrl: '/images/sv5t/dang-tri-toan.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Lan tỏa phong trào học thuật và kỹ năng số từ cơ sở Hội',
+        paragraphs: [
+          'Thực hiện chương trình công tác Hội và phong trào sinh viên năm học 2026 – 2027, Chi hội 25CNTT01 phối hợp cùng CLB Học thuật EIU IT Club tổ chức buổi sinh hoạt chuyên đề thực chiến về AI và bảo mật tài khoản số.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-05',
+    title:
+      'Tổng kết Hội nghị Tập huấn Cán bộ Đoàn – Hội chủ chốt năm học 2026 – 2027 & Ban hành Quyết định 32/QĐ-HSV cấp E-Certificate',
+    slug: 'tong-ket-hoi-nghi-tap-huan-can-bo-doan-hoi-chu-chot-2026-2027',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin tức cấp trường',
+    summary:
+      '125 cán bộ chủ chốt từ 25 Chi hội và 30 CLB/Đội/Nhóm hoàn thành chương trình tập huấn nghiệp vụ điều hành Họp không giấy, thể thức văn bản và đã được cấp E-Certificate xác thực QR chỉ sau 02 ngày làm việc.',
+    publishedAt: '2026-10-28',
+    authorUnit: 'Ban Tổ chức và Xây dựng Hội',
+    viewCount: 845,
+    readMinutes: 3,
+    relatedDocNumber: '32/QĐ-HSV',
+    imageUrl: '/images/sv5t/tran-thi-thu-huyen.jpg',
+    newsLevel: 'CAP_TRUONG',
+    sections: [
+      {
+        heading: '1. Chuẩn hóa kỹ năng vận hành E-Office cho đội ngũ Cấp 3 & Cấp 4',
+        paragraphs: [
+          'Tại Hội trường B11.202 và Phòng 206.B06, 125 đồng chí Chi hội trưởng, Chi hội phó, Chủ nhiệm, Phó Chủ nhiệm các CLB/Đội/Nhóm đã thực hành trực tiếp quy trình lập tờ trình công nhận ngày tình nguyện trước 03 ngày, quét QR điểm danh động và sơ duyệt Cấp 1 hồ sơ Sinh viên 5 Tốt.',
+          'Ngay sau hội nghị, Ban Thư ký đã ký ban hành Quyết định số 32/QĐ-HSV ngày 19/10/2026 (vượt chuẩn SLA 07 ngày làm việc). Hội viên có thể tra cứu trực tiếp theo MSSV hoặc số Quyết định 32/QĐ-HSV tại chuyên mục Tra cứu GCN.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-08',
+    title:
+      'Tuyên dương 11 Gương sáng Sinh viên 5 tốt tiêu biểu cấp trường: Bản lĩnh trí tuệ và khát vọng hội nhập của sinh viên EIU',
+    slug: 'tuyen-duong-11-guong-sang-sinh-vien-5-tot-tieu-bieu-cap-truong',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      'Vinh danh những gương mặt sinh viên xuất sắc toàn diện trên cả 05 tiêu chuẩn Đạo đức, Học tập, Thể lực, Tình nguyện và Hội nhập đại diện cho 04 Khoa chuyên ngành.',
+    publishedAt: '2026-10-25',
+    authorUnit: 'Ban Thư ký Hội Sinh viên Trường',
+    viewCount: 1350,
+    readMinutes: 4,
+    imageUrl: '/images/sv5t/nguyen-nhu-quynh.jpg',
+    newsLevel: 'CAP_TRUONG',
+    sections: [
+      {
+        heading: '1. Những tấm gương tiêu biểu dẫn đầu phong trào thi đua',
+        paragraphs: [
+          '11 Gương sáng Sinh viên 5 tốt tiêu biểu là hạt nhân nòng cốt lan tỏa tinh thần tự học, nghiên cứu khoa học và phụng sự cộng đồng tại Trường Đại học Quốc tế Miền Đông.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-09',
+    title:
+      'Cụm hoạt động Khoa Quản trị Kinh doanh (BBS) phát động diễn đàn "Sinh viên BBS chinh phục chuẩn ngoại ngữ IELTS & Hội nhập Quốc tế"',
+    slug: 'cum-khoa-qtkd-bbs-dien-dan-chinh-phuc-ielts-hoi-nhap-quoc-te',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      '06 Chi hội thuộc Khoa Quản trị Kinh doanh phối hợp cùng CLB Học thuật BBS Honors Club chia sẻ phương pháp đạt chuẩn tiếng Anh quốc tế và hoàn thành tiêu chuẩn Hội nhập tốt.',
+    publishedAt: '2026-10-22',
+    authorUnit: 'Cụm Chi hội Khoa QTKD & BBS Honors Club',
+    viewCount: 690,
+    readMinutes: 3,
+    imageUrl: '/images/sv5t/lieu-gia-ky.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Đồng hành cùng sinh viên nâng cao năng lực ngoại ngữ',
+        paragraphs: [
+          'Chương trình thu hút đông đảo hội viên từ khóa 21 đến khóa 26 thuộc 06 Chi hội Khoa Quản trị Kinh doanh tham gia giao lưu học thuật hoàn toàn bằng tiếng Anh.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-04',
+    title:
+      'Hưởng ứng Mục tiêu Phát triển Bền vững EIU (UN SDGs): 100% Sự kiện Hội Sinh viên không sử dụng chai nhựa dùng một lần',
+    slug: 'huong-ung-phat-trien-ben-vung-eiu-su-kien-xanh-khong-chai-nhua',
+    category: 'TUYEN_TRUYEN',
+    categoryLabel: 'Tin tức cấp trường',
+    summary:
+      'Đồng hành cùng Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report), các chương trình Đoàn – Hội áp dụng tiêu chuẩn "Sự kiện Xanh", trạm thu gom pin cũ và chuỗi hoạt động EIU Green Giving.',
+    publishedAt: '2026-10-15',
+    authorUnit: 'Ban Tuyên giáo - Phong trào',
+    viewCount: 760,
+    readMinutes: 3,
+    imageUrl: '/images/sv5t/nguyen-hoang-thi-bich-ngoc.jpg',
+    newsLevel: 'CAP_TRUONG',
+    leadQuote:
+      'Tinh thần "Nhân bản – Cộng đồng – Sáng tạo – Bền vững" của EIU được cụ thể hóa thành cam kết xanh trên từng kế hoạch sự kiện sinh viên.',
+    sections: [
+      {
+        heading: '1. Chuẩn "Sự kiện Xanh" bắt buộc trong hồ sơ trình duyệt kế hoạch',
+        paragraphs: [
+          'Bám sát định hướng phát triển bền vững của Trường Đại học Quốc tế Miền Đông và 17 Mục tiêu Phát triển Bền vững của Liên Hợp Quốc (UN SDGs), Ban Thư ký Hội Sinh viên trường tích hợp tiêu chí "Sự kiện Xanh" ngay trong biểu mẫu trình duyệt kế hoạch trực tuyến trên E-Office.',
+          'Các Chi hội và Câu lạc bộ thay thế hoàn toàn chai nhựa dùng một lần bằng bình nước cá nhân tại các trạm nước lọc EIU, sử dụng ấn phẩm số (QR Standee, tài liệu Họp không giấy) và phân loại rác tại nguồn sau mỗi chương trình.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-10',
+    title:
+      'Đội Cộng tác viên Xung kích (Đội CTVXK) ra quân "Ngày Chủ nhật Xanh" và vận hành Trạm Đổi Pin Cũ Lấy Cây Xanh tại khuôn viên EIU',
+    slug: 'doi-ctvxk-ra-quan-ngay-chu-nhat-xanh-tram-doi-pin-lay-cay-xanh',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
+    summary:
+      'Hơn 80 chiến sĩ Đội CTV Xung kích cùng sinh viên các Chi hội thu gom hơn 1.200 viên pin đã qua sử dụng, trao tặng 150 chậu sen đá và làm sạch cảnh quan giảng đường.',
+    publishedAt: '2026-10-12',
+    authorUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
+    viewCount: 715,
+    readMinutes: 3,
+    imageUrl: '/images/sv5t/dao-van-thanh.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Hành động thiết thực vì khuôn viên đại học xanh – sạch – bền vững',
+        paragraphs: [
+          'Hoạt động được công nhận 1.0 ngày tình nguyện theo đúng quy định của Quyết định 28/QĐ-HSV và góp phần lan tỏa lối sống xanh trong cộng đồng sinh viên EIU.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-11',
+    title:
+      'Cụm Chi hội Khoa Khoa học Sức khỏe (SNS) tổ chức chương trình Tư vấn Sức khỏe Học đường & Tập huấn Sơ cấp cứu Cơ bản',
+    slug: 'cum-chi-hoi-khoa-khsk-sns-tu-van-suc-khoe-tap-huan-so-cap-cuu',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
+    summary:
+      'Sinh viên 06 Chi hội ngành Điều dưỡng Khoa Khoa học Sức khỏe trực tiếp hướng dẫn kỹ năng xử trí tình huống y tế khẩn cấp và chăm sóc sức khỏe mùa thi cho hội viên toàn trường.',
+    publishedAt: '2026-10-08',
+    authorUnit: 'Cụm Chi hội Khoa Khoa học Sức khỏe (SNS)',
+    viewCount: 640,
+    readMinutes: 4,
+    imageUrl: '/images/sv5t/pham-thi-thanh-thuy.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Phát huy chuyên môn Điều dưỡng phục vụ cộng đồng sinh viên',
+        paragraphs: [
+          'Chương trình phát huy thế mạnh chuyên môn của sinh viên Khoa Khoa học Sức khỏe, gắn kết rèn luyện tay nghề với hoạt động tình nguyện vì cộng đồng.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-12',
+    title:
+      'CLB Thể thao EIU FireLions & EIU Calisthenics Club tổ chức Ngày hội Kiểm tra Thể lực "Sinh viên Khỏe EIU" Đợt 1',
+    slug: 'clb-the-thao-firelions-calisthenics-ngay-hoi-sinh-vien-khoe-dot-1',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      'Hơn 320 sinh viên tham gia kiểm tra các nội dung chạy bền, bật xa tại chỗ, kéo xà đơn và nhận giấy chứng nhận đạt chuẩn "Sinh viên khỏe" xét tiêu chuẩn Thể lực tốt.',
+    publishedAt: '2026-10-04',
+    authorUnit: 'CLB EIU FireLions & CLB Calisthenics',
+    viewCount: 810,
+    readMinutes: 3,
+    imageUrl: '/images/sv5t/vo-duy-huan.jpg',
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Sôi nổi phong trào rèn luyện thể chất theo Phụ lục 1 QĐ 09/QĐ-HSV',
+        paragraphs: [
+          'Kết quả kiểm tra thể lực được cập nhật trực tiếp lên hệ thống Sổ tay Hội viên điện tử để hội viên chủ động hoàn thiện hồ sơ xét chọn Sinh viên 5 tốt.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-13',
+    title:
+      'Ban Kiểm tra Hội Sinh viên trường triển khai chuyên đề giám sát thực thi Quy chế làm việc và vận hành Hộp thư Lắng nghe Sinh viên',
+    slug: 'ban-kiem-tra-hsv-trien-khai-giam-sat-va-hop-thu-lang-nghe-sinh-vien',
+    category: 'THONG_BAO',
+    categoryLabel: 'Tin tức cấp trường',
+    summary:
+      'Đảm bảo 100% kiến nghị, phản ánh về quyền lợi hội viên, ngày tình nguyện và Giấy chứng nhận điện tử được tiếp nhận, phản hồi minh bạch trong vòng 48 giờ làm việc.',
+    publishedAt: '2026-09-26',
+    authorUnit: 'Ban Kiểm tra Hội Sinh viên Trường',
+    viewCount: 590,
+    readMinutes: 3,
+    relatedDocNumber: '23/QĐ-HSV',
+    newsLevel: 'CAP_TRUONG',
+    sections: [
+      {
+        heading: '1. Nâng cao kỷ cương và bảo vệ quyền lợi chính đáng của hội viên',
+        paragraphs: [
+          'Ban Kiểm tra Hội Sinh viên trường thực hiện giám sát định kỳ tiến độ xử lý SLA 07 ngày làm việc đối với toàn bộ hồ sơ đề nghị cấp Giấy chứng nhận của các đơn vị.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-14',
+    title:
+      'Cụm Chi hội Khoa Kỹ thuật (SET) và CLB Student Technical Club ra mắt Không gian Sáng tạo Kỹ thuật & Ôn tập Học thuật Cuối kỳ',
+    slug: 'cum-chi-hoi-khoa-ky-thuat-set-clb-technical-khong-gian-sang-tao',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
+    summary:
+      'Chuỗi nhóm học tập đồng đẳng (Peer Tutoring) môn Giải tích, Vật lý đại cương và Lập trình nhúng hỗ trợ sinh viên Khoa Kỹ thuật bứt phá điểm GPA học kỳ Thu.',
+    publishedAt: '2026-09-20',
+    authorUnit: 'Cụm Chi hội Khoa Kỹ thuật & CLB Technical',
+    viewCount: 675,
+    readMinutes: 4,
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Mô hình đôi bạn cùng tiến và CLB học thuật đồng hành mùa thi',
+        paragraphs: [
+          'Hoạt động giúp sinh viên nắm vững kiến thức chuyên ngành và tích lũy minh chứng sinh hoạt học thuật định kỳ theo quy định xét chọn Sinh viên 5 tốt.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-15',
+    title:
+      'Văn phòng Hội Sinh viên trường (Phòng 206.B06) thông báo lịch trực tác nghiệp hành chính và hướng dẫn mượn tài sản, đóng dấu trực tuyến',
+    slug: 'van-phong-hoi-206-b06-thong-bao-lich-truc-va-muon-tai-san-truc-tuyen',
+    category: 'THONG_BAO',
+    categoryLabel: 'Tin tức cấp trường',
+    summary:
+      'Số hóa hoàn toàn sổ đăng ký mượn bộ đàm, loa kéo, standee và sổ trình ký đóng dấu văn bản tại Văn phòng Hội Sinh viên Phòng 206.B06 trong khung giờ 08:00 – 16:30.',
+    publishedAt: '2026-09-16',
+    authorUnit: 'Văn phòng Hội Sinh viên (206.B06)',
+    viewCount: 730,
+    readMinutes: 3,
+    relatedDocNumber: '24/QĐ-HSV',
+    newsLevel: 'CAP_TRUONG',
+    sections: [
+      {
+        heading: '1. Quy trình hành chính không giấy tờ tại Phòng 206.B06',
+        paragraphs: [
+          'Các Chi hội và Câu lạc bộ đăng ký mượn thiết bị trước ít nhất 24 giờ trên phân hệ E-Office và kiểm tra tình trạng thiết bị trực tiếp khi bàn giao.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-16',
+    title:
+      'CLB Nghệ thuật The Voice Up Club & EPC Photography Club phối hợp tổ chức đêm giao lưu nghệ thuật chào tân sinh viên Khóa 2026',
+    slug: 'clb-voice-up-epc-photography-dem-giao-luu-nghe-thuat-tan-sinh-vien-k26',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
+    summary:
+      'Đêm hội âm nhạc, dẫn chương trình và triển lãm ảnh nghệ thuật quy tụ hơn 500 tân sinh viên Khóa 16 (2026) hòa mình vào đời sống văn hóa năng động tại EIU.',
+    publishedAt: '2026-09-12',
+    authorUnit: 'CLB The Voice Up & CLB EPC Photography',
+    viewCount: 890,
+    readMinutes: 3,
+    newsLevel: 'CO_SO_HOI',
+    sections: [
+      {
+        heading: '1. Điểm hẹn kết nối đam mê của các Câu lạc bộ Nghệ thuật EIU',
+        paragraphs: [
+          'Sự kiện mang đến không gian giao lưu sôi nổi giữa 10 Câu lạc bộ thuộc Khối Nghệ thuật trực thuộc Hội Sinh viên trường.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-17',
+    title:
+      'Hướng dẫn quy đổi tiêu chuẩn "Hội nhập tốt" năm học 2026 – 2027: Danh mục các khóa Kỹ năng Thực hành Xã hội theo Phụ lục 3',
+    slug: 'huong-dan-quy-doi-tieu-chuan-hoi-nhap-tot-phu-luc-3-2026',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      'Chi tiết danh mục 08 nhóm kỹ năng mềm, kỹ năng số và hội nhập quốc tế được công nhận hoàn thành điều kiện cứng tiêu chuẩn Hội nhập tốt cấp trường.',
+    publishedAt: '2026-09-06',
+    authorUnit: 'Ban Tuyên giáo - Phong trào',
+    viewCount: 950,
+    readMinutes: 4,
+    relatedDocNumber: '09/QĐ-HSV',
+    newsLevel: 'CAP_TRUONG',
+    sections: [
+      {
+        heading: '1. Đa dạng hóa hình thức rèn luyện kỹ năng thực hành xã hội',
+        paragraphs: [
+          'Sinh viên tham gia đầy đủ thời lượng workshop và vượt qua bài kiểm tra thu hoạch trực tuyến trên cổng thông tin sẽ được cấp giấy chứng nhận điện tử tự động.',
+        ],
+      },
+    ],
+  },
+  {
     id: 'post-03',
     title:
       'Kiện toàn bộ máy Ban Chấp hành, Ban Thư ký, Ban Kiểm tra và 03 Ban Chuyên môn Hội Sinh viên EIU Khóa II, nhiệm kỳ 2026 – 2028',
     slug: 'kien-toan-bo-may-bch-btk-bkt-va-3-ban-chuyen-mon-khoa-ii',
     category: 'TIN_HOAT_DONG',
-    categoryLabel: 'Tổ chức – Xây dựng Hội',
+    categoryLabel: 'Tin tức cấp trường',
     summary:
       'Ra mắt cơ cấu tổ chức 3 cấp gồm 15 đ/c Ủy viên BCH, 05 đ/c Ban Thư ký, 05 đ/c Ban Kiểm tra, 03 đơn vị chuyên môn cấp trường cùng mạng lưới 25 Chi hội (4 Khoa, 6 Khóa) và 30 CLB/Đội/Nhóm.',
     publishedAt: '2026-09-01',
@@ -2188,6 +2533,7 @@ export const NEWS_POSTS: NewsPost[] = [
     viewCount: 980,
     readMinutes: 4,
     relatedDocNumber: '04/TB-HSV',
+    newsLevel: 'CAP_TRUONG',
     leadQuote:
       'Bộ máy Khóa II vận hành theo mô hình phân cụm khoa học, kết hợp cơ chế kiêm nhiệm đa vị trí giúp kết nối xuyên suốt từ Thường trực Hội đến từng Chi hội và Câu lạc bộ.',
     sections: [
@@ -2207,73 +2553,78 @@ export const NEWS_POSTS: NewsPost[] = [
     ],
   },
   {
-    id: 'post-04',
+    id: 'post-18',
     title:
-      'Hưởng ứng Mục tiêu Phát triển Bền vững EIU (UN SDGs): 100% Sự kiện Hội Sinh viên không sử dụng chai nhựa dùng một lần',
-    slug: 'huong-ung-phat-trien-ben-vung-eiu-su-kien-xanh-khong-chai-nhua',
-    category: 'TUYEN_TRUYEN',
-    categoryLabel: 'Tuyên giáo – Bền vững (SDGs)',
-    summary:
-      'Đồng hành cùng Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report), các chương trình Đoàn – Hội áp dụng tiêu chuẩn "Sự kiện Xanh", trạm thu gom pin cũ và chuỗi hoạt động EIU Green Giving.',
-    publishedAt: '2026-10-15',
-    authorUnit: 'Ban Tuyên giáo - Phong trào',
-    viewCount: 760,
-    readMinutes: 3,
-    leadQuote:
-      'Tinh thần "Nhân bản – Cộng đồng – Sáng tạo – Bền vững" của EIU được cụ thể hóa thành cam kết xanh trên từng kế hoạch sự kiện sinh viên.',
-    sections: [
-      {
-        heading: '1. Chuẩn "Sự kiện Xanh" bắt buộc trong hồ sơ trình duyệt kế hoạch',
-        paragraphs: [
-          'Bám sát định hướng phát triển bền vững của Trường Đại học Quốc tế Miền Đông và 17 Mục tiêu Phát triển Bền vững của Liên Hợp Quốc (UN SDGs), Ban Thư ký Hội Sinh viên trường tích hợp tiêu chí "Sự kiện Xanh" ngay trong biểu mẫu trình duyệt kế hoạch trực tuyến trên E-Office.',
-          'Các Chi hội và Câu lạc bộ thay thế hoàn toàn chai nhựa dùng một lần bằng bình nước cá nhân tại các trạm nước lọc EIU, sử dụng ấn phẩm số (QR Standee, tài liệu Họp không giấy) và phân loại rác tại nguồn sau mỗi chương trình.',
-        ],
-      },
-    ],
-  },
-  {
-    id: 'post-05',
-    title:
-      'Tổng kết Hội nghị Tập huấn Cán bộ Đoàn – Hội chủ chốt năm học 2026 – 2027 & Ban hành Quyết định 32/QĐ-HSV cấp E-Certificate',
-    slug: 'tong-ket-hoi-nghi-tap-huan-can-bo-doan-hoi-chu-chot-2026-2027',
+      'Hội nghị tập huấn Cán bộ Hội và Ban Chủ nhiệm CLB – Đội – Nhóm toàn trường đầu năm học 2026 – 2027',
+    slug: 'hoi-nghi-tap-huan-can-bo-hoi-va-ban-chu-nhiem-clb-dau-nam-2026',
     category: 'TIN_HOAT_DONG',
-    categoryLabel: 'Đào tạo – Tập huấn Cán bộ',
+    categoryLabel: 'Tin tức cấp trường',
     summary:
-      '125 cán bộ chủ chốt từ 25 Chi hội và 30 CLB/Đội/Nhóm hoàn thành chương trình tập huấn nghiệp vụ điều hành Họp không giấy, thể thức văn bản và đã được cấp E-Certificate xác thực QR chỉ sau 02 ngày làm việc.',
-    publishedAt: '2026-10-20',
+      'Tập huấn nghiệp vụ công tác Hội, kỹ năng quản lý dự án phong trào và hướng dẫn sử dụng hệ thống số hóa văn bản e-Office cho hơn 120 cán bộ Hội chủ chốt.',
+    publishedAt: '2026-08-28',
     authorUnit: 'Ban Tổ chức và Xây dựng Hội',
-    viewCount: 845,
+    viewCount: 820,
     readMinutes: 3,
-    relatedDocNumber: '32/QĐ-HSV',
+    relatedDocNumber: '11/KH-HSV',
+    newsLevel: 'CAP_TRUONG',
+    imageUrl:
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
     sections: [
       {
-        heading: '1. Chuẩn hóa kỹ năng vận hành E-Office cho đội ngũ Cấp 3 & Cấp 4',
+        heading: '1. Nâng cao kỹ năng số và năng lực điều hành tổ chức',
         paragraphs: [
-          'Tại Hội trường B11.202 và Phòng 206.B06, 125 đồng chí Chi hội trưởng, Chi hội phó, Chủ nhiệm, Phó Chủ nhiệm các CLB/Đội/Nhóm đã thực hành trực tiếp quy trình lập tờ trình công nhận ngày tình nguyện trước 03 ngày, quét QR điểm danh động và sơ duyệt Cấp 1 hồ sơ Sinh viên 5 Tốt.',
-          'Ngay sau hội nghị, Ban Thư ký đã ký ban hành Quyết định số 32/QĐ-HSV ngày 19/10/2026 (vượt chuẩn SLA 07 ngày làm việc). Hội viên có thể tra cứu trực tiếp theo MSSV hoặc số Quyết định 32/QĐ-HSV tại chuyên mục Tra cứu GCN.',
+          'Chương trình trang bị phương pháp lập kế hoạch sự kiện chuẩn hóa, kỹ năng quản trị tài chính minh bạch và tác nghiệp không giấy tờ qua phân hệ E-Office cho đội ngũ ban chủ nhiệm 30 Câu lạc bộ.',
         ],
       },
     ],
   },
   {
-    id: 'post-06',
+    id: 'post-19',
     title:
-      'Mở cổng đăng ký Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 & Chuỗi Workshop Kỹ năng Thực hành Xã hội Phụ lục 3',
-    slug: 'mo-cong-dang-ky-giot-hong-bo-cau-trang-va-workshop-phu-luc-3',
-    category: 'SINH_VIEN_5_TOT',
-    categoryLabel: 'Phong trào Sinh viên 5 Tốt',
+      'Chi hội K24 Quản trị Kinh doanh ra mắt chuỗi sinh hoạt "Cà phê Khởi nghiệp & Kỹ năng số 4.0"',
+    slug: 'chi-hoi-k24-qtkd-ra-mat-chuoi-sinh-hoat-ca-phe-khoi-nghiep',
+    category: 'TIN_HOAT_DONG',
+    categoryLabel: 'Tin cơ sở Hội',
     summary:
-      'Cơ hội hoàn thành đồng thời tiêu chuẩn cứng "Tình nguyện tốt" (+5.0 ngày tình nguyện/lần hiến máu) và khung Kỹ năng thực hành xã hội "Hội nhập tốt" ngay trong Học kỳ Thu năm học 2026 – 2027.',
-    publishedAt: '2026-10-28',
-    authorUnit: 'CLB Blood Donation & CLB Sinh viên 5 tốt',
-    viewCount: 1090,
+      'Không gian kết nối mở định kỳ 2 tuần/lần dành cho hội viên trao đổi kiến thức kinh doanh, thực hành phân tích thị trường và giao lưu với cựu sinh viên doanh nhân.',
+    publishedAt: '2026-08-20',
+    authorUnit: 'Chi hội K24 Khoa Quản trị Kinh doanh',
+    viewCount: 670,
     readMinutes: 3,
+    newsLevel: 'CO_SO_HOI',
+    imageUrl:
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
     sections: [
       {
-        heading: '1. Lộ trình tích lũy sớm tiêu chuẩn Tình nguyện tốt & Hội nhập tốt',
+        heading: '1. Đổi mới phương thức sinh hoạt chi hội theo định hướng chuyên môn',
         paragraphs: [
-          'CLB Cộng đồng Blood Donation Club phối hợp cùng Hội Chữ thập đỏ tổ chức Ngày hội "Giọt Hồng Bồ Câu Trắng EIU" vào sáng 05/11/2026 tại Sảnh Tòa nhà B6. Theo Phụ lục 2 Quyết định 09/QĐ-HSV, mỗi lượt hiến máu tình nguyện thành công được công nhận 5.0 ngày tình nguyện và đáp ứng điều kiện cứng của tiêu chuẩn Tình nguyện tốt.',
-          'Song song đó, CLB Cộng đồng Sinh viên 5 tốt và CLB Học thuật EIU IT Club triển khai Workshop "Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số" vào chiều 12/11/2026 tại B3.102, thuộc nhóm Kỹ năng thực hành xã hội Phụ lục 3.',
+          'Mô hình gắn kết việc rèn luyện tiêu chí Học tập tốt của phong trào Sinh viên 5 tốt với các bài tập thực chiến từ doanh nghiệp đối tác tại Bình Dương.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'post-20',
+    title:
+      'Tổng kết Chiến dịch Tình nguyện Mùa Hè Xanh EIU 2026: Dấu ấn tuổi trẻ cống hiến vì cộng đồng',
+    slug: 'tong-ket-chien-dich-tinh-nguyen-mua-he-xanh-eiu-2026',
+    category: 'SINH_VIEN_5_TOT',
+    categoryLabel: 'Phong trào Sinh viên 5 tốt',
+    summary:
+      'Trao tặng 02 sân chơi thiếu nhi, phổ cập tin học cho hơn 300 em nhỏ và hỗ trợ số hóa dữ liệu dân cư tại địa bàn khó khăn sau 15 ngày cao điểm tình nguyện.',
+    publishedAt: '2026-08-15',
+    authorUnit: 'Ban Tuyên giáo - Phong trào',
+    viewCount: 1140,
+    readMinutes: 4,
+    relatedDocNumber: '18/BC-HSV',
+    newsLevel: 'CAP_TRUONG',
+    imageUrl:
+      'https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80',
+    sections: [
+      {
+        heading: '1. Lan tỏa tinh thần trách nhiệm xã hội của sinh viên EIU',
+        paragraphs: [
+          'Chiến dịch ghi nhận sự tham gia của gần 150 chiến sĩ tình nguyện, hoàn thành 100% chỉ tiêu công trình thanh niên và cấp giấy chứng nhận tiêu chuẩn Tình nguyện tốt cho toàn bộ chiến sĩ.',
         ],
       },
     ],

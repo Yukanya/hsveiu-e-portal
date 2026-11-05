@@ -15,6 +15,16 @@ import {
   QrCode,
 } from 'lucide-react';
 
+function formatDateDot(dateStr?: string | null): string {
+  if (!dateStr || typeof dateStr !== 'string') return '';
+  const datePart = dateStr.includes('T') ? dateStr.split('T')[0] : dateStr;
+  const parts = datePart.split('-');
+  if (parts.length === 3 && parts[0].length === 4) {
+    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+  }
+  return dateStr;
+}
+
 function TinTucDetailInner({
   params,
 }: {
@@ -59,7 +69,7 @@ function TinTucDetailInner({
         kicker={article.categoryLabel}
         title={article.title}
         breadcrumbs={[
-          { label: 'Tin tức & Điểm tin', href: '/tin-tuc' },
+          { label: 'Tin tức', href: '/tin-tuc' },
           { label: article.categoryLabel, href: `/tin-tuc?category=${article.category}` },
           { label: 'Chi tiết bài viết' },
         ]}
@@ -81,10 +91,13 @@ function TinTucDetailInner({
               </div>
 
               <div className="flex items-center gap-4 text-slate-500 font-eiu-serif">
-                <span className="inline-flex items-center gap-1 text-[#8E6D3E] font-semibold">
+                <time
+                  dateTime={article.publishedAt}
+                  className="inline-flex items-center gap-1 text-[#8E6D3E] font-semibold"
+                >
                   <Calendar className="w-3.5 h-3.5" />
-                  {article.publishedAt}
-                </span>
+                  <span>{formatDateDot(article.publishedAt)}</span>
+                </time>
                 <span className="inline-flex items-center gap-1">
                   <Eye className="w-3.5 h-3.5" />
                   {article.viewCount.toLocaleString('vi-VN')}
@@ -235,9 +248,12 @@ function TinTucDetailInner({
                       <span className="font-bold text-[#0054A6]">
                         {rp.categoryLabel}
                       </span>
-                      <span className="font-eiu-serif text-[#8E6D3E] font-medium">
-                        {rp.publishedAt}
-                      </span>
+                      <time
+                        dateTime={rp.publishedAt}
+                        className="font-eiu-serif text-[#8E6D3E] font-medium"
+                      >
+                        {formatDateDot(rp.publishedAt)}
+                      </time>
                     </div>
                     <div className="text-[13.5px] font-bold text-[#133F68] group-hover:text-[#C10230] leading-snug line-clamp-2">
                       {rp.title}

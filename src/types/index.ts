@@ -133,6 +133,8 @@ export interface NewsPost {
   readMinutes?: number;
   relatedDocNumber?: string;
   leadQuote?: string;
+  imageUrl?: string;
+  newsLevel?: 'CAP_TRUONG' | 'CO_SO_HOI';
   sections?: NewsArticleSection[];
 }
 
