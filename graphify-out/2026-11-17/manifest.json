@@ -60,14 +60,14 @@
     "semantic_hash": "41015d9e864e586cce895640eec901a0"
   },
   "src/app/(public)/page.tsx": {
-    "mtime": 1793864141.2339635,
-    "seen": 1793864162.205704,
+    "mtime": 1793864182.649871,
+    "seen": 1794892776.698545,
     "ast_hash": "33907c98d3e1367deabfd2eae0201eaa",
     "semantic_hash": ""
   },
   "src/app/(public)/su-kien/page.tsx": {
-    "mtime": 1793864124.3741615,
-    "seen": 1793864162.205707,
+    "mtime": 1793864182.6920533,
+    "seen": 1794892776.69855,
     "ast_hash": "cdfa353e0a22b18f0f94860b79559e1e",
     "semantic_hash": ""
   },
@@ -336,9 +336,9 @@
     "semantic_hash": "e9be846dfcb024cc67cfcca51492f477"
   },
   "docs/02_DESIGN_SYSTEM.md": {
-    "mtime": 1793777373.709285,
-    "seen": 1793791858.3212328,
-    "ast_hash": "60b16149006fb50ff77a0d8039711b8e",
+    "mtime": 1794892767.3872387,
+    "seen": 1794892776.6987772,
+    "ast_hash": "c7cbd16991f510c978c37b6a0876c597",
     "semantic_hash": ""
   },
   "docs/03_DATABASE_SCHEMA.md": {
@@ -666,9 +666,9 @@
     "semantic_hash": "a2760511c65806022ad20adf74370ff3"
   },
   "DESIGN.md": {
-    "mtime": 1793775799.8227763,
-    "seen": 1793791858.321134,
-    "ast_hash": "8a36c6e0b4809eb48d8cafaf45ab55d1",
+    "mtime": 1794892743.1500535,
+    "seen": 1794892776.698671,
+    "ast_hash": "0234122703d8c3944f9a2712fecbbf7a",
     "semantic_hash": ""
   },
   "package-lock.json": {
@@ -681,6 +681,12 @@
     "mtime": 1793841916.9688978,
     "seen": 1793842411.7549021,
     "ast_hash": "a3a717027df898c3c2d8bd14da115b81",
+    "semantic_hash": ""
+  },
+  ".agents/rules/ui-layout-standards.md": {
+    "mtime": 1794892669.7814097,
+    "seen": 1794892776.6986508,
+    "ast_hash": "4558e57373c447342c8acd610f35e8bf",
     "semantic_hash": ""
   }
 }
