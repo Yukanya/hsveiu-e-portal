@@ -100,22 +100,32 @@ Cung cấp 3 lối vào tức thì đạt chuẩn tương tác tối thiểu `mi
 - **Các Thẻ Đơn (1/4 cột):** Header đồ họa `h-36` màu sắc ngữ nghĩa (`#0054A6` SV5T, `#133F68` Đại hội II, `#144069` Cán bộ, `#02294E` Chi hội, `#51803A` CLB, `#0054A6` Tin tức).
 - **Thân thẻ:** Mô tả tóm tắt 3 dòng (`line-clamp-3`), gạch phân cách mảnh `border-t border-slate-100`, liên kết hành động chữ hoa có chevron trượt khi hover (`group-hover:translate-x-1`).
 
-### 5.4. Lưới Tin Tức Bento Magazine Editorial (12 Cột)
-- **Cột Trái (6/12) — Bài Viết Tiêu Điểm 01:** Thẻ lớn tràn chiều cao `min-h-[460px]`, số thứ tự khổng lồ nét outline `01`, nhãn vàng `#FCB900` `TIÊU ĐIỂM`, tiêu đề lớn `Crimson Text` $27\text{px}$, nút pill bo tròn `Đọc ngay`.
-- **Cột Phải (6/12) — Bài Phụ 02 & Danh Sách 03–06:**
-  - Bài 02: Nền `#144069`, số outline `02`, nhãn cyan `#00BCFF`.
-  - Danh sách 03–06: Danh sách chia vạch (`divide-y divide-slate-100`), số thứ tự nét xanh `03, 04, 05, 06`, tiêu đề 2 dòng, ảnh thumbnail bo góc vuông tỷ lệ chuẩn.
+### 5.4. Tin Tức Sinh Viên: Bento Magazine Editorial (Trang chủ) & Lưới Tin Tức 3x3 (`/tin-tuc`)
+- **Trang chủ (`/`) — Bento Magazine Editorial (12 Cột):**
+  - **Cột Trái (6/12) — Bài Viết Tiêu Điểm 01:** Thẻ lớn tràn chiều cao `min-h-[460px]`, số thứ tự khổng lồ nét outline `01`, nhãn vàng `#FCB900` `TIÊU ĐIỂM`, tiêu đề lớn `Crimson Text` $27\text{px}$, nút pill bo tròn `Đọc ngay`.
+  - **Cột Phải (6/12) — Bài Phụ 02 & Danh Sách 03–06:** Bài 02 nền `#144069`, số outline `02`, nhãn cyan `#00BCFF`; Danh sách 03–06 chia vạch (`divide-y divide-slate-100`), số thứ tự nét xanh `03–06`, tiêu đề 2 dòng, thumbnail vuông.
+- **Trang `/tin-tuc` — Banner Tiêu Điểm Ngang (03 tin mới nhất) & Lưới 3x3 (9 tin/trang):**
+  - **Banner Tiêu điểm Ngang:** Ảnh sự kiện full-bleed cross-fade (`5000ms` tự động chuyển, tạm dừng khi hover/focus/`prefers-reduced-motion`).
+  - **Feathered Scrim Gradient `#02294E`:** Dùng gradient 8 điểm dừng ease-out từ trái (`0%` → `52%`) trên desktop (`linear-gradient(90deg, #02294E 0%, rgba(2,41,78,0.96) 12%, rgba(2,41,78,0.88) 22%, rgba(2,41,78,0.72) 30%, rgba(2,41,78,0.48) 38%, rgba(2,41,78,0.22) 44%, rgba(2,41,78,0.06) 48%, rgba(2,41,78,0) 52%, transparent 100%)`) và gradient dọc `180deg` trên mobile (`0.96` → `0.85` → `0.45`). Không dùng đường cắt chữ nhật `w-1/3` lộ vệt.
+  - **Thanh điều hướng Carousel đáy:** Nền kính mờ `bg-[#02294E]/75 backdrop-blur-xs border-t border-white/15`, bộ đếm `01 / 03`, 3 thanh tiến độ `eiu-progress-active`, nút tròn `<` `>` (`w-9 h-9 active:scale-90 hover:scale-105`).
+  - **Thẻ Tin Tức Lưới 3x3 (`GRID_ITEMS_PER_PAGE = 9`):**
+    - Header ảnh thật cao `h-44`, phủ gradient dọc `#02294E` (`0.94` ở đáy → `0.48` ở `55%` → `rgba(19,63,104,0.35)` ở đỉnh) + hoa văn `eiu-arch-pattern opacity-25`.
+    - Hàng trên: Tag chuyên mục `11.5px` (`#FCB900` cho SV5T, `#00BCFF` cho tin khác) + Logo HSV (`28x28`). Hàng dưới: Đơn vị ban hành (trắng) + `{readMinutes} phút đọc` (`#FCB900` Serif bold).
+    - Cố định baseline thân thẻ: Tiêu đề `min-h-[44px]` (`line-clamp-2`), Tóm tắt `min-h-[63px]` (`line-clamp-3`).
+    - Thanh phân trang căn giữa (`Trước`, số trang `w-10 h-10` active `#C10230`, `Sau`), cuộn mượt lên `gridTopRef`.
 
-### 5.5. Phân Vùng Sự Kiện & Bộ Lọc Tiêu Chuẩn 5 Tốt
-- **Pills Bộ Lọc:** Các nút bo tròn `rounded-full min-h-[38px]` đếm số lượng sự kiện thời gian thực. Nút đang chọn: `bg-[#C10230] text-white shadow-xs scale-[1.02]`. Nút chưa chọn: `bg-white text-[#133F68] border border-slate-300 hover:bg-[#EAE3D2]/40`.
+### 5.5. Phân Vùng Sự Kiện & Bộ Lọc Đa Tiêu Chí (`/` & `/su-kien`)
+- **Pills Bộ Lọc SV5T:** Các nút bo tròn `rounded-full min-h-[38px]` đếm số lượng sự kiện thời gian thực (`ALL`, `Học tập tốt`, `Đạo đức tốt`, `Thể lực tốt`, `Tình nguyện tốt`, `Hội nhập tốt`). Nút đang chọn: `bg-[#C10230] text-white shadow-xs scale-[1.02]`. Nút chưa chọn: `bg-white text-[#133F68] border border-slate-300 hover:bg-[#EAE3D2]/40`.
 - **Hiệu Ứng Lọc Êm Dịu (Filter Continuity):** Toàn bộ lưới sự kiện chuyển trạng thái mềm mại (`opacity-40 translate-y-1` $\rightarrow$ `opacity-100 translate-y-0` trong $180\text{ms}$), không gây giật màn hình.
-- **Cấu Trúc Thẻ Sự Kiện:**
-  - **Header `h-36`:** Tag trạng thái bên trái (`Đang mở đăng ký`, `Còn 2 ngày`, `Đã đóng đăng ký`), Cột kép bên phải (Box Tiêu chuẩn SV5T nền trắng + Box Ngày tình nguyện nền vàng `#FCB900` `+X.X Ngày TN`).
-  - **Thân thẻ:** Tiêu đề 2 dòng, MapPin địa điểm (`#8E6D3E`), Clock thời gian (`#8E6D3E`), Thanh đo đăng ký chuyển màu theo ngưỡng:
-    - `< 85%`: Xanh Hội Sinh viên `#0054A6`.
-    - `85% – 99%`: Vàng cam cảnh báo `#EEB31D`.
-    - $\ge 100\%$: Xanh lá hoàn thành `#51803A`.
-  - **Chân thẻ:** Nút xem chi tiết `min-h-[36px]` chuyển đổi linh hoạt: `ĐĂNG KÝ` (khi còn hạn) hoặc `XEM TIẾN ĐỘ GCN` (khi đã hoàn thành).
+- **Tương Tác Click Mở Đăng Ký Toàn Diện:** Cả **toàn bộ vùng Header Banner (`h-36`)**, **Tiêu đề `<h3>`**, và **Nút chân thẻ** đều cho phép bấm mở luồng đăng ký (`openEventModal(ev)` tại `/su-kien` hoặc `<Link href="/su-kien?event=...">` tại Trang chủ `/`).
+- **Quy chuẩn riêng Trang `/su-kien` (Tối đa 12 sự kiện/trang):**
+  - **Hero SubpageBanner:** Tiêu đề `LỊCH SỰ KIỆN VÀ HOẠT ĐỘNG`, mô tả `Tổng hợp tất cả các sự kiện sinh viên dành cho Sinh viên trường Đại học Quốc tế Miền Đông.` (Không hiển thị khối Quy trình 05 Bước GCN, nhãn `Duyệt >= 3 ngày`, tag `Sự kiện Xanh SDGs` hay đơn vị tổ chức trên thẻ).
+  - **Bộ lọc chuyên sâu 5 tiêu chí (`lg:grid-cols-5`) + Lọc nhanh:** Ô tìm kiếm + nút nhanh `Đang mở đăng ký` (`bg-[#51803A]` khi active) + 5 bộ lọc: **Trạng thái (07 Tag)**, **Ngày tình nguyện** (`0–1`, `1.5–2`, `>2`), **Điểm rèn luyện** (`Có`/`Không`), **Thời gian tổ chức** (`Sáng 7h30–11h30`, `Chiều 12h30–4h30`, `Tối 4h30–8h30`, `Nhiều ngày`), **Địa điểm tổ chức** (`EIU`, `Thành phố Hồ Chí Minh`, `Khác`).
+  - **07 Tag Trạng thái chuẩn & Thu nhỏ 75% Header Tags:**
+    - Tag trái (`text-[8.5px] px-2 py-0.5`): `Chưa mở đăng ký` (`bg-slate-600 text-white`), `Đang mở đăng ký` (`bg-[#51803A] text-white`), `Còn 5 ngày` (`bg-[#FCB900] text-[#02294E]`), `Còn 2 ngày` (`bg-[#C10230] text-white`), `Đã đóng đăng ký` (`bg-[#EEB31D] text-[#02294E]`), `Đang diễn ra` (`bg-[#0054A6] text-white`), `Đã kết thúc` (`bg-slate-700 text-slate-100`).
+    - Cột 3 box phải (`font-eiu-serif text-[9px] font-bold px-2 py-0.5`): `Tiêu chuẩn: {criterion}` (`bg-white text-[#133F68]`), `+{X.X} Ngày TN` (`bg-[#FCB900] text-[#02294E]`), và **`+1 ĐRL`** (`bg-[#EAE3D2] text-[#133F68]`, cố định mức `+1 ĐRL` cho mọi chương trình có ĐRL).
+  - **Thân thẻ:** Địa điểm (`MapPin`), Thời gian (`Clock`), tiến độ và hạn đăng ký dùng đồng bộ **`font-sans font-normal`** (`text-xs` cho địa điểm và thời gian). Thanh đo đăng ký đổi màu 3 ngưỡng: `< 85%` (`#0054A6`), `85% – 99%` (`#EEB31D`), $\ge 100\%$ (`#51803A`).
+  - **Chân thẻ & Phân trang:** Nút chân thẻ `min-h-[36px]` hiển thị `ĐĂNG KÝ NGAY` (khi còn hạn mở đơn), `NHẬN GCN` (khi `Đã kết thúc`), hoặc nhãn trạng thái tương ứng; phân trang căn giữa tối đa `12` sự kiện/trang đồng bộ `/tin-tuc`.
 
 ### 5.6. Băng Chuyền "Gương Sáng Sinh Viên 5 Tốt" (Infinite Seamless Carousel)
 - **Tiêu đề Phân vùng:**
@@ -172,10 +182,14 @@ Cung cấp 3 lối vào tức thì đạt chuẩn tương tác tối thiểu `mi
 
 - **Nguyên tắc cốt lõi:**
   - Chuyển động có chủ đích, gắn liền với bản sắc kiến trúc cantilver và đà cất cánh của EIU Khóa II.
-  - Chỉ tạo chuyển động trên các thuộc tính đồ họa tầng tổng hợp (`transform`, `opacity`, `filter`). Tuyệt đối không can thiệp vào `width`, `height`, `margin`, `padding` gây giật layout (reflow).
+  - Chỉ tạo chuyển động trên các thuộc tính đồ họa tầng tổng hợp (`transform`, `opacity`, `filter`). Tuyệt đối không can thiệp vào `width`, `height`, `margin`, `padding` gây giật layout (reflow) (trừ thanh tiến độ bên trong khung cố định `overflow-hidden`).
   - Đường cong gia tốc tự nhiên: `cubic-bezier(0.16, 1, 0.3, 1)` (exponential ease-out).
+- **Hệ thống Class Motion Chuẩn (`src/app/globals.css`):**
+  - `.eiu-fade-slide-in`: Chuyển nội dung slide banner (`420ms`, trượt ngang `-8px` → `0`).
+  - `.eiu-card-entrance`: Xuất hiện tuần tự các thẻ lưới (`320ms`, trượt lên `6px` → `0`, stagger delay `idx * 35ms` tối đa `250ms`).
+  - `.eiu-progress-active`: Thanh đếm ngược tiến độ slide (`5000ms linear`).
 - **Hỗ trợ giảm chuyển động (`prefers-reduced-motion`):**
-  - Mọi hiệu ứng chuyển động và tự cuộn **BẮT BUỘC** phải có tiền tố `motion-reduce:transition-none`, `motion-reduce:hover:translate-y-0`, `motion-reduce:group-hover:scale-100`.
+  - Mọi hiệu ứng chuyển động và tự cuộn **BẮT BUỘC** phải có tiền tố `motion-reduce:transition-none`, `motion-reduce:animate-none`, `motion-reduce:hover:translate-y-0`, `motion-reduce:group-hover:scale-100` và quy tắc `@media (prefers-reduced-motion: reduce)` trong `globals.css`.
   - Carousel tự động tạm dừng cuộn khi phát hiện người dùng bật chế độ giảm chuyển động trong hệ điều hành.
 
 ---
@@ -188,10 +202,10 @@ Cung cấp 3 lối vào tức thì đạt chuẩn tương tác tối thiểu `mi
   - Màu chữ `#DED1BE` trên nền `#133F68` và trắng trên `#02294E` đạt chuẩn xuất sắc.
 - **Vùng chạm cảm ứng (Touch Target Size):**
   - Mọi nút bấm, tab và liên kết trên giao diện di động phải đạt kích thước tối thiểu **$44\text{px} \times 44\text{px}$** (hoặc `min-h-[44px]`, các nút phụ trong bảng tối thiểu `min-h-[36px]`).
-- **Phòng thủ dữ liệu rỗng và an toàn kiểu dữ liệu (Defensive UI):**
+- **Phòng thủ dữ liệu rỗng, Hình ảnh & An toàn kiểu dữ liệu (Defensive UI):**
   - Hàm ngày tháng (`formatDateDot`, `formatEventTimeRange`) bọc kiểm tra `isNaN(getTime())` chống lỗi `NaN:NaN`.
   - Hàm tính tỷ lệ hoàn thành (`fillPct`) khống chế mẫu số `> 0` chống lỗi chia cho 0 (`Infinity` / `NaN`).
-  - Hình ảnh mạng luôn có sự kiện `onError` dự phòng về biểu trưng chính thống hoặc huy hiệu monogram.
+  - Hình ảnh mạng qua `next/image` **bắt buộc** khai báo đầy đủ domain ngoài trong `images.remotePatterns` của `next.config.ts` (ví dụ `images.unsplash.com`, `plus.unsplash.com`) và luôn có sự kiện `onError` dự phòng về biểu trưng chính thống hoặc huy hiệu monogram.
   - Tất cả tiêu đề và văn bản dài đều sử dụng `break-words`, `line-clamp-*` và `min-w-0` để không làm vỡ khung trên các thiết bị màn hình hẹp (280px - 320px).
 
 ---

@@ -79,14 +79,22 @@ Toàn bộ hệ thống Cổng thông tin & E-Office HSV EIU chỉ sử dụng d
 - Lưới 4 cột: Thẻ đôi 2/4 cột (Giới thiệu Hội Sinh viên) + 6 Thẻ đơn 1/4 cột (Sinh viên 5 tốt, Đại hội II, Đội ngũ cán bộ, Chi hội, CLB – Đội – Nhóm, Tin tức nổi bật).
 - Mỗi thẻ gồm Header đồ họa kiến trúc `h-36` + Icon có micro-motion + Chevron trượt + Mô tả 3 dòng (`line-clamp-3`) + Nút liên kết chân thẻ.
 
-### 5.3. Phân Vùng 3: Tin Tức Sinh Viên Bento Magazine Editorial
-- Cột trái (6/12): Bài viết tiêu điểm 01 cao `min-h-[460px]`, số outline `01`, nhãn vàng `#FCB900` `TIÊU ĐIỂM`, tiêu đề lớn `Crimson Text`, nút pill bo tròn `Đọc ngay`.
-- Cột phải (6/12): Bài 02 nền xanh `#144069` nhãn cyan `#00BCFF` + Danh sách bài 03–06 có số nét xanh, tiêu đề 2 dòng và ảnh đại diện có fallback.
+### 5.3. Phân Vùng 3: Tin Tức Sinh Viên (`/` Bento Magazine & `/tin-tuc` Carousel + Lưới 3x3)
+- **Trên Trang chủ (`/` — Bento Magazine Editorial):**
+  - Cột trái (6/12): Bài viết tiêu điểm 01 cao `min-h-[460px]`, số outline `01`, nhãn vàng `#FCB900` `TIÊU ĐIỂM`, tiêu đề lớn `Crimson Text`, nút pill bo tròn `Đọc ngay`.
+  - Cột phải (6/12): Bài 02 nền xanh `#144069` nhãn cyan `#00BCFF` + Danh sách bài 03–06 có số nét xanh, tiêu đề 2 dòng và ảnh đại diện có fallback.
+- **Trên Trang Tin tức (`/tin-tuc` — Carousel 3 tin mới nhất + Lưới 3x3 tối đa 9 tin/trang):**
+  - **Banner Tiêu điểm Ngang:** Ảnh nền cross-fade (`5000ms`), dùng **Feathered Scrim Gradient 8-stop `#02294E` (0% → 52%)** trên desktop và gradient dọc trên mobile (tuyệt đối không dùng vệt cắt `w-1/3`), đáy có thanh điều hướng kính mờ `01 / 03`, thanh countdown `eiu-progress-active`, nút tròn `<` `>`.
+  - **Thẻ Tin tức Lưới 3x3:** Header `h-44` ảnh thật phủ gradient dọc `#02294E` + `eiu-arch-pattern opacity-25`, tag chuyên mục `11.5px` (`#FCB900` cho SV5T, `#00BCFF` cho tin khác), logo HSV góc phải, cố định chiều cao thân thẻ (`min-h-[44px]` tiêu đề, `min-h-[63px]` tóm tắt) và phân trang căn giữa (`Trước`, số trang active `#C10230`, `Sau`) kèm cuộn mượt về `gridTopRef`.
 
-### 5.4. Phân Vùng 4: Sự Kiện Phong Trào & Bộ Lọc Tiêu Chuẩn 5 Tốt
-- Thanh lọc tiêu chuẩn gồm các nút pill `rounded-full min-h-[38px]` đếm số lượng thời gian thực (`ALL`, `Học tập tốt`, `Đạo đức tốt`, `Thể lực tốt`, `Tình nguyện tốt`, `Hội nhập tốt`).
-- Chuyển đổi trạng thái êm dịu (`opacity-40 translate-y-1` $\rightarrow$ `opacity-100 translate-y-0` trong 180ms).
-- Thẻ sự kiện: Header `h-36` chứa tag trạng thái bên trái, hộp tiêu chuẩn trắng và hộp ngày tình nguyện vàng `#FCB900` bên phải. Thân thẻ hiển thị tên chương trình, MapPin địa điểm, Clock thời gian, thanh tiến độ đổi màu theo ngưỡng lấp đầy và liên kết Đăng ký / Xem tiến độ GCN `min-h-[36px]`.
+### 5.4. Phân Vùng 4: Sự Kiện Phong Trào & Bộ Lọc Đa Tiêu Chí (`/` & `/su-kien`)
+- **Pills lọc tiêu chuẩn SV5T:** Các nút pill `rounded-full min-h-[38px]` đếm số lượng thời gian thực (`ALL`, `Học tập tốt`, `Đạo đức tốt`, `Thể lực tốt`, `Tình nguyện tốt`, `Hội nhập tốt`) kèm hiệu ứng Filter Continuity (`180ms`).
+- **Tương tác Mở Đăng ký Toàn diện:** Bấm vào **Header Banner (`h-36`)**, **Tiêu đề `<h3>`**, hoặc **Nút chân thẻ** đều mở luồng đăng ký (`/su-kien?event=...` tại Trang chủ hoặc `openEventModal(ev)` tại `/su-kien`).
+- **Quy chuẩn Trang `/su-kien` (Tối đa 12 sự kiện/trang):**
+  - Hero SubpageBanner: `LỊCH SỰ KIỆN VÀ HOẠT ĐỘNG` — `Tổng hợp tất cả các sự kiện sinh viên dành cho Sinh viên trường Đại học Quốc tế Miền Đông.` (Bỏ khối Quy trình 05 Bước, nhãn `Duyệt >= 3 ngày`, tag `Sự kiện Xanh SDGs` và đơn vị tổ chức trên thẻ).
+  - Bộ lọc chuyên sâu: Tìm kiếm + Nút lọc nhanh `Đang mở đăng ký` + 5 select (`Trạng thái 07 Tag`, `Ngày TN 0–1 / 1.5–2 / >2`, `ĐRL Có/Không`, `Thời gian Sáng/Chiều/Tối/Nhiều ngày`, `Địa điểm EIU/HCM/Khác`).
+  - **07 Tag Trạng thái & Tags Header thu nhỏ 75%:** Tag trái `8.5px` (`Chưa mở đăng ký`, `Đang mở đăng ký`, `Còn 5 ngày`, `Còn 2 ngày`, `Đã đóng đăng ký`, `Đang diễn ra`, `Đã kết thúc`); 3 box phải `9px font-eiu-serif` (`Tiêu chuẩn`, `+X.X Ngày TN`, **`+1 ĐRL`** cố định cho mọi sự kiện có ĐRL).
+  - **Thân thẻ & Chân thẻ:** Địa điểm (`MapPin`), Thời gian (`Clock`), tiến độ và hạn đăng ký dùng đồng nhất **`font-sans font-normal`**; nút CTA hiển thị `ĐĂNG KÝ NGAY` (mở đơn) / `NHẬN GCN` (`Đã kết thúc`); phân trang căn giữa 12 sự kiện/trang đồng bộ `/tin-tuc`.
 
 ### 5.5. Phân Vùng 5: Gương Sáng Sinh Viên 5 Tốt (Infinite Seamless Carousel)
 - Nền xanh sâu `#02294E` với ánh sáng vàng `radial-gradient` và họa tiết kiến trúc `eiu-arch-pattern`.
@@ -111,11 +119,11 @@ Toàn bộ hệ thống Cổng thông tin & E-Office HSV EIU chỉ sử dụng d
    - Độ tương phản chữ thường $\ge 4.5:1$, tiêu đề lớn $\ge 3:1$.
    - Mọi nút bấm, tab và mục chọn trên mobile phải đạt vùng chạm tối thiểu **$44\text{px} \times 44\text{px}$** (hoặc `min-h-[44px]`).
    - Có đầy đủ các thuộc tính ngữ nghĩa ARIA (`role="region"`, `aria-roledescription="carousel"`, `role="tablist"`, `aria-selected`, `aria-expanded`).
-2. **Chống chịu lỗi dữ liệu & Mạng (Defensive Engineering):**
+2. **Chống chịu lỗi dữ liệu, Hình ảnh & Mạng (Defensive Engineering):**
    - Không gọi `.split()` hoặc `.getHours()` trực tiếp trên ngày tháng mà không qua hàm bọc an toàn (`formatDateDot`, `formatEventTimeRange`).
    - Khống chế phép chia tỷ lệ phần trăm: `fillPct = Math.min(100, Math.max(0, Math.round((registered / (maxParticipants || 1)) * 100)))`.
-   - Tất cả thẻ hình ảnh phải có sự kiện `onError` chuyển sang ảnh dự phòng.
+   - Khi dùng `next/image` với URL ảnh ngoài (`imageUrl`), bắt buộc khai báo hostname trong `images.remotePatterns` của `next.config.ts` (như `images.unsplash.com`, `plus.unsplash.com`), đồng thời gắn sự kiện `onError` dự phòng về ảnh/monogram.
    - Thêm `break-words`, `min-w-0` và `truncate` cho toàn bộ văn bản để không làm vỡ khung giao diện trên các thiết bị màn hình hẹp (280px - 320px).
 3. **Tuân thủ Chuyển động (Motion Budget):**
-   - Chỉ tạo chuyển động trên `transform`, `opacity`, `filter`.
-   - Bắt buộc bổ sung `motion-reduce:*` cho mọi chuyển động để tôn trọng người dùng bật chế độ giảm chuyển động trong hệ điều hành.
+   - Chỉ tạo chuyển động trên `transform`, `opacity`, `filter` (sử dụng các class `.eiu-fade-slide-in`, `.eiu-card-entrance`, `.eiu-progress-active` trong `src/app/globals.css`).
+   - Bắt buộc bổ sung `motion-reduce:*` và quy tắc `@media (prefers-reduced-motion: reduce)` cho mọi chuyển động để tôn trọng người dùng bật chế độ giảm chuyển động trong hệ điều hành.
