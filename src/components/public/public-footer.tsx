@@ -147,7 +147,7 @@ function PublicFooterInner() {
               </li>
               <li>
                 <Link
-                  href="/portal?tab=quiz"
+                  href="/cuoc-thi"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Học tập và cuộc thi

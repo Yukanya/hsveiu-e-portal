@@ -10,8 +10,15 @@ import {
   EVENT_ITEMS,
   FACULTY_METADATA,
   ISSUED_CERTIFICATES,
-  ONLINE_QUIZ_QUESTIONS,
+  ONLINE_CONTESTS,
 } from '@/data/mock-data';
+import {
+  ContestCard,
+  ContestExamModal,
+  getContestCardMeta,
+  useContestAttempts,
+} from '@/components/shared/contest-system';
+import { OnlineContestItem } from '@/types';
 import {
   ArrowRight,
   Calculator,
@@ -21,7 +28,6 @@ import {
   FileCheck2,
   MessageSquare,
   QrCode,
-  RotateCcw,
   ShieldCheck,
 } from 'lucide-react';
 
@@ -58,10 +64,10 @@ const PORTAL_MENU: {
   },
   {
     id: 'quiz',
-    label: 'Phòng thi Trắc nghiệm Số',
-    title: 'PHÒNG THI TRẮC NGHIỆM TRỰC TUYẾN — TÌM HIỂU NGHỊ QUYẾT & QUY CHẾ',
+    label: 'Cuộc thi Trắc nghiệm Số',
+    title: 'CUỘC THI TRẮC NGHIỆM TRỰC TUYẾN — ĐỒNG BỘ SINH VIÊN 5 TỐT',
     subtitle:
-      'Đạt từ 04/05 câu trở lên để tự động đồng bộ minh chứng tiêu chí phụ mục Đạo đức tốt & Hội nhập tốt.',
+      'Tham gia các cuộc thi trắc nghiệm trực tuyến chuẩn EIU (đạt ≥ 80% để tự động đồng bộ minh chứng SV5T và cộng +1 ĐRL).',
     badge: 'QUIZ',
   },
   {
@@ -119,14 +125,21 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
     (c) => c.studentId === currentPersona.studentId
   );
 
-  // 3. State Phòng thi Trắc nghiệm Trực tuyến (Online Quiz)
-  const [quizAnswers, setQuizAnswers] = useState<Record<string, number>>({});
-  const [quizSubmitted, setQuizSubmitted] = useState(false);
+  // 3. State Phòng thi Trắc nghiệm Trực tuyến (Đồng bộ với /cuoc-thi)
+  const { attempts: contestAttempts, saveAttempt: saveContestAttempt } =
+    useContestAttempts();
+  const [portalQuizFilter, setPortalQuizFilter] = useState<
+    'ALL' | 'OPEN' | 'PASSED' | 'ENDED'
+  >('ALL');
+  const [activeModalContest, setActiveModalContest] =
+    useState<OnlineContestItem | null>(null);
 
-  const quizCorrectCount = ONLINE_QUIZ_QUESTIONS.reduce((acc, q) => {
-    return acc + (quizAnswers[q.id] === q.correctIndex ? 1 : 0);
-  }, 0);
-  const quizPassed = quizSubmitted && quizCorrectCount >= 4;
+  const passedContests = ONLINE_CONTESTS.filter(
+    (c) => contestAttempts[c.id]?.passed
+  );
+  const passedDaoDucContest = passedContests.find(
+    (c) => c.sv5tCriterion === 'Đạo đức tốt'
+  );
 
   // 4. State Hộp thư Lắng nghe Sinh viên
   const [feedbackRecipient, setFeedbackRecipient] = useState<
@@ -285,15 +298,15 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
 
             <button
               type="button"
-              onClick={() => setActiveTab('certs')}
+              onClick={() => setActiveTab('quiz')}
               className="bg-[#02294E]/85 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer"
             >
               <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
                 Kho E-Cert và Quiz Số
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
-                {personalCerts.length} GCN •{' '}
-                {quizSubmitted ? `${quizCorrectCount}/5` : '5 Câu'}
+                {personalCerts.length} GCN • {passedContests.length}/
+                {ONLINE_CONTESTS.length} Thi
               </div>
               <div className="text-[11px] text-white/80 mt-0.5">
                 Xác thực QR Phụ lục 2
@@ -478,8 +491,8 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           (Chuẩn ≥ 80, không vi phạm kỷ luật)
                         </td>
                         <td className="text-xs text-slate-700">
-                          {quizPassed
-                            ? `✓ Đạt ${quizCorrectCount}/5 bài thi Online Quiz Nghị quyết`
+                          {passedDaoDucContest
+                            ? `✓ Đạt ${contestAttempts[passedDaoDucContest.id]?.bestScore}% cuộc thi "${passedDaoDucContest.title}"`
                             : '✓ Tham gia Hội thi Tìm hiểu Tư tưởng Hồ Chí Minh'}
                         </td>
                         <td className="text-right">
@@ -910,149 +923,104 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
             )}
 
             {/* ============================================================
-                MODULE 4: PHÒNG THI TRẮC NGHIỆM TRỰC TUYẾN (ONLINE QUIZ)
+                MODULE 4: CUỘC THI TRẮC NGHIỆM TRỰC TUYẾN (ĐỒNG BỘ /CUOC-THI)
                ============================================================ */}
             {activeTab === 'quiz' && (
               <div className="space-y-5">
-                {quizSubmitted && (
-                  <div
-                    className={`p-5 border flex flex-col sm:flex-row sm:items-center justify-between gap-4 ${
-                      quizPassed
-                        ? 'bg-emerald-50 border-emerald-300 text-emerald-950'
-                        : 'bg-[#FFF9F0] border-amber-300 text-slate-900'
-                    }`}
-                  >
-                    <div className="space-y-1">
-                      <div className="text-sm font-bold uppercase font-eiu-display">
-                        Kết quả bài làm: {quizCorrectCount} /{' '}
-                        {ONLINE_QUIZ_QUESTIONS.length} câu chính xác
-                      </div>
-                      <p className="text-xs leading-relaxed">
-                        {quizPassed
-                          ? '✓ Chúc mừng! Kết quả đạt chuẩn (≥ 04/05 câu) đã được đồng bộ tự động làm minh chứng tiêu chí phụ mục Đạo đức tốt & Hội nhập tốt trong Sổ tay SV5T.'
-                          : 'Bạn cần đạt tối thiểu 04/05 câu để được ghi nhận hoàn thành chuyên đề trực tuyến. Hãy xem giải thích bên dưới và làm lại.'}
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setQuizAnswers({});
-                        setQuizSubmitted(false);
-                      }}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
-                    >
-                      <RotateCcw className="w-3.5 h-3.5" />
-                      <span>Làm lại bài thi</span>
-                    </button>
+                {/* Thanh tóm tắt kết quả & Bộ lọc nhanh chuẩn SV5T */}
+                <div className="bg-white border border-slate-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {(
+                      [
+                        { id: 'ALL', label: `Tất cả (${ONLINE_CONTESTS.length})` },
+                        { id: 'OPEN', label: 'Đang mở thi' },
+                        {
+                          id: 'PASSED',
+                          label: `Đã đạt (${passedContests.length})`,
+                        },
+                        { id: 'ENDED', label: 'Đã kết thúc' },
+                      ] as const
+                    ).map((pill) => {
+                      const active = portalQuizFilter === pill.id;
+                      return (
+                        <button
+                          key={pill.id}
+                          type="button"
+                          onClick={() => setPortalQuizFilter(pill.id)}
+                          className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider font-eiu-display transition-colors cursor-pointer ${
+                            active
+                              ? 'bg-[#C10230] text-white'
+                              : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2]'
+                          }`}
+                        >
+                          {pill.label}
+                        </button>
+                      );
+                    })}
                   </div>
-                )}
 
-                <div className="space-y-4">
-                  {ONLINE_QUIZ_QUESTIONS.map((q, qIdx) => {
-                    const chosen = quizAnswers[q.id];
-                    return (
-                      <div
-                        key={q.id}
-                        className="bg-white border border-slate-200 p-5 space-y-3.5"
-                      >
-                        <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
-                          <span className="font-eiu-serif font-bold text-[#0054A6]">
-                            CÂU 0{qIdx + 1} • {q.topic}
-                          </span>
-                          <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] font-bold font-eiu-display">
-                            SV5T: {q.sv5tTarget}
-                          </span>
-                        </div>
-
-                        <h3 className="text-sm font-bold text-[#133F68] leading-snug">
-                          {q.question}
-                        </h3>
-
-                        <div className="space-y-2 text-xs">
-                          {q.options.map((opt, optIdx) => {
-                            const isPicked = chosen === optIdx;
-                            const isRight = q.correctIndex === optIdx;
-
-                            let optionStyle =
-                              'border-slate-200 hover:border-[#0054A6] bg-[#F8FAFC] text-slate-800';
-                            if (!quizSubmitted && isPicked) {
-                              optionStyle =
-                                'border-2 border-[#0054A6] bg-[#F0F6FC] text-[#133F68] font-semibold';
-                            } else if (quizSubmitted && isRight) {
-                              optionStyle =
-                                'border-2 border-[#51803A] bg-emerald-50 text-emerald-950 font-semibold';
-                            } else if (quizSubmitted && isPicked && !isRight) {
-                              optionStyle =
-                                'border-2 border-[#C10230] bg-rose-50 text-rose-950';
-                            }
-
-                            return (
-                              <button
-                                key={opt}
-                                type="button"
-                                disabled={quizSubmitted}
-                                onClick={() =>
-                                  setQuizAnswers((prev) => ({
-                                    ...prev,
-                                    [q.id]: optIdx,
-                                  }))
-                                }
-                                className={`w-full text-left p-3 border transition-colors flex items-start gap-2.5 ${optionStyle} ${
-                                  quizSubmitted
-                                    ? 'cursor-default'
-                                    : 'cursor-pointer'
-                                }`}
-                              >
-                                <span className="font-eiu-serif font-bold shrink-0">
-                                  {String.fromCharCode(65 + optIdx)}.
-                                </span>
-                                <span>{opt}</span>
-                              </button>
-                            );
-                          })}
-                        </div>
-
-                        {quizSubmitted && (
-                          <div className="p-3 bg-[#F0F6FC] border-l-3 border-[#0054A6] text-xs text-slate-700 leading-relaxed">
-                            <strong className="text-[#133F68]">
-                              Căn cứ quy chế:
-                            </strong>{' '}
-                            {q.explanation}
-                          </div>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <Link
+                    href="/cuoc-thi"
+                    className="inline-flex items-center gap-1.5 text-xs font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display shrink-0"
+                  >
+                    <span>Trang Cuộc thi đầy đủ</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </Link>
                 </div>
 
-                {!quizSubmitted && (
-                  <div className="bg-white border border-slate-200 p-4 flex items-center justify-between gap-3">
-                    <span className="text-xs text-slate-600">
-                      Đã chọn{' '}
-                      <strong className="font-eiu-serif text-[#133F68]">
-                        {Object.keys(quizAnswers).length}/
-                        {ONLINE_QUIZ_QUESTIONS.length}
-                      </strong>{' '}
-                      câu hỏi
-                    </span>
-                    <button
-                      type="button"
-                      disabled={
-                        Object.keys(quizAnswers).length <
-                        ONLINE_QUIZ_QUESTIONS.length
-                      }
-                      onClick={() => setQuizSubmitted(true)}
-                      className={`px-6 py-2.5 rounded text-xs font-bold uppercase tracking-wider font-eiu-display ${
-                        Object.keys(quizAnswers).length <
-                        ONLINE_QUIZ_QUESTIONS.length
-                          ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
-                          : 'bg-[#0054A6] hover:bg-[#133F68] text-white cursor-pointer'
-                      }`}
-                    >
-                      Nộp bài và Đồng bộ SV5T
-                    </button>
-                  </div>
-                )}
+                {/* Lưới Thẻ Cuộc thi đồng bộ chuẩn thiết kế /su-kien & /cuoc-thi */}
+                {(() => {
+                  const visibleContests = ONLINE_CONTESTS.filter((c) => {
+                    const meta = getContestCardMeta(c);
+                    if (portalQuizFilter === 'OPEN') return meta.isOpen;
+                    if (portalQuizFilter === 'PASSED')
+                      return Boolean(contestAttempts[c.id]?.passed);
+                    if (portalQuizFilter === 'ENDED')
+                      return meta.label === 'Đã kết thúc';
+                    return true;
+                  });
+
+                  if (visibleContests.length === 0) {
+                    return (
+                      <div className="bg-white border border-slate-200 p-8 text-center space-y-3">
+                        <p className="text-sm font-bold text-[#133F68] font-eiu-display">
+                          Chưa có cuộc thi nào trong mục lọc này
+                        </p>
+                        <button
+                          type="button"
+                          onClick={() => setPortalQuizFilter('ALL')}
+                          className="px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase rounded-full font-eiu-display cursor-pointer"
+                        >
+                          Xem tất cả cuộc thi
+                        </button>
+                      </div>
+                    );
+                  }
+
+                  return (
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      {visibleContests.map((contest) => (
+                        <ContestCard
+                          key={contest.id}
+                          contest={contest}
+                          attempt={contestAttempts[contest.id]}
+                          onOpenModal={setActiveModalContest}
+                        />
+                      ))}
+                    </div>
+                  );
+                })()}
+
+                <ContestExamModal
+                  contest={activeModalContest}
+                  attempt={
+                    activeModalContest
+                      ? contestAttempts[activeModalContest.id]
+                      : undefined
+                  }
+                  onClose={() => setActiveModalContest(null)}
+                  onSaveAttempt={saveContestAttempt}
+                />
               </div>
             )}
 

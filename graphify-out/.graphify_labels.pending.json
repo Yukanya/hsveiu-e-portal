@@ -1,7 +1,7 @@
 {
-  "2": "workspace/page.tsx",
+  "2": "su-kien/page.tsx",
   "4": "BÁO CÁO ĐÁNH GIÁ THIẾT KẾ (DESIGN CRITIQUE REPORT)",
-  "5": "su-kien/page.tsx",
+  "5": "workspace/page.tsx",
   "8": "Document: 03_DATABASE_SCHEMA.md",
   "11": "to-chuc/page.tsx",
   "12": "portal/page.tsx",
@@ -10,8 +10,6 @@
   "31": "5. Các Mẫu Thành Phần Nhận Diện Chuẩn (Signature Component Patterns)",
   "103": "gioi-thieu/page.tsx",
   "117": "react",
-  "118": "ToChucPage",
-  "119": "tra-cuu-gcn/page.tsx",
   "120": "lucide-react",
   "122": "ui-layout-standards.md"
 }

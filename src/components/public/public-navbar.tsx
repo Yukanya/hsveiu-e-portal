@@ -26,7 +26,7 @@ const NAV_ITEMS: NavItem[] = [
     label: 'SỰ KIỆN',
     children: [
       { label: 'Tham gia sự kiện', href: '/su-kien' },
-      { label: 'Cuộc thi trực tuyến', href: '/portal?tab=quiz' },
+      { label: 'Cuộc thi trực tuyến', href: '/cuoc-thi' },
       { label: 'Khảo sát', href: '/portal?tab=voice' },
       { label: 'Học tập', href: '/portal?tab=sv5t' },
     ],

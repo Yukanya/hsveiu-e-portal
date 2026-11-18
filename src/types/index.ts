@@ -225,11 +225,50 @@ export interface IssuedCertificateRecord {
 export interface OnlineQuizQuestion {
   id: string;
   topic: string;
-  sv5tTarget: 'Đạo đức tốt' | 'Hội nhập tốt';
+  sv5tTarget:
+    | 'Đạo đức tốt'
+    | 'Học tập tốt'
+    | 'Thể lực tốt'
+    | 'Tình nguyện tốt'
+    | 'Hội nhập tốt';
   question: string;
   options: string[];
   correctIndex: number;
   explanation: string;
+}
+
+export type ContestTopicCategory =
+  | 'Lý luận & Quy chế Hội'
+  | 'Học thuật & Chuyên môn'
+  | 'Hội nhập & Ngoại ngữ'
+  | 'Phát triển bền vững & Kỹ năng';
+
+export interface OnlineContestItem {
+  id: string;
+  title: string;
+  slug: string;
+  topic: ContestTopicCategory;
+  description: string;
+  statusTag: EventStatusTag;
+  sv5tCriterion:
+    | 'Đạo đức tốt'
+    | 'Học tập tốt'
+    | 'Thể lực tốt'
+    | 'Tình nguyện tốt'
+    | 'Hội nhập tốt';
+  durationMinutes: number;
+  questionCount: number;
+  passScore: number;
+  maxAttempts: number;
+  hasTrainingPoints: boolean;
+  trainingPoints: number;
+  baseVolunteerDays: number;
+  startTime: string;
+  endTime: string;
+  participantsCount: number;
+  maxParticipants: number;
+  decisionNumber?: string;
+  questions: OnlineQuizQuestion[];
 }
 
 export interface OfficeAssetItem {

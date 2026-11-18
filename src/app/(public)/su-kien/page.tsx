@@ -11,6 +11,7 @@ import {
   ArrowRight,
   Calendar,
   CheckCircle2,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock,
@@ -537,129 +538,159 @@ function SuKienContent({
               <div className="space-y-1">
                 <label
                   htmlFor="filter-status"
-                  className="text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
+                  className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
                   Trạng thái Tag:
                 </label>
-                <select
-                  id="filter-status"
-                  value={statusFilter}
-                  onChange={(e) => {
-                    setStatusFilter(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full h-9 px-2 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                >
-                  <option value="ALL">Tất cả trạng thái</option>
-                  <option value="OPEN_ALL">
-                    Đang mở đăng ký (tất cả)
-                  </option>
-                  <option value="Chưa mở đăng ký">Chưa mở đăng ký</option>
-                  <option value="Đang mở đăng ký">Đang mở đăng ký</option>
-                  <option value="Còn 5 ngày">Còn 5 ngày</option>
-                  <option value="Còn 2 ngày">Còn 2 ngày</option>
-                  <option value="Đã đóng đăng ký">Đã đóng đăng ký</option>
-                  <option value="Đang diễn ra">Đang diễn ra</option>
-                  <option value="Đã kết thúc">Đã kết thúc</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="filter-status"
+                    value={statusFilter}
+                    onChange={(e) => {
+                      setStatusFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                  >
+                    <option value="ALL">Tất cả trạng thái</option>
+                    <option value="OPEN_ALL">
+                      Đang mở đăng ký (tất cả)
+                    </option>
+                    <option value="Chưa mở đăng ký">Chưa mở đăng ký</option>
+                    <option value="Đang mở đăng ký">Đang mở đăng ký</option>
+                    <option value="Còn 5 ngày">Còn 5 ngày</option>
+                    <option value="Còn 2 ngày">Còn 2 ngày</option>
+                    <option value="Đã đóng đăng ký">Đã đóng đăng ký</option>
+                    <option value="Đang diễn ra">Đang diễn ra</option>
+                    <option value="Đã kết thúc">Đã kết thúc</option>
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* 2. Ngày tình nguyện: 0-1, 1.5-2, >2 */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-volunteer-days"
-                  className="text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
+                  className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
                   Ngày tình nguyện:
                 </label>
-                <select
-                  id="filter-volunteer-days"
-                  value={volunteerDaysFilter}
-                  onChange={(e) => {
-                    setVolunteerDaysFilter(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full h-9 px-2.5 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                >
-                  <option value="ALL">Tất cả số ngày</option>
-                  <option value="0_1">0 – 1 ngày</option>
-                  <option value="1.5_2">1.5 – 2 ngày</option>
-                  <option value="GT_2">&gt; 2 ngày</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="filter-volunteer-days"
+                    value={volunteerDaysFilter}
+                    onChange={(e) => {
+                      setVolunteerDaysFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                  >
+                    <option value="ALL">Tất cả số ngày</option>
+                    <option value="0_1">0 – 1 ngày</option>
+                    <option value="1.5_2">1.5 – 2 ngày</option>
+                    <option value="GT_2">&gt; 2 ngày</option>
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* 3. Điểm rèn luyện: Có/Không */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-training-points"
-                  className="text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
+                  className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
                   Điểm rèn luyện:
                 </label>
-                <select
-                  id="filter-training-points"
-                  value={trainingPointsFilter}
-                  onChange={(e) => {
-                    setTrainingPointsFilter(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full h-9 px-2.5 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                >
-                  <option value="ALL">Tất cả</option>
-                  <option value="YES">Có điểm rèn luyện</option>
-                  <option value="NO">Không có điểm rèn luyện</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="filter-training-points"
+                    value={trainingPointsFilter}
+                    onChange={(e) => {
+                      setTrainingPointsFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                  >
+                    <option value="ALL">Tất cả</option>
+                    <option value="YES">Có điểm rèn luyện</option>
+                    <option value="NO">Không có điểm rèn luyện</option>
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* 4. Thời gian tổ chức: Sáng (7h30 - 11h30), Chiều (12h30 - 4h30), Tối (4h30 - 8h30), Nhiều ngày */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-time-slot"
-                  className="text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
+                  className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
                   Thời gian tổ chức:
                 </label>
-                <select
-                  id="filter-time-slot"
-                  value={timeSlotFilter}
-                  onChange={(e) => {
-                    setTimeSlotFilter(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full h-9 px-2.5 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                >
-                  <option value="ALL">Tất cả khung giờ</option>
-                  <option value="MORNING">Sáng (7h30 – 11h30)</option>
-                  <option value="AFTERNOON">Chiều (12h30 – 4h30)</option>
-                  <option value="EVENING">Tối (4h30 – 8h30)</option>
-                  <option value="MULTI_DAY">Nhiều ngày</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="filter-time-slot"
+                    value={timeSlotFilter}
+                    onChange={(e) => {
+                      setTimeSlotFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                  >
+                    <option value="ALL">Tất cả khung giờ</option>
+                    <option value="MORNING">Sáng (7h30 – 11h30)</option>
+                    <option value="AFTERNOON">Chiều (12h30 – 4h30)</option>
+                    <option value="EVENING">Tối (4h30 – 8h30)</option>
+                    <option value="MULTI_DAY">Nhiều ngày</option>
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               {/* 5. Địa điểm tổ chức: EIU, Thành phố Hồ Chí Minh, Khác */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-location-area"
-                  className="text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
+                  className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
                   Địa điểm tổ chức:
                 </label>
-                <select
-                  id="filter-location-area"
-                  value={locationAreaFilter}
-                  onChange={(e) => {
-                    setLocationAreaFilter(e.target.value);
-                    setCurrentPage(1);
-                  }}
-                  className="w-full h-9 px-2 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                >
-                  <option value="ALL">Tất cả địa điểm</option>
-                  <option value="EIU">
-                    Trường Đại học Quốc tế Miền Đông (EIU)
-                  </option>
-                  <option value="HCM">Thành phố Hồ Chí Minh</option>
-                  <option value="OTHER">Địa điểm khác</option>
-                </select>
+                <div className="relative">
+                  <select
+                    id="filter-location-area"
+                    value={locationAreaFilter}
+                    onChange={(e) => {
+                      setLocationAreaFilter(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                  >
+                    <option value="ALL">Tất cả địa điểm</option>
+                    <option value="EIU">
+                      Trường Đại học Quốc tế Miền Đông (EIU)
+                    </option>
+                    <option value="HCM">Thành phố Hồ Chí Minh</option>
+                    <option value="OTHER">Địa điểm khác</option>
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -1013,26 +1044,32 @@ function SuKienContent({
                       >
                         Chọn vai trò tham gia (Nhân hệ số 1 – 2 – 3):
                       </label>
-                      <select
-                        id="role-multiplier-select"
-                        value={roleMultiplier}
-                        onChange={(e) =>
-                          setRoleMultiplier(
-                            Number(e.target.value) as 1 | 2 | 3
-                          )
-                        }
-                        className="w-full h-9.5 px-3 border border-slate-300 rounded bg-white text-slate-900 font-semibold cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                      >
-                        <option value={1}>
-                          Hệ số ×1 — CTV hỗ trợ / Chiến sĩ / Sinh viên tham gia
-                        </option>
-                        <option value={2}>
-                          Hệ số ×2 — Thành viên Ban Tổ chức chương trình
-                        </option>
-                        <option value={3}>
-                          Hệ số ×3 — Trưởng / Phó các Ban, Đội, Đội hình BTC
-                        </option>
-                      </select>
+                      <div className="relative">
+                        <select
+                          id="role-multiplier-select"
+                          value={roleMultiplier}
+                          onChange={(e) =>
+                            setRoleMultiplier(
+                              Number(e.target.value) as 1 | 2 | 3
+                            )
+                          }
+                          className="w-full h-9.5 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-slate-900 font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                        >
+                          <option value={1}>
+                            Hệ số ×1 — CTV hỗ trợ / Chiến sĩ / Sinh viên tham gia
+                          </option>
+                          <option value={2}>
+                            Hệ số ×2 — Thành viên Ban Tổ chức chương trình
+                          </option>
+                          <option value={3}>
+                            Hệ số ×3 — Trưởng / Phó các Ban, Đội, Đội hình BTC
+                          </option>
+                        </select>
+                        <ChevronDown
+                          className="w-4 h-4 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                          aria-hidden="true"
+                        />
+                      </div>
                     </div>
                   ) : (
                     <div className="p-2.5 bg-white border border-slate-200 text-slate-700 leading-relaxed font-sans">
