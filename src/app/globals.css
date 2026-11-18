@@ -221,6 +221,10 @@ pre {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .eiu-fade-slide-in,
   .eiu-card-entrance,
   .eiu-progress-active {

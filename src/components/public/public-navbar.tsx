@@ -27,8 +27,6 @@ const NAV_ITEMS: NavItem[] = [
     children: [
       { label: 'Tham gia sự kiện', href: '/su-kien' },
       { label: 'Cuộc thi trực tuyến', href: '/cuoc-thi' },
-      { label: 'Khảo sát', href: '/portal?tab=voice' },
-      { label: 'Học tập', href: '/portal?tab=sv5t' },
     ],
   },
   {
@@ -36,10 +34,14 @@ const NAV_ITEMS: NavItem[] = [
     label: 'VĂN BẢN',
     children: [
       { label: 'Kế hoạch', href: '/van-ban?type=ke-hoach' },
-      { label: 'Thông báo', href: '/van-ban?type=thong-bao' },
       { label: 'Quyết định', href: '/van-ban?type=quyet-dinh' },
+      { label: 'Thông báo', href: '/van-ban?type=thong-bao' },
       { label: 'Công văn', href: '/van-ban?type=cong-van' },
-      { label: 'Biểu mẫu', href: '/van-ban?type=bieu-mau' },
+      { label: 'Tờ trình', href: '/van-ban?type=to-trinh' },
+      { label: 'Báo cáo', href: '/van-ban?type=bao-cao' },
+      { label: 'Biên bản', href: '/van-ban?type=bien-ban' },
+      { label: 'Hướng dẫn', href: '/van-ban?type=huong-dan' },
+      { label: 'Khác', href: '/van-ban?type=khac' },
     ],
   },
   {
@@ -92,6 +94,7 @@ function PublicNavbarInner() {
               width={160}
               height={44}
               priority
+              style={{ width: 'auto' }}
               className="h-10 sm:h-11 w-auto object-contain"
             />
             <div className="h-8 w-px bg-slate-300" aria-hidden="true" />
@@ -118,7 +121,7 @@ function PublicNavbarInner() {
           {/* Menu Ngang + Dropdown #144069 Góc vuông 0px chuẩn post-5773.css của eiu.edu.vn */}
           <nav
             aria-label="Điều hướng chính"
-            className="hidden xl:flex items-center gap-0.5 xl:gap-1 2xl:gap-1.5 h-full shrink-0"
+            className="hidden lg:flex items-center gap-0.5 xl:gap-1 2xl:gap-1.5 h-full shrink-0"
           >
             {NAV_ITEMS.map((item) => {
               const isActive =
@@ -144,6 +147,14 @@ function PublicNavbarInner() {
                   onMouseLeave={() =>
                     item.children && setOpenDesktopDropdown(null)
                   }
+                  onBlur={(e) => {
+                    if (
+                      item.children &&
+                      !e.currentTarget.contains(e.relatedTarget as Node)
+                    ) {
+                      setOpenDesktopDropdown(null);
+                    }
+                  }}
                 >
                   <Link
                     href={item.href}
@@ -155,7 +166,7 @@ function PublicNavbarInner() {
                     aria-current={isActive ? 'page' : undefined}
                     aria-haspopup={item.children ? 'true' : undefined}
                     aria-expanded={item.children ? isDropdownOpen : undefined}
-                    className={`px-2 xl:px-2.5 2xl:px-3 py-2 min-h-10 inline-flex items-center gap-1 text-[12.5px] xl:text-[13px] font-bold tracking-tight xl:tracking-normal font-eiu-display whitespace-nowrap shrink-0 transition-colors relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
+                    className={`px-2 xl:px-2.5 2xl:px-3 py-2 min-h-10 inline-flex items-center gap-1 text-[12px] xl:text-[13px] font-bold tracking-tight xl:tracking-normal font-eiu-display whitespace-nowrap shrink-0 transition-colors relative rounded-xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                       isActive
                         ? 'text-[#C10230]'
                         : 'text-[#133F68] hover:text-[#A68556]'
@@ -214,7 +225,7 @@ function PublicNavbarInner() {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-expanded={mobileMenuOpen}
             aria-label={mobileMenuOpen ? 'Đóng menu điều hướng' : 'Mở menu điều hướng'}
-            className="xl:hidden min-h-10 min-w-10 inline-flex items-center justify-center text-[#133F68] border border-slate-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-1"
+            className="lg:hidden min-h-10 min-w-10 inline-flex items-center justify-center text-[#133F68] border border-slate-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-1"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -225,7 +236,7 @@ function PublicNavbarInner() {
       {mobileMenuOpen && (
         <nav
           aria-label="Menu di động"
-          className="xl:hidden border-t border-slate-200 bg-white divide-y divide-slate-100 shadow-lg"
+          className="lg:hidden border-t border-slate-200 bg-white divide-y divide-slate-100 shadow-lg"
         >
           {NAV_ITEMS.map((item) => {
             const isActive =

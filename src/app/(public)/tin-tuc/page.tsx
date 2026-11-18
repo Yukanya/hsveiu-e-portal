@@ -12,6 +12,8 @@ import {
   Calendar,
   ChevronLeft,
   ChevronRight,
+  Pause,
+  Play,
   Search,
   X,
 } from 'lucide-react';
@@ -132,7 +134,9 @@ function TinTucContent({
 
   // State cho section ngang chiếu 3 tin mới nhất
   const [featuredIndex, setFeaturedIndex] = useState(0);
-  const [isFeaturedPaused, setIsFeaturedPaused] = useState(false);
+  const [isHoverOrFocusPaused, setIsHoverOrFocusPaused] = useState(false);
+  const [isManualPaused, setIsManualPaused] = useState(false);
+  const isFeaturedPaused = isHoverOrFocusPaused || isManualPaused;
   const [failedImages, setFailedImages] = useState<Record<string, boolean>>({});
 
   // Sắp xếp toàn bộ tin tức từ mới nhất đến cũ nhất
@@ -142,6 +146,7 @@ function TinTucContent({
 
   // 03 tin mới nhất chiếu ở section ngang ngay dưới Hero
   const latestThreePosts = sortedAllPosts.slice(0, FEATURED_SLIDES_COUNT);
+  const featuredIdSet = new Set(latestThreePosts.map((p) => p.id));
   const activeFeaturedPost =
     latestThreePosts[featuredIndex] ?? latestThreePosts[0];
 
@@ -174,6 +179,10 @@ function TinTucContent({
   };
 
   const filteredPosts = sortedAllPosts.filter((p) => {
+    // Khi xem "Tất cả" và chưa nhập từ khóa tìm kiếm, loại trừ 03 bài đã chiếu trên Carousel tiêu điểm để không lặp bài
+    if (activeFilter === 'ALL' && !query.trim() && featuredIdSet.has(p.id)) {
+      return false;
+    }
     const matchPill = matchesFilterPill(p, activeFilter);
     const q = query.trim().toLowerCase();
     const matchQ =
@@ -221,10 +230,10 @@ function TinTucContent({
       {activeFeaturedPost && (
         <section
           aria-label="Tiêu điểm 03 tin tức mới nhất"
-          onMouseEnter={() => setIsFeaturedPaused(true)}
-          onMouseLeave={() => setIsFeaturedPaused(false)}
-          onFocus={() => setIsFeaturedPaused(true)}
-          onBlur={() => setIsFeaturedPaused(false)}
+          onMouseEnter={() => setIsHoverOrFocusPaused(true)}
+          onMouseLeave={() => setIsHoverOrFocusPaused(false)}
+          onFocus={() => setIsHoverOrFocusPaused(true)}
+          onBlur={() => setIsHoverOrFocusPaused(false)}
           className="bg-[#02294E] relative overflow-hidden border-b-4 border-[#A68556] text-white"
         >
           {/* Ảnh nền sự kiện thực tế có cơ chế hòa sắc mượt mà (Cross-fade) giữa 03 slide */}
@@ -383,13 +392,29 @@ function TinTucContent({
                   })}
                 </div>
 
-                {/* Nút chuyển trái / phải có phản hồi nhấp chuột đàn hồi nhẹ */}
+                {/* Nút Tạm dừng / Phát và chuyển trái / phải có phản hồi nhấp chuột đàn hồi nhẹ */}
                 <div className="flex items-center gap-2 pl-1">
+                  <button
+                    type="button"
+                    onClick={() => setIsManualPaused((prev) => !prev)}
+                    aria-label={
+                      isFeaturedPaused
+                        ? 'Tiếp tục tự động chuyển tin tiêu điểm'
+                        : 'Tạm dừng tự động chuyển tin tiêu điểm'
+                    }
+                    className="w-11 h-11 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                  >
+                    {isFeaturedPaused ? (
+                      <Play className="w-4 h-4 fill-white text-white ml-0.5" />
+                    ) : (
+                      <Pause className="w-4 h-4 fill-white text-white" />
+                    )}
+                  </button>
                   <button
                     type="button"
                     onClick={handlePrevFeatured}
                     aria-label="Xem tin tiêu điểm trước"
-                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-11 h-11 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <ChevronLeft className="w-4 h-4" />
                   </button>
@@ -397,10 +422,15 @@ function TinTucContent({
                     type="button"
                     onClick={handleNextFeatured}
                     aria-label="Xem tin tiêu điểm tiếp theo"
-                    className="w-9 h-9 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-11 h-11 rounded-full border border-white/30 hover:border-[#FCB900] hover:bg-white/10 active:scale-90 hover:scale-105 text-white flex items-center justify-center transition-all cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <ChevronRight className="w-4 h-4" />
                   </button>
+                  {isFeaturedPaused && (
+                    <span className="hidden sm:inline-block text-[11px] font-sans text-[#DED1BE] pl-1">
+                      Đang tạm dừng
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
@@ -444,6 +474,8 @@ function TinTucContent({
           <div className="relative w-full lg:w-72 shrink-0">
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
+              id="news-search-input"
+              name="q"
               type="text"
               value={query}
               onChange={(e) => handleQueryChange(e.target.value)}
@@ -456,7 +488,7 @@ function TinTucContent({
                 type="button"
                 onClick={() => handleQueryChange('')}
                 aria-label="Xóa nội dung tìm kiếm"
-                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 p-1 cursor-pointer transition-colors"
+                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -504,11 +536,13 @@ function TinTucContent({
                   <article
                     key={post.id}
                     style={{ animationDelay: `${Math.min(idx * 35, 250)}ms` }}
-                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0 eiu-card-entrance motion-reduce:animate-none"
+                    className="bg-white border border-slate-200/90 hover:border-[#133F68] focus-within:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0 eiu-card-entrance motion-reduce:animate-none"
                   >
                     {/* Header từng tin: Ảnh sự kiện thực tế có lớp phủ Gradient Navy nhận diện EIU */}
                     <Link
                       href={`/tin-tuc/${post.slug}`}
+                      tabIndex={-1}
+                      aria-hidden="true"
                       className={`relative h-44 overflow-hidden text-white p-4 flex flex-col justify-between group/header ${semantic.fallbackBg}`}
                     >
                       {/* Ảnh bìa sự kiện thực tế */}
@@ -570,7 +604,10 @@ function TinTucContent({
                     {/* Phần thân và chân thẻ: Căn chỉnh baseline typography hoàn hảo */}
                     <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                       <div className="space-y-2">
-                        <Link href={`/tin-tuc/${post.slug}`} className="block focus-visible:outline-none">
+                        <Link
+                          href={`/tin-tuc/${post.slug}`}
+                          className="block focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
+                        >
                           <h3 className="text-[16px] font-bold text-[#133F68] group-hover:text-[#C10230] transition-colors leading-snug line-clamp-2 break-words font-eiu-display min-h-[44px]">
                             {post.title}
                           </h3>
@@ -583,6 +620,7 @@ function TinTucContent({
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <Link
                           href={`/tin-tuc/${post.slug}`}
+                          tabIndex={-1}
                           className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display group/link min-h-[36px]"
                         >
                           <ChevronRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-0.5" />

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRole } from '@/context/role-context';
 import { OnlineContestItem } from '@/types';
@@ -29,6 +29,56 @@ export interface ContestAttemptRecord {
 }
 
 const STORAGE_KEY = 'hsv_eiu_contest_attempts_v1';
+const DRAFT_PREFIX = 'hsv_eiu_contest_draft_v1_';
+
+interface ContestDraftData {
+  answers: Record<string, number>;
+  endsAt: number;
+}
+
+function loadContestDraft(contestId: string): ContestDraftData | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = window.localStorage.getItem(`${DRAFT_PREFIX}${contestId}`);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as ContestDraftData;
+    if (
+      parsed &&
+      typeof parsed === 'object' &&
+      typeof parsed.endsAt === 'number' &&
+      parsed.endsAt > Date.now() &&
+      parsed.answers &&
+      typeof parsed.answers === 'object'
+    ) {
+      return parsed;
+    }
+    window.localStorage.removeItem(`${DRAFT_PREFIX}${contestId}`);
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+function saveContestDraft(contestId: string, draft: ContestDraftData) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(
+      `${DRAFT_PREFIX}${contestId}`,
+      JSON.stringify(draft)
+    );
+  } catch {
+    // Ignore storage quota errors cleanly
+  }
+}
+
+function clearContestDraft(contestId: string) {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.removeItem(`${DRAFT_PREFIX}${contestId}`);
+  } catch {
+    // Ignore storage errors cleanly
+  }
+}
 
 export function useContestAttempts() {
   const [attempts, setAttempts] = useState<
@@ -202,20 +252,11 @@ export function ContestCard({
   );
 
   return (
-    <article className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0">
+    <article className="bg-white border border-slate-200/90 hover:border-[#133F68] focus-within:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0">
       {/* Header Thẻ Cuộc thi: Chiều cao h-36 đồng bộ /su-kien, tag thu nhỏ 75%, toàn vùng bấm được */}
       <div
-        role="button"
-        tabIndex={0}
         onClick={() => onOpenModal(contest)}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            onOpenModal(contest);
-          }
-        }}
-        aria-label={`Mở thông tin và phòng thi cuộc thi: ${contest.title}`}
-        className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer select-none transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] focus-visible:ring-inset"
+        className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer select-none transition-all duration-200 hover:brightness-110"
       >
         <div className="flex items-start justify-between gap-2 relative z-10 w-full pointer-events-none">
           {/* Tag trạng thái bên trái (07 Tag chuẩn, thu nhỏ 75%) */}
@@ -253,7 +294,8 @@ export function ContestCard({
             <button
               type="button"
               onClick={() => onOpenModal(contest)}
-              className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0054A6] rounded-xs"
+              aria-label={`Mở thông tin và phòng thi cuộc thi: ${contest.title}`}
+              className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
             >
               {contest.title}
             </button>
@@ -302,10 +344,11 @@ export function ContestCard({
           </div>
         </div>
 
-        {/* Chân thẻ: CTA đồng bộ trạng thái */}
+        {/* Chân thẻ: CTA đồng bộ trạng thái (1 điểm dừng Tab tại tiêu đề thẻ) */}
         <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
           <button
             type="button"
+            tabIndex={-1}
             onClick={() => onOpenModal(contest)}
             className={`inline-flex items-center gap-1 font-bold uppercase font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link min-h-[36px] cursor-pointer ${
               attempt?.passed
@@ -337,6 +380,7 @@ export function ContestCard({
 }
 
 type ModalStep = 'intro' | 'exam' | 'result';
+type ExamConfirmMode = 'back' | 'submit' | null;
 
 export function ContestExamModal({
   contest,
@@ -354,54 +398,86 @@ export function ContestExamModal({
   const [step, setStep] = useState<ModalStep>('intro');
   const [answers, setAnswers] = useState<Record<string, number>>({});
   const [secondsLeft, setSecondsLeft] = useState<number>(0);
+  const [examEndsAt, setExamEndsAt] = useState<number | null>(null);
+  const [hasSavedDraft, setHasSavedDraft] = useState(false);
   const [latestResult, setLatestResult] =
     useState<ContestAttemptRecord | null>(null);
+  const [confirmMode, setConfirmMode] = useState<ExamConfirmMode>(null);
+  const prevContestIdRef = useRef<string | null>(null);
 
-  // Reset modal step whenever contest changes
+  // Reset modal step chỉ khi mở cuộc thi khác hoặc đóng/mở lại modal
   useEffect(() => {
+    const currentId = contest?.id ?? null;
+    if (currentId === prevContestIdRef.current) return;
+    prevContestIdRef.current = currentId;
+
     if (!contest) return;
+    setConfirmMode(null);
+    const savedDraft = loadContestDraft(contest.id);
+    setHasSavedDraft(Boolean(savedDraft));
     if (attempt && !getContestCardMeta(contest).isOpen) {
       setLatestResult(attempt);
       setAnswers(attempt.answers);
       setStep('result');
     } else {
       setStep('intro');
-      setAnswers({});
+      setAnswers(savedDraft ? savedDraft.answers : {});
       setLatestResult(attempt || null);
-      setSecondsLeft(contest.durationMinutes * 60);
+      setSecondsLeft(
+        savedDraft
+          ? Math.max(1, Math.round((savedDraft.endsAt - Date.now()) / 1000))
+          : contest.durationMinutes * 60
+      );
+      setExamEndsAt(savedDraft ? savedDraft.endsAt : null);
     }
   }, [contest, attempt]);
 
-  const handleSubmitExam = useCallback(() => {
-    if (!contest) return;
-    const totalQuestions = contest.questions.length || 1;
-    const correctCount = contest.questions.reduce(
-      (acc, q) => acc + (answers[q.id] === q.correctIndex ? 1 : 0),
-      0
-    );
-    const scorePct = Math.round((correctCount / totalQuestions) * 100);
-    const passed = scorePct >= contest.passScore;
-
-    const record: ContestAttemptRecord = {
-      contestId: contest.id,
-      attemptsUsed: 1,
-      bestScore: scorePct,
-      correctCount,
-      totalQuestions,
-      passed,
+  // Lưu nháp tự động vào localStorage mỗi khi chọn đáp án trong phòng thi
+  useEffect(() => {
+    if (!contest || step !== 'exam' || !examEndsAt) return;
+    saveContestDraft(contest.id, {
       answers,
-      completedAt: new Date().toISOString(),
-    };
-    setLatestResult(record);
-    onSaveAttempt(record);
-    setStep('result');
-  }, [contest, answers, onSaveAttempt]);
+      endsAt: examEndsAt,
+    });
+  }, [contest, step, answers, examEndsAt]);
+
+  const handleSubmitExam = useCallback(
+    (nextStep: ModalStep = 'result') => {
+      if (!contest) return;
+      const totalQuestions = contest.questions.length || 1;
+      const correctCount = contest.questions.reduce(
+        (acc, q) => acc + (answers[q.id] === q.correctIndex ? 1 : 0),
+        0
+      );
+      const scorePct = Math.round((correctCount / totalQuestions) * 100);
+      const passed = scorePct >= contest.passScore;
+
+      const record: ContestAttemptRecord = {
+        contestId: contest.id,
+        attemptsUsed: 1,
+        bestScore: scorePct,
+        correctCount,
+        totalQuestions,
+        passed,
+        answers,
+        completedAt: new Date().toISOString(),
+      };
+      clearContestDraft(contest.id);
+      setHasSavedDraft(false);
+      setExamEndsAt(null);
+      setLatestResult(record);
+      onSaveAttempt(record);
+      setConfirmMode(null);
+      setStep(nextStep);
+    },
+    [contest, answers, onSaveAttempt]
+  );
 
   // Countdown Timer during active exam step
   useEffect(() => {
     if (!contest || step !== 'exam') return;
     if (secondsLeft <= 0) {
-      handleSubmitExam();
+      handleSubmitExam('result');
       return;
     }
     const timer = setInterval(() => {
@@ -410,11 +486,19 @@ export function ContestExamModal({
     return () => clearInterval(timer);
   }, [contest, step, secondsLeft, handleSubmitExam]);
 
-  // Keyboard ESC handler + lock body scroll
+  // Keyboard ESC handler + lock body scroll (chặn thoát nhầm khi đang thi)
   useEffect(() => {
     if (!contest) return;
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        if (confirmMode) {
+          setConfirmMode(null);
+        } else if (step === 'exam') {
+          setConfirmMode('back');
+        } else {
+          onClose();
+        }
+      }
     };
     document.body.style.overflow = 'hidden';
     window.addEventListener('keydown', onKeyDown);
@@ -422,7 +506,7 @@ export function ContestExamModal({
       document.body.style.overflow = '';
       window.removeEventListener('keydown', onKeyDown);
     };
-  }, [contest, onClose]);
+  }, [contest, confirmMode, step, onClose]);
 
   if (!contest) return null;
 
@@ -432,8 +516,20 @@ export function ContestExamModal({
     meta.isOpen && attemptsUsed < contest.maxAttempts;
 
   const startExam = () => {
-    setAnswers({});
-    setSecondsLeft(contest.durationMinutes * 60);
+    const existingDraft = loadContestDraft(contest.id);
+    if (existingDraft) {
+      setAnswers(existingDraft.answers);
+      setExamEndsAt(existingDraft.endsAt);
+      setSecondsLeft(
+        Math.max(1, Math.round((existingDraft.endsAt - Date.now()) / 1000))
+      );
+    } else {
+      const nextEndsAt = Date.now() + contest.durationMinutes * 60 * 1000;
+      setAnswers({});
+      setExamEndsAt(nextEndsAt);
+      setSecondsLeft(contest.durationMinutes * 60);
+      saveContestDraft(contest.id, { answers: {}, endsAt: nextEndsAt });
+    }
     setStep('exam');
   };
 
@@ -449,60 +545,104 @@ export function ContestExamModal({
       aria-labelledby="modal-contest-title"
       className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        if (e.target === e.currentTarget && step !== 'exam') {
+          onClose();
+        }
       }}
     >
       <div className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden">
         {/* Header Modal */}
         <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
-          <div className="flex items-center gap-2.5">
-            <span className="w-2.5 h-2.5 bg-[#FCB900] rounded-full inline-block" />
-            <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
-              {step === 'exam'
-                ? 'Phòng Thi Trực Tuyến — Đang Tính Giờ'
-                : step === 'result'
-                ? 'Kết Quả Bài Thi & Đồng Bộ SV5T'
-                : meta.isOpen
-                ? 'Thông Tin & Thể Lệ Cuộc Thi'
-                : meta.label === 'Đã kết thúc'
-                ? 'Kết Quả Cuộc Thi & Nhận E-Certificate'
-                : 'Thông Tin Chi Tiết Cuộc Thi'}
-            </span>
-          </div>
+          <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
+            {step === 'exam'
+              ? 'Phòng Thi Trực Tuyến'
+              : step === 'result'
+              ? 'Kết Quả Bài Thi'
+              : meta.isOpen
+              ? 'Thông Tin và Thể Lệ Cuộc Thi'
+              : meta.label === 'Đã kết thúc'
+              ? 'Kết Quả Cuộc Thi và Nhận E-Certificate'
+              : 'Thông Tin Chi Tiết Cuộc Thi'}
+          </span>
           <button
             type="button"
-            onClick={onClose}
+            onClick={() => {
+              if (step === 'exam') {
+                setConfirmMode('back');
+              } else {
+                onClose();
+              }
+            }}
             aria-label="Đóng cửa sổ cuộc thi"
-            className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
+            className="w-11 h-11 -mr-2 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Sticky Countdown Bar khi đang thi */}
+        {/* Sticky Countdown Bar + Thanh nhảy câu hỏi (1..N) khi đang thi */}
         {step === 'exam' && (
-          <div className="bg-[#02294E] text-white px-5 sm:px-6 py-2.5 flex flex-wrap items-center justify-between gap-3 border-b border-white/15 text-xs">
-            <div className="flex items-center gap-2">
-              <Timer
-                className={`w-4 h-4 ${
-                  secondsLeft <= 60 ? 'text-[#FCB900]' : 'text-[#00BCFF]'
-                }`}
-              />
-              <span className="font-sans text-[#DED1BE]">Thời gian còn lại:</span>
-              <span
-                className={`font-eiu-serif text-base font-bold tabular-nums ${
-                  secondsLeft <= 60 ? 'text-[#FCB900]' : 'text-white'
-                }`}
-              >
-                {mins}:{secs}
-              </span>
+          <div className="bg-[#02294E] text-white px-5 sm:px-6 py-2.5 space-y-2 border-b border-white/15 text-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="flex items-center gap-2">
+                <Timer
+                  className={`w-4 h-4 ${
+                    secondsLeft <= 60 ? 'text-[#FCB900]' : 'text-[#00BCFF]'
+                  }`}
+                />
+                <span className="font-sans text-[#DED1BE]">
+                  Thời gian còn lại:
+                </span>
+                <span
+                  className={`font-eiu-serif text-base font-bold tabular-nums ${
+                    secondsLeft <= 60 ? 'text-[#FCB900]' : 'text-white'
+                  }`}
+                >
+                  {mins}:{secs}
+                </span>
+              </div>
+              <div className="font-sans text-[#DED1BE] tabular-nums">
+                Đã hoàn thành:{' '}
+                <strong className="text-white">
+                  {answeredCount}/{totalQ}
+                </strong>{' '}
+                câu
+              </div>
             </div>
-            <div className="font-sans text-[#DED1BE] tabular-nums">
-              Đã hoàn thành:{' '}
-              <strong className="text-white">
-                {answeredCount}/{totalQ}
-              </strong>{' '}
-              câu
+
+            {/* Thanh nhảy nhanh câu hỏi (Question Jump Map) */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-1 border-t border-white/10">
+              <span className="text-[11px] text-[#DED1BE] font-sans mr-1">
+                Chuyển nhanh câu:
+              </span>
+              {contest.questions.map((q, qIdx) => {
+                const isAnswered = answers[q.id] !== undefined;
+                return (
+                  <button
+                    key={q.id}
+                    type="button"
+                    onClick={() => {
+                      const el = document.getElementById(
+                        `exam-question-${q.id}`
+                      );
+                      el?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'nearest',
+                      });
+                    }}
+                    aria-label={`Câu ${qIdx + 1}: ${
+                      isAnswered ? 'Đã chọn đáp án' : 'Chưa trả lời'
+                    }`}
+                    className={`w-7 h-7 text-xs font-bold font-sans tabular-nums flex items-center justify-center transition-colors cursor-pointer ${
+                      isAnswered
+                        ? 'bg-[#FCB900] text-[#02294E] font-extrabold'
+                        : 'bg-white/10 hover:bg-white/25 text-white border border-white/25'
+                    }`}
+                  >
+                    {qIdx + 1}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}
@@ -585,31 +725,68 @@ export function ContestExamModal({
                 </div>
               </div>
 
-              {/* Thông tin thí sinh SSO EIU */}
-              <div className="bg-[#F0F6FC] border border-[#0054A6]/25 p-4 space-y-1.5">
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#0054A6] font-eiu-display flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4" />
-                  <span>Định danh Thí sinh SSO (@eiu.edu.vn)</span>
+              {/* Thông tin thí sinh dự thi */}
+              <div className="bg-[#F0F6FC] border border-[#0054A6]/25 p-4 space-y-2.5">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#0054A6] font-eiu-display flex items-center justify-between gap-2 pb-1.5 border-b border-[#0054A6]/15">
+                  <span className="inline-flex items-center gap-1.5">
+                    <ShieldCheck className="w-4 h-4 shrink-0" />
+                    <span>THÔNG TIN THÍ SINH DỰ THI:</span>
+                  </span>
+                  <span className="text-[10px] font-normal text-slate-600 font-sans normal-case">
+                    Đồng bộ từ phiên đăng nhập EIU SSO
+                  </span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5 text-slate-800 font-sans pt-1">
-                  <div>
-                    Họ và tên:{' '}
-                    <strong className="text-[#133F68]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs text-slate-700 font-sans">
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    <span className="text-slate-600">Họ và tên:</span>
+                    <strong className="text-[#133F68] font-bold">
                       {currentPersona.fullName}
                     </strong>
                   </div>
-                  <div>
-                    MSSV:{' '}
-                    <strong className="font-eiu-serif text-[#133F68]">
+                  <div className="flex items-baseline gap-1.5 flex-wrap">
+                    <span className="text-slate-600">MSSV:</span>
+                    <strong className="font-eiu-serif text-[16px] leading-none font-bold text-[#133F68] tabular-nums">
                       {currentPersona.studentId}
                     </strong>
                   </div>
-                  <div className="sm:col-span-2">
-                    Email xác thực:{' '}
-                    <strong className="text-[#0054A6]">
+                  <div className="sm:col-span-2 flex items-baseline gap-1.5 flex-wrap">
+                    <span className="text-slate-600">Email xác thực:</span>
+                    <strong className="text-[#0054A6] font-semibold">
                       {currentPersona.email}
                     </strong>
                   </div>
+                </div>
+              </div>
+
+              {/* Thông báo nếu đang có bài thi lưu nháp trong localStorage */}
+              {hasSavedDraft && (
+                <div className="p-3.5 bg-[#FFF9F0] border border-[#EEB31D] text-slate-900 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="text-xs font-sans">
+                    <strong className="text-[#133F68] font-eiu-display uppercase">
+                      Đang lưu nháp bài thi chưa nộp:
+                    </strong>{' '}
+                    Hệ thống đã lưu tự động các đáp án đang chọn của bạn. Nhấn{' '}
+                    <strong>Tiếp tục làm bài đang dở</strong> để hoàn thành.
+                  </div>
+                </div>
+              )}
+
+              {/* Chú giải nhanh cho Sinh viên & Liên hệ Văn phòng 206.B06 */}
+              <div className="bg-[#F8FAFC] border border-slate-200 p-3 text-[11px] text-slate-600 font-sans leading-relaxed space-y-1">
+                <div>
+                  <strong className="text-[#133F68]">Chú giải nhanh:</strong>{' '}
+                  <strong>SV5T</strong> là danh hiệu <em>Sinh viên 5 Tốt</em>{' '}
+                  (QĐ 09/QĐ-HSV); <strong>+1 ĐRL</strong> được cộng vào Điểm rèn
+                  luyện học kỳ khi đạt chuẩn ≥ {contest.passScore}% số câu đúng.
+                </div>
+                <div>
+                  <strong className="text-[#133F68]">Hỗ trợ kỹ thuật:</strong>{' '}
+                  Văn phòng Hội Sinh viên EIU — <strong>Phòng 206.B06</strong>{' '}
+                  hoặc email{' '}
+                  <span className="text-[#0054A6] font-semibold">
+                    studentassociation@eiu.edu.vn
+                  </span>
+                  .
                 </div>
               </div>
 
@@ -653,7 +830,7 @@ export function ContestExamModal({
                 <div className="bg-slate-50 border border-slate-200 p-4 space-y-2.5">
                   <div className="flex items-center justify-between gap-2">
                     <span className="font-bold text-[#133F68] font-eiu-display uppercase">
-                      Quyết định Công nhận & E-Certificate
+                      Quyết định Công nhận và E-Certificate
                     </span>
                     {contest.decisionNumber && (
                       <span className="px-2 py-0.5 bg-[#133F68] text-white font-eiu-serif font-bold text-[11px]">
@@ -676,7 +853,7 @@ export function ContestExamModal({
                       className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white font-bold uppercase tracking-wider font-eiu-display"
                     >
                       <QrCode className="w-3.5 h-3.5" />
-                      <span>Tra cứu & Nhận GCN Điện tử</span>
+                      <span>Tra cứu và Nhận GCN Điện tử</span>
                     </Link>
                   </div>
                 </div>
@@ -699,7 +876,11 @@ export function ContestExamModal({
                   >
                     <Play className="w-3.5 h-3.5" />
                     <span>
-                      {attempt ? 'Thi lại (Cải thiện điểm)' : 'Bắt đầu làm bài thi'}
+                      {hasSavedDraft
+                        ? 'Tiếp tục làm bài đang dở'
+                        : attempt
+                        ? 'Thi lại (Cải thiện điểm)'
+                        : 'Bắt đầu làm bài thi'}
                     </span>
                   </button>
                 )}
@@ -715,15 +896,11 @@ export function ContestExamModal({
                 return (
                   <div
                     key={q.id}
-                    className="bg-white border border-slate-200 p-4 sm:p-5 space-y-3"
+                    id={`exam-question-${q.id}`}
+                    className="bg-white border border-slate-200 p-4 sm:p-5 space-y-3 scroll-mt-4"
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-2 text-[11px]">
-                      <span className="font-eiu-serif font-bold text-[#0054A6]">
-                        CÂU {String(qIdx + 1).padStart(2, '0')} • {q.topic}
-                      </span>
-                      <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] font-bold font-eiu-display">
-                        SV5T: {q.sv5tTarget}
-                      </span>
+                    <div className="font-sans text-sm sm:text-[15px] font-extrabold uppercase tracking-wide text-[#C10230]">
+                      Câu {qIdx + 1}
                     </div>
 
                     <h4 className="text-sm font-bold text-[#133F68] leading-snug font-sans">
@@ -764,22 +941,17 @@ export function ContestExamModal({
               <div className="pt-2 flex flex-wrap items-center justify-between gap-3 border-t border-slate-200">
                 <button
                   type="button"
-                  onClick={() => setStep('intro')}
+                  onClick={() => setConfirmMode('back')}
                   className="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 font-bold uppercase font-eiu-display cursor-pointer"
                 >
-                  Quay lại thể lệ
+                  Quay lại
                 </button>
                 <button
                   type="button"
-                  disabled={answeredCount < totalQ}
-                  onClick={handleSubmitExam}
-                  className={`px-6 py-2.5 text-xs font-bold uppercase tracking-wider font-eiu-display transition-colors ${
-                    answeredCount < totalQ
-                      ? 'bg-slate-300 text-slate-500 cursor-not-allowed'
-                      : 'bg-[#C10230] hover:bg-[#a30228] text-white cursor-pointer'
-                  }`}
+                  onClick={() => setConfirmMode('submit')}
+                  className="px-6 py-2.5 text-xs font-bold uppercase tracking-wider font-eiu-display bg-[#133F68] hover:bg-[#02294E] text-white cursor-pointer transition-colors"
                 >
-                  Nộp bài và Chấm điểm ({answeredCount}/{totalQ})
+                  Nộp bài
                 </button>
               </div>
             </div>
@@ -835,8 +1007,8 @@ export function ContestExamModal({
                       key={q.id}
                       className="bg-white border border-slate-200 p-4 space-y-2.5"
                     >
-                      <div className="font-eiu-serif text-[11px] font-bold text-[#0054A6]">
-                        CÂU {String(qIdx + 1).padStart(2, '0')} • {q.topic}
+                      <div className="font-sans text-sm sm:text-[15px] font-extrabold uppercase tracking-wide text-[#C10230]">
+                        Câu {qIdx + 1}
                       </div>
                       <h4 className="text-xs sm:text-sm font-bold text-[#133F68] font-sans">
                         {q.question}
@@ -869,7 +1041,7 @@ export function ContestExamModal({
                       </div>
                       <div className="p-3 bg-[#F0F6FC] border border-[#0054A6]/25 text-xs text-slate-700 leading-relaxed font-sans">
                         <strong className="text-[#133F68]">
-                          Căn cứ & Giải thích:
+                          Căn cứ và Giải thích:
                         </strong>{' '}
                         {q.explanation}
                       </div>
@@ -879,23 +1051,90 @@ export function ContestExamModal({
               </div>
 
               <div className="pt-2 flex justify-end gap-3 border-t border-slate-200">
-                <Link
-                  href="/portal?tab=sv5t"
-                  className="px-4 py-2.5 bg-[#EAE3D2] hover:bg-[#dfd5be] text-[#133F68] font-bold uppercase font-eiu-display"
-                >
-                  Xem Sổ tay SV5T
-                </Link>
                 <button
                   type="button"
                   onClick={onClose}
                   className="px-5 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white font-bold uppercase font-eiu-display cursor-pointer"
                 >
-                  Hoàn tất & Đóng
+                  Hoàn tất
                 </button>
               </div>
             </div>
           )}
         </div>
+
+        {/* POPUP XÁC NHẬN MỜ NỀN PHÍA SAU KHI QUAY LẠI HOẶC NỘP BÀI */}
+        {confirmMode && (
+          <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="exam-confirm-title"
+            className="absolute inset-0 z-30 bg-[#02294E]/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setConfirmMode(null);
+            }}
+          >
+            <div className="bg-white border-2 border-[#133F68] w-full max-w-md shadow-2xl overflow-hidden">
+              <div className="bg-[#133F68] text-white px-5 py-3.5 border-b-3 border-[#A68556]">
+                <h4
+                  id="exam-confirm-title"
+                  className="text-xs font-bold uppercase tracking-wider font-eiu-display"
+                >
+                  {confirmMode === 'back'
+                    ? 'Xác nhận thoát phòng thi'
+                    : 'Xác nhận nộp bài thi'}
+                </h4>
+              </div>
+              <div className="p-5 space-y-4">
+                <p className="text-sm text-slate-700 leading-relaxed font-sans">
+                  {confirmMode === 'back'
+                    ? 'Khi quay lại sẽ tự động nộp bài và lưu kết quả lần thi.'
+                    : answeredCount < totalQ
+                    ? `Bạn mới hoàn thành ${answeredCount}/${totalQ} câu hỏi. Bạn có chắc chắn muốn nộp bài thi ngay bây giờ?`
+                    : `Bạn đã hoàn thành ${answeredCount}/${totalQ} câu hỏi. Xác nhận nộp bài để hệ thống chấm điểm?`}
+                </p>
+
+                <div className="flex flex-wrap items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+                  {confirmMode === 'back' ? (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmMode(null)}
+                        className="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                      >
+                        Hủy bỏ
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSubmitExam('intro')}
+                        className="px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
+                      >
+                        Nộp bài và thoát
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setConfirmMode(null)}
+                        className="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                      >
+                        Quay lại
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleSubmitExam('result')}
+                        className="px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
+                      >
+                        Nộp bài
+                      </button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

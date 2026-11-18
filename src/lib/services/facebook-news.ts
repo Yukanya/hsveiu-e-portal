@@ -69,7 +69,7 @@ export const FALLBACK_HSV_NEWS: FacebookNewsItem[] = [
     permalinkUrl: 'https://www.facebook.com/eiuhsv/posts/04',
     imageUrl: '/images/sv5t/dang-tri-toan.jpg',
     tag: '[HSV NEWS]',
-    categoryLabel: 'Học thuật & Sáng tạo',
+    categoryLabel: 'Học thuật và Sáng tạo',
     authorUnit: 'CLB Học thuật CNTT',
   },
   {

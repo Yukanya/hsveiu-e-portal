@@ -22,6 +22,7 @@ import {
   ArrowRight,
   Building2,
   CheckCircle2,
+  ChevronDown,
   Clock,
   Eye,
   FileCheck2,
@@ -143,7 +144,7 @@ const OFFICE_SHIFTS = [
     day: 'Thứ Năm',
     morning: 'Phạm Thị Hồng Ngọc (Phó CVP)',
     afternoon: 'Lê Thị Hải Yến (Phó CVP – Văn thư)',
-    roomStatus: 'Rà thể thức & Đóng dấu Mộc',
+    roomStatus: 'Rà thể thức và Đóng dấu Mộc',
   },
   {
     day: 'Thứ Sáu',
@@ -165,7 +166,7 @@ const SEAL_LOGS = [
   {
     id: 'seal-02',
     docNumber: '15/KH-HSV',
-    docTitle: 'Kế hoạch Ngày hội Sinh viên Khỏe & Kiểm tra Thể lực cấp Trường',
+    docTitle: 'Kế hoạch Ngày hội Sinh viên Khỏe và Kiểm tra Thể lực cấp Trường',
     approvedBy: 'Nguyễn Như Quỳnh (PCT Thường trực)',
     stampedBy: 'Nguyễn Mỹ Hạnh (Chánh VP)',
     date: '21/10/2026',
@@ -278,7 +279,7 @@ function WorkspaceContent({
       )
     );
     triggerToast(
-      `Đã thẩm định & duyệt chủ trương Ngày tình nguyện trước 03 ngày: "${title}".`
+      `Đã thẩm định và duyệt chủ trương Ngày tình nguyện trước 03 ngày: "${title}".`
     );
   };
 
@@ -426,7 +427,7 @@ function WorkspaceContent({
             </div>
 
             {/* Bộ chuyển nhanh Cán bộ & Vị trí Kiêm nhiệm ngay trên Command Header */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 xl:w-[500px] shrink-0">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 xl:w-full xl:max-w-[500px] shrink-0">
               <div className="bg-[#133F68] border border-white/15 p-2.5">
                 <label
                   htmlFor="eoffice-persona-select"
@@ -434,18 +435,24 @@ function WorkspaceContent({
                 >
                   Đóng vai Cán bộ / Hội viên (6 Cấp):
                 </label>
-                <select
-                  id="eoffice-persona-select"
-                  value={currentPersona.id}
-                  onChange={(e) => setPersonaById(e.target.value)}
-                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
-                >
-                  {allPersonas.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.fullName} (Cấp {p.positions[0].roleLevel}/6)
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    id="eoffice-persona-select"
+                    value={currentPersona.id}
+                    onChange={(e) => setPersonaById(e.target.value)}
+                    className="w-full h-8 pl-2.5 pr-7 py-0 bg-white text-slate-900 rounded text-xs font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                  >
+                    {allPersonas.map((p) => (
+                      <option key={p.id} value={p.id}>
+                        {p.fullName} (Cấp {p.positions[0].roleLevel}/6)
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
 
               <div className="bg-[#133F68] border border-white/15 p-2.5">
@@ -456,18 +463,24 @@ function WorkspaceContent({
                   Ngữ cảnh Kiêm nhiệm ({currentPersona.positions.length} vị
                   trí):
                 </label>
-                <select
-                  id="eoffice-pos-select"
-                  value={activePosition.id}
-                  onChange={(e) => setActivePositionById(e.target.value)}
-                  className="w-full h-8 px-2 bg-white text-slate-900 rounded text-xs font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
-                >
-                  {currentPersona.positions.map((pos) => (
-                    <option key={pos.id} value={pos.id}>
-                      [Cấp {pos.roleLevel}] {pos.positionTitle}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    id="eoffice-pos-select"
+                    value={activePosition.id}
+                    onChange={(e) => setActivePositionById(e.target.value)}
+                    className="w-full h-8 pl-2.5 pr-7 py-0 bg-white text-slate-900 rounded text-xs font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                  >
+                    {currentPersona.positions.map((pos) => (
+                      <option key={pos.id} value={pos.id}>
+                        [Cấp {pos.roleLevel}] {pos.positionTitle}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                    aria-hidden="true"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -729,7 +742,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                2. DUYỆT NGÀY TÌNH NGUYỆN & CẤP GCN (CERTIFICATES — QĐ 28)
+                2. DUYỆT NGÀY TÌNH NGUYỆN và CẤP GCN (CERTIFICATES — QĐ 28)
                ============================================================ */}
             {activeModule === 'certificates' && (
               <div className="space-y-6">
@@ -897,7 +910,7 @@ function WorkspaceContent({
                                 <span>Xem GCN</span>
                               </Link>
                             ) : (
-                              <span className="text-[11px] text-slate-400">
+                              <span className="text-[11px] text-slate-600">
                                 Chờ kết thúc SK
                               </span>
                             )}
@@ -911,7 +924,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                3. HỘI ĐỒNG XÉT CHỌN SV5T 3 CẤP & TOP 10% (QĐ 09/2026)
+                3. HỘI ĐỒNG XÉT CHỌN SV5T 3 CẤP và TOP 10% (QĐ 09/2026)
                ============================================================ */}
             {activeModule === 'sv5t' && (
               <div className="space-y-5">
@@ -1156,7 +1169,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                5. VĂN THƯ LƯU TRỮ & TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC (DOCUMENTS)
+                5. VĂN THƯ LƯU TRỮ và TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC (DOCUMENTS)
                ============================================================ */}
             {activeModule === 'documents' && (
               <div className="space-y-6">
@@ -1265,7 +1278,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                6. BAN TUYÊN GIÁO - PHONG TRÀO & ĐỘI CTV XUNG KÍCH (TGPT)
+                6. BAN TUYÊN GIÁO - PHONG TRÀO và ĐỘI CTV XUNG KÍCH (TGPT)
                ============================================================ */}
             {activeModule === 'tgpt' && (
               <div className="space-y-6">
@@ -1385,7 +1398,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                7. VĂN PHÒNG 206.B06, TÀI SẢN & CON DẤU MỘC (OFFICE — QĐ 24)
+                7. VĂN PHÒNG 206.B06, TÀI SẢN và CON DẤU MỘC (OFFICE — QĐ 24)
                ============================================================ */}
             {activeModule === 'office' && (
               <div className="space-y-6">
@@ -1521,7 +1534,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                8. HỌP KHÔNG GIẤY & BAN KIỂM TRA (MEETINGS — QĐ 23)
+                8. HỌP KHÔNG GIẤY và BAN KIỂM TRA (MEETINGS — QĐ 23)
                ============================================================ */}
             {activeModule === 'meetings' && (
               <div className="space-y-6">

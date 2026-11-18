@@ -14,6 +14,7 @@ import {
   ArrowLeft,
   Award,
   CheckCircle2,
+  ChevronDown,
   ChevronRight,
   ExternalLink,
   Layers,
@@ -37,7 +38,7 @@ function getClubSv5tBenefit(club: ClubUnit): {
   if (club.code === 'DOI-CTVXK') {
     return {
       pillar: 'Tiêu chuẩn Tình nguyện tốt — Lĩnh vực 06: Công tác Đoàn – Hội',
-      rule: 'Áp dụng quy đổi Ngày tình nguyện nhân Hệ số 1 – 2 – 3 (Phụ lục 2 QĐ 09 & QĐ 28/QĐ-HSV) khi trực tiếp điều phối Hậu cần – Sân khấu và Lễ tân – Khánh tiết.',
+      rule: 'Áp dụng quy đổi Ngày tình nguyện nhân Hệ số 1 – 2 – 3 (Phụ lục 2 QĐ 09 và QĐ 28/QĐ-HSV) khi trực tiếp điều phối Hậu cần – Sân khấu và Lễ tân – Khánh tiết.',
     };
   }
   if (club.code === 'CLB-BLOOD') {
@@ -59,7 +60,7 @@ function getClubSv5tBenefit(club: ClubUnit): {
       };
     case 'NGHE_THUAT':
       return {
-        pillar: 'Tiêu chuẩn Hội nhập tốt & Kỹ năng Thực hành Xã hội',
+        pillar: 'Tiêu chuẩn Hội nhập tốt và Kỹ năng Thực hành Xã hội',
         rule: 'Tham gia biểu diễn giao lưu văn hóa quốc tế, dẫn chương trình song ngữ và rèn luyện kỹ năng mềm tại các sự kiện toàn trường.',
       };
     default:
@@ -130,7 +131,7 @@ function UnitMicrositeInner({
           title={club.name}
           subtitle={club.description}
           breadcrumbs={[
-            { label: 'Chi hội & CLB', href: '/to-chuc?tab=clubs' },
+            { label: 'Chi hội và CLB', href: '/to-chuc?tab=clubs' },
             {
               label: club.categoryLabel,
               href: `/to-chuc?tab=clubs&category=${club.category}`,
@@ -320,12 +321,12 @@ function UnitMicrositeInner({
                       >
                         Mảng / Tiểu ban ứng tuyển:
                       </label>
-                      <div className="sm:col-span-8">
+                      <div className="sm:col-span-8 relative">
                         <select
                           id="club-division"
                           value={selectedDivision}
                           onChange={(e) => setSelectedDivision(e.target.value)}
-                          className="w-full h-9 px-3 border border-slate-300 rounded bg-white text-slate-900 font-medium"
+                          className="w-full h-9 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-slate-900 font-medium appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                         >
                           {club.managedSubteams &&
                           club.managedSubteams.length > 0 ? (
@@ -348,6 +349,10 @@ function UnitMicrositeInner({
                             </>
                           )}
                         </select>
+                        <ChevronDown
+                          className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                          aria-hidden="true"
+                        />
                       </div>
                     </div>
 
@@ -506,7 +511,7 @@ function UnitMicrositeInner({
         title={`${b.name} (${b.code})`}
         subtitle={b.description}
         breadcrumbs={[
-          { label: 'Chi hội & CLB', href: '/to-chuc?tab=branches' },
+          { label: 'Chi hội và CLB', href: '/to-chuc?tab=branches' },
           {
             label: facultyMeta.nameVi,
             href: `/to-chuc?tab=branches&faculty=${b.facultyCode}`,

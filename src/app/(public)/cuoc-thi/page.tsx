@@ -86,6 +86,15 @@ function CuocThiContent({
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+
+  const activeDropdownFilterCount = [
+    statusFilter !== 'ALL' && statusFilter !== 'OPEN_ALL',
+    topicFilter !== 'ALL',
+    trainingPointsFilter !== 'ALL',
+    durationFilter !== 'ALL',
+    benefitFilter !== 'ALL',
+  ].filter(Boolean).length;
 
   const [selectedModalContest, setSelectedModalContest] =
     useState<OnlineContestItem | null>(() => {
@@ -249,6 +258,8 @@ function CuocThiContent({
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="contest-search-input"
+                  name="q"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
@@ -257,7 +268,7 @@ function CuocThiContent({
                   }}
                   placeholder="Tìm kiếm cuộc thi theo tên, chủ đề..."
                   aria-label="Tìm kiếm cuộc thi"
-                  className="w-full h-10 pl-9 pr-9 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-400"
+                  className="w-full h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
                 />
                 {searchQuery && (
                   <button
@@ -267,44 +278,71 @@ function CuocThiContent({
                       setCurrentPage(1);
                     }}
                     aria-label="Xóa từ khóa tìm kiếm"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
 
-              <button
-                type="button"
-                onClick={() => {
-                  setStatusFilter((prev) =>
-                    prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
-                  );
-                  setCurrentPage(1);
-                }}
-                className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
-                  statusFilter === 'OPEN_ALL'
-                    ? 'bg-[#51803A] text-white shadow-xs'
-                    : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
-                }`}
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Đang mở thi</span>
-              </button>
-
-              {hasActiveFilter && (
+              <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
-                  onClick={handleResetFilters}
-                  className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                  onClick={() => {
+                    setStatusFilter((prev) =>
+                      prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
+                    );
+                    setCurrentPage(1);
+                  }}
+                  className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
+                    statusFilter === 'OPEN_ALL'
+                      ? 'bg-[#51803A] text-white shadow-xs'
+                      : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
+                  }`}
                 >
-                  Đặt lại bộ lọc
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Đang mở thi</span>
                 </button>
-              )}
+
+                <button
+                  type="button"
+                  onClick={() => setShowMobileFilters((prev) => !prev)}
+                  aria-expanded={showMobileFilters}
+                  className="sm:hidden px-3.5 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>
+                    Bộ lọc chi tiết
+                    {activeDropdownFilterCount > 0
+                      ? ` (${activeDropdownFilterCount})`
+                      : ''}
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform ${
+                      showMobileFilters ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {hasActiveFilter && (
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                  >
+                    Đặt lại bộ lọc
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Hàng 5 Bộ Lọc Chuyên Sâu (Căn giữa chữ dọc với appearance-none + ChevronDown) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1 border-t border-slate-100">
+            <div
+              className={`${
+                showMobileFilters || activeDropdownFilterCount > 0
+                  ? 'grid'
+                  : 'hidden sm:grid'
+              } grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1 border-t border-slate-100`}
+            >
               {/* 1. Trạng thái Tag */}
               <div className="space-y-1">
                 <label
@@ -316,7 +354,7 @@ function CuocThiContent({
                 <div className="relative">
                   <select
                     id="contest-filter-status"
-                    value={statusFilter}
+                    value={statusFilter === 'OPEN_ALL' ? 'ALL' : statusFilter}
                     onChange={(e) => {
                       setStatusFilter(e.target.value);
                       setCurrentPage(1);
@@ -324,7 +362,6 @@ function CuocThiContent({
                     className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả trạng thái</option>
-                    <option value="OPEN_ALL">Đang mở thi (tất cả)</option>
                     <option value="Chưa mở đăng ký">Chưa mở thi</option>
                     <option value="Đang mở đăng ký">Đang mở thi</option>
                     <option value="Còn 5 ngày">Còn 5 ngày</option>
@@ -359,17 +396,17 @@ function CuocThiContent({
                     className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả chủ đề</option>
-                    <option value="Lý luận & Quy chế Hội">
-                      Lý luận & Quy chế Hội
+                    <option value="Lý luận và Quy chế Hội">
+                      Lý luận và Quy chế Hội
                     </option>
-                    <option value="Học thuật & Chuyên môn">
-                      Học thuật & Chuyên môn
+                    <option value="Học thuật và Chuyên môn">
+                      Học thuật và Chuyên môn
                     </option>
-                    <option value="Hội nhập & Ngoại ngữ">
-                      Hội nhập & Ngoại ngữ
+                    <option value="Hội nhập và Ngoại ngữ">
+                      Hội nhập và Ngoại ngữ
                     </option>
-                    <option value="Phát triển bền vững & Kỹ năng">
-                      Phát triển bền vững & Kỹ năng
+                    <option value="Phát triển bền vững và Kỹ năng">
+                      Phát triển bền vững và Kỹ năng
                     </option>
                   </select>
                   <ChevronDown
@@ -444,7 +481,7 @@ function CuocThiContent({
                   htmlFor="contest-filter-benefit"
                   className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
-                  Quyền lợi & Minh chứng:
+                  Quyền lợi và Minh chứng:
                 </label>
                 <div className="relative">
                   <select

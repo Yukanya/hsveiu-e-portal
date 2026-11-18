@@ -53,6 +53,7 @@ function PublicFooterInner() {
                 width={180}
                 height={70}
                 loading="lazy"
+                style={{ width: 'auto' }}
                 className="h-16 sm:h-18 w-auto object-contain"
               />
               <div
@@ -65,6 +66,7 @@ function PublicFooterInner() {
                 width={60}
                 height={60}
                 loading="lazy"
+                style={{ width: 'auto' }}
                 className="h-14 sm:h-15 w-auto object-contain"
               />
             </div>
@@ -98,7 +100,7 @@ function PublicFooterInner() {
               </li>
               <li>
                 <Link
-                  href="/gioi-thieu?tab=staff"
+                  href="/gioi-thieu?tab=bch"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Đội ngũ cán bộ
@@ -150,7 +152,7 @@ function PublicFooterInner() {
                   href="/cuoc-thi"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Học tập và cuộc thi
+                  Cuộc thi trực tuyến
                 </Link>
               </li>
               <li>
@@ -223,7 +225,7 @@ function PublicFooterInner() {
               </li>
               <li>
                 <a
-                  href="https://www.instagram.com/hsv.eiu"
+                  href="https://www.instagram.com/vnsa.eiu"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
@@ -233,7 +235,7 @@ function PublicFooterInner() {
               </li>
               <li>
                 <a
-                  href="https://www.tiktok.com/@hsv.eiu"
+                  href="https://www.tiktok.com/@vnsa.eiu"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"

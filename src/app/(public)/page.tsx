@@ -51,38 +51,25 @@ function getEventCardMeta(ev: (typeof EVENT_ITEMS)[0]) {
   if (!ev) {
     return {
       deadline: 'Đang cập nhật',
-      label: 'Sắp diễn ra',
+      label: 'Đang mở đăng ký',
       bgClass: 'bg-[#51803A] text-white',
       isOpen: false,
+      ctaText: 'CHƯA MỞ ĐƠN',
     };
   }
 
-  const eventDeadlines: Record<
-    string,
-    { deadline: string; label: string; bgClass: string; isOpen: boolean }
-  > = {
-    'evt-01': {
-      deadline: '17:00 03/11/2026',
-      label: 'Còn 2 ngày',
-      bgClass: 'bg-[#C10230] text-white',
-      isOpen: true,
-    },
-    'evt-04': {
-      deadline: '17:00 07/11/2026',
-      label: 'Còn 5 ngày',
-      bgClass: 'bg-[#FCB900] text-[#02294E]',
-      isOpen: true,
-    },
-    'evt-05': {
-      deadline: '17:00 18/11/2026',
-      label: 'Đang mở đăng ký',
-      bgClass: 'bg-[#51803A] text-white',
-      isOpen: true,
-    },
-  };
-
-  if (eventDeadlines[ev.id]) {
-    return eventDeadlines[ev.id];
+  let label = ev.statusTag || 'Đang mở đăng ký';
+  if (!ev.statusTag) {
+    if (ev.certWorkflowStatus === 'ongoing') {
+      label = 'Đang diễn ra';
+    } else if (
+      ev.certWorkflowStatus === 'decision_issued' ||
+      ev.certWorkflowStatus === 'list_submitted_sla'
+    ) {
+      label = 'Đã kết thúc';
+    } else {
+      label = 'Đang mở đăng ký';
+    }
   }
 
   const s = ev.startTime ? new Date(ev.startTime) : new Date();
@@ -92,25 +79,69 @@ function getEventCardMeta(ev: (typeof EVENT_ITEMS)[0]) {
     ? `${pad(s.getDate())}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`
     : 'Đang cập nhật';
 
-  if (ev.certWorkflowStatus !== 'upcoming') {
-    return {
-      deadline: `17:00 ${formattedDate}`,
-      label: 'Đã đóng đăng ký',
-      bgClass: 'bg-slate-700 text-slate-100',
-      isOpen: false,
-    };
+  switch (label) {
+    case 'Chưa mở đăng ký':
+      return {
+        deadline: `Mở đơn: ${formattedDate}`,
+        label: 'Chưa mở đăng ký',
+        bgClass: 'bg-slate-600 text-white',
+        isOpen: false,
+        ctaText: 'CHƯA MỞ ĐƠN',
+      };
+    case 'Đang mở đăng ký':
+      return {
+        deadline: `17:00 ${
+          isValidDate
+            ? `${pad(Math.max(1, s.getDate() - 2))}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`
+            : formattedDate
+        }`,
+        label: 'Đang mở đăng ký',
+        bgClass: 'bg-[#51803A] text-white',
+        isOpen: true,
+        ctaText: 'ĐĂNG KÝ NGAY',
+      };
+    case 'Còn 5 ngày':
+      return {
+        deadline: `17:00 ${formattedDate}`,
+        label: 'Còn 5 ngày',
+        bgClass: 'bg-[#FCB900] text-[#02294E]',
+        isOpen: true,
+        ctaText: 'ĐĂNG KÝ NGAY',
+      };
+    case 'Còn 2 ngày':
+      return {
+        deadline: `17:00 ${formattedDate}`,
+        label: 'Còn 2 ngày',
+        bgClass: 'bg-[#C10230] text-white',
+        isOpen: true,
+        ctaText: 'ĐĂNG KÝ NGAY',
+      };
+    case 'Đã đóng đăng ký':
+      return {
+        deadline: `17:00 ${formattedDate}`,
+        label: 'Đã đóng đăng ký',
+        bgClass: 'bg-[#EEB31D] text-[#02294E]',
+        isOpen: false,
+        ctaText: 'ĐÃ ĐÓNG ĐƠN',
+      };
+    case 'Đang diễn ra':
+      return {
+        deadline: `Diễn ra: ${formattedDate}`,
+        label: 'Đang diễn ra',
+        bgClass: 'bg-[#0054A6] text-white',
+        isOpen: false,
+        ctaText: 'ĐANG DIỄN RA',
+      };
+    case 'Đã kết thúc':
+    default:
+      return {
+        deadline: `Hoàn tất: ${formattedDate}`,
+        label: 'Đã kết thúc',
+        bgClass: 'bg-slate-700 text-slate-100',
+        isOpen: false,
+        ctaText: 'NHẬN GCN',
+      };
   }
-
-  const regDeadline = isValidDate
-    ? `${pad(Math.max(1, s.getDate() - 2))}/${pad(s.getMonth() + 1)}/${s.getFullYear()}`
-    : 'Đang cập nhật';
-
-  return {
-    deadline: `17:00 ${regDeadline}`,
-    label: 'Đang mở đăng ký',
-    bgClass: 'bg-[#51803A] text-white',
-    isOpen: true,
-  };
 }
 
 const EVENT_CRITERIA_PILLS = [
@@ -418,9 +449,9 @@ export default function HomePage() {
   const handleCarouselScroll = () => {
     const el = carouselRef.current;
     if (!el) return;
-    const singleCardWidth = 280 + 20;
     const halfWidth = el.scrollWidth / 2;
     if (halfWidth <= 0) return;
+    const singleCardWidth = halfWidth / SV5T_HONOREES.length || 300;
     const normalizedScroll = el.scrollLeft % halfWidth;
     const idx = Math.min(
       SV5T_HONOREES.length,
@@ -513,6 +544,7 @@ export default function HomePage() {
                   width={240}
                   height={100}
                   priority
+                  style={{ width: 'auto' }}
                   className="h-22 sm:h-25 w-auto object-contain hover:scale-102 transition-transform duration-300"
                 />
                 <div className="h-20 w-px bg-slate-200" aria-hidden="true" />
@@ -522,6 +554,7 @@ export default function HomePage() {
                   width={140}
                   height={100}
                   priority
+                  style={{ width: 'auto' }}
                   className="h-22 sm:h-25 w-auto object-contain hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -678,7 +711,7 @@ export default function HomePage() {
 
                 <div className="pt-3 border-t border-slate-100">
                   <Link
-                    href="/gioi-thieu"
+                    href="/gioi-thieu?tab=bch"
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>XEM DANH SÁCH</span>
@@ -922,9 +955,9 @@ export default function HomePage() {
                     </div>
 
                     <div className="w-20 sm:w-24 h-14 sm:h-16 shrink-0 bg-[#02294E] border border-slate-200 overflow-hidden relative group-hover:border-[#0054A6] transition-colors rounded-xs">
-                      {FALLBACK_HSV_NEWS[idx + 2]?.imageUrl && !failedNewsImages[post.id] ? (
+                      {(post.imageUrl || FALLBACK_HSV_NEWS[idx + 2]?.imageUrl) && !failedNewsImages[post.id] ? (
                         <Image
-                          src={FALLBACK_HSV_NEWS[idx + 2].imageUrl as string}
+                          src={(post.imageUrl || FALLBACK_HSV_NEWS[idx + 2]?.imageUrl) as string}
                           alt={post.title}
                           fill
                           sizes="96px"
@@ -1010,7 +1043,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Lưới Thẻ Sự kiện (Grid 3 cột) */}
+          {/* Lưới Thẻ Sự kiện (Grid 3 cột) đồng bộ 1-1 với /su-kien và /cuoc-thi */}
           {filteredEvents.length === 0 ? (
             <div className="bg-[#F5F5F5] border border-slate-200/90 p-8 text-center space-y-3">
               <p className="text-sm text-slate-600">
@@ -1043,61 +1076,69 @@ export default function HomePage() {
                 return (
                   <article
                     key={ev.id}
-                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
+                    className="bg-white border border-slate-200/90 hover:border-[#133F68] focus-within:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
                   >
-                    {/* Header Thẻ Sự kiện: Tag Trạng thái bên trái, Box Tiêu chuẩn và Box Ngày TN bên phải — Chiều cao h-36 đồng bộ với Thẻ Tin tức */}
+                    {/* Header Thẻ Sự kiện: Chiều cao h-36 đồng bộ /su-kien, tag thu nhỏ 75% */}
                     <Link
                       href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
+                      tabIndex={-1}
+                      aria-hidden="true"
                       className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between block cursor-pointer transition-all duration-200 hover:brightness-110"
-                      aria-label={`Xem chi tiết và đăng ký sự kiện: ${ev.title}`}
                     >
-                      <div className="flex items-start justify-between gap-3">
-                        {/* Tag trạng thái sự kiện bên trái */}
-                        <span
-                          className={`px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider font-eiu-display shrink-0 ${meta.bgClass}`}
-                        >
-                          {meta.label}
-                        </span>
+                      <div className="flex items-start justify-between gap-2">
+                        {/* Tag trạng thái sự kiện bên trái (07 Tag chuẩn, thu nhỏ 75%) */}
+                        <div className="flex flex-col gap-1">
+                          <span
+                            className={`px-2 py-0.5 text-[8.5px] font-bold uppercase tracking-wider font-eiu-display shrink-0 shadow-2xs ${meta.bgClass}`}
+                          >
+                            {meta.label}
+                          </span>
+                        </div>
 
-                        {/* Cột 2 box bên phải: Box Tiêu chuẩn ở trên & Box Ngày tình nguyện ở dưới */}
-                        <div className="flex flex-col items-end gap-1.5 shrink-0">
-                          <span className="font-eiu-serif text-xs font-bold px-2.5 py-0.5 bg-white text-[#133F68] text-right">
+                        {/* Cột 3 box bên phải (thu nhỏ 75% đồng bộ /su-kien) */}
+                        <div className="flex flex-col items-end gap-1 shrink-0">
+                          <span className="font-eiu-serif text-[9px] font-bold px-2 py-0.5 bg-white text-[#133F68] text-right shadow-2xs">
                             Tiêu chuẩn: {ev.sv5tCriterion}
                           </span>
-                          <span className="font-eiu-serif text-xs font-bold px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-right">
-                            +{Number(ev.baseVolunteerDays ?? 0).toFixed(1)} Ngày Tình nguyện
+                          <span className="font-eiu-serif text-[9px] font-bold px-2 py-0.5 bg-[#FCB900] text-[#02294E] text-right shadow-2xs">
+                            +{Number(ev.baseVolunteerDays ?? 0).toFixed(1)} Ngày TN
                           </span>
+                          {ev.hasTrainingPoints && (
+                            <span className="font-eiu-serif text-[9px] font-bold px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] text-right shadow-2xs">
+                              +{ev.trainingPoints ?? 1} ĐRL
+                            </span>
+                          )}
                         </div>
                       </div>
                     </Link>
 
                     <div className="p-5 flex-1 flex flex-col justify-between gap-4">
                       <div className="space-y-2">
-                        {/* Tên chương trình */}
+                        {/* Tên chương trình (1 điểm dừng Tab duy nhất cho thẻ) */}
                         <h3 className="text-[15.5px] font-bold text-[#133F68] leading-snug line-clamp-2 break-words font-eiu-display">
                           <Link
                             href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
-                            className="hover:text-[#C10230] transition-colors"
+                            className="hover:text-[#C10230] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
                           >
                             {ev.title}
                           </Link>
                         </h3>
 
                         {/* Vị trí */}
-                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0">
+                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0 font-sans">
                           <MapPin className="w-3.5 h-3.5 text-[#8E6D3E] shrink-0" />
                           <span className="line-clamp-1 truncate">{ev.location}</span>
                         </p>
 
-                        {/* Thời gian diễn ra chương trình (giờ và ngày tháng năm) */}
-                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0">
+                        {/* Thời gian diễn ra chương trình */}
+                        <p className="text-xs text-slate-600 flex items-center gap-1.5 min-w-0 font-sans">
                           <Clock className="w-3.5 h-3.5 text-[#8E6D3E] shrink-0" />
                           <span className="truncate">{formatEventTimeRange(ev.startTime, ev.endTime)}</span>
                         </p>
 
                         {/* Cây số lượng đăng ký và Hạn đăng ký */}
                         <div className="space-y-1.5 pt-1">
-                          <div className="flex justify-between text-[11px] text-slate-600 font-eiu-serif">
+                          <div className="flex justify-between text-[11px] text-slate-600 font-sans">
                             <span>Đăng ký: {registeredCount}/{maxParticipants}</span>
                             <span>{fillPct}%</span>
                           </div>
@@ -1115,21 +1156,34 @@ export default function HomePage() {
                           </div>
                           {/* Hạn đăng ký bên phải phía dưới cây */}
                           <div className="flex justify-end pt-0.5">
-                            <span className="text-[11px] text-slate-500 font-eiu-serif">
+                            <span className="text-[11px] text-slate-500 font-sans">
                               Hạn đăng ký: {meta.deadline}
                             </span>
                           </div>
                         </div>
                       </div>
 
-                      {/* Footer: Đăng ký */}
+                      {/* Footer: CTA đồng bộ 07 Tag */}
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <Link
                           href={`/su-kien?event=${encodeURIComponent(ev.id)}`}
-                          className="inline-flex items-center gap-1 font-bold uppercase text-[#0054A6] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link min-h-[36px]"
+                          tabIndex={-1}
+                          className={`inline-flex items-center gap-1 font-bold uppercase font-eiu-display rounded-xs group/link min-h-[36px] ${
+                            meta.isOpen
+                              ? 'text-[#0054A6] hover:text-[#C10230]'
+                              : meta.label === 'Đã kết thúc'
+                              ? 'text-[#133F68] hover:text-[#C10230]'
+                              : 'text-slate-600 hover:text-[#133F68]'
+                          }`}
                         >
                           <ChevronRight className="w-3.5 h-3.5 transition-transform duration-200 ease-out group-hover/link:translate-x-0.5 motion-reduce:transition-none" />
-                          <span>{meta.isOpen ? 'ĐĂNG KÝ' : 'XEM TIẾN ĐỘ GCN'}</span>
+                          <span>
+                            {meta.isOpen
+                              ? 'ĐĂNG KÝ NGAY'
+                              : meta.label === 'Đã kết thúc'
+                              ? 'NHẬN GCN'
+                              : meta.ctaText}
+                          </span>
                         </Link>
                       </div>
                     </div>

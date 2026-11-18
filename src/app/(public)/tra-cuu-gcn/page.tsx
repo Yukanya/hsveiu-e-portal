@@ -2,6 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import {
@@ -42,14 +43,18 @@ function CertificatePreviewPhuLuc2({
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start border-b border-slate-200 pb-6 text-center">
         <div className="sm:col-span-5 space-y-1">
           <div className="flex items-center justify-center gap-3 mb-2">
-            <img
+            <Image
               src="/images/eiu-logo-full.png"
               alt="Trường Đại học Quốc tế Miền Đông"
+              width={140}
+              height={40}
               className="h-10 w-auto object-contain"
             />
-            <img
+            <Image
               src="/images/hsv-logo.png"
               alt="Hội Sinh viên Việt Nam"
+              width={36}
+              height={36}
               className="h-9 w-9 object-contain"
             />
           </div>
@@ -220,7 +225,7 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
         kicker="XÁC THỰC SỐ QUYẾT ĐỊNH 28/QĐ-HSV — CHỐNG LÀM GIẢ MINH CHỨNG SV5T"
-        title="Tra cứu & Xác thực Giấy chứng nhận (E-Certificate)"
+        title="Tra cứu và Xác thực Giấy chứng nhận (E-Certificate)"
         subtitle="Tra cứu theo Mã số sinh viên (10 chữ số), Số Quyết định (Phụ lục 1 tăng dần MSSV) hoặc Mã số Giấy chứng nhận"
         breadcrumbs={[{ label: 'Tra cứu E-Certificate (QĐ 28/QĐ-HSV)' }]}
       />

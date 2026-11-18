@@ -28,17 +28,17 @@ export const WORKSPACE_MODULES: {
   },
   {
     id: 'certificates',
-    label: 'Duyệt Ngày TN & Cấp GCN',
+    label: 'Duyệt Ngày TN và Cấp GCN',
     badge: 'QĐ 28',
-    title: 'THẨM ĐỊNH NGÀY TÌNH NGUYỆN & CẤP E-CERTIFICATE (28/QĐ-HSV)',
+    title: 'THẨM ĐỊNH NGÀY TÌNH NGUYỆN và CẤP E-CERTIFICATE (28/QĐ-HSV)',
     shortDesc:
-      'Thẩm định tờ trình trước ≥ 03 ngày, xuất Phụ lục 1 tăng dần MSSV & cấp Quyết định trong SLA 07 ngày làm việc.',
+      'Thẩm định tờ trình trước ≥ 03 ngày, xuất Phụ lục 1 tăng dần MSSV và cấp Quyết định trong SLA 07 ngày làm việc.',
   },
   {
     id: 'sv5t',
     label: 'Hội đồng Xét chọn SV5T',
     badge: 'QĐ 09',
-    title: 'HỘI ĐỒNG XÉT DUYỆT 3 CẤP SINH VIÊN 5 TỐT & TOP 10% TIÊU BIỂU (2026)',
+    title: 'HỘI ĐỒNG XÉT DUYỆT 3 CẤP SINH VIÊN 5 TỐT và TOP 10% TIÊU BIỂU (2026)',
     shortDesc:
       'Xét duyệt hồ sơ Cấp 1 → Cấp 2 → Cấp 3 (chuẩn GPA ≥ 3.00) và lọc ứng viên Top 10% Tiêu biểu toàn trường.',
   },
@@ -52,32 +52,32 @@ export const WORKSPACE_MODULES: {
   },
   {
     id: 'documents',
-    label: 'Văn thư & Duyệt Kế hoạch',
+    label: 'Văn thư và Duyệt Kế hoạch',
     badge: 'MỚI',
-    title: 'VĂN THƯ LƯU TRỮ SỐ & QUY TRÌNH TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC',
+    title: 'VĂN THƯ LƯU TRỮ SỐ và QUY TRÌNH TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC',
     shortDesc:
       'Luồng duyệt kế hoạch trực tuyến: Cơ sở Hội nộp → Cụm trưởng thẩm định → Văn phòng 206.B06 rà thể thức → BTK ký ban hành.',
   },
   {
     id: 'tgpt',
-    label: 'Ban TG-PT & Đội CTVXK',
-    title: 'BAN TUYÊN GIÁO – PHONG TRÀO (02 MẢNG, 06 TIỂU BAN) & ĐỘI CTV XUNG KÍCH',
+    label: 'Ban TG-PT và Đội CTVXK',
+    title: 'BAN TUYÊN GIÁO – PHONG TRÀO (02 MẢNG, 06 TIỂU BAN) và ĐỘI CTV XUNG KÍCH',
     shortDesc:
       'Điều phối Mảng Tuyên giáo, Mảng Phong trào, Đội CTV Xung kích (02 tiểu ban) và xuất bản CMS Tin tức.',
   },
   {
     id: 'office',
-    label: 'Văn phòng 206.B06 & Tài sản',
+    label: 'Văn phòng 206.B06 và Tài sản',
     badge: '206.B06',
-    title: 'QUẢN TRỊ VĂN PHÒNG 206.B06 — LỊCH TRỰC, MƯỢN TÀI SẢN & SỔ CON DẤU MỘC',
+    title: 'QUẢN TRỊ VĂN PHÒNG 206.B06 — LỊCH TRỰC, MƯỢN TÀI SẢN và SỔ CON DẤU MỘC',
     shortDesc:
       'Cơ chế đồng điều hành Chánh VP / Tổng Thư ký, quản lý thiết bị dùng chung và nhật ký đóng dấu pháp lý (24/QĐ-HSV).',
   },
   {
     id: 'meetings',
-    label: 'Họp Không Giấy & Ban KT',
+    label: 'Họp Không Giấy và Ban KT',
     badge: 'QĐ 23',
-    title: 'PHÒNG HỌP KHÔNG GIẤY (23/QĐ-HSV), BIỂU QUYẾT SỐ & BAN KIỂM TRA',
+    title: 'PHÒNG HỌP KHÔNG GIẤY (23/QĐ-HSV), BIỂU QUYẾT SỐ và BAN KIỂM TRA',
     shortDesc:
       'Biểu quyết nghị quyết BCH/BTK thời gian thực và giám sát xử lý Hộp thư Lắng nghe Sinh viên của Ban Kiểm tra (05 đ/c).',
   },

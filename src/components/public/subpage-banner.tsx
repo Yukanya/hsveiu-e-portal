@@ -68,6 +68,7 @@ export function SubpageBanner({
                   width={240}
                   height={100}
                   priority
+                  style={{ width: 'auto' }}
                   className="h-22 sm:h-25 w-auto object-contain hover:scale-102 transition-transform duration-300"
                 />
                 <div className="h-20 w-px bg-slate-200" aria-hidden="true" />
@@ -77,6 +78,7 @@ export function SubpageBanner({
                   width={140}
                   height={100}
                   priority
+                  style={{ width: 'auto' }}
                   className="h-22 sm:h-25 w-auto object-contain hover:scale-105 transition-transform duration-300"
                 />
               </div>

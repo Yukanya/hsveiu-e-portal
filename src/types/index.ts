@@ -187,17 +187,53 @@ export interface EventItem {
   isGreenEvent: boolean; // Theo Báo cáo Phát triển bền vững EIU (Không chai nhựa 1 lần)
 }
 
+export type DocTypeCategory =
+  | 'KẾ HOẠCH'
+  | 'QUYẾT ĐỊNH'
+  | 'THÔNG BÁO'
+  | 'CÔNG VĂN'
+  | 'TỜ TRÌNH'
+  | 'BÁO CÁO'
+  | 'BIÊN BẢN'
+  | 'HƯỚNG DẪN'
+  | 'KHÁC';
+
+export type DocFieldCategory =
+  | 'Tổ chức và Xây dựng Hội'
+  | 'Tuyên giáo và Phong trào'
+  | 'Sinh viên 5 Tốt'
+  | 'Ngày tình nguyện và Giấy chứng nhận'
+  | 'Khác';
+
+export type DocIssuingUnitCategory =
+  | 'Ban Thư ký HSV trường'
+  | 'Ban Chấp hành HSV trường'
+  | 'Ban Kiểm tra HSV trường'
+  | 'Chi hội'
+  | 'Câu lạc bộ/Đội/Nhóm'
+  | 'HSV TP.HCM'
+  | 'Trung ương HSV'
+  | 'Khác';
+
 export interface OfficialDocumentItem {
   id: string;
   documentNumber: string;
-  docType: 'QUYẾT ĐỊNH' | 'THÔNG BÁO' | 'KẾ HOẠCH' | 'HƯỚNG DẪN';
+  docType: DocTypeCategory;
   title: string;
   signedDate: string;
+  effectiveDate: string;
+  field: DocFieldCategory;
+  status: 'Còn hiệu lực' | 'Hết hiệu lực';
   signerName: string;
   signerTitle: string;
   issuingBody: string;
+  issuingUnitCategory: DocIssuingUnitCategory;
   summary: string;
   keyPoints?: string[];
+  attachmentName: string;
+  attachmentSize?: string;
+  fileUrl?: string;
+  relatedDocNumbers?: string[];
   qrSlug: string;
 }
 
@@ -238,10 +274,10 @@ export interface OnlineQuizQuestion {
 }
 
 export type ContestTopicCategory =
-  | 'Lý luận & Quy chế Hội'
-  | 'Học thuật & Chuyên môn'
-  | 'Hội nhập & Ngoại ngữ'
-  | 'Phát triển bền vững & Kỹ năng';
+  | 'Lý luận và Quy chế Hội'
+  | 'Học thuật và Chuyên môn'
+  | 'Hội nhập và Ngoại ngữ'
+  | 'Phát triển bền vững và Kỹ năng';
 
 export interface OnlineContestItem {
   id: string;
@@ -275,7 +311,7 @@ export interface OfficeAssetItem {
   id: string;
   assetCode: string;
   name: string;
-  category: 'Âm thanh & Bộ đàm' | 'Ấn phẩm & Cờ Hội' | 'Thiết bị Sự kiện';
+  category: 'Âm thanh và Bộ đàm' | 'Ấn phẩm và Cờ Hội' | 'Thiết bị Sự kiện';
   totalQty: number;
   availableQty: number;
   borrowerUnit?: string;

@@ -89,12 +89,6 @@ Montserrat (Display / Sans) + Be Vietnam Pro (Body / UI) + Crimson Text (Academi
   ```
 - **Khối Biểu trưng Phải (5/12):** Nền trắng, viền nóc vàng đồng `border-t-4 border-[#A68556]`, đặt song song Logo EIU trường và Biểu trưng Hội Sinh viên Đại hội II, chân đế navy `#133F68` in slogan bằng font `Crimson Text` in nghiêng: *“Trí sáng - Đồng tâm - Vươn tầm - Cất cánh”*.
 
-### 5.2. Lối Vào Hành Động (Hero Action Gateway)
-Cung cấp 3 lối vào tức thì đạt chuẩn tương tác tối thiểu `min-h-[44px]`:
-1. **Nút Chính (Primary Action):** Nền vàng `#FCB900` chữ navy `#02294E`, icon xoay nhẹ `Sparkles` và mũi tên trượt sang phải khi hover (`ĐĂNG NHẬP SỔ TAY HỘI VIÊN`).
-2. **Nút Kính mờ (Secondary Action):** `bg-white/10 hover:bg-white/20 border border-white/25 text-white backdrop-blur-xs` (`SỰ KIỆN PHONG TRÀO`).
-3. **Nút Tra cứu (Tertiary Action):** `bg-white/10 hover:bg-white/20 border border-white/25 text-[#DED1BE] hover:text-white backdrop-blur-xs` (`TRA CỨU GCN`).
-
 ### 5.3. Lưới Bento Showcases 4 Cột (Khám phá Hội Sinh viên EIU)
 - **Thẻ Đôi Chủ đạo (Chiếm 2/4 cột):** Thiết kế 2 nửa (Trái `#02294E` tóm tắt tôn chỉ + Phải `#133F68` biểu trưng song hành EIU × Đại hội II).
 - **Các Thẻ Đơn (1/4 cột):** Header đồ họa `h-36` màu sắc ngữ nghĩa (`#0054A6` SV5T, `#133F68` Đại hội II, `#144069` Cán bộ, `#02294E` Chi hội, `#51803A` CLB, `#0054A6` Tin tức).

@@ -36,3 +36,7 @@ Khi chỉnh sửa hoặc mở rộng giao diện công khai (`src/app/(public)/p
 5. **Phân Trang & Chuyển Động Chuẩn (Shared Pagination & Motion):**
    - Phân trang căn giữa đồng bộ (`Trước`, các số trang `w-10 h-10` với trang active `#C10230`, `Sau`) và cuộn mượt lên `gridTopRef` (`scrollIntoView({ behavior: 'smooth', block: 'start' })`).
    - Dùng các class chuyển động chuẩn trong `src/app/globals.css` (`eiu-fade-slide-in`, `eiu-card-entrance`, `eiu-progress-active`) kèm `motion-reduce:*`.
+
+6. **Quy Tắc Ngôn Ngữ Giao Diện — Cấm Ký Tự `&` (Strict Copy Rule):**
+   - **Tuyệt đối không sử dụng ký tự `&`** trong bất kỳ nội dung hiển thị nào trên toàn bộ các trang, tiêu đề, nút bấm, nhãn lọc, thẻ, popup, bảng biểu hay dữ liệu mẫu (`src/app/**`, `src/components/**`, `src/data/**`, `src/types/**`).
+   - Mọi vị trí nối ý đều phải viết đầy đủ bằng chữ **`và`** (trừ cú pháp kỹ thuật như toán tử logic `&&`, selector CSS `[&...]`, hoặc tham số query URL).

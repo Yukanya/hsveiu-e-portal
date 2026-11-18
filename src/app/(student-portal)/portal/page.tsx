@@ -2,6 +2,7 @@
 
 import React, { Suspense, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useRole } from '@/context/role-context';
 import {
@@ -23,6 +24,7 @@ import {
   ArrowRight,
   Calculator,
   CheckCircle2,
+  ChevronDown,
   CreditCard,
   ExternalLink,
   FileCheck2,
@@ -57,8 +59,8 @@ const PORTAL_MENU: {
   },
   {
     id: 'certs',
-    label: 'Sự kiện & Kho E-Certificate',
-    title: 'SỰ KIỆN ĐÃ ĐĂNG KÝ & KHO GIẤY CHỨNG NHẬN ĐIỆN TỬ CÁ NHÂN',
+    label: 'Sự kiện và Kho E-Certificate',
+    title: 'SỰ KIỆN ĐÃ ĐĂNG KÝ và KHO GIẤY CHỨNG NHẬN ĐIỆN TỬ CÁ NHÂN',
     subtitle:
       'Quản lý vé QR Check-in sự kiện và danh sách E-Certificate đã ban hành Quyết định công nhận (28/QĐ-HSV).',
   },
@@ -72,15 +74,15 @@ const PORTAL_MENU: {
   },
   {
     id: 'idcard',
-    label: 'Thẻ Hội viên & Giải mã MSSV',
-    title: 'THẺ HỘI VIÊN ĐIỆN TỬ & GIẢI MÃ ĐỊNH DANH 10 CHỮ SỐ EIU',
+    label: 'Thẻ Hội viên và Giải mã MSSV',
+    title: 'THẺ HỘI VIÊN ĐIỆN TỬ và GIẢI MÃ ĐỊNH DANH 10 CHỮ SỐ EIU',
     subtitle:
-      'Mã QR điểm danh hai chiều tại sự kiện và bảng phân tích cấu trúc Email @eiu.edu.vn & MSSV theo Sổ tay Sinh viên EIU.',
+      'Mã QR điểm danh hai chiều tại sự kiện và bảng phân tích cấu trúc Email @eiu.edu.vn và MSSV theo Sổ tay Sinh viên EIU.',
   },
   {
     id: 'voice',
     label: 'Hộp thư Lắng nghe SV',
-    title: 'HỘP THƯ LẮNG NGHE SINH VIÊN — KẾT NỐI BAN KIỂM TRA & BAN TG-PT',
+    title: 'HỘP THƯ LẮNG NGHE SINH VIÊN — KẾT NỐI BAN KIỂM TRA và BAN TG-PT',
     subtitle:
       'Gửi kiến nghị, phản ánh quyền lợi hội viên (hỗ trợ chế độ bảo mật danh tính) trực tiếp tới Ban Kiểm tra HSV Trường.',
   },
@@ -420,7 +422,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       },
                       {
                         lvl: 'CẤP 02 — BAN CHUYÊN MÔN',
-                        actor: 'Ban TG-PT & Ban TC-XDH thẩm định chéo',
+                        actor: 'Ban TG-PT và Ban TC-XDH thẩm định chéo',
                         active: dossierSubmitted,
                         statusText: dossierSubmitted ? 'Đang thẩm định' : 'Chờ nộp hồ sơ',
                       },
@@ -480,7 +482,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </span>
                           </div>
                           <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
-                            Tư tưởng chính trị & Kỷ luật
+                            Tư tưởng chính trị và Kỷ luật
                           </span>
                         </td>
                         <td className="text-xs">
@@ -511,7 +513,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </span>
                           </div>
                           <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
-                            Học thuật & Nghiên cứu khoa học
+                            Học thuật và Nghiên cứu khoa học
                           </span>
                         </td>
                         <td className="text-xs">
@@ -552,7 +554,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </span>
                           </div>
                           <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
-                            Rèn luyện thể thao & GDTC
+                            Rèn luyện thể thao và GDTC
                           </span>
                         </td>
                         <td className="text-xs">
@@ -578,7 +580,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </span>
                           </div>
                           <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
-                            Cống hiến & Ngày tình nguyện
+                            Cống hiến và Ngày tình nguyện
                           </span>
                         </td>
                         <td className="text-xs">
@@ -608,7 +610,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             </span>
                           </div>
                           <span className="text-[10.5px] text-slate-500 pl-4.5 block font-eiu-display">
-                            Tiếng Anh & Kỹ năng toàn cầu
+                            Tiếng Anh và Kỹ năng toàn cầu
                           </span>
                         </td>
                         <td className="text-xs">
@@ -810,7 +812,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
             )}
 
             {/* ============================================================
-                MODULE 3: SỰ KIỆN CỦA TÔI & KHO E-CERTIFICATE CÁ NHÂN
+                MODULE 3: SỰ KIỆN CỦA TÔI và KHO E-CERTIFICATE CÁ NHÂN
                ============================================================ */}
             {activeTab === 'certs' && (
               <div className="space-y-6">
@@ -1025,7 +1027,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
             )}
 
             {/* ============================================================
-                MODULE 5: THẺ HỘI VIÊN ĐIỆN TỬ & GIẢI MÃ MSSV 10 CHỮ SỐ EIU
+                MODULE 5: THẺ HỘI VIÊN ĐIỆN TỬ và GIẢI MÃ MSSV 10 CHỮ SỐ EIU
                ============================================================ */}
             {activeTab === 'idcard' && (
               <div className="space-y-6">
@@ -1033,18 +1035,22 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                 <div className="bg-white border-2 border-[#133F68] overflow-hidden max-w-2xl">
                   <div className="bg-[#133F68] eiu-arch-pattern text-white px-5 py-3.5 flex items-center justify-between border-b-3 border-[#A68556]">
                     <div className="flex items-center gap-3">
-                      <img
+                      <Image
                         src="/images/eiu-logo-shorten-white.png"
                         alt="EIU"
+                        width={110}
+                        height={28}
                         className="h-7 w-auto object-contain"
                       />
                       <span
                         className="h-5 w-px bg-white/30"
                         aria-hidden="true"
                       />
-                      <img
+                      <Image
                         src="/images/hsv-logo.png"
                         alt="HSV"
+                        width={28}
+                        height={28}
                         className="h-7 w-7 object-contain"
                       />
                       <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
@@ -1256,12 +1262,12 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                       >
                         Chủ đề phản ánh:
                       </label>
-                      <div className="sm:col-span-8">
+                      <div className="sm:col-span-8 relative">
                         <select
                           id="fb-cat"
                           value={feedbackCategory}
                           onChange={(e) => setFeedbackCategory(e.target.value)}
-                          className="w-full h-9 px-3 border border-slate-300 rounded text-xs bg-white text-slate-900 font-medium"
+                          className="w-full h-9 pl-3 pr-8 py-0 border border-slate-300 rounded text-xs bg-white text-slate-900 font-medium appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                         >
                           <option>
                             Quy đổi Ngày tình nguyện và Cấp E-Certificate
@@ -1277,6 +1283,10 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                             Đề xuất Chương trình mới / Sự kiện Xanh UN SDGs
                           </option>
                         </select>
+                        <ChevronDown
+                          className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
+                          aria-hidden="true"
+                        />
                       </div>
                     </div>
 
@@ -1323,7 +1333,7 @@ function StudentPortalContent({ initialTab }: { initialTab: PortalTab }) {
                           placeholder="Trình bày cụ thể sự kiện, thời gian hoặc đề xuất của bạn để Ban Kiểm tra / Ban TG-PT phản hồi..."
                           className="w-full p-3 border border-slate-300 rounded text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
                         />
-                        <div className="flex justify-between items-center text-[11px] text-slate-400 mt-1">
+                        <div className="flex justify-between items-center text-[11px] text-slate-600 mt-1">
                           <span>Tối thiểu 10 ký tự</span>
                           <span>{feedbackContent.length}/2000 ký tự</span>
                         </div>

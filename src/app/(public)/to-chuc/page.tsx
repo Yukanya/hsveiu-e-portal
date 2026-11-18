@@ -57,9 +57,9 @@ const MENU_ITEMS: MenuItemMeta[] = [
   {
     id: 'CONG_DONG',
     group: 'CLUBS',
-    label: 'Khối Cộng đồng & Tình nguyện',
+    label: 'Khối Cộng đồng và Tình nguyện',
     count: 7,
-    heading: 'KHỐI CÂU LẠC BỘ – ĐỘI CỘNG ĐỒNG & TÌNH NGUYỆN (07 ĐƠN VỊ)',
+    heading: 'KHỐI CÂU LẠC BỘ – ĐỘI CỘNG ĐỒNG và TÌNH NGUYỆN (07 ĐƠN VỊ)',
     subtitle:
       'Nòng cốt phong trào Sinh viên 5 Tốt, xung kích sự kiện, hiến máu nhân đạo, sơ cấp cứu và công tác xã hội.',
   },
@@ -77,7 +77,7 @@ const MENU_ITEMS: MenuItemMeta[] = [
     group: 'CLUBS',
     label: 'Khối Văn hóa – Nghệ thuật',
     count: 10,
-    heading: 'KHỐI CÂU LẠC BỘ – NHÓM VĂN HÓA & NGHỆ THUẬT (10 ĐƠN VỊ)',
+    heading: 'KHỐI CÂU LẠC BỘ – NHÓM VĂN HÓA và NGHỆ THUẬT (10 ĐƠN VỊ)',
     subtitle:
       'Âm nhạc, vũ đạo, dẫn chương trình (MC), nhiếp ảnh, cổ động và giao lưu văn hóa quốc tế tại EIU.',
   },
@@ -212,10 +212,10 @@ function ToChucContent({
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
         kicker="BAN TỔ CHỨC VÀ XÂY DỰNG HỘI — 55 CƠ SỞ HỘI TRỰC THUỘC"
-        title="Hệ thống 25 Chi hội & 30 Câu lạc bộ – Đội – Nhóm"
+        title="Hệ thống 25 Chi hội và 30 Câu lạc bộ – Đội – Nhóm"
         subtitle="Mạng lưới cơ sở Hội trải rộng trên 04 Cụm Khoa (Khóa K21 – K26) và 04 Khối Câu lạc bộ học thuật, nghệ thuật, thể thao, tình nguyện"
         breadcrumbs={[
-          { label: 'Chi hội & CLB', href: '/to-chuc' },
+          { label: 'Chi hội và CLB', href: '/to-chuc' },
           { label: currentMenuMeta.label },
         ]}
       />

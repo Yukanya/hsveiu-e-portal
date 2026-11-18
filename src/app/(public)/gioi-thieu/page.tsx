@@ -1,7 +1,8 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import {
@@ -101,7 +102,7 @@ const ORG_TABS: OrgTabMeta[] = [
   {
     id: 'tcxdh',
     group: 'APPARATUS',
-    label: 'Ban Tổ chức & Xây dựng Hội',
+    label: 'Ban Tổ chức và Xây dựng Hội',
     title: 'BAN TỔ CHỨC VÀ XÂY DỰNG HỘI — QUẢN LÝ 05 CỤM HOẠT ĐỘNG',
     subtitle:
       'Quản lý công tác cán bộ, hội viên, thẩm định chủ trương Ngày tình nguyện trước 03 ngày và điều phối 04 Cụm Khoa (25 Chi hội) cùng 30 CLB.',
@@ -110,9 +111,9 @@ const ORG_TABS: OrgTabMeta[] = [
     id: 'tgpt',
     group: 'APPARATUS',
     label: 'Ban Tuyên giáo – Phong trào',
-    title: 'BAN TUYÊN GIÁO – PHONG TRÀO & ĐỘI CỘNG TÁC VIÊN XUNG KÍCH',
+    title: 'BAN TUYÊN GIÁO – PHONG TRÀO và ĐỘI CỘNG TÁC VIÊN XUNG KÍCH',
     subtitle:
-      'Vận hành 02 mảng chuyên trách (Mảng Tuyên giáo & Mảng Phong trào), 06 tiểu ban trực thuộc và Đội CTV Xung kích quản lý 02 tiểu ban sự kiện.',
+      'Vận hành 02 mảng chuyên trách (Mảng Tuyên giáo và Mảng Phong trào), 06 tiểu ban trực thuộc và Đội CTV Xung kích quản lý 02 tiểu ban sự kiện.',
   },
 ];
 
@@ -208,8 +209,33 @@ function StaffCompactCard({
 }
 
 function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
-  const [activeTab, setActiveTab] = useState<OrgTabId>(initialTab);
+  const [activeTab, setActiveTabState] = useState<OrgTabId>(initialTab);
   const [selectedStaff, setSelectedStaff] = useState<StaffMember | null>(null);
+
+  const setActiveTab = useCallback((tab: OrgTabId) => {
+    setActiveTabState(tab);
+    if (typeof window !== 'undefined' && window.history) {
+      const url = new URL(window.location.href);
+      url.searchParams.set('tab', tab);
+      window.history.replaceState({}, '', url.toString());
+    }
+  }, []);
+
+  // Khóa cuộn nền và bắt phím Escape khi mở Modal Hồ sơ Cán bộ
+  useEffect(() => {
+    if (!selectedStaff) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedStaff(null);
+      }
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [selectedStaff]);
 
   const currentTabMeta =
     ORG_TABS.find((t) => t.id === activeTab) || ORG_TABS[0];
@@ -327,10 +353,10 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
         kicker="HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐHQTMĐ — KHÓA II (2026 – 2028)"
-        title="Giới thiệu Tổ chức & Đội ngũ Cán bộ Chủ chốt"
+        title="Giới thiệu Tổ chức và Đội ngũ Cán bộ Chủ chốt"
         subtitle="Cơ cấu bộ máy 3 cấp, Thường trực Ban Thư ký, Ban Chấp hành, Ban Kiểm tra và 03 Ban chuyên môn trực thuộc"
         breadcrumbs={[
-          { label: 'Giới thiệu & Bộ máy', href: '/gioi-thieu' },
+          { label: 'Giới thiệu và Bộ máy', href: '/gioi-thieu' },
           { label: currentTabMeta.label },
         ]}
       />
@@ -458,10 +484,12 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="bg-white border border-slate-200 overflow-hidden">
                   <div className="grid grid-cols-1 md:grid-cols-12">
                     <div className="md:col-span-6 bg-[#133F68] relative min-h-64 flex items-center justify-center p-4">
-                      <img
+                      <Image
                         src="/images/hsv-bch-dh2.png"
                         alt="Ban Chấp hành Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông Khóa II"
-                        className="w-full h-full max-h-72 object-cover border border-white/20"
+                        width={480}
+                        height={320}
+                        className="w-full h-auto max-h-72 object-contain border border-white/20"
                       />
                     </div>
                     <div className="md:col-span-6 p-6 flex flex-col justify-between gap-4">
@@ -515,18 +543,18 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     {
                       num: '05 đ/c',
                       label: 'Ủy viên Ban Kiểm tra',
-                      note: 'Giám sát Điều lệ & Kiến nghị SV',
+                      note: 'Giám sát Điều lệ và Kiến nghị SV',
                       tab: 'bkt' as OrgTabId,
                     },
                     {
                       num: '03 Đơn vị',
-                      label: 'Văn phòng & Ban Chuyên môn',
+                      label: 'Văn phòng và Ban Chuyên môn',
                       note: 'VP 206.B06 • TC-XDH • TG-PT',
                       tab: 'vp' as OrgTabId,
                     },
                     {
                       num: '25 + 30',
-                      label: 'Chi hội Khoa & CLB/Đội/Nhóm',
+                      label: 'Chi hội Khoa và CLB/Đội/Nhóm',
                       note: '04 Cụm Khoa • 04 Khối CLB',
                       tab: 'tcxdh' as OrgTabId,
                     },
@@ -596,19 +624,19 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       {[
                         {
                           code: '09/QĐ-HSV',
-                          desc: 'Chuẩn Sinh viên 5 Tốt & Tập thể SV5T (Sửa đổi 2026 — GPA ≥ 3.00)',
+                          desc: 'Chuẩn Sinh viên 5 Tốt và Tập thể SV5T (Sửa đổi 2026 — GPA ≥ 3.00)',
                         },
                         {
                           code: '28/QĐ-HSV',
-                          desc: 'Quy định cấp E-Certificate QR, duyệt trước 03 ngày & SLA 07 ngày',
+                          desc: 'Quy định cấp E-Certificate QR, duyệt trước 03 ngày và SLA 07 ngày',
                         },
                         {
                           code: '23/QĐ-HSV',
-                          desc: 'Quy chế làm việc của Ban Chấp hành & Ban Thư ký Khóa II',
+                          desc: 'Quy chế làm việc của Ban Chấp hành và Ban Thư ký Khóa II',
                         },
                         {
                           code: '24/QĐ-HSV',
-                          desc: 'Chức năng, nhiệm vụ Văn phòng 206.B06, Ban TC-XDH & Ban TG-PT',
+                          desc: 'Chức năng, nhiệm vụ Văn phòng 206.B06, Ban TC-XDH và Ban TG-PT',
                         },
                         {
                           code: '04/TB-HSV',
@@ -1116,7 +1144,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                   <StaffCompactCard
                     member={bktHead}
                     roleHighlight="Trưởng Ban Kiểm tra"
-                    subLabel="Phó Chủ tịch HSV Trường • Trưởng Ban Tổ chức & Xây dựng Hội"
+                    subLabel="Phó Chủ tịch HSV Trường • Trưởng Ban Tổ chức và Xây dựng Hội"
                     featured
                     onSelect={setSelectedStaff}
                   />
@@ -1216,7 +1244,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
             )}
 
             {/* ============================================================
-                TAB 7: BAN TỔ CHỨC & XÂY DỰNG HỘI (05 CỤM QUẢN LÝ)
+                TAB 7: BAN TỔ CHỨC và XÂY DỰNG HỘI (05 CỤM QUẢN LÝ)
                ============================================================ */}
             {activeTab === 'tcxdh' && (
               <div className="space-y-5">
@@ -1254,7 +1282,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
             )}
 
             {/* ============================================================
-                TAB 8: BAN TUYÊN GIÁO - PHONG TRÀO & ĐỘI CTV XUNG KÍCH
+                TAB 8: BAN TUYÊN GIÁO - PHONG TRÀO và ĐỘI CTV XUNG KÍCH
                ============================================================ */}
             {activeTab === 'tgpt' && (
               <div className="space-y-6">
@@ -1345,21 +1373,21 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
           role="dialog"
           aria-modal="true"
           aria-label={`Hồ sơ cán bộ ${selectedStaff.fullName}`}
-          className="fixed inset-0 z-50 bg-slate-900/65 flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-slate-900/65 flex items-center justify-center p-4 overflow-y-auto"
           onClick={() => setSelectedStaff(null)}
         >
           <div
-            className="bg-white max-w-xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden"
+            className="bg-white max-w-xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="bg-[#133F68] text-white px-5 py-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <Award className="w-5 h-5 text-[#FCB900]" />
-                <div>
-                  <div className="text-sm font-bold font-eiu-display">
+            <div className="bg-[#133F68] text-white px-5 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
+              <div className="flex items-center gap-3 min-w-0">
+                <Award className="w-5 h-5 text-[#FCB900] shrink-0" />
+                <div className="min-w-0">
+                  <div className="text-sm font-bold font-eiu-display truncate">
                     HỒ SƠ CÁN BỘ HỘI — Đ/c {selectedStaff.fullName}
                   </div>
-                  <div className="text-[11px] font-eiu-serif text-[#DED1BE]">
+                  <div className="text-[11px] font-eiu-serif text-[#DED1BE] truncate">
                     {selectedStaff.studentId !== '-'
                       ? `MSSV: ${selectedStaff.studentId}`
                       : 'Chuyên viên Phòng Công tác Sinh viên'}{' '}
@@ -1371,29 +1399,29 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 type="button"
                 onClick={() => setSelectedStaff(null)}
                 aria-label="Đóng hồ sơ"
-                className="text-white/80 hover:text-white cursor-pointer p-1"
+                className="w-11 h-11 -mr-2 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer shrink-0"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <div className="divide-y divide-slate-200 text-xs">
-              <div className="grid grid-cols-12 p-3.5">
-                <div className="col-span-4 font-bold text-slate-800">
+            <div className="divide-y divide-slate-200 text-xs max-h-[calc(90vh-90px)] overflow-y-auto">
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-1 p-3.5">
+                <div className="sm:col-span-4 font-bold text-slate-800">
                   Khoa / Chuyên ngành:
                 </div>
-                <div className="col-span-8 text-slate-800">
+                <div className="sm:col-span-8 text-slate-800">
                   <strong>
                     {FACULTY_METADATA[selectedStaff.facultyCode].nameVi}
                   </strong>{' '}
                   — {selectedStaff.majorName} ({selectedStaff.academicYearText})
                 </div>
               </div>
-              <div className="grid grid-cols-12 p-3.5">
-                <div className="col-span-4 font-bold text-slate-800">
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-1 p-3.5">
+                <div className="sm:col-span-4 font-bold text-slate-800">
                   Chức vụ BCH / BKT:
                 </div>
-                <div className="col-span-8 text-[#133F68] font-semibold">
+                <div className="sm:col-span-8 text-[#133F68] font-semibold">
                   {selectedStaff.bchRole !== 'Không'
                     ? `${selectedStaff.bchRole} HSV Trường`
                     : 'Cán bộ chuyên môn'}
@@ -1403,11 +1431,11 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 </div>
               </div>
               {selectedStaff.youthUnionTitle !== 'Không' && (
-                <div className="grid grid-cols-12 p-3.5">
-                  <div className="col-span-4 font-bold text-slate-800">
+                <div className="grid grid-cols-1 sm:grid-cols-12 gap-1 p-3.5">
+                  <div className="sm:col-span-4 font-bold text-slate-800">
                     Chức vụ bên Đoàn:
                   </div>
-                  <div className="col-span-8 text-slate-700">
+                  <div className="sm:col-span-8 text-slate-700">
                     {selectedStaff.youthUnionTitle}
                   </div>
                 </div>
@@ -1451,9 +1479,12 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
 function GioiThieuSearchBridge() {
   const searchParams = useSearchParams();
-  const rawTab = searchParams.get('tab') as OrgTabId | null;
+  const rawTab = searchParams.get('tab');
+  const normalizedTab = rawTab === 'staff' ? 'bch' : (rawTab as OrgTabId | null);
   const validTab =
-    rawTab && ORG_TABS.some((t) => t.id === rawTab) ? rawTab : 'overview';
+    normalizedTab && ORG_TABS.some((t) => t.id === normalizedTab)
+      ? normalizedTab
+      : 'overview';
 
   return <GioiThieuContent key={validTab} initialTab={validTab} />;
 }

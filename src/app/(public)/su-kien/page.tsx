@@ -264,6 +264,9 @@ function SuKienContent({
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Quản lý Modal Phiếu Đăng ký / Nhận GCN
   const [selectedModalEvent, setSelectedModalEvent] =
@@ -278,6 +281,29 @@ function SuKienContent({
 
   const [roleMultiplier, setRoleMultiplier] = useState<1 | 2 | 3>(1);
   const [registeredIds, setRegisteredIds] = useState<string[]>([]);
+
+  // Đọc trạng thái đăng ký sự kiện từ localStorage
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem('hsv_eiu_registered_events_v1');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) {
+          setRegisteredIds(parsed.filter((x) => typeof x === 'string'));
+        }
+      }
+    } catch {
+      // Ignore storage read errors
+    }
+  }, []);
+
+  const showToast = (msg: string) => {
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+    setToastMessage(msg);
+    toastTimerRef.current = setTimeout(() => {
+      setToastMessage(null);
+    }, 3500);
+  };
 
   // Đóng mở modal & xử lý phím ESC
   useEffect(() => {
@@ -320,6 +346,14 @@ function SuKienContent({
     setTimeout(() => setIsFiltering(false), 180);
   };
 
+  const activeDropdownFilterCount = [
+    statusFilter !== 'ALL' && statusFilter !== 'OPEN_ALL',
+    volunteerDaysFilter !== 'ALL',
+    trainingPointsFilter !== 'ALL',
+    timeSlotFilter !== 'ALL',
+    locationAreaFilter !== 'ALL',
+  ].filter(Boolean).length;
+
   const hasActiveFilter =
     criteriaFilter !== 'ALL' ||
     statusFilter !== 'ALL' ||
@@ -349,9 +383,36 @@ function SuKienContent({
   };
 
   const handleRegister = (id: string) => {
-    if (!registeredIds.includes(id)) {
-      setRegisteredIds((prev) => [...prev, id]);
-    }
+    setRegisteredIds((prev) => {
+      if (prev.includes(id)) return prev;
+      const next = [...prev, id];
+      try {
+        window.localStorage.setItem(
+          'hsv_eiu_registered_events_v1',
+          JSON.stringify(next)
+        );
+      } catch {
+        // Ignore storage errors
+      }
+      return next;
+    });
+    showToast('✓ Đã ghi nhận đăng ký sự kiện và cấp mã QR Check-in!');
+  };
+
+  const handleCancelRegister = (id: string) => {
+    setRegisteredIds((prev) => {
+      const next = prev.filter((item) => item !== id);
+      try {
+        window.localStorage.setItem(
+          'hsv_eiu_registered_events_v1',
+          JSON.stringify(next)
+        );
+      } catch {
+        // Ignore storage errors
+      }
+      return next;
+    });
+    showToast('Đã hủy đăng ký tham gia sự kiện.');
   };
 
   // Lọc tập sự kiện theo toàn bộ các tiêu chí
@@ -428,7 +489,7 @@ function SuKienContent({
         className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9 space-y-8 scroll-mt-24"
       >
         {/* =====================================================================
-            BỘ LỌC ĐA TIÊU CHÍ: PILLS TIÊU CHUẨN SV5T & BỘ SORT / FILTER TOÀN DIỆN
+            BỘ LỌC ĐA TIÊU CHÍ: PILLS TIÊU CHUẨN SV5T và BỘ SORT / FILTER TOÀN DIỆN
            ===================================================================== */}
         <div className="space-y-4">
           {/* Hàng 1: Tiêu đề section & Pills 06 Tiêu chuẩn Sinh viên 5 Tốt */}
@@ -477,6 +538,8 @@ function SuKienContent({
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
+                  id="event-search-input"
+                  name="q"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
@@ -485,7 +548,7 @@ function SuKienContent({
                   }}
                   placeholder="Tìm kiếm sự kiện theo tên, địa điểm..."
                   aria-label="Tìm kiếm sự kiện"
-                  className="w-full h-10 pl-9 pr-9 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-400"
+                  className="w-full h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
                 />
                 {searchQuery && (
                   <button
@@ -495,45 +558,73 @@ function SuKienContent({
                       setCurrentPage(1);
                     }}
                     aria-label="Xóa từ khóa tìm kiếm"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
                 )}
               </div>
 
-              {/* Nút lọc nhanh: Đang mở đăng ký */}
-              <button
-                type="button"
-                onClick={() => {
-                  setStatusFilter((prev) =>
-                    prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
-                  );
-                  setCurrentPage(1);
-                }}
-                className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
-                  statusFilter === 'OPEN_ALL'
-                    ? 'bg-[#51803A] text-white shadow-xs'
-                    : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
-                }`}
-              >
-                <CheckCircle2 className="w-4 h-4" />
-                <span>Đang mở đăng ký</span>
-              </button>
-
-              {hasActiveFilter && (
+              <div className="flex flex-wrap items-center gap-2">
+                {/* Nút lọc nhanh: Đang mở đăng ký */}
                 <button
                   type="button"
-                  onClick={handleResetFilters}
-                  className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                  onClick={() => {
+                    setStatusFilter((prev) =>
+                      prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
+                    );
+                    setCurrentPage(1);
+                  }}
+                  className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
+                    statusFilter === 'OPEN_ALL'
+                      ? 'bg-[#51803A] text-white shadow-xs'
+                      : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
+                  }`}
                 >
-                  Đặt lại bộ lọc
+                  <CheckCircle2 className="w-4 h-4" />
+                  <span>Đang mở đăng ký</span>
                 </button>
-              )}
+
+                {/* Nút thu gọn / mở rộng bộ lọc trên màn hình di động (< sm) */}
+                <button
+                  type="button"
+                  onClick={() => setShowMobileFilters((prev) => !prev)}
+                  aria-expanded={showMobileFilters}
+                  className="sm:hidden px-3.5 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
+                >
+                  <span>
+                    Bộ lọc chi tiết
+                    {activeDropdownFilterCount > 0
+                      ? ` (${activeDropdownFilterCount})`
+                      : ''}
+                  </span>
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 transition-transform ${
+                      showMobileFilters ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+
+                {hasActiveFilter && (
+                  <button
+                    type="button"
+                    onClick={handleResetFilters}
+                    className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                  >
+                    Đặt lại bộ lọc
+                  </button>
+                )}
+              </div>
             </div>
 
             {/* Hàng Các Bộ Lọc Chuyên Sâu: Trạng thái (07 Tag), Ngày TN, ĐRL, Thời gian, Địa điểm */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1 border-t border-slate-100">
+            <div
+              className={`${
+                showMobileFilters || activeDropdownFilterCount > 0
+                  ? 'grid'
+                  : 'hidden sm:grid'
+              } grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-1 border-t border-slate-100`}
+            >
               {/* 1. Trạng thái sự kiện theo đúng 07 Tag chuẩn */}
               <div className="space-y-1">
                 <label
@@ -545,7 +636,7 @@ function SuKienContent({
                 <div className="relative">
                   <select
                     id="filter-status"
-                    value={statusFilter}
+                    value={statusFilter === 'OPEN_ALL' ? 'ALL' : statusFilter}
                     onChange={(e) => {
                       setStatusFilter(e.target.value);
                       setCurrentPage(1);
@@ -553,9 +644,6 @@ function SuKienContent({
                     className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả trạng thái</option>
-                    <option value="OPEN_ALL">
-                      Đang mở đăng ký (tất cả)
-                    </option>
                     <option value="Chưa mở đăng ký">Chưa mở đăng ký</option>
                     <option value="Đang mở đăng ký">Đang mở đăng ký</option>
                     <option value="Còn 5 ngày">Còn 5 ngày</option>
@@ -620,7 +708,7 @@ function SuKienContent({
                     className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả</option>
-                    <option value="YES">Có điểm rèn luyện</option>
+                    <option value="YES">Có điểm rèn luyện (+1 ĐRL)</option>
                     <option value="NO">Không có điểm rèn luyện</option>
                   </select>
                   <ChevronDown
@@ -743,21 +831,12 @@ function SuKienContent({
                 return (
                   <article
                     key={ev.id}
-                    className="bg-white border border-slate-200/90 hover:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
+                    className="bg-white border border-slate-200/90 hover:border-[#133F68] focus-within:border-[#133F68] hover:-translate-y-1 hover:shadow-md transition-all duration-300 ease-out flex flex-col justify-between group motion-reduce:hover:translate-y-0"
                   >
                     {/* Header Thẻ Sự kiện: Chiều cao h-36 đồng bộ, các tag thu nhỏ còn 75%, click mở đăng ký sự kiện */}
                     <div
-                      role="button"
-                      tabIndex={0}
                       onClick={() => openEventModal(ev)}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          openEventModal(ev);
-                        }
-                      }}
-                      aria-label={`Mở phiếu đăng ký sự kiện: ${ev.title}`}
-                      className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer select-none transition-all duration-200 hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] focus-visible:ring-inset"
+                      className="h-36 bg-[#02294E] eiu-arch-pattern text-white p-5 flex flex-col justify-between relative overflow-hidden cursor-pointer select-none transition-all duration-200 hover:brightness-110"
                     >
                       <div className="flex items-start justify-between gap-2 relative z-10 w-full pointer-events-none">
                         {/* Tag trạng thái sự kiện bên trái (07 Tag chuẩn, thu nhỏ còn 75% kích thước) */}
@@ -794,7 +873,8 @@ function SuKienContent({
                           <button
                             type="button"
                             onClick={() => openEventModal(ev)}
-                            className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0054A6] rounded-xs"
+                            aria-label={`Mở phiếu đăng ký sự kiện: ${ev.title}`}
+                            className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
                           >
                             {ev.title}
                           </button>
@@ -842,10 +922,11 @@ function SuKienContent({
                         </div>
                       </div>
 
-                      {/* Chân thẻ: Nút bấm tương ứng 07 Tag (ĐĂNG KÝ NGAY / NHẬN GCN / ...) */}
+                      {/* Chân thẻ: Nút bấm tương ứng 07 Tag (1 điểm dừng Tab tại tiêu đề thẻ) */}
                       <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs">
                         <button
                           type="button"
+                          tabIndex={-1}
                           onClick={() => openEventModal(ev)}
                           className={`inline-flex items-center gap-1 font-bold uppercase font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs group/link min-h-[36px] cursor-pointer ${
                             isAlreadyRegistered
@@ -946,7 +1027,7 @@ function SuKienContent({
               if (e.target === e.currentTarget) closeEventModal();
             }}
           >
-            <div className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+            <div className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200 motion-reduce:animate-none">
               {/* Header Modal */}
               <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
                 <div className="flex items-center gap-2.5">
@@ -963,7 +1044,7 @@ function SuKienContent({
                   type="button"
                   onClick={closeEventModal}
                   aria-label="Đóng phiếu đăng ký"
-                  className="w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
+                  className="w-11 h-11 -mr-2 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -1097,7 +1178,7 @@ function SuKienContent({
                 <div className="border border-slate-200 p-3.5 flex items-center justify-between gap-3 bg-white">
                   <div>
                     <div className="text-[10px] uppercase text-slate-500 font-bold font-eiu-display tracking-wider">
-                      Tài khoản Hội viên EIU SSO
+                      Tài khoản Hội viên EIU SSO (Đồng bộ tự động)
                     </div>
                     <div className="font-bold text-[#133F68] text-sm font-eiu-display mt-0.5">
                       {currentPersona.fullName}
@@ -1109,28 +1190,62 @@ function SuKienContent({
                   <QrCode className="w-9 h-9 text-[#133F68] shrink-0" />
                 </div>
 
+                {/* Chú giải nhanh cho Sinh viên năm nhất & Kênh hỗ trợ VP 206.B06 */}
+                <div className="bg-[#F8FAFC] border border-slate-200 p-3 text-[11px] text-slate-600 font-sans leading-relaxed space-y-1">
+                  <div>
+                    <strong className="text-[#133F68]">Chú giải nhanh:</strong>{' '}
+                    <strong>SV5T</strong> là danh hiệu <em>Sinh viên 5 Tốt</em>;{' '}
+                    <strong>+1 ĐRL</strong> cộng vào Điểm rèn luyện học kỳ;{' '}
+                    <strong>Hệ số ×1/×2/×3</strong> nhân số ngày tình nguyện gốc
+                    theo vai trò tham gia.
+                  </div>
+                  <div>
+                    <strong className="text-[#133F68]">Hỗ trợ Hội viên:</strong>{' '}
+                    Văn phòng Hội Sinh viên EIU — <strong>Phòng 206.B06</strong>{' '}
+                    hoặc email{' '}
+                    <span className="text-[#0054A6] font-semibold">
+                      studentassociation@eiu.edu.vn
+                    </span>
+                    .
+                  </div>
+                </div>
+
                 {/* Hành động Modal tùy theo 07 Tag */}
                 {modalMeta.isOpen ? (
                   <div className="space-y-2.5 pt-1">
-                    <button
-                      type="button"
-                      onClick={() => handleRegister(selectedModalEvent.id)}
-                      className={`w-full py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shadow-sm ${
-                        isModalEventRegistered
-                          ? 'bg-[#51803A] text-white hover:bg-[#436C2F]'
-                          : 'bg-[#0054A6] hover:bg-[#133F68] text-white'
-                      }`}
-                    >
-                      {isModalEventRegistered
-                        ? '✓ Đã ghi nhận đăng ký & Cấp mã QR Check-in'
-                        : 'Đăng ký ngay'}
-                    </button>
+                    <div className="flex flex-col sm:flex-row gap-2">
+                      <button
+                        type="button"
+                        onClick={() => handleRegister(selectedModalEvent.id)}
+                        className={`flex-1 py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shadow-sm ${
+                          isModalEventRegistered
+                            ? 'bg-[#51803A] text-white hover:bg-[#436C2F]'
+                            : 'bg-[#0054A6] hover:bg-[#133F68] text-white'
+                        }`}
+                      >
+                        {isModalEventRegistered
+                          ? '✓ Đã ghi nhận đăng ký và Cấp mã QR Check-in'
+                          : 'Đăng ký ngay'}
+                      </button>
+
+                      {isModalEventRegistered && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleCancelRegister(selectedModalEvent.id)
+                          }
+                          className="px-4 py-3 rounded border border-slate-300 hover:border-[#C10230] text-slate-700 hover:text-[#C10230] hover:bg-red-50/50 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shrink-0"
+                        >
+                          Hủy đăng ký
+                        </button>
+                      )}
+                    </div>
 
                     {isModalEventRegistered && (
                       <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 font-medium leading-relaxed font-sans">
                         Hồ sơ của <strong>{currentPersona.fullName}</strong> đã
-                        được đồng bộ vào danh sách điểm danh QR. Bạn có thể mở mã
-                        QR tại{' '}
+                        được lưu bền vững vào danh sách điểm danh QR. Bạn có thể
+                        mở mã QR tại{' '}
                         <Link
                           href="/portal?tab=certs"
                           className="font-bold underline text-[#0054A6] hover:text-[#C10230]"
@@ -1146,7 +1261,7 @@ function SuKienContent({
                     <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
                       <CheckCircle2 className="w-4 h-4 text-[#51803A]" />
                       <span>
-                        Chương trình đã kết thúc & Ban hành Giấy chứng nhận
+                        Chương trình đã kết thúc và Ban hành Giấy chứng nhận
                       </span>
                     </div>
                     <p className="text-emerald-900/90 leading-relaxed font-sans">
@@ -1200,6 +1315,25 @@ function SuKienContent({
                 )}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Toast thông báo trạng thái đăng ký sự kiện bền vững */}
+        {toastMessage && (
+          <div
+            role="status"
+            aria-live="polite"
+            className="fixed bottom-5 right-5 z-50 bg-[#133F68] text-white border-2 border-[#A68556] px-4 py-3 shadow-xl text-xs font-semibold font-sans flex items-center gap-2.5 max-w-sm"
+          >
+            <span>{toastMessage}</span>
+            <button
+              type="button"
+              onClick={() => setToastMessage(null)}
+              aria-label="Đóng thông báo"
+              className="text-white/75 hover:text-white cursor-pointer ml-1"
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
         )}
       </div>

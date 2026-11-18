@@ -196,7 +196,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
     bchRole: 'Chủ tịch',
     isBtkMember: true,
     bktRole: 'Không',
-    internalDeptRole: 'Phụ trách chung, chỉ đạo toàn diện BCH & BTK Hội Sinh viên trường',
+    internalDeptRole: 'Phụ trách chung, chỉ đạo toàn diện BCH và BTK Hội Sinh viên trường',
     internalDeptCode: 'NONE',
     grassrootsRole: 'Không',
     positions: [
@@ -206,7 +206,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Thường trực Ban Thư ký HSV Trường',
         unitType: 'standing_committee',
         positionTitle: 'Chủ tịch Hội Sinh viên Trường',
-        divisionName: 'Chỉ đạo toàn diện & Ký Quyết định công nhận',
+        divisionName: 'Chỉ đạo toàn diện và Ký Quyết định công nhận',
         roleInUnit: 'standing_committee',
         roleLevel: 6,
         isPrimary: true,
@@ -305,10 +305,10 @@ export const STAFF_MEMBERS: StaffMember[] = [
       {
         id: 'pos-03-a',
         unitCode: 'BTK-HSV',
-        unitName: 'Thường trực Ban Thư ký & Ban Kiểm tra',
+        unitName: 'Thường trực Ban Thư ký và Ban Kiểm tra',
         unitType: 'standing_committee',
         positionTitle: 'Phó Chủ tịch, Trưởng Ban Kiểm tra HSV Trường',
-        divisionName: 'Kiểm tra, giám sát & Thi đua',
+        divisionName: 'Kiểm tra, giám sát và Thi đua',
         roleInUnit: 'standing_committee',
         roleLevel: 6,
         isPrimary: true,
@@ -319,7 +319,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Ban Tổ chức và Xây dựng Hội',
         unitType: 'department',
         positionTitle: 'Trưởng Ban Tổ chức và Xây dựng Hội',
-        divisionName: 'Quản lý tổ chức, nhân sự & Thẩm định Ngày tình nguyện trước 03 ngày',
+        divisionName: 'Quản lý tổ chức, nhân sự và Thẩm định Ngày tình nguyện trước 03 ngày',
         roleInUnit: 'department_officer',
         roleLevel: 4,
       },
@@ -365,7 +365,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Ban Tuyên giáo - Phong trào',
         unitType: 'department',
         positionTitle: 'Ủy viên BTK, Trưởng Ban TG-PT (Trưởng mảng Phong trào)',
-        divisionName: 'Điều hành Mảng Phong trào & Thẩm định SV5T',
+        divisionName: 'Điều hành Mảng Phong trào và Thẩm định SV5T',
         roleInUnit: 'department_officer',
         roleLevel: 4,
         isPrimary: true,
@@ -433,7 +433,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Chi hội 25KHSK01 (Khoa KHSK)',
         unitType: 'branch',
         positionTitle: 'Chi hội trưởng Chi hội 25KHSK01',
-        divisionName: 'Sơ duyệt SV5T & Quản lý Hội viên Chi hội',
+        divisionName: 'Sơ duyệt SV5T và Quản lý Hội viên Chi hội',
         roleInUnit: 'unit_leader',
         roleLevel: 3,
       },
@@ -478,7 +478,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Ban Tuyên giáo - Phong trào',
         unitType: 'department',
         positionTitle: 'Trưởng Ban TG-PT (Trưởng mảng Tuyên giáo)',
-        divisionName: 'Điều hành Mảng Tuyên giáo (Design, Video, Photo) & CMS',
+        divisionName: 'Điều hành Mảng Tuyên giáo (Design, Video, Photo) và CMS',
         roleInUnit: 'department_officer',
         roleLevel: 4,
         isPrimary: true,
@@ -1078,7 +1078,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Ban Tuyên giáo - Phong trào (Mảng Phong trào)',
         unitType: 'department',
         positionTitle: 'Phó Ban TG-PT (Mảng Phong trào)',
-        divisionName: 'Điều phối Tiểu ban Hậu cần - Sân khấu & Lễ tân - Khánh tiết',
+        divisionName: 'Điều phối Tiểu ban Hậu cần - Sân khấu và Lễ tân - Khánh tiết',
         roleInUnit: 'department_officer',
         roleLevel: 4,
         isPrimary: true,
@@ -1089,7 +1089,7 @@ export const STAFF_MEMBERS: StaffMember[] = [
         unitName: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
         unitType: 'team',
         positionTitle: 'Đội trưởng Đội CTV Xung kích',
-        divisionName: 'Quản lý trực tiếp 02 Tiểu ban Hậu cần & Lễ tân',
+        divisionName: 'Quản lý trực tiếp 02 Tiểu ban Hậu cần và Lễ tân',
         roleInUnit: 'unit_leader',
         roleLevel: 3,
       },
@@ -1270,7 +1270,7 @@ export const BRANCH_UNITS: BranchUnit[] = [
     sv5tRegisteredRate: 100,
     sv5tAchievedRate: 39,
     hasDisciplineViolation: false,
-    description: 'Chi hội tiêu biểu Khóa 2024 Khoa Kỹ thuật, tích cực nghiên cứu sáng tạo tại FabLab & IIC 4.0.',
+    description: 'Chi hội tiêu biểu Khóa 2024 Khoa Kỹ thuật, tích cực nghiên cứu sáng tạo tại FabLab và IIC 4.0.',
   },
   {
     id: 'ch-25kt01',
@@ -1538,7 +1538,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'CLB Sinh viên 5 tốt',
     slug: 'clb-cong-dong-sinh-vien-5-tot',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     isCoreUnionUnit: true,
     presidentName: 'Nguyễn Mai Gia Tường',
@@ -1548,7 +1548,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     description:
       'Đơn vị nòng cốt trực thuộc Hội Sinh viên trường, đồng hành, kết nối và hỗ trợ sinh viên rèn luyện toàn diện theo 05 tiêu chí: Đạo đức tốt – Học tập tốt – Thể lực tốt – Tình nguyện tốt – Hội nhập tốt.',
     highlights: [
-      'Tư vấn lộ trình & thẩm định sơ bộ Sổ tay Kỹ thuật số SV5T',
+      'Tư vấn lộ trình và thẩm định sơ bộ Sổ tay Kỹ thuật số SV5T',
       'Chuỗi Workshop kỹ năng thực hành xã hội (Phụ lục 3 QĐ 09/QĐ-HSV)',
       'Diễn đàn giao lưu Gương Sinh viên 5 Tốt Tiêu biểu toàn trường',
     ],
@@ -1561,7 +1561,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'Đội CTV Xung kích',
     slug: 'doi-cong-tac-vien-xung-kich',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'team',
     isCoreUnionUnit: true,
     linkedToTgptMovement: true,
@@ -1576,7 +1576,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     description:
       'Đội hình sinh viên xung kích trực thuộc Mảng Phong trào (Ban Tuyên giáo - Phong trào), trực tiếp quản lý 02 Tiểu ban Hậu cần - Sân khấu và Lễ tân - Khánh tiết - Văn thể mỹ, nòng cốt trong các chiến dịch tình nguyện và sự kiện lớn cấp trường.',
     highlights: [
-      'Quản lý trực tiếp Tiểu ban Hậu cần - Sân khấu & Tiểu ban Lễ tân - Khánh tiết - Văn thể mỹ',
+      'Quản lý trực tiếp Tiểu ban Hậu cần - Sân khấu và Tiểu ban Lễ tân - Khánh tiết - Văn thể mỹ',
       'Lực lượng tuyến đầu Chiến dịch Xuân tình nguyện, Mùa hè xanh, Chủ nhật xanh',
       'Áp dụng quy đổi Ngày tình nguyện Công tác Đoàn - Hội theo Hệ số 1 - 2 - 3',
     ],
@@ -1589,7 +1589,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'Sunshine Club',
     slug: 'clb-cong-dong-sunshine-club',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     presidentName: 'Trần Thị Tuyết Nhi',
     fanpageUrl: 'https://www.facebook.com/search/top?q=Sunshine%20Club%20EIU',
@@ -1598,7 +1598,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ thiện nguyện vì cộng đồng, tổ chức các chuyến thăm mái ấm, nhà tình thương, viện dưỡng lão và các dự án công tác xã hội tại địa phương.',
-    highlights: ['Hành trình trao yêu thương tại mái ấm, nhà mở', 'Gây quỹ thiện nguyện & hỗ trợ trẻ em khó khăn'],
+    highlights: ['Hành trình trao yêu thương tại mái ấm, nhà mở', 'Gây quỹ thiện nguyện và hỗ trợ trẻ em khó khăn'],
   },
   {
     id: 'clb-blood',
@@ -1608,7 +1608,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'Blood Donation Club',
     slug: 'clb-cong-dong-blood-donation-club',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     presidentName: 'Nguyễn Duy Huân',
     vicePresidentName: 'Trịnh Nguyễn Nguyệt Ánh',
@@ -1631,7 +1631,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'EIU BEAM Club',
     slug: 'clb-cong-dong-eiu-beam-club',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     presidentName: 'Đào Văn Thanh',
     fanpageUrl: 'https://www.facebook.com/share/1A6VHDSCz3/?mibextid=wwXIfr',
@@ -1640,7 +1640,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ Truyền thông và Tổ chức Sự kiện cộng đồng tại EIU, nơi hội tụ các bạn trẻ đam mê sáng tạo nội dung, tổ chức chương trình và lan tỏa giá trị tích cực.',
-    highlights: ['Phối hợp truyền thông sự kiện sinh viên quy mô toàn trường', 'Đào tạo kỹ năng tổ chức sự kiện & truyền thông thực chiến'],
+    highlights: ['Phối hợp truyền thông sự kiện sinh viên quy mô toàn trường', 'Đào tạo kỹ năng tổ chức sự kiện và truyền thông thực chiến'],
   },
   {
     id: 'clb-hospitality',
@@ -1650,7 +1650,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'EIU Hospitality Club',
     slug: 'clb-cong-dong-eiu-hospitality-club',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     presidentName: 'Lê Trần Bảo Trân',
     fanpageUrl: 'https://m.facebook.com/bbshospitalityclub/',
@@ -1669,7 +1669,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     shortName: 'EIU First Aid Club',
     slug: 'clb-cong-dong-eiu-first-aid-club',
     category: 'CONG_DONG',
-    categoryLabel: 'Cộng đồng & Tình nguyện',
+    categoryLabel: 'Cộng đồng và Tình nguyện',
     unitType: 'club',
     presidentName: 'Hà Thị Kim Phụng',
     fanpageUrl: 'https://www.facebook.com/profile.php?id=61565017873986',
@@ -1699,7 +1699,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ học thuật gắn liền với Chương trình Sinh viên Tài năng (Honors Program BBS), thúc đẩy nghiên cứu khoa học, giải quyết Case Study doanh nghiệp và giao lưu quốc tế.',
-    highlights: ['Cấp giấy xác nhận sinh hoạt CLB học thuật xét tiêu chí Học tập tốt (SV5T)', 'Tham gia dự án thực tế doanh nghiệp & trao đổi quốc tế Singapore'],
+    highlights: ['Cấp giấy xác nhận sinh hoạt CLB học thuật xét tiêu chí Học tập tốt (SV5T)', 'Tham gia dự án thực tế doanh nghiệp và trao đổi quốc tế Singapore'],
   },
   {
     id: 'clb-it',
@@ -1718,7 +1718,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Sân chơi học thuật công nghệ thông tin của sinh viên Khoa CIT: Lập trình thuật toán, AI Hackathon, An ninh mạng (CyberSecurity) và phát triển phần mềm.',
-    highlights: ['Tổ chức CIT Challenge & AI Hackathon', 'Gia sư hỗ trợ học tập các môn lập trình cho sinh viên EIU'],
+    highlights: ['Tổ chức CIT Challenge và AI Hackathon', 'Gia sư hỗ trợ học tập các môn lập trình cho sinh viên EIU'],
   },
   {
     id: 'clb-finance',
@@ -1755,7 +1755,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ rèn luyện ngôn ngữ tiếng Hàn, tìm hiểu văn hóa Hàn Quốc và thúc đẩy hoạt động hội nhập quốc tế tại EIU.',
-    highlights: ['Lớp giao tiếp tiếng Hàn & Ngày hội văn hóa Việt - Hàn', 'Hỗ trợ tiêu chí Hội nhập tốt cho hội viên'],
+    highlights: ['Lớp giao tiếp tiếng Hàn và Ngày hội văn hóa Việt - Hàn', 'Hỗ trợ tiêu chí Hội nhập tốt cho hội viên'],
   },
   {
     id: 'clb-tech',
@@ -1774,7 +1774,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ học thuật kỹ thuật công nghệ: Nghiên cứu Robotics, IoT, Tự động hóa, Drone Soccer và chế tác tại STEM-Lab / EIU FabLab.',
-    highlights: ['Đội tuyển MTA Automation & Drone Soccer Championship', 'Thực hành chế tác kỹ thuật tại FabLab (204.B11)'],
+    highlights: ['Đội tuyển MTA Automation và Drone Soccer Championship', 'Thực hành chế tác kỹ thuật tại FabLab (204.B11)'],
   },
   {
     id: 'clb-econ',
@@ -1793,7 +1793,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ học thuật ngành Kinh tế: Kinh tế học ứng dụng, Phân tích dữ liệu kinh tế, Kinh tế quốc tế và Phát triển bền vững.',
-    highlights: ['Tọa đàm nghiên cứu kinh tế & phát triển bền vững', 'Hỗ trợ sinh viên viết bài tham luận hội thảo khoa học'],
+    highlights: ['Tọa đàm nghiên cứu kinh tế và phát triển bền vững', 'Hỗ trợ sinh viên viết bài tham luận hội thảo khoa học'],
   },
 
   // --- KHỐI NGHỆ THUẬT (10 CLB) ---
@@ -1815,7 +1815,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     recruitmentOpen: true,
     description:
       'Câu lạc bộ Người dẫn chương trình (MC) và Nghệ thuật giao tiếp - thuyết trình tại EIU, đào tạo đội ngũ MC chủ lực cho các sự kiện cấp trường.',
-    highlights: ['Đào tạo kỹ năng thuyết trình & dẫn chương trình chuyên nghiệp', 'Cuộc thi tìm kiếm tài năng MC sinh viên EIU'],
+    highlights: ['Đào tạo kỹ năng thuyết trình và dẫn chương trình chuyên nghiệp', 'Cuộc thi tìm kiếm tài năng MC sinh viên EIU'],
   },
   {
     id: 'clb-kurume',
@@ -1849,7 +1849,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 62,
     recruitmentOpen: true,
     description: 'Câu lạc bộ nghệ thuật biểu diễn và sáng tạo trẻ tại EIU.',
-    highlights: ['Đêm nhạc Acoustic & Giao lưu nghệ thuật sinh viên'],
+    highlights: ['Đêm nhạc Acoustic và Giao lưu nghệ thuật sinh viên'],
   },
   {
     id: 'clb-bumblebee',
@@ -1866,7 +1866,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 70,
     recruitmentOpen: true,
     description: 'Câu lạc bộ nhảy hiện đại và vũ đạo sôi động của sinh viên EIU.',
-    highlights: ['Biểu diễn tại Freshmen Welcome Festival & EIU Got Talent'],
+    highlights: ['Biểu diễn tại Freshmen Welcome Festival và EIU Got Talent'],
   },
   {
     id: 'clb-passion',
@@ -1883,7 +1883,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 75,
     recruitmentOpen: true,
     description: 'Câu lạc bộ âm nhạc và nghệ thuật tổng hợp lâu đời tại EIU.',
-    highlights: ['Hội diễn văn nghệ truyền thống & Đêm nhạc sinh viên'],
+    highlights: ['Hội diễn văn nghệ truyền thống và Đêm nhạc sinh viên'],
   },
   {
     id: 'clb-epc',
@@ -1917,7 +1917,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 48,
     recruitmentOpen: false,
     description: 'Câu lạc bộ nghệ thuật biểu diễn cá tính và năng động tại EIU.',
-    highlights: ['Sân chơi giao lưu nghệ thuật đường phố & hiện đại'],
+    highlights: ['Sân chơi giao lưu nghệ thuật đường phố và hiện đại'],
   },
   {
     id: 'clb-ether',
@@ -1934,7 +1934,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 52,
     recruitmentOpen: true,
     description: 'Câu lạc bộ sáng tạo nghệ thuật và biểu diễn âm nhạc của sinh viên EIU.',
-    highlights: ['Biểu diễn giao lưu văn hóa & các đêm hội sinh viên'],
+    highlights: ['Biểu diễn giao lưu văn hóa và các đêm hội sinh viên'],
   },
   {
     id: 'clb-helios',
@@ -1967,7 +1967,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 50,
     recruitmentOpen: true,
     description: 'Câu lạc bộ vũ đạo trẻ trung dành cho sinh viên yêu thích K-Pop, Hip-hop và Choreography.',
-    highlights: ['Dance Cover & Giao lưu vũ đạo liên trường'],
+    highlights: ['Dance Cover và Giao lưu vũ đạo liên trường'],
   },
 
   // --- KHỐI THỂ THAO (07 CLB) ---
@@ -2090,7 +2090,7 @@ export const CLUB_UNITS: ClubUnit[] = [
     memberCount: 70,
     recruitmentOpen: true,
     description: 'Câu lạc bộ Võ thuật Taekwondo EIU, rèn luyện võ đạo, tự vệ và bản lĩnh thanh niên.',
-    highlights: ['Thi thăng đai định kỳ & Biểu diễn võ thuật tại các ngày hội lớn'],
+    highlights: ['Thi thăng đai định kỳ và Biểu diễn võ thuật tại các ngày hội lớn'],
   },
 ];
 
@@ -2182,14 +2182,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-06',
     title:
-      'Mở cổng đăng ký Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 & Chuỗi Workshop Kỹ năng Thực hành Xã hội Phụ lục 3',
+      'Mở cổng đăng ký Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1 và Chuỗi Workshop Kỹ năng Thực hành Xã hội Phụ lục 3',
     slug: 'mo-cong-dang-ky-giot-hong-bo-cau-trang-va-workshop-phu-luc-3',
     category: 'SINH_VIEN_5_TOT',
     categoryLabel: 'Phong trào Sinh viên 5 tốt',
     summary:
       'Cơ hội hoàn thành đồng thời tiêu chuẩn cứng "Tình nguyện tốt" (+5.0 ngày tình nguyện/lần hiến máu) và khung Kỹ năng thực hành xã hội "Hội nhập tốt" ngay trong Học kỳ Thu năm học 2026 – 2027.',
     publishedAt: '2026-11-02',
-    authorUnit: 'CLB Blood Donation & CLB Sinh viên 5 tốt',
+    authorUnit: 'CLB Blood Donation và CLB Sinh viên 5 tốt',
     viewCount: 1090,
     isFeatured: true,
     readMinutes: 3,
@@ -2197,10 +2197,10 @@ export const NEWS_POSTS: NewsPost[] = [
     newsLevel: 'CO_SO_HOI',
     sections: [
       {
-        heading: '1. Lộ trình tích lũy sớm tiêu chuẩn Tình nguyện tốt & Hội nhập tốt',
+        heading: '1. Lộ trình tích lũy sớm tiêu chuẩn Tình nguyện tốt và Hội nhập tốt',
         paragraphs: [
           'CLB Cộng đồng Blood Donation Club phối hợp cùng Hội Chữ thập đỏ tổ chức Ngày hội "Giọt Hồng Bồ Câu Trắng EIU" vào sáng 05/11/2026 tại Sảnh Tòa nhà B6. Theo Phụ lục 2 Quyết định 09/QĐ-HSV, mỗi lượt hiến máu tình nguyện thành công được công nhận 5.0 ngày tình nguyện và đáp ứng điều kiện cứng của tiêu chuẩn Tình nguyện tốt.',
-          'Song song đó, CLB Cộng đồng Sinh viên 5 tốt và CLB Học thuật EIU IT Club triển khai Workshop "Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số" vào chiều 12/11/2026 tại B3.102, thuộc nhóm Kỹ năng thực hành xã hội Phụ lục 3.',
+          'Song song đó, CLB Cộng đồng Sinh viên 5 tốt và CLB Học thuật EIU IT Club triển khai Workshop "Kỹ năng Nhận diện Lừa đảo trên Không gian mạng và Tư duy Phản biện số" vào chiều 12/11/2026 tại B3.102, thuộc nhóm Kỹ năng thực hành xã hội Phụ lục 3.',
         ],
       },
     ],
@@ -2208,14 +2208,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-07',
     title:
-      'Chi hội 25CNTT01 và CLB Học thuật EIU IT Club tổ chức Workshop "AI & An toàn Thông tin cho Sinh viên Kỷ nguyên Số"',
+      'Chi hội 25CNTT01 và CLB Học thuật EIU IT Club tổ chức Workshop "AI và An toàn Thông tin cho Sinh viên Kỷ nguyên Số"',
     slug: 'chi-hoi-25cntt01-clb-it-club-workshop-ai-an-toan-thong-tin',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin cơ sở Hội',
     summary:
       'Hơn 150 hội viên Cụm Khoa Công nghệ Thông tin tham gia chuyên đề trang bị kỹ năng phòng chống lừa đảo trực tuyến và ứng dụng trí tuệ nhân tạo có trách nhiệm trong học tập, nghiên cứu.',
     publishedAt: '2026-11-01',
-    authorUnit: 'Chi hội 25CNTT01 & CLB EIU IT Club',
+    authorUnit: 'Chi hội 25CNTT01 và CLB EIU IT Club',
     viewCount: 920,
     readMinutes: 4,
     imageUrl: '/images/sv5t/dang-tri-toan.jpg',
@@ -2232,7 +2232,7 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-05',
     title:
-      'Tổng kết Hội nghị Tập huấn Cán bộ Đoàn – Hội chủ chốt năm học 2026 – 2027 & Ban hành Quyết định 32/QĐ-HSV cấp E-Certificate',
+      'Tổng kết Hội nghị Tập huấn Cán bộ Đoàn – Hội chủ chốt năm học 2026 – 2027 và Ban hành Quyết định 32/QĐ-HSV cấp E-Certificate',
     slug: 'tong-ket-hoi-nghi-tap-huan-can-bo-doan-hoi-chu-chot-2026-2027',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin tức cấp trường',
@@ -2247,7 +2247,7 @@ export const NEWS_POSTS: NewsPost[] = [
     newsLevel: 'CAP_TRUONG',
     sections: [
       {
-        heading: '1. Chuẩn hóa kỹ năng vận hành E-Office cho đội ngũ Cấp 3 & Cấp 4',
+        heading: '1. Chuẩn hóa kỹ năng vận hành E-Office cho đội ngũ Cấp 3 và Cấp 4',
         paragraphs: [
           'Tại Hội trường B11.202 và Phòng 206.B06, 125 đồng chí Chi hội trưởng, Chi hội phó, Chủ nhiệm, Phó Chủ nhiệm các CLB/Đội/Nhóm đã thực hành trực tiếp quy trình lập tờ trình công nhận ngày tình nguyện trước 03 ngày, quét QR điểm danh động và sơ duyệt Cấp 1 hồ sơ Sinh viên 5 Tốt.',
           'Ngay sau hội nghị, Ban Thư ký đã ký ban hành Quyết định số 32/QĐ-HSV ngày 19/10/2026 (vượt chuẩn SLA 07 ngày làm việc). Hội viên có thể tra cứu trực tiếp theo MSSV hoặc số Quyết định 32/QĐ-HSV tại chuyên mục Tra cứu GCN.',
@@ -2282,14 +2282,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-09',
     title:
-      'Cụm hoạt động Khoa Quản trị Kinh doanh (BBS) phát động diễn đàn "Sinh viên BBS chinh phục chuẩn ngoại ngữ IELTS & Hội nhập Quốc tế"',
+      'Cụm hoạt động Khoa Quản trị Kinh doanh (BBS) phát động diễn đàn "Sinh viên BBS chinh phục chuẩn ngoại ngữ IELTS và Hội nhập Quốc tế"',
     slug: 'cum-khoa-qtkd-bbs-dien-dan-chinh-phuc-ielts-hoi-nhap-quoc-te',
     category: 'SINH_VIEN_5_TOT',
     categoryLabel: 'Phong trào Sinh viên 5 tốt',
     summary:
       '06 Chi hội thuộc Khoa Quản trị Kinh doanh phối hợp cùng CLB Học thuật BBS Honors Club chia sẻ phương pháp đạt chuẩn tiếng Anh quốc tế và hoàn thành tiêu chuẩn Hội nhập tốt.',
     publishedAt: '2026-10-22',
-    authorUnit: 'Cụm Chi hội Khoa QTKD & BBS Honors Club',
+    authorUnit: 'Cụm Chi hội Khoa QTKD và BBS Honors Club',
     viewCount: 690,
     readMinutes: 3,
     imageUrl: '/images/sv5t/lieu-gia-ky.jpg',
@@ -2357,7 +2357,7 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-11',
     title:
-      'Cụm Chi hội Khoa Khoa học Sức khỏe (SNS) tổ chức chương trình Tư vấn Sức khỏe Học đường & Tập huấn Sơ cấp cứu Cơ bản',
+      'Cụm Chi hội Khoa Khoa học Sức khỏe (SNS) tổ chức chương trình Tư vấn Sức khỏe Học đường và Tập huấn Sơ cấp cứu Cơ bản',
     slug: 'cum-chi-hoi-khoa-khsk-sns-tu-van-suc-khoe-tap-huan-so-cap-cuu',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin cơ sở Hội',
@@ -2381,14 +2381,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-12',
     title:
-      'CLB Thể thao EIU FireLions & EIU Calisthenics Club tổ chức Ngày hội Kiểm tra Thể lực "Sinh viên Khỏe EIU" Đợt 1',
+      'CLB Thể thao EIU FireLions và EIU Calisthenics Club tổ chức Ngày hội Kiểm tra Thể lực "Sinh viên Khỏe EIU" Đợt 1',
     slug: 'clb-the-thao-firelions-calisthenics-ngay-hoi-sinh-vien-khoe-dot-1',
     category: 'SINH_VIEN_5_TOT',
     categoryLabel: 'Phong trào Sinh viên 5 tốt',
     summary:
       'Hơn 320 sinh viên tham gia kiểm tra các nội dung chạy bền, bật xa tại chỗ, kéo xà đơn và nhận giấy chứng nhận đạt chuẩn "Sinh viên khỏe" xét tiêu chuẩn Thể lực tốt.',
     publishedAt: '2026-10-04',
-    authorUnit: 'CLB EIU FireLions & CLB Calisthenics',
+    authorUnit: 'CLB EIU FireLions và CLB Calisthenics',
     viewCount: 810,
     readMinutes: 3,
     imageUrl: '/images/sv5t/vo-duy-huan.jpg',
@@ -2431,14 +2431,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-14',
     title:
-      'Cụm Chi hội Khoa Kỹ thuật (SET) và CLB Student Technical Club ra mắt Không gian Sáng tạo Kỹ thuật & Ôn tập Học thuật Cuối kỳ',
+      'Cụm Chi hội Khoa Kỹ thuật (SET) và CLB Student Technical Club ra mắt Không gian Sáng tạo Kỹ thuật và Ôn tập Học thuật Cuối kỳ',
     slug: 'cum-chi-hoi-khoa-ky-thuat-set-clb-technical-khong-gian-sang-tao',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin cơ sở Hội',
     summary:
       'Chuỗi nhóm học tập đồng đẳng (Peer Tutoring) môn Giải tích, Vật lý đại cương và Lập trình nhúng hỗ trợ sinh viên Khoa Kỹ thuật bứt phá điểm GPA học kỳ Thu.',
     publishedAt: '2026-09-20',
-    authorUnit: 'Cụm Chi hội Khoa Kỹ thuật & CLB Technical',
+    authorUnit: 'Cụm Chi hội Khoa Kỹ thuật và CLB Technical',
     viewCount: 675,
     readMinutes: 4,
     newsLevel: 'CO_SO_HOI',
@@ -2482,14 +2482,14 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-16',
     title:
-      'CLB Nghệ thuật The Voice Up Club & EPC Photography Club phối hợp tổ chức đêm giao lưu nghệ thuật chào tân sinh viên Khóa 2026',
+      'CLB Nghệ thuật The Voice Up Club và EPC Photography Club phối hợp tổ chức đêm giao lưu nghệ thuật chào tân sinh viên Khóa 2026',
     slug: 'clb-voice-up-epc-photography-dem-giao-luu-nghe-thuat-tan-sinh-vien-k26',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin cơ sở Hội',
     summary:
       'Đêm hội âm nhạc, dẫn chương trình và triển lãm ảnh nghệ thuật quy tụ hơn 500 tân sinh viên Khóa 16 (2026) hòa mình vào đời sống văn hóa năng động tại EIU.',
     publishedAt: '2026-09-12',
-    authorUnit: 'CLB The Voice Up & CLB EPC Photography',
+    authorUnit: 'CLB The Voice Up và CLB EPC Photography',
     viewCount: 890,
     readMinutes: 3,
     newsLevel: 'CO_SO_HOI',
@@ -2551,7 +2551,7 @@ export const NEWS_POSTS: NewsPost[] = [
       'Bộ máy Khóa II vận hành theo mô hình phân cụm khoa học, kết hợp cơ chế kiêm nhiệm đa vị trí giúp kết nối xuyên suốt từ Thường trực Hội đến từng Chi hội và Câu lạc bộ.',
     sections: [
       {
-        heading: '1. Cấp lãnh đạo, chỉ đạo & giám sát toàn trường (Cấp 01)',
+        heading: '1. Cấp lãnh đạo, chỉ đạo và giám sát toàn trường (Cấp 01)',
         paragraphs: [
           'Ban Chấp hành Hội Sinh viên trường Khóa II gồm 15 đồng chí, trong đó Ban Thư ký gồm 05 đồng chí do Đ/c Trương Châu Phước Lộc giữ chức vụ Chủ tịch Hội Sinh viên trường; Đ/c Nguyễn Như Quỳnh giữ chức vụ Phó Chủ tịch Thường trực; Đ/c Trần Thị Thu Huyền giữ chức vụ Phó Chủ tịch kiêm Trưởng Ban Kiểm tra.',
           'Ban Kiểm tra Hội Sinh viên trường gồm 05 đồng chí thực hiện nhiệm vụ giám sát việc tuân thủ Điều lệ Hội, quy chế làm việc (23/QĐ-HSV) và tiếp nhận phản ánh từ Hộp thư Lắng nghe Sinh viên.',
@@ -2594,7 +2594,7 @@ export const NEWS_POSTS: NewsPost[] = [
   {
     id: 'post-19',
     title:
-      'Chi hội K24 Quản trị Kinh doanh ra mắt chuỗi sinh hoạt "Cà phê Khởi nghiệp & Kỹ năng số 4.0"',
+      'Chi hội K24 Quản trị Kinh doanh ra mắt chuỗi sinh hoạt "Cà phê Khởi nghiệp và Kỹ năng số 4.0"',
     slug: 'chi-hoi-k24-qtkd-ra-mat-chuoi-sinh-hoat-ca-phe-khoi-nghiep',
     category: 'TIN_HOAT_DONG',
     categoryLabel: 'Tin cơ sở Hội',
@@ -2674,9 +2674,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-04',
     title:
-      'Workshop Kỹ năng Nhận diện Lừa đảo trên Không gian mạng & Tư duy Phản biện số',
+      'Workshop Kỹ năng Nhận diện Lừa đảo trên Không gian mạng và Tư duy Phản biện số',
     slug: 'workshop-ky-nang-nhan-dien-lua-dao-khong-gian-mang',
-    organizerUnit: 'CLB Cộng đồng Sinh viên 5 tốt & CLB EIU IT Club',
+    organizerUnit: 'CLB Cộng đồng Sinh viên 5 tốt và CLB EIU IT Club',
     organizerCode: 'CLB-SV5T',
     location: 'Phòng Hội thảo B3.102 – Trường Đại học Quốc tế Miền Đông (EIU)',
     locationArea: 'EIU',
@@ -2700,17 +2700,17 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-05',
     title:
-      'Ngày Chủ nhật Xanh EIU & Trạm Đổi Pin Cũ Lấy Cây Xanh — Hưởng ứng UN SDGs',
+      'Ngày Chủ nhật Xanh EIU và Trạm Đổi Pin Cũ Lấy Cây Xanh — Hưởng ứng UN SDGs',
     slug: 'ngay-chu-nhat-xanh-eiu-tram-doi-pin-lay-cay-xanh-2026',
     organizerUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
     organizerCode: 'DOI-CTVXK',
-    location: 'Khuôn viên Tòa B10 – B11 & Trạm EIU Green Giving (EIU)',
+    location: 'Khuôn viên Tòa B10 – B11 và Trạm EIU Green Giving (EIU)',
     locationArea: 'EIU',
     timeSlot: 'MORNING',
     statusTag: 'Đang mở đăng ký',
     startTime: '2026-11-22T07:30:00+07:00',
     endTime: '2026-11-22T11:30:00+07:00',
-    category: 'Môi trường & Phát triển bền vững',
+    category: 'Môi trường và Phát triển bền vững',
     volunteerCategory: '06 - Công tác Đoàn – Hội (Chương trình tình nguyện = 1.0 ngày)',
     isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 1.0,
@@ -2726,17 +2726,17 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-06',
     title:
-      'Diễn đàn Học thuật Sinh viên EIU Research & Innovation Symposium 2026',
+      'Diễn đàn Nghiên cứu Khoa học và Đổi mới Sáng tạo EIU 2026',
     slug: 'dien-dan-hoc-thuat-eiu-research-innovation-symposium-2026',
-    organizerUnit: 'CLB BBS Honors Club & CLB EIU Student Technical Club',
+    organizerUnit: 'CLB BBS Honors Club và CLB EIU Student Technical Club',
     organizerCode: 'CLB-HONORS',
-    location: 'Hội trường B11.202 & Không gian Sáng tạo FabLab 204.B11 (EIU)',
+    location: 'Hội trường B11.202 và Không gian Sáng tạo FabLab 204.B11 (EIU)',
     locationArea: 'EIU',
     timeSlot: 'MORNING',
     statusTag: 'Đang mở đăng ký',
     startTime: '2026-11-28T07:30:00+07:00',
     endTime: '2026-11-28T11:30:00+07:00',
-    category: 'Nghiên cứu Khoa học & Học thuật',
+    category: 'Nghiên cứu Khoa học và Học thuật',
     volunteerCategory: '06 - Công tác Đoàn – Hội (Seminar/Hội thảo ≤ 1 ngày = 0.5 ngày)',
     isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 0.5,
@@ -2754,9 +2754,9 @@ export const EVENT_ITEMS: EventItem[] = [
     title:
       'Giải chạy Việt dã Sinh viên "EIU Sunset Run 2026" Gây quỹ Thắp sáng Giấc mơ',
     slug: 'giai-chay-viet-da-sinh-vien-eiu-sunset-run-2026',
-    organizerUnit: 'CLB Thể thao EIU ACE & Ban Tuyên giáo - Phong trào',
+    organizerUnit: 'CLB Thể thao EIU ACE và Ban Tuyên giáo - Phong trào',
     organizerCode: 'CLB-ACE',
-    location: 'Đường nội khu EIU & Quảng trường Sáng tạo (EIU)',
+    location: 'Đường nội khu EIU và Quảng trường Sáng tạo (EIU)',
     locationArea: 'EIU',
     timeSlot: 'EVENING',
     statusTag: 'Đã đóng đăng ký',
@@ -2778,9 +2778,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-08',
     title:
-      'Workshop Tinh thần Lãnh đạo Trẻ & Kỹ năng Tranh biện Sinh viên Toàn cầu',
+      'Workshop Tinh thần Lãnh đạo Trẻ và Kỹ năng Tranh biện Sinh viên Toàn cầu',
     slug: 'workshop-lanh-dao-tre-tranh-bien-sinh-vien-toan-cau',
-    organizerUnit: 'CLB Hùng biện EIU Speakers & Hội Sinh viên TP.HCM',
+    organizerUnit: 'CLB Hùng biện EIU Speakers và Hội Sinh viên TP.HCM',
     organizerCode: 'CLB-SPEAKERS',
     location: 'Nhà Văn hóa Sinh viên TP. Hồ Chí Minh (ĐHQG-HCM, TP. Hồ Chí Minh)',
     locationArea: 'HCM',
@@ -2804,7 +2804,7 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-09',
     title:
-      'Chiến dịch Mùa hè xanh 2026: Xây cầu Nông thôn & Số hóa Tri thức Bản địa',
+      'Chiến dịch Mùa hè xanh 2026: Xây cầu Nông thôn và Số hóa Tri thức Bản địa',
     slug: 'chien-dich-mua-he-xanh-2026-xay-cau-nong-thon',
     organizerUnit: 'Ban Chỉ huy Chiến dịch Tình nguyện Mùa hè xanh EIU',
     organizerCode: 'BCH-MHX',
@@ -2830,9 +2830,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-10',
     title:
-      'Tọa đàm Hướng nghiệp & Kết nối Tuyển dụng Doanh nghiệp Nhật Bản - Singapore',
+      'Tọa đàm Hướng nghiệp và Kết nối Tuyển dụng Doanh nghiệp Nhật Bản - Singapore',
     slug: 'toa-dam-huong-nghiep-ket-noi-tuyen-dung-fdi-2026',
-    organizerUnit: 'CLB Tiếng Nhật EIU Japanese Club & Trung tâm Hướng nghiệp',
+    organizerUnit: 'CLB Tiếng Nhật EIU Japanese Club và Trung tâm Hướng nghiệp',
     organizerCode: 'CLB-JAPAN',
     location: 'Trung tâm Hội nghị White Palace, TP. Hồ Chí Minh',
     locationArea: 'HCM',
@@ -2840,7 +2840,7 @@ export const EVENT_ITEMS: EventItem[] = [
     statusTag: 'Đang mở đăng ký',
     startTime: '2026-11-21T08:00:00+07:00',
     endTime: '2026-11-21T11:30:00+07:00',
-    category: 'Học thuật & Hướng nghiệp',
+    category: 'Học thuật và Hướng nghiệp',
     volunteerCategory: '06 - Công tác Đoàn – Hội (Seminar tuyển dụng = 0.5 ngày)',
     isUnionWorkMultiplierEligible: false,
     baseVolunteerDays: 0.5,
@@ -2858,7 +2858,7 @@ export const EVENT_ITEMS: EventItem[] = [
     title:
       'Giải Thể thao Điện tử Sinh viên EIU Esports Championship 2026 (Đấu Trường Máy Tính)',
     slug: 'giai-the-thao-dien-tu-eiu-esports-championship-2026',
-    organizerUnit: 'CLB Game & Thể thao Điện tử EIU E-Club',
+    organizerUnit: 'CLB Game và Thể thao Điện tử EIU E-Club',
     organizerCode: 'CLB-ECLUB',
     location: 'Phòng Lab Công nghệ Cao B10.301 – Trường EIU',
     locationArea: 'EIU',
@@ -2882,17 +2882,17 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-12',
     title:
-      'Tập huấn Kỹ năng Phòng cháy Chữa cháy & Thoát hiểm Thực chiến Khóa II',
+      'Tập huấn Kỹ năng Phòng cháy Chữa cháy và Thoát hiểm Thực chiến Khóa II',
     slug: 'tap-huan-ky-nang-phong-chay-chua-chay-thoat-hiem-2026',
-    organizerUnit: 'Đội Tự quản Văn phòng 206.B06 & Phòng Quản trị Cơ sở',
+    organizerUnit: 'Đội Tự quản Văn phòng 206.B06 và Phòng Quản trị Cơ sở',
     organizerCode: 'DOI-TUQUAN',
-    location: 'Sân duyệt binh & Bãi đỗ xe Tòa B10 – EIU',
+    location: 'Sân duyệt binh và Bãi đỗ xe Tòa B10 – EIU',
     locationArea: 'EIU',
     timeSlot: 'AFTERNOON',
     statusTag: 'Đang mở đăng ký',
     startTime: '2026-11-26T13:30:00+07:00',
     endTime: '2026-11-26T16:30:00+07:00',
-    category: 'Kỹ năng sinh tồn & An toàn học đường',
+    category: 'Kỹ năng sinh tồn và An toàn học đường',
     volunteerCategory: '06 - Công tác Đoàn – Hội (Tập huấn kỹ năng = 1.0 ngày)',
     isUnionWorkMultiplierEligible: true,
     baseVolunteerDays: 1.0,
@@ -2908,7 +2908,7 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-13',
     title:
-      'Chiến dịch Xuân Tình nguyện 2026: Gói Bánh Chưng Xanh & Tết Cho Trẻ Em Vùng Xa',
+      'Chiến dịch Xuân Tình nguyện 2026: Gói Bánh Chưng Xanh và Tết Cho Trẻ Em Vùng Xa',
     slug: 'xuan-tinh-nguyen-2026-tet-cho-tre-em-vung-xa',
     organizerUnit: 'Ban Chỉ huy Chiến dịch Xuân Tình nguyện EIU',
     organizerCode: 'BCH-XTN',
@@ -2934,9 +2934,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-14',
     title:
-      'Hội thảo Kỹ năng Viết CV Chuyên nghiệp & Mock Interview cùng HR Chuyên gia',
+      'Hội thảo Kỹ năng Viết CV Chuyên nghiệp và Mock Interview cùng HR Chuyên gia',
     slug: 'hoi-thao-viet-cv-mock-interview-hr-chuyen-gia',
-    organizerUnit: 'CLB Tiếng Anh EPC & Khoa Quản trị Kinh doanh',
+    organizerUnit: 'CLB Tiếng Anh EPC và Khoa Quản trị Kinh doanh',
     organizerCode: 'CLB-EPC',
     location: 'Hội trường B3.201 – Trường EIU',
     locationArea: 'EIU',
@@ -2962,7 +2962,7 @@ export const EVENT_ITEMS: EventItem[] = [
     title:
       'Giao lưu Văn hóa Thanh niên Đông Nam Á ASEAN Youth Cultural Night tại TP.HCM',
     slug: 'giao-luu-van-hoa-asean-youth-cultural-night-tphcm',
-    organizerUnit: 'CLB Hợp tác Quốc tế EIU Global & Hội Sinh viên TP.HCM',
+    organizerUnit: 'CLB Hợp tác Quốc tế EIU Global và Hội Sinh viên TP.HCM',
     organizerCode: 'CLB-GLOBAL',
     location: 'Cung Văn hóa Lao động TP. Hồ Chí Minh (Quận 1, TP. Hồ Chí Minh)',
     locationArea: 'HCM',
@@ -2986,11 +2986,11 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-16',
     title:
-      'Đội hình Áo xanh Tuyên truyền Giao thông An toàn & Trực chốt Cổng trường EIU',
+      'Đội hình Áo xanh Tuyên truyền Giao thông An toàn và Trực chốt Cổng trường EIU',
     slug: 'doi-hinh-ao-xanh-giao-thong-an-toan-eiu',
     organizerUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
     organizerCode: 'DOI-CTVXK',
-    location: 'Cổng chính & Nút giao Đường Nam Kỳ Khởi Nghĩa – EIU',
+    location: 'Cổng chính và Nút giao Đường Nam Kỳ Khởi Nghĩa – EIU',
     locationArea: 'EIU',
     timeSlot: 'EVENING',
     statusTag: 'Đã đóng đăng ký',
@@ -3012,9 +3012,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-17',
     title:
-      'Lớp Bồi dưỡng Lý luận Chính trị & Nhận thức về Đoàn - Hội Đợt 2 – Năm 2026',
+      'Lớp Bồi dưỡng Lý luận Chính trị và Nhận thức về Đoàn - Hội Đợt 2 – Năm 2026',
     slug: 'lop-boi-duong-ly-luan-chinh-tri-doan-hoi-dot-2',
-    organizerUnit: 'Ban Tuyên giáo - Phong trào & Đoàn trường EIU',
+    organizerUnit: 'Ban Tuyên giáo - Phong trào và Đoàn trường EIU',
     organizerCode: 'BAN-TGPT',
     location: 'Hội trường Lớn B11.202 – Trường EIU',
     locationArea: 'EIU',
@@ -3038,7 +3038,7 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-03',
     title:
-      'Ngày hội Kiểm tra Thể lực & Cấp Giấy chứng nhận "Sinh viên Khỏe" Cấp Trường năm 2026',
+      'Ngày hội Kiểm tra Thể lực và Cấp Giấy chứng nhận "Sinh viên Khỏe" Cấp Trường năm 2026',
     slug: 'ngay-hoi-kiem-tra-the-luc-sinh-vien-khoe-2026',
     organizerUnit: 'Ban Tuyên giáo - Phong trào (Mảng Phong trào)',
     organizerCode: 'BAN-TGPT',
@@ -3065,11 +3065,11 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-02',
     title:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     slug: 'tap-huan-can-bo-doan-hoi-cac-cap-2026',
     organizerUnit: 'Ban Tổ chức và Xây dựng Hội',
     organizerCode: 'BAN-TCXDH',
-    location: 'Hội trường B11.202 & Phòng 206.B06 (EIU)',
+    location: 'Hội trường B11.202 và Phòng 206.B06 (EIU)',
     locationArea: 'EIU',
     timeSlot: 'MORNING',
     statusTag: 'Đã kết thúc',
@@ -3092,9 +3092,9 @@ export const EVENT_ITEMS: EventItem[] = [
   {
     id: 'evt-18',
     title:
-      'Hội thao Cán bộ Hội & Giải Bóng đá Tứ hùng Chào mừng Đại hội Hội Sinh viên',
+      'Hội thao Cán bộ Hội và Giải Bóng đá Tứ hùng Chào mừng Đại hội Hội Sinh viên',
     slug: 'hoi-thao-can-bo-hoi-giai-bong-da-tu-hung-2026',
-    organizerUnit: 'CLB Bóng đá EIU Football & Ban Thư ký Hội',
+    organizerUnit: 'CLB Bóng đá EIU Football và Ban Thư ký Hội',
     organizerCode: 'CLB-FOOTBALL',
     location: 'Sân Vận động Trung tâm Thể thao Tỉnh Bình Dương (Địa bàn tỉnh)',
     locationArea: 'OTHER',
@@ -3126,17 +3126,24 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     title:
       'Quy định về tiêu chuẩn xét chọn danh hiệu "Sinh viên 5 tốt", "Sinh viên 5 tốt tiêu biểu toàn trường" và "Tập thể Sinh viên 5 tốt" cấp trường (sửa đổi, bổ sung năm 2026)',
     signedDate: '27/05/2026',
+    effectiveDate: '01/06/2026',
+    field: 'Sinh viên 5 Tốt',
+    status: 'Còn hiệu lực',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
     summary:
       'Quy định chi tiết 5 tiêu chuẩn xét chọn cá nhân (GPA ≥ 3.00/4.00 lấy điểm cao hơn giữa năm học và tích lũy), trần Top 10% SV5T Tiêu biểu toàn trường, tiêu chuẩn Tập thể SV5T (100% đăng ký, ≥ 30% đạt, 0 kỷ luật) cùng 3 Phụ lục đính kèm.',
     keyPoints: [
       'Học tập tốt: MAX(GPA năm học gia quyền, GPA tích lũy) ≥ 3.00/4.00 + ≥ 01 tiêu chí phụ.',
-      'Đạo đức tốt: Điểm rèn luyện ≥ 80/100, không vi phạm pháp luật/quy chế + ≥ 01 tiêu chí phụ.',
+      'Đạo đức tốt: Điểm rèn luyện ≥ 80/100, không vi phạm pháp luật hoặc quy chế + ≥ 01 tiêu chí phụ.',
       'Tình nguyện tốt: ≥ 05 ngày tình nguyện/năm + tham gia hiến máu hoặc hoạt động tích cực CLB CTXH.',
       'Xét duyệt 3 cấp điện tử: Cấp 1 (Cơ sở Hội) → Cấp 2 (Ban Chuyên môn) → Cấp 3 (Thường trực chốt duyệt).',
     ],
+    attachmentName: '09-QD-HSV-SV5T-2026.pdf',
+    attachmentSize: '485 KB',
+    relatedDocNumbers: ['28/QĐ-HSV', '15/HD-HSV'],
     qrSlug: 'qd-09-hsv-2026',
   },
   {
@@ -3146,15 +3153,22 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     title:
       'Ban hành Quy chế làm việc của Ban Chấp hành Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông khóa II, nhiệm kỳ 2026 – 2028',
     signedDate: '04/08/2026',
+    effectiveDate: '04/08/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Còn hiệu lực',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Chấp hành HSV trường',
     summary:
-      'Quy định nguyên tắc tập trung dân chủ, trách nhiệm và quyền hạn của BCH (15 đ/c), Ban Thư ký (05 đ/c), Thường trực Hội và chế độ Họp không giấy định kỳ hàng tháng/quý.',
+      'Quy định nguyên tắc tập trung dân chủ, trách nhiệm và quyền hạn của BCH (15 đ/c), Ban Thư ký (05 đ/c), Thường trực Hội và chế độ Họp không giấy định kỳ hàng tháng và hàng quý.',
     keyPoints: [
       'Ban Chấp hành gồm 15 đồng chí; Ban Thư ký gồm 05 đồng chí; Ban Kiểm tra gồm 05 đồng chí.',
-      'Họp Ban Thư ký định kỳ hàng tháng và họp Ban Chấp hành mở rộng hàng quý theo mô hình Paperless Meeting.',
+      'Họp Ban Thư ký định kỳ hàng tháng và họp Ban Chấp hành mở rộng hàng quý theo mô hình Họp không giấy.',
     ],
+    attachmentName: '23-QD-HSV-Quy-che-BCH-Khoa-II.pdf',
+    attachmentSize: '360 KB',
+    relatedDocNumbers: ['24/QĐ-HSV', '04/TB-HSV'],
     qrSlug: 'qd-23-hsv-2026',
   },
   {
@@ -3164,15 +3178,22 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     title:
       'Ban hành Quy chế về chức năng, nhiệm vụ, quyền hạn và cơ cấu tổ chức của các Ban chuyên môn, Văn phòng Hội Sinh viên khóa II, nhiệm kỳ 2026 – 2028',
     signedDate: '04/08/2026',
+    effectiveDate: '04/08/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Còn hiệu lực',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Chấp hành HSV trường',
     summary:
-      'Quy định cơ cấu và chức năng của Văn phòng HSV (Phòng 206.B06, đồng điều hành Chánh VP & Tổng Thư ký), Ban Tổ chức và Xây dựng Hội (05 Cụm) và Ban Tuyên giáo - Phong trào (02 Mảng, 06 Tiểu ban & Đội CTVXK).',
+      'Quy định cơ cấu và chức năng của Văn phòng HSV (Phòng 206.B06, đồng điều hành Chánh VP và Tổng Thư ký), Ban Tổ chức và Xây dựng Hội (05 Cụm) và Ban Tuyên giáo - Phong trào (02 Mảng, 06 Tiểu ban và Đội CTVXK).',
     keyPoints: [
       'Văn phòng HSV (206.B06): Chánh Văn phòng phụ trách đối ngoại trường; Tổng Thư ký điều hành tác vụ nội bộ.',
-      'Quản lý tập trung văn thư đi/đến, rà soát thể thức kế hoạch, sổ mượn tài sản và nhật ký đóng dấu Mộc.',
+      'Quản lý tập trung văn thư đi hoặc đến, rà soát thể thức kế hoạch, sổ mượn tài sản và nhật ký đóng dấu Mộc.',
     ],
+    attachmentName: '24-QD-HSV-Chuc-nang-Ban-Chuyen-mon.pdf',
+    attachmentSize: '412 KB',
+    relatedDocNumbers: ['23/QĐ-HSV', '04/TB-HSV'],
     qrSlug: 'qd-24-hsv-2026',
   },
   {
@@ -3182,16 +3203,23 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     title:
       'Ban hành Quy định về việc cấp Giấy chứng nhận của Hội Sinh viên trường cho sinh viên Trường Đại học Quốc tế Miền Đông',
     signedDate: '01/09/2026',
+    effectiveDate: '05/09/2026',
+    field: 'Ngày tình nguyện và Giấy chứng nhận',
+    status: 'Còn hiệu lực',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
     summary:
       'Quy định nguyên tắc xin công nhận ngày tình nguyện trước ít nhất 03 ngày qua Trưởng Ban TC-XDH, mẫu danh sách Phụ lục 1 (tăng dần theo MSSV), cam kết SLA tối đa 07 ngày làm việc và quy chuẩn Giấy chứng nhận Phụ lục 2.',
     keyPoints: [
       'Điều 4: Xin ý kiến công nhận ngày tình nguyện trước thời điểm tổ chức ít nhất 03 ngày (72 giờ).',
       'Phụ lục 1: Danh sách đề nghị cấp GCN bắt buộc sắp xếp tăng dần theo Mã số sinh viên (10 chữ số).',
-      'Điều 6 & Phụ lục 2: SLA tối đa 07 ngày làm việc; E-Certificate gắn mã QR xác thực và mặc định ghi "(Đã ký)".',
+      'Điều 6 và Phụ lục 2: SLA tối đa 07 ngày làm việc; E-Certificate gắn mã QR xác thực và mặc định ghi "(Đã ký)".',
     ],
+    attachmentName: '28-QD-HSV-Cap-GCN-Ngay-TN.pdf',
+    attachmentSize: '520 KB',
+    relatedDocNumbers: ['09/QĐ-HSV', '32/QĐ-HSV'],
     qrSlug: 'qd-28-hsv-2026',
   },
   {
@@ -3201,15 +3229,22 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     title:
       'Về việc phân công Ban Chấp hành Hội Sinh viên trường và các đồng chí chủ chốt các cơ sở Hội phụ trách các mảng công tác',
     signedDate: '01/09/2026',
+    effectiveDate: '01/09/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Còn hiệu lực',
     signerName: 'Trần Thị Thu Huyền',
     signerTitle: 'KT. Chủ tịch – Phó Chủ tịch (Trưởng Ban Tổ chức và Xây dựng Hội)',
     issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Chấp hành HSV trường',
     summary:
-      'Phân công chi tiết 20 đồng chí trong Thường trực, BCH, BKT và chủ chốt cơ sở Hội phụ trách Văn phòng 206.B06, Ban TG-PT, Ban TC-XDH, 04 Cụm Khoa (25 Chi hội) và Cụm 30 CLB/Đội/Nhóm.',
+      'Phân công chi tiết 20 đồng chí trong Thường trực, BCH, BKT và chủ chốt cơ sở Hội phụ trách Văn phòng 206.B06, Ban TG-PT, Ban TC-XDH, 04 Cụm Khoa (25 Chi hội) và Cụm 30 CLB, Đội, Nhóm.',
     keyPoints: [
       'Phân công 04 Phó Ban TC-XDH làm Cụm trưởng 04 Cụm Khoa (QTKD, Kỹ thuật, CNTT, KHSK) và 01 Phó Ban phụ trách 30 CLB.',
       'Xác lập rõ cơ chế kiêm nhiệm đa vị trí từ cấp Trường xuống cấp Chi hội và Câu lạc bộ.',
     ],
+    attachmentName: '04-TB-HSV-Phan-cong-BCH-Khoa-II.pdf',
+    attachmentSize: '295 KB',
+    relatedDocNumbers: ['23/QĐ-HSV', '24/QĐ-HSV'],
     qrSlug: 'tb-04-hsv-2026',
   },
   {
@@ -3217,18 +3252,300 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     documentNumber: '32/QĐ-HSV',
     docType: 'QUYẾT ĐỊNH',
     title:
-      'Về việc công nhận hoàn thành chương trình và cấp Giấy chứng nhận điện tử "Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy năm học 2026 – 2027"',
+      'Về việc công nhận hoàn thành chương trình và cấp Giấy chứng nhận điện tử "Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy năm học 2026 – 2027"',
     signedDate: '19/10/2026',
+    effectiveDate: '19/10/2026',
+    field: 'Ngày tình nguyện và Giấy chứng nhận',
+    status: 'Còn hiệu lực',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
     issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
     summary:
       'Công nhận danh sách Phụ lục 1 (sắp xếp tăng dần theo MSSV) và quy đổi ngày tình nguyện lĩnh vực 06 - Công tác Đoàn – Hội theo Hệ số 1 – 2 – 3 cho Ban Tổ chức, Cộng tác viên và Đại biểu hoàn thành tập huấn.',
     keyPoints: [
       'Ban hành chỉ sau 02 ngày làm việc kể từ ngày kết thúc chương trình (vượt cam kết SLA 07 ngày làm việc).',
       'Kích hoạt toàn bộ mã QR xác thực trực tuyến cho từng Giấy chứng nhận theo chuẩn Phụ lục 2 Quyết định 28/QĐ-HSV.',
     ],
+    attachmentName: '32-QD-HSV-Cong-nhan-Tap-huan-2026.pdf',
+    attachmentSize: '610 KB',
+    relatedDocNumbers: ['28/QĐ-HSV'],
     qrSlug: 'qd-32-hsv-2026',
+  },
+  {
+    id: 'doc-12kh',
+    documentNumber: '12/KH-HSV',
+    docType: 'KẾ HOẠCH',
+    title:
+      'Tổ chức Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy năm học 2026 – 2027',
+    signedDate: '02/10/2026',
+    effectiveDate: '02/10/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Hết hiệu lực',
+    signerName: 'Nguyễn Như Quỳnh',
+    signerTitle: 'Phó Chủ tịch Thường trực Hội Sinh viên Trường',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
+    summary:
+      'Kế hoạch tổng thể về nội dung chuyên đề, phân công Tiểu ban Hậu cần, Truyền thông và dự trù kinh phí tổ chức lớp tập huấn dành cho 130 cán bộ chủ chốt 25 Chi hội và 30 CLB.',
+    keyPoints: [
+      'Triển khai tập huấn 02 buổi chuyên đề tại Hội trường B11.202 và Phòng 206.B06.',
+      'Áp dụng điểm danh QR động và phát hành E-Certificate qua Cổng thông tin Điện tử HSV EIU.',
+    ],
+    attachmentName: '12-KH-HSV-Tap-huan-Can-bo-2026.pdf',
+    attachmentSize: '340 KB',
+    relatedDocNumbers: ['32/QĐ-HSV'],
+    qrSlug: 'kh-12-hsv-2026',
+  },
+  {
+    id: 'doc-18kh',
+    documentNumber: '18/KH-HSV',
+    docType: 'KẾ HOẠCH',
+    title:
+      'Tổ chức Chuỗi Hoạt động Chào mừng Kỷ niệm Ngày Nhà giáo Việt Nam 20/11 và Phong trào Sinh viên 5 Tốt năm học 2026 – 2027',
+    signedDate: '01/11/2026',
+    effectiveDate: '05/11/2026',
+    field: 'Tuyên giáo và Phong trào',
+    status: 'Còn hiệu lực',
+    signerName: 'Nguyễn Như Quỳnh',
+    signerTitle: 'Phó Chủ tịch Thường trực kiêm Tổng Thư ký',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
+    summary:
+      'Triển khai các cuộc thi trực tuyến, Ngày Chủ nhật Xanh, Hiến máu tình nguyện và Diễn đàn Học thuật Sinh viên EIU tháng 11 năm 2026.',
+    keyPoints: [
+      'Phối hợp đồng bộ giữa Ban TG-PT, 04 Cụm Khoa và 07 CLB Cộng đồng.',
+      'Toàn bộ sự kiện tuân thủ tiêu chuẩn Sự kiện Xanh UN SDGs (không chai nhựa dùng một lần).',
+    ],
+    attachmentName: '18-KH-HSV-Chuoi-Hoat-dong-Thang-11.pdf',
+    attachmentSize: '415 KB',
+    relatedDocNumbers: [],
+    qrSlug: 'kh-18-hsv-2026',
+  },
+  {
+    id: 'doc-07cv',
+    documentNumber: '07/CV-HSV',
+    docType: 'CÔNG VĂN',
+    title:
+      'Về việc phối hợp triển khai đăng ký phấn đấu danh hiệu "Sinh viên 5 tốt" trực tuyến năm học 2026 – 2027 tại 25 Chi hội Khoa',
+    signedDate: '15/09/2026',
+    effectiveDate: '15/09/2026',
+    field: 'Sinh viên 5 Tốt',
+    status: 'Còn hiệu lực',
+    signerName: 'Nguyễn Mỹ Hạnh',
+    signerTitle: 'Chánh Văn phòng Hội Sinh viên Trường',
+    issuingBody: 'Văn phòng Hội Sinh viên Trường (Phòng 206.B06)',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
+    summary:
+      'Đề nghị Ban Chấp hành 25 Chi hội trực thuộc 04 Khoa đôn đốc 100% hội viên đăng nhập Sổ tay Hội viên SSO `@eiu.edu.vn` để đăng ký phấn đấu danh hiệu Sinh viên 5 Tốt.',
+    keyPoints: [
+      'Thời hạn hoàn tất đăng ký phấn đấu cấp Chi hội trước ngày 30/09/2026.',
+      'Là điều kiện cứng đầu tiên để xét công nhận Tập thể Sinh viên 5 Tốt cấp Trường.',
+    ],
+    attachmentName: '07-CV-HSV-Dang-ky-SV5T-Chi-hoi.pdf',
+    attachmentSize: '230 KB',
+    relatedDocNumbers: ['09/QĐ-HSV'],
+    qrSlug: 'cv-07-hsv-2026',
+  },
+  {
+    id: 'doc-15hd',
+    documentNumber: '15/HD-HSV',
+    docType: 'HƯỚNG DẪN',
+    title:
+      'Hướng dẫn quy trình sử dụng Máy tính GPA Học chế Quý EIU, nộp minh chứng ngoại viện và xét duyệt hồ sơ Sinh viên 5 Tốt 3 cấp',
+    signedDate: '20/09/2026',
+    effectiveDate: '20/09/2026',
+    field: 'Sinh viên 5 Tốt',
+    status: 'Còn hiệu lực',
+    signerName: 'Nguyễn Như Quỳnh',
+    signerTitle: 'Phó Chủ tịch Thường trực Hội Sinh viên Trường',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Thư ký HSV trường',
+    summary:
+      'Hướng dẫn chi tiết cách nhập điểm bình quân gia quyền 03 học kỳ chính (Thu, Đông, Xuân) cùng học kỳ Hè, quy tắc tải lên minh chứng PDF/ảnh và lộ trình thẩm định 3 cấp.',
+    keyPoints: [
+      'Hướng dẫn đối soát GPA năm học gia quyền tín chỉ với GPA tích lũy trên cổng thông tin EIU.',
+      'Quy cách đặt tên tệp minh chứng ngoại viện và lưu ý lỗi thường gặp khi nộp hồ sơ.',
+    ],
+    attachmentName: '15-HD-HSV-Huong-dan-SV5T-2026.pdf',
+    attachmentSize: '580 KB',
+    relatedDocNumbers: ['09/QĐ-HSV'],
+    qrSlug: 'hd-15-hsv-2026',
+  },
+  {
+    id: 'doc-11ttr',
+    documentNumber: '11/TTr-CLB-BLOOD',
+    docType: 'TỜ TRÌNH',
+    title:
+      'Về việc xin chủ trương tổ chức và công nhận ngày tình nguyện cho Ngày hội Hiến máu Tình nguyện "Giọt Hồng Bồ Câu Trắng EIU" Đợt 1',
+    signedDate: '28/10/2026',
+    effectiveDate: '28/10/2026',
+    field: 'Ngày tình nguyện và Giấy chứng nhận',
+    status: 'Còn hiệu lực',
+    signerName: 'Lê Minh Khang',
+    signerTitle: 'Chủ nhiệm CLB Cộng đồng Blood Donation Club',
+    issuingBody: 'CLB Cộng đồng Blood Donation Club',
+    issuingUnitCategory: 'Câu lạc bộ/Đội/Nhóm',
+    summary:
+      'Đề nghị Thường trực Hội Sinh viên thông qua Trưởng Ban Tổ chức và Xây dựng Hội phê duyệt kế hoạch tổ chức và mức quy đổi 5.0 ngày tình nguyện cho sinh viên hiến máu.',
+    keyPoints: [
+      'Nộp trình trước ngày tổ chức 08 ngày (đảm bảo quy tắc tối thiểu ≥ 03 ngày theo QĐ 28/QĐ-HSV).',
+      'Dự kiến tiếp nhận 300 lượt đăng ký hiến máu tình nguyện tại Sảnh Tòa nhà B6.',
+    ],
+    attachmentName: '11-TTr-Blood-Donation-Dot1.pdf',
+    attachmentSize: '215 KB',
+    relatedDocNumbers: ['28/QĐ-HSV'],
+    qrSlug: 'ttr-11-blood-2026',
+  },
+  {
+    id: 'doc-06bc',
+    documentNumber: '06/BC-BKT',
+    docType: 'BÁO CÁO',
+    title:
+      'Báo cáo kết quả kiểm tra chuyên đề công tác lưu trữ hồ sơ, quản lý mộc và thực hiện SLA 07 ngày cấp Giấy chứng nhận Quý III năm 2026',
+    signedDate: '12/10/2026',
+    effectiveDate: '12/10/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Còn hiệu lực',
+    signerName: 'Trần Thị Thu Huyền',
+    signerTitle: 'Phó Chủ tịch kiêm Trưởng Ban Kiểm tra HSV Trường',
+    issuingBody: 'Ban Kiểm tra Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Kiểm tra HSV trường',
+    summary:
+      'Tổng hợp kết quả giám sát thực thi quy chế tại 25 Chi hội và 30 CLB, tỷ lệ hoàn thành quyết định cấp GCN đúng hạn SLA (đạt 98,5%) và kiến nghị khắc phục tồn tại.',
+    keyPoints: [
+      'Kiểm tra sổ theo dõi đóng dấu Mộc và quy trình đối ngoại tại Văn phòng 206.B06.',
+      'Đề xuất hoàn thiện tính năng nhắc hạn 72 giờ trước sự kiện trên E-Office HSV EIU.',
+    ],
+    attachmentName: '06-BC-BKT-Giam-sat-Quy-III-2026.pdf',
+    attachmentSize: '390 KB',
+    relatedDocNumbers: ['28/QĐ-HSV'],
+    qrSlug: 'bc-06-bkt-2026',
+  },
+  {
+    id: 'doc-08bb',
+    documentNumber: '08/BB-BCH',
+    docType: 'BIÊN BẢN',
+    title:
+      'Biên bản Phiên họp Ban Chấp hành Hội Sinh viên Trường mở rộng lần thứ 03 (Họp Không Giấy) thông qua Chương trình công tác Quý IV/2026',
+    signedDate: '05/10/2026',
+    effectiveDate: '05/10/2026',
+    field: 'Tổ chức và Xây dựng Hội',
+    status: 'Còn hiệu lực',
+    signerName: 'Nguyễn Mỹ Hạnh',
+    signerTitle: 'Chánh Văn phòng (Thư ký phiên họp BCH)',
+    issuingBody: 'Ban Chấp hành Hội Sinh viên Trường ĐHQTMĐ',
+    issuingUnitCategory: 'Ban Chấp hành HSV trường',
+    summary:
+      'Ghi nhận kết quả biểu quyết trực tuyến của 15/15 Ủy viên BCH thông qua bộ chỉ tiêu thi đua Quý IV/2026 và phân bổ ngân sách các Cụm hoạt động.',
+    keyPoints: [
+      '100% đại biểu điểm danh qua mã QR động và biểu quyết thông qua 04 nghị quyết phiên họp.',
+      'Chủ tọa kết luận giao Ban TG-PT số hóa toàn bộ cuộc thi trực tuyến sang chuẩn EIU mới.',
+    ],
+    attachmentName: '08-BB-BCH-Hop-Khong-Giay-Lan-3.pdf',
+    attachmentSize: '275 KB',
+    relatedDocNumbers: [],
+    qrSlug: 'bb-08-bch-2026',
+  },
+  {
+    id: 'doc-14chi',
+    documentNumber: '05/KH-25CNTT01',
+    docType: 'KẾ HOẠCH',
+    title:
+      'Tổ chức Sinh hoạt Chuyên đề "Hành trang Học tập tốt GPA ≥ 3.0 và Nghiên cứu Khoa học cho Sinh viên Khoa CNTT"',
+    signedDate: '22/10/2026',
+    effectiveDate: '25/10/2026',
+    field: 'Sinh viên 5 Tốt',
+    status: 'Còn hiệu lực',
+    signerName: 'Lê Minh Khang',
+    signerTitle: 'Chi hội trưởng Chi hội 25CNTT01',
+    issuingBody: 'Chi hội 25CNTT01 — Cụm Khoa Công nghệ Thông tin',
+    issuingUnitCategory: 'Chi hội',
+    summary:
+      'Kế hoạch sinh hoạt học thuật cấp Chi hội kết hợp Giảng viên cố vấn (Mentor) hỗ trợ hội viên tích lũy tiêu chí phụ Học tập tốt.',
+    keyPoints: [
+      'Hướng dẫn viết bài tham luận khoa học cấp Khoa và đăng ký đề tài NCKH sinh viên.',
+      'Cấp giấy xác nhận tham gia cho hội viên Chi hội 25CNTT01.',
+    ],
+    attachmentName: '05-KH-25CNTT01-Chuyen-de-GPA.pdf',
+    attachmentSize: '198 KB',
+    relatedDocNumbers: [],
+    qrSlug: 'kh-05-25cntt01-2026',
+  },
+  {
+    id: 'doc-102tp',
+    documentNumber: '102/HD-BTK',
+    docType: 'HƯỚNG DẪN',
+    title:
+      'Hướng dẫn của Ban Thư ký Hội Sinh viên Thành phố Hồ Chí Minh về công tác tuyên truyền, giáo dục lý tưởng cách mạng cho sinh viên năm học 2026 – 2027',
+    signedDate: '10/09/2026',
+    effectiveDate: '10/09/2026',
+    field: 'Tuyên giáo và Phong trào',
+    status: 'Còn hiệu lực',
+    signerName: 'Nguyễn Minh Tuấn',
+    signerTitle: 'Phó Chủ tịch Hội Sinh viên TP.HCM',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Thành phố Hồ Chí Minh',
+    issuingUnitCategory: 'HSV TP.HCM',
+    summary:
+      'Văn bản định hướng từ cấp Thành phố về tổ chức các hội thi tìm hiểu lý luận chính trị, bảo vệ nền tảng tư tưởng trên không gian mạng trong khối các trường đại học.',
+    keyPoints: [
+      'Phát động Hội thi Ánh sáng Soi đường trực tuyến tại tất cả cơ sở Hội trực thuộc.',
+      'Khuyến khích xây dựng các ấn phẩm truyền thông số trực quan, hiện đại.',
+    ],
+    attachmentName: '102-HD-BTK-HSV-TPHCM-2026.pdf',
+    attachmentSize: '440 KB',
+    relatedDocNumbers: [],
+    qrSlug: 'hd-102-tphcm-2026',
+  },
+  {
+    id: 'doc-45tw',
+    documentNumber: '45/TB-TWHSV',
+    docType: 'THÔNG BÁO',
+    title:
+      'Thông báo của Trung ương Hội Sinh viên Việt Nam về tiêu chí xét chọn Giải thưởng "Sao Tháng Giêng" và "Sinh viên 5 tốt" cấp Trung ương',
+    signedDate: '15/08/2026',
+    effectiveDate: '01/09/2026',
+    field: 'Khác',
+    status: 'Còn hiệu lực',
+    signerName: 'Phạm Hoàng Sơn',
+    signerTitle: 'Phó Chủ tịch Thường trực Trung ương HSV Việt Nam',
+    issuingBody: 'Trung ương Hội Sinh viên Việt Nam',
+    issuingUnitCategory: 'Trung ương HSV',
+    summary:
+      'Thông báo khung thời gian tiếp nhận hồ sơ đề cử danh hiệu Sinh viên 5 Tốt cấp Trung ương và Giải thưởng Sao Tháng Giêng dành cho cán bộ Hội xuất sắc.',
+    keyPoints: [
+      'Cơ sở Hội hoàn thiện hồ sơ đề cử gửi qua Hội Sinh viên cấp Trường và Thành phố.',
+      'Ưu tiên các ứng viên có sáng kiến chuyển đổi số trong công tác Hội và phong trào.',
+    ],
+    attachmentName: '45-TB-TWHSV-Sao-Thang-Gieng-2026.pdf',
+    attachmentSize: '510 KB',
+    relatedDocNumbers: ['09/QĐ-HSV'],
+    qrSlug: 'tb-45-twhsv-2026',
+  },
+  {
+    id: 'doc-03khac',
+    documentNumber: '03/NQ-ĐH',
+    docType: 'KHÁC',
+    title:
+      'Nghị quyết Đại hội Đại biểu Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông Khóa II, Nhiệm kỳ 2026 – 2028',
+    signedDate: '12/05/2026',
+    effectiveDate: '12/05/2026',
+    field: 'Khác',
+    status: 'Còn hiệu lực',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+    issuingBody: 'Đại hội Đại biểu Hội Sinh viên Trường ĐHQTMĐ Khóa II',
+    issuingUnitCategory: 'Khác',
+    summary:
+      'Văn kiện định hướng toàn nhiệm kỳ Khóa II với khẩu hiệu hành động "Trí sáng - Đồng tâm - Vươn tầm - Cất cánh" và 10 chỉ tiêu công tác trọng tâm.',
+    keyPoints: [
+      'Thông qua Đề án kiện toàn bộ máy 25 Chi hội, 30 CLB và chuyển đổi số 100% quy trình cấp GCN.',
+      'Phấn đấu mỗi năm học có ít nhất 150 Sinh viên 5 Tốt các cấp và 10 Tập thể Sinh viên 5 Tốt.',
+    ],
+    attachmentName: '03-NQ-DH-HSV-EIU-Khoa-II.pdf',
+    attachmentSize: '780 KB',
+    relatedDocNumbers: ['23/QĐ-HSV', '24/QĐ-HSV'],
+    qrSlug: 'nq-03-dh-2026',
   },
 ];
 
@@ -3247,11 +3564,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'CLB Nghệ thuật EIU The Voice Up Club',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Thành viên Ban Tổ chức (Dẫn chương trình)',
     multiplierApplied: 2,
     volunteerDays: 1.0,
-    evidenceNote: 'QR Check-in 02 buổi & Biên bản BTC',
+    evidenceNote: 'QR Check-in 02 buổi và Biên bản BTC',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3268,11 +3585,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Văn phòng HSV Trường / CLB EIU BEAM Club',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Thành viên Ban Tổ chức (Hậu cần – Kỹ thuật)',
     multiplierApplied: 2,
     volunteerDays: 1.0,
-    evidenceNote: 'QR Check-in 02 buổi & Biên bản BTC',
+    evidenceNote: 'QR Check-in 02 buổi và Biên bản BTC',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3289,11 +3606,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Thường trực Ban Thư ký HSV Trường',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Trưởng Ban Tổ chức Hội nghị (Hệ số ×3)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'Kế hoạch 12/KH-HSV & Báo cáo tổng kết',
+    evidenceNote: 'Kế hoạch 12/KH-HSV và Báo cáo tổng kết',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3310,11 +3627,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Ban Tuyên giáo - Phong trào / CLB Sinh viên 5 tốt',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Phó Trưởng Ban Tổ chức (Báo cáo viên chuyên đề SV5T)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'QR Check-in & Tài liệu chuyên đề QĐ 09',
+    evidenceNote: 'QR Check-in và Tài liệu chuyên đề QĐ 09',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3331,11 +3648,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Văn phòng HSV Trường / Chi hội 24QTKD01',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Phó Trưởng Ban Thường trực BTC (Hệ số ×3)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'QR Check-in & Biên bản điều phối Văn phòng',
+    evidenceNote: 'QR Check-in và Biên bản điều phối Văn phòng',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3352,11 +3669,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Đội trưởng Đội hình Hậu cần – Khánh tiết (Hệ số ×3)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'QR Check-in & Nhật ký điều phối Đội CTVXK',
+    evidenceNote: 'QR Check-in và Nhật ký điều phối Đội CTVXK',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3373,11 +3690,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Ban Tổ chức và Xây dựng Hội / Chi hội 25CNTT01',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Phó Trưởng Ban Tổ chức (Điều hành nội dung Tập huấn)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'Kế hoạch 12/KH-HSV & Danh sách điểm danh QR',
+    evidenceNote: 'Kế hoạch 12/KH-HSV và Danh sách điểm danh QR',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3394,11 +3711,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Ban Tuyên giáo - Phong trào / Chi hội 25CNTT02',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Trưởng Tiểu ban Truyền thông Hội nghị (Hệ số ×3)',
     multiplierApplied: 3,
     volunteerDays: 1.5,
-    evidenceNote: 'QR Check-in & Bộ ấn phẩm số Hội nghị',
+    evidenceNote: 'QR Check-in và Bộ ấn phẩm số Hội nghị',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3415,11 +3732,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Chi hội 25CNTT01 (Khoa Công nghệ Thông tin)',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Cộng tác viên hỗ trợ / Đại biểu tham dự (Hệ số ×1)',
     multiplierApplied: 1,
     volunteerDays: 0.5,
-    evidenceNote: 'QR Check-in đủ 02 buổi & Đạt bài thu hoạch 95/100',
+    evidenceNote: 'QR Check-in đủ 02 buổi và Đạt bài thu hoạch 95/100',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3436,11 +3753,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Ban Tổ chức và Xây dựng Hội (Cụm CNTT) / Chi hội 25CNTT01',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Thành viên Ban Tổ chức (Điều phối Cụm CNTT - Hệ số ×2)',
     multiplierApplied: 2,
     volunteerDays: 1.0,
-    evidenceNote: 'QR Check-in 02 buổi & Biên bản Cụm CNTT',
+    evidenceNote: 'QR Check-in 02 buổi và Biên bản Cụm CNTT',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3457,11 +3774,11 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     unitName: 'Ban Tổ chức và Xây dựng Hội (Cụm KHSK) / Chi hội 25KHSK01',
     eventId: 'evt-02',
     eventTitle:
-      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp & Kỹ năng Điều hành Cuộc họp Không giấy',
+      'Hội nghị Tập huấn Cán bộ Đoàn – Hội các cấp và Kỹ năng Điều hành Cuộc họp Không giấy',
     roleTitle: 'Thành viên Ban Tổ chức (Điều phối Cụm KHSK - Hệ số ×2)',
     multiplierApplied: 2,
     volunteerDays: 1.0,
-    evidenceNote: 'QR Check-in 02 buổi & Biên bản Cụm KHSK',
+    evidenceNote: 'QR Check-in 02 buổi và Biên bản Cụm KHSK',
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
@@ -3486,7 +3803,7 @@ export const ONLINE_QUIZ_QUESTIONS: OnlineQuizQuestion[] = [
   },
   {
     id: 'quiz-02',
-    topic: 'Quy định Cấp Giấy chứng nhận & Ngày tình nguyện (28/QĐ-HSV)',
+    topic: 'Quy định Cấp Giấy chứng nhận và Ngày tình nguyện (28/QĐ-HSV)',
     sv5tTarget: 'Đạo đức tốt',
     question:
       'Theo Điều 4 và Điều 6 Quyết định 28/QĐ-HSV, thời hạn xin công nhận ngày tình nguyện trước sự kiện và cam kết SLA ban hành Quyết định cấp GCN sau khi nhận danh sách hợp lệ là bao lâu?',
@@ -3518,7 +3835,7 @@ export const ONLINE_QUIZ_QUESTIONS: OnlineQuizQuestion[] = [
   },
   {
     id: 'quiz-04',
-    topic: 'Phát triển Bền vững EIU & Hội nhập Quốc tế (UN SDGs)',
+    topic: 'Phát triển Bền vững EIU và Hội nhập Quốc tế (UN SDGs)',
     sv5tTarget: 'Hội nhập tốt',
     question:
       'Tiêu chuẩn "Sự kiện Xanh" gắn với Báo cáo Phát triển Bền vững EIU (EIU Sustainability Report) khuyến khích cam kết cốt lõi nào tại các chương trình của Hội Sinh viên?',
@@ -3554,9 +3871,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-01',
     title:
-      'Cuộc thi Trực tuyến Tìm hiểu Nghị quyết Đại hội II & Quy chế Sinh viên 5 Tốt (09/QĐ-HSV)',
+      'Cuộc thi Trực tuyến Tìm hiểu Nghị quyết Đại hội II và Quy chế Sinh viên 5 Tốt (09/QĐ-HSV)',
     slug: 'tim-hieu-nghi-quyet-dai-hoi-ii-quy-che-sv5t-2026',
-    topic: 'Lý luận & Quy chế Hội',
+    topic: 'Lý luận và Quy chế Hội',
     description:
       'Cuộc thi trọng điểm giúp hội viên nắm vững mục tiêu nhiệm kỳ 2026 – 2028, quy chuẩn xét chọn Sinh viên 5 Tốt sửa đổi 2026 và quy trình cấp E-Certificate (28/QĐ-HSV). Đạt từ 80% trở lên được tự động đồng bộ tiêu chí phụ Đạo đức tốt.',
     statusTag: 'Còn 2 ngày',
@@ -3577,9 +3894,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-02',
     title:
-      'Đấu trường Tư duy Số & An toàn Thông tin Không gian mạng EIU CyberGuard 2026',
+      'Đấu trường Tư duy Số và An toàn Thông tin Không gian mạng EIU CyberGuard 2026',
     slug: 'dau-truong-tu-duy-so-an-toan-thong-tin-cyberguard-2026',
-    topic: 'Học thuật & Chuyên môn',
+    topic: 'Học thuật và Chuyên môn',
     description:
       'Kiểm tra kiến thức nhận diện lừa đảo trực tuyến (Phishing, Deepfake), bảo mật tài khoản Google Workspace `@eiu.edu.vn` và an toàn dữ liệu sinh viên.',
     statusTag: 'Còn 5 ngày',
@@ -3681,9 +3998,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-03',
     title:
-      'Thử thách "EIU English & Global Integration Quiz" — Tự tin Hội nhập Quốc tế',
+      'Thử thách "Tiếng Anh và Hội nhập Quốc tế EIU" — Tự tin Hội nhập Quốc tế',
     slug: 'eiu-english-global-integration-quiz-2026',
-    topic: 'Hội nhập & Ngoại ngữ',
+    topic: 'Hội nhập và Ngoại ngữ',
     description:
       'Bài thi trắc nghiệm song ngữ Anh – Việt về kỹ năng giao tiếp liên văn hóa, chuẩn IELTS/CEFR trong chương trình đào tạo EIU và kiến thức ASEAN.',
     statusTag: 'Đang mở đăng ký',
@@ -3702,7 +4019,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
     questions: [
       {
         id: 'en-01',
-        topic: 'Academic English & EIU Standards',
+        topic: 'Tiếng Anh Học thuật và Chuẩn EIU',
         sv5tTarget: 'Hội nhập tốt',
         question:
           'Theo Quy định 09/QĐ-HSV sửa đổi 2026, chứng chỉ ngoại ngữ chuẩn tham chiếu để xét tiêu chí phụ "Hội nhập tốt" đối với sinh viên không chuyên ngữ là gì?',
@@ -3766,7 +4083,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
       },
       {
         id: 'en-05',
-        topic: 'Global Citizenship & Sustainability',
+        topic: 'Công dân Toàn cầu và Phát triển Bền vững',
         sv5tTarget: 'Hội nhập tốt',
         question:
           'Which United Nations framework guides EIU student green initiatives such as EIU Green Giving and Plastic-Free Campus?',
@@ -3785,9 +4102,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-04',
     title:
-      'Tìm hiểu Triết lý Phát triển Bền vững EIU & 17 Mục tiêu UN SDGs',
+      'Tìm hiểu Triết lý Phát triển Bền vững EIU và 17 Mục tiêu UN SDGs',
     slug: 'tim-hieu-phat-trien-ben-vung-eiu-un-sdgs-2026',
-    topic: 'Phát triển bền vững & Kỹ năng',
+    topic: 'Phát triển bền vững và Kỹ năng',
     description:
       'Khám phá Báo cáo Phát triển Bền vững EIU 2025, 04 trụ cột "Nhân bản – Cộng đồng – Sáng tạo – Bền vững" và quy chuẩn "Sự kiện Xanh".',
     statusTag: 'Đang mở đăng ký',
@@ -3810,7 +4127,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
     title:
       'Kỳ thi Học thuật Trực tuyến: Toán – Logic – Tư duy Thuật toán CIT Challenge',
     slug: 'ky-thi-hoc-thuat-cit-challenge-2026',
-    topic: 'Học thuật & Chuyên môn',
+    topic: 'Học thuật và Chuyên môn',
     description:
       'Sân chơi học thuật trực tuyến dành cho sinh viên các Khoa rèn luyện tư duy phản biện, quy chế học chế Quý EIU và phương pháp nghiên cứu khoa học.',
     statusTag: 'Đang mở đăng ký',
@@ -3831,9 +4148,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-06',
     title:
-      'Trắc nghiệm Kiến thức Sơ cấp cứu Học đường & Sức khỏe Thể chất EIU',
+      'Trắc nghiệm Kiến thức Sơ cấp cứu Học đường và Sức khỏe Thể chất EIU',
     slug: 'trac-nghiem-so-cap-cuu-hoc-duong-suc-khoe-the-chat',
-    topic: 'Phát triển bền vững & Kỹ năng',
+    topic: 'Phát triển bền vững và Kỹ năng',
     description:
       'Trang bị kỹ năng xử lý chấn thương thể thao, say nắng, sơ cứu ban đầu và nắm rõ tiêu chuẩn "Sinh viên khỏe" trong xét chọn Thể lực tốt.',
     statusTag: 'Đang mở đăng ký',
@@ -3854,11 +4171,11 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-07',
     title:
-      'Cuộc thi Trực tuyến "Ánh sáng Soi đường" — Tìm hiểu Chủ nghĩa Mác – Lênin & Tư tưởng Hồ Chí Minh',
+      'Cuộc thi Trực tuyến "Ánh sáng Soi đường" — Tìm hiểu Chủ nghĩa Mác – Lênin và Tư tưởng Hồ Chí Minh',
     slug: 'anh-sang-soi-duong-2026-vong-truong',
-    topic: 'Lý luận & Quy chế Hội',
+    topic: 'Lý luận và Quy chế Hội',
     description:
-      'Vòng thi cấp Trường tìm kiếm đội tuyển xuất sắc tham dự Hội thi cấp Tỉnh & Toàn quốc; là minh chứng tiêu chí phụ chuẩn Đạo đức tốt.',
+      'Vòng thi cấp Trường tìm kiếm đội tuyển xuất sắc tham dự Hội thi cấp Tỉnh và Toàn quốc; là minh chứng tiêu chí phụ chuẩn Đạo đức tốt.',
     statusTag: 'Đang diễn ra',
     sv5tCriterion: 'Đạo đức tốt',
     durationMinutes: 25,
@@ -3877,9 +4194,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-08',
     title:
-      'Kiểm tra Kiến thức Tài chính Cá nhân & Khởi nghiệp Sinh viên BBS FinTech Quiz',
+      'Kiểm tra Kiến thức Tài chính Cá nhân và Khởi nghiệp Sinh viên BBS FinTech Quiz',
     slug: 'kiem-tra-kien-thuc-tai-chinh-bbs-fintech-quiz',
-    topic: 'Học thuật & Chuyên môn',
+    topic: 'Học thuật và Chuyên môn',
     description:
       'Đánh giá hiểu biết về quản trị dòng tiền sinh viên, đọc hiểu báo cáo tài chính căn bản và các mô hình kinh doanh số bền vững.',
     statusTag: 'Đang mở đăng ký',
@@ -3900,9 +4217,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-09',
     title:
-      'Cuộc thi Tìm hiểu Luật Giao thông, Luật Thanh niên & Văn hóa Học đường EIU',
+      'Cuộc thi Tìm hiểu Luật Giao thông, Luật Thanh niên và Văn hóa Học đường EIU',
     slug: 'tim-hieu-luat-giao-thong-luat-thanh-nien-van-hoa-eiu',
-    topic: 'Lý luận & Quy chế Hội',
+    topic: 'Lý luận và Quy chế Hội',
     description:
       'Nâng cao ý thức chấp hành pháp luật, nội quy Ký túc xá – Giảng đường và ứng xử văn minh trong môi trường đại học.',
     statusTag: 'Chưa mở đăng ký',
@@ -3923,9 +4240,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-10',
     title:
-      'Thử thách Hiểu biết Tự động hóa & Công nghiệp 4.0 (SET Engineering Challenge)',
+      'Thử thách Hiểu biết Tự động hóa và Công nghiệp 4.0 (SET Engineering Challenge)',
     slug: 'thu-thach-tu-dong-hoa-cong-nghiep-40-set',
-    topic: 'Học thuật & Chuyên môn',
+    topic: 'Học thuật và Chuyên môn',
     description:
       'Bài thi kiến thức chuyên ngành dành cho sinh viên khối Kỹ thuật về IoT, tự động hóa công nghiệp và giải pháp năng lượng sạch.',
     statusTag: 'Chưa mở đăng ký',
@@ -3946,9 +4263,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-11',
     title:
-      'Sát hạch Kiến thức Tập huấn Cán bộ Hội & Kỹ năng Điều phối Sự kiện 2026',
+      'Sát hạch Kiến thức Tập huấn Cán bộ Hội và Kỹ năng Điều phối Sự kiện 2026',
     slug: 'sat-hach-kien-thuc-tap-huan-can-bo-hoi-2026',
-    topic: 'Lý luận & Quy chế Hội',
+    topic: 'Lý luận và Quy chế Hội',
     description:
       'Bài kiểm tra bắt buộc dành cho BCH 25 Chi hội và BCN 30 CLB – Đội – Nhóm về quy trình E-Office, công tác văn thư và SLA 07 ngày.',
     statusTag: 'Đã đóng đăng ký',
@@ -3969,11 +4286,11 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-12',
     title:
-      'Kiến thức Chăm sóc Sức khỏe Cộng đồng & Phòng chống Dịch bệnh Mùa Đông (SNS Health)',
+      'Kiến thức Chăm sóc Sức khỏe Cộng đồng và Phòng chống Dịch bệnh Mùa Đông (SNS Health)',
     slug: 'cham-soc-suc-khoe-cong-dong-sns-health-2026',
-    topic: 'Phát triển bền vững & Kỹ năng',
+    topic: 'Phát triển bền vững và Kỹ năng',
     description:
-      'Cập nhật kiến thức phòng bệnh học đường, hiến máu an toàn và dinh dưỡng hợp lý cho sinh viên Khoa Khoa học Sức khỏe & toàn trường.',
+      'Cập nhật kiến thức phòng bệnh học đường, hiến máu an toàn và dinh dưỡng hợp lý cho sinh viên Khoa Khoa học Sức khỏe và toàn trường.',
     statusTag: 'Đang mở đăng ký',
     sv5tCriterion: 'Tình nguyện tốt',
     durationMinutes: 15,
@@ -3994,7 +4311,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
     title:
       'Cuộc thi Trực tuyến "Sinh viên EIU với Ngày Pháp luật Việt Nam" 09/11/2026',
     slug: 'sinh-vien-eiu-voi-ngay-phap-luat-viet-nam-2026',
-    topic: 'Lý luận & Quy chế Hội',
+    topic: 'Lý luận và Quy chế Hội',
     description:
       'Đợt sinh hoạt chính trị – pháp lý hưởng ứng Ngày Pháp luật Việt Nam; đã ban hành Quyết định công nhận kết quả và cấp E-Certificate điện tử.',
     statusTag: 'Đã kết thúc',
@@ -4016,9 +4333,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-14',
     title:
-      'Cuộc thi Giao lưu Văn hóa Hàn – Việt & Ngôn ngữ Quốc tế (Korean Club Quiz)',
+      'Cuộc thi Giao lưu Văn hóa Hàn – Việt và Ngôn ngữ Quốc tế (Korean Club Quiz)',
     slug: 'giao-luu-van-hoa-han-viet-korean-club-quiz-2026',
-    topic: 'Hội nhập & Ngoại ngữ',
+    topic: 'Hội nhập và Ngoại ngữ',
     description:
       'Trắc nghiệm văn hóa Đông Á, giao tiếp đa văn hóa và cơ hội học bổng trao đổi sinh viên quốc tế tại EIU.',
     statusTag: 'Đã kết thúc',
@@ -4040,9 +4357,9 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
   {
     id: 'cnt-15',
     title:
-      'Đợt thi Trắc nghiệm Nâng cao Thể chất & Kỹ năng Vận động Thể thao Học đường',
+      'Đợt thi Trắc nghiệm Nâng cao Thể chất và Kỹ năng Vận động Thể thao Học đường',
     slug: 'nang-cao-the-chat-ky-nang-van-dong-the-thao-2026',
-    topic: 'Phát triển bền vững & Kỹ năng',
+    topic: 'Phát triển bền vững và Kỹ năng',
     description:
       'Đánh giá kiến thức khởi động đúng cách, phục hồi thể lực và thể lệ Giải Thể thao Sinh viên EIU 2026.',
     statusTag: 'Đã kết thúc',
@@ -4068,7 +4385,7 @@ export const OFFICE_206_ASSETS: OfficeAssetItem[] = [
     id: 'ast-01',
     assetCode: 'TS-206-BD01',
     name: 'Bộ đàm điều phối sự kiện Motorola (Bộ 10 máy)',
-    category: 'Âm thanh & Bộ đàm',
+    category: 'Âm thanh và Bộ đàm',
     totalQty: 10,
     availableQty: 4,
     borrowerUnit: 'CLB Blood Donation Club',
@@ -4080,7 +4397,7 @@ export const OFFICE_206_ASSETS: OfficeAssetItem[] = [
     id: 'ast-02',
     assetCode: 'TS-206-LOA02',
     name: 'Loa kéo di động công suất lớn + 02 Micro không dây',
-    category: 'Âm thanh & Bộ đàm',
+    category: 'Âm thanh và Bộ đàm',
     totalQty: 2,
     availableQty: 2,
     status: 'available',
@@ -4088,7 +4405,7 @@ export const OFFICE_206_ASSETS: OfficeAssetItem[] = [
   {
     id: 'ast-03',
     assetCode: 'TS-206-STD05',
-    name: 'Khung Standee chữ X & Khung QR Check-in chuẩn EIU (60×160cm)',
+    name: 'Khung Standee chữ X và Khung QR Check-in chuẩn EIU (60×160cm)',
     category: 'Thiết bị Sự kiện',
     totalQty: 12,
     availableQty: 8,
@@ -4100,8 +4417,8 @@ export const OFFICE_206_ASSETS: OfficeAssetItem[] = [
   {
     id: 'ast-04',
     assetCode: 'TS-206-CO01',
-    name: 'Bộ Cờ Tổ quốc, Cờ Hội Sinh viên Việt Nam & Áo khoác BCH',
-    category: 'Ấn phẩm & Cờ Hội',
+    name: 'Bộ Cờ Tổ quốc, Cờ Hội Sinh viên Việt Nam và Áo khoác BCH',
+    category: 'Ấn phẩm và Cờ Hội',
     totalQty: 20,
     availableQty: 20,
     status: 'available',
@@ -4113,7 +4430,7 @@ export const PLAN_SUBMISSIONS: PlanSubmissionItem[] = [
     id: 'plan-01',
     planCode: '18/KH-CLB-SV5T',
     title:
-      'Kế hoạch Workshop Kỹ năng Nhận diện Lừa đảo Không gian mạng & Tư duy Phản biện số',
+      'Kế hoạch Workshop Kỹ năng Nhận diện Lừa đảo Không gian mạng và Tư duy Phản biện số',
     submittingUnit: 'CLB Cộng đồng Sinh viên 5 tốt',
     clusterName: 'Cụm 30 CLB / Đội / Nhóm (Đ/c Nguyễn Mỹ Hạnh)',
     eventDate: '12/11/2026',
@@ -4124,7 +4441,7 @@ export const PLAN_SUBMISSIONS: PlanSubmissionItem[] = [
     id: 'plan-02',
     planCode: '09/KH-25CNTT01',
     title:
-      'Kế hoạch Sinh hoạt Chuyên đề "Hành trang Học tập tốt GPA ≥ 3.0 & Nghiên cứu Khoa học CIT"',
+      'Kế hoạch Sinh hoạt Chuyên đề "Hành trang Học tập tốt GPA ≥ 3.0 và Nghiên cứu Khoa học CIT"',
     submittingUnit: 'Chi hội 25CNTT01',
     clusterName: 'Cụm Khoa CNTT (Đ/c Trần Nguyễn Quỳnh Trân)',
     eventDate: '18/11/2026',
@@ -4135,7 +4452,7 @@ export const PLAN_SUBMISSIONS: PlanSubmissionItem[] = [
     id: 'plan-03',
     planCode: '21/KH-CTVXK',
     title:
-      'Kế hoạch Ngày Chủ nhật Xanh EIU & Trạm Đổi Pin Cũ Lấy Cây Xanh Đợt 2/2026',
+      'Kế hoạch Ngày Chủ nhật Xanh EIU và Trạm Đổi Pin Cũ Lấy Cây Xanh Đợt 2/2026',
     submittingUnit: 'Đội Cộng tác viên Xung kích (Đội CTVXK)',
     clusterName: 'Ban TG-PT – Mảng Phong trào (Đ/c Nguyễn Mai Gia Tường)',
     eventDate: '22/11/2026',
