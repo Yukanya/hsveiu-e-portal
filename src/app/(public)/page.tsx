@@ -733,10 +733,10 @@ export default function HomePage() {
 
                 <div className="pt-3 border-t border-slate-100">
                   <Link
-                    href="/gioi-thieu?tab=bch"
+                    href="/gioi-thieu?tab=co-cau"
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
-                    <span>XEM DANH SÁCH</span>
+                    <span>XEM CƠ CẤU TỔ CHỨC</span>
                     <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-200" />
                   </Link>
                 </div>
@@ -762,7 +762,7 @@ export default function HomePage() {
 
                 <div className="pt-3 border-t border-slate-100">
                   <Link
-                    href="/to-chuc?tab=branches"
+                    href="/to-chuc?tab=chi-hoi"
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>DANH BẠ CHI HỘI</span>
@@ -791,7 +791,7 @@ export default function HomePage() {
 
                 <div className="pt-3 border-t border-slate-100">
                   <Link
-                    href="/to-chuc?tab=clubs"
+                    href="/to-chuc?tab=clb"
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>KHÁM PHÁ CLB</span>

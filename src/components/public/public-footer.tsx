@@ -91,7 +91,7 @@ function PublicFooterInner() {
             <ul className="space-y-1 text-[#DED1BE]">
               <li>
                 <Link
-                  href="/gioi-thieu"
+                  href="/gioi-thieu?tab=hsv-eiu"
                   className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Về Hội Sinh viên EIU
@@ -99,10 +99,10 @@ function PublicFooterInner() {
               </li>
               <li>
                 <Link
-                  href="/gioi-thieu?tab=bch"
+                  href="/gioi-thieu?tab=co-cau"
                   className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Đội ngũ cán bộ
+                  Cơ cấu tổ chức cấp trường
                 </Link>
               </li>
               <li>

@@ -7,116 +7,42 @@ import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import { useFocusTrap } from '@/hooks/use-focus-trap';
 import {
-  BRANCH_UNITS,
-  CLUB_UNITS,
   FACULTY_METADATA,
   STAFF_MEMBERS,
 } from '@/data/mock-data';
+import {
+  CHI_HOI_SUMMARY_STATS,
+  EIU_CLUBS_DIRECTORY,
+  HSV_EIU_OVERVIEW,
+  SCHOOL_ORG_DEPARTMENTS,
+} from '@/data/about-data';
 import { StaffMember } from '@/types';
 import {
   ArrowRight,
   Award,
   Building2,
+  Calendar,
   CheckCircle2,
   FileCheck2,
+  Flag,
   GitBranch,
   Layers,
-  Leaf,
   MapPin,
   ShieldCheck,
+  Sparkles,
+  Target,
   Users,
   X,
 } from 'lucide-react';
 
-type OrgTabId =
-  | 'overview'
-  | 'chart'
-  | 'btk'
-  | 'bch'
-  | 'bkt'
-  | 'vp'
-  | 'tcxdh'
-  | 'tgpt';
+type MainTabId = 'hsv-eiu' | 'co-cau';
+type OrgBranchId = 'bch' | 'btk' | 'bkt' | 'tgpt' | 'vp' | 'tcxdh';
 
-interface OrgTabMeta {
-  id: OrgTabId;
-  group: 'DISCOVER' | 'APPARATUS';
-  label: string;
-  title: string;
-  subtitle: string;
-  badge?: string;
+function normalizeStaffDisplayName(fullName: string): string {
+  if (fullName === 'Trịnh Thị Phương Thủy') return 'Trịnh Thị Phương Thùy';
+  if (fullName === 'Nguyễn Thị Thúy Nhi') return 'Nguyễn Thị Thùy Nhi';
+  return fullName;
 }
-
-const ORG_TABS: OrgTabMeta[] = [
-  {
-    id: 'overview',
-    group: 'DISCOVER',
-    label: 'Tổng quan HSV EIU Khóa II',
-    title: 'TỔNG QUAN HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐHQTMĐ KHÓA II (2026 – 2028)',
-    subtitle:
-      'Tổ chức chính trị – xã hội của sinh viên EIU, đồng hành rèn luyện Sinh viên 5 Tốt, học thuật, hội nhập quốc tế và phát triển bền vững.',
-  },
-  {
-    id: 'chart',
-    group: 'DISCOVER',
-    label: 'Sơ đồ Tổ chức 3 Cấp',
-    title: 'SƠ ĐỒ CƠ CẤU TỔ CHỨC BỘ MÁY HỘI SINH VIÊN TRƯỜNG KHÓA II (3 CẤP)',
-    subtitle:
-      'Mô hình phân cấp trực quan từ Ban Chấp hành, Ban Thư ký, Ban Kiểm tra đến 03 đơn vị chuyên môn và 55 cơ sở Hội trực thuộc.',
-    badge: '3 CẤP',
-  },
-  {
-    id: 'btk',
-    group: 'APPARATUS',
-    label: 'Ban Thư ký (05 đ/c)',
-    title: 'BAN THƯ KÝ HỘI SINH VIÊN TRƯỜNG KHÓA II (05 ĐỒNG CHÍ)',
-    subtitle:
-      'Cơ quan thường trực điều hành công tác Hội và phong trào sinh viên toàn trường giữa hai kỳ họp Ban Chấp hành.',
-    badge: '05',
-  },
-  {
-    id: 'bch',
-    group: 'APPARATUS',
-    label: 'Ban Chấp hành (15 đ/c)',
-    title: 'BAN CHẤP HÀNH HỘI SINH VIÊN TRƯỜNG KHÓA II (15 ĐỒNG CHÍ)',
-    subtitle:
-      'Cơ quan lãnh đạo cao nhất của Hội Sinh viên trường nhiệm kỳ 2026 – 2028 gồm 01 Chủ tịch, 02 Phó Chủ tịch, 02 UV BTK và 10 UV BCH.',
-    badge: '15',
-  },
-  {
-    id: 'bkt',
-    group: 'APPARATUS',
-    label: 'Ban Kiểm tra (05 đ/c)',
-    title: 'BAN KIỂM TRA HỘI SINH VIÊN TRƯỜNG KHÓA II (05 ĐỒNG CHÍ)',
-    subtitle:
-      'Cơ quan kiểm tra, giám sát việc thực hiện Điều lệ Hội, Nghị quyết Đại hội II và bảo vệ quyền lợi hợp pháp của hội viên, sinh viên.',
-    badge: '05',
-  },
-  {
-    id: 'vp',
-    group: 'APPARATUS',
-    label: 'Văn phòng Hội (206.B06)',
-    title: 'VĂN PHÒNG HỘI SINH VIÊN TRƯỜNG — TRỤ SỞ PHÒNG 206.B06',
-    subtitle:
-      'Tham mưu hành chính, văn thư – lưu trữ, con dấu pháp lý và quản trị tài sản theo cơ chế đồng điều hành Đối ngoại – Nội bộ.',
-  },
-  {
-    id: 'tcxdh',
-    group: 'APPARATUS',
-    label: 'Ban Tổ chức và Xây dựng Hội',
-    title: 'BAN TỔ CHỨC VÀ XÂY DỰNG HỘI — QUẢN LÝ 05 CỤM HOẠT ĐỘNG',
-    subtitle:
-      'Quản lý công tác cán bộ, hội viên, thẩm định chủ trương Ngày tình nguyện trước 03 ngày và điều phối 04 Cụm Khoa (25 Chi hội) cùng 30 CLB.',
-  },
-  {
-    id: 'tgpt',
-    group: 'APPARATUS',
-    label: 'Ban Tuyên giáo – Phong trào',
-    title: 'BAN TUYÊN GIÁO – PHONG TRÀO VÀ ĐỘI CỘNG TÁC VIÊN XUNG KÍCH',
-    subtitle:
-      'Vận hành 02 mảng chuyên trách (Mảng Tuyên giáo và Mảng Phong trào), 06 tiểu ban trực thuộc và Đội CTV Xung kích quản lý 02 tiểu ban sự kiện.',
-  },
-];
 
 function StaffCompactCard({
   member,
@@ -131,7 +57,8 @@ function StaffCompactCard({
   featured?: boolean;
   onSelect: (m: StaffMember) => void;
 }) {
-  const initials = member.fullName
+  const displayName = normalizeStaffDisplayName(member.fullName);
+  const initials = displayName
     .split(' ')
     .slice(-2)
     .map((n) => n[0])
@@ -148,21 +75,19 @@ function StaffCompactCard({
           : 'border-slate-200 hover:border-[#133F68]'
       }`}
     >
-      {/* Huy hiệu Chân dung Cán bộ gọn, trang trọng (60px / 68px) */}
       <div
         className={`${
-          featured ? 'w-17 h-17 text-lg' : 'w-14 h-14 text-base'
-        } shrink-0 bg-[#133F68] eiu-arch-pattern text-white flex flex-col items-center justify-center relative border-b-3 border-[#A68556]`}
+          featured ? 'w-16 h-16 text-lg' : 'w-14 h-14 text-base'
+        } shrink-0 bg-[#133F68] eiu-arch-pattern text-white flex flex-col items-center justify-center border-b-3 border-[#A68556]`}
       >
-        <span className="font-bold font-eiu-display tracking-wide group-hover:scale-105 transition-transform">
+        <span className="font-bold font-eiu-display tracking-wide">
           {initials}
         </span>
         <span className="text-[11px] font-eiu-serif text-[#DED1BE] leading-none mt-0.5">
-          {member.cohortYear ? `K${member.cohortYear}` : 'CTSV'}
+          {member.cohortYear ? `K${member.cohortYear}` : 'EIU'}
         </span>
       </div>
 
-      {/* Khối thông tin phân cấp rõ ràng */}
       <div className="min-w-0 flex-1 space-y-1">
         <div className="flex flex-wrap items-center gap-1.5">
           <span
@@ -186,22 +111,20 @@ function StaffCompactCard({
             featured ? 'text-base' : 'text-[14.5px]'
           } font-bold text-[#133F68] group-hover:text-[#C10230] transition-colors font-eiu-display`}
         >
-          Đ/c {member.fullName}
+          Đ/c {displayName}
         </div>
 
-        <div className="text-xs text-slate-700 leading-snug line-clamp-2">
+        <div className="text-xs text-slate-700 leading-snug line-clamp-2 font-sans">
           {subLabel || member.internalDeptRole}
         </div>
 
-        <div className="pt-1 flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-slate-500 font-eiu-serif">
-          <span>
-            {member.studentId !== '-'
-              ? `MSSV: ${member.studentId}`
-              : 'Chuyên viên Phòng CTSV'}
-          </span>
-          <span>•</span>
-          <span className="font-sans font-medium text-slate-600">
+        <div className="pt-0.5 flex flex-wrap items-center gap-x-2.5 gap-y-0.5 text-[11px] text-slate-600 font-sans">
+          <span className="font-medium">
             {facultyMeta.shortCode} — {member.majorName}
+          </span>
+          <span aria-hidden="true">•</span>
+          <span className="font-eiu-serif text-slate-500 break-all">
+            {member.email}
           </span>
         </div>
       </div>
@@ -209,34 +132,43 @@ function StaffCompactCard({
   );
 }
 
-function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
-  const [activeTab, setActiveTabState] = useState<OrgTabId>(initialTab);
+function GioiThieuContent({
+  initialMainTab,
+  initialBranch,
+}: {
+  initialMainTab: MainTabId;
+  initialBranch: OrgBranchId;
+}) {
+  const [mainTab, setMainTabState] = useState<MainTabId>(initialMainTab);
+  const [activeBranch, setActiveBranch] = useState<OrgBranchId>(initialBranch);
   const [selectedStaff, setSelectedStaff] = useState<StaffMember | null>(null);
-  const contentTopRef = useRef<HTMLDivElement>(null);
+  const [posterFailed, setPosterFailed] = useState(false);
+
+  const branchDetailRef = useRef<HTMLDivElement>(null);
   const staffModalRef = useRef<HTMLDivElement>(null);
 
-  const setActiveTab = useCallback((tab: OrgTabId, scrollMobile = false) => {
-    setActiveTabState(tab);
+  const setMainTab = useCallback((nextTab: MainTabId) => {
+    setMainTabState(nextTab);
     if (typeof window !== 'undefined' && window.history) {
       const url = new URL(window.location.href);
-      url.searchParams.set('tab', tab);
+      url.searchParams.set('tab', nextTab);
       window.history.replaceState({}, '', url.toString());
     }
-    if (scrollMobile && typeof window !== 'undefined' && window.innerWidth < 1024) {
-      contentTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
+  const selectOrgBranch = useCallback((branch: OrgBranchId, shouldScroll = false) => {
+    setActiveBranch(branch);
+    if (shouldScroll) {
+      branchDetailRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     }
   }, []);
 
   const closeStaffModal = useCallback(() => setSelectedStaff(null), []);
   useFocusTrap(Boolean(selectedStaff), staffModalRef, closeStaffModal);
 
-  const currentTabMeta =
-    ORG_TABS.find((t) => t.id === activeTab) || ORG_TABS[0];
-
-  const discoverTabs = ORG_TABS.filter((t) => t.group === 'DISCOVER');
-  const apparatusTabs = ORG_TABS.filter((t) => t.group === 'APPARATUS');
-
-  // Phân tầng dữ liệu nhân sự theo đúng chức danh Khóa II
   const president = STAFF_MEMBERS.find((m) => m.bchRole === 'Chủ tịch')!;
   const vicePresidents = STAFF_MEMBERS.filter(
     (m) =>
@@ -259,775 +191,716 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
     (m) => m.bktRole === 'Ủy viên Ban Kiểm tra'
   );
 
-  // Văn phòng 206.B06 (Đồng điều hành Đối ngoại & Nội bộ)
-  const vpCoLeaders = STAFF_MEMBERS.filter(
-    (m) => m.id === 'staff-08' || m.id === 'staff-02'
-  );
-  const vpOfficers = STAFF_MEMBERS.filter(
-    (m) =>
-      m.internalDeptCode === 'VP-HSV' &&
-      m.id !== 'staff-08' &&
-      m.id !== 'staff-02'
+  const selectedDept = SCHOOL_ORG_DEPARTMENTS.find(
+    (d) => d.id === activeBranch
   );
 
-  // Ban Tổ chức & Xây dựng Hội (Trưởng ban + 05 Cụm)
-  const tcxdhHead = STAFF_MEMBERS.find((m) => m.id === 'staff-03')!;
-  const tcxdhClusterLeaders = [
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-15')!,
-      role: 'Phó Ban • Cụm trưởng Cụm QTKD (06 Chi hội)',
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-13')!,
-      role: 'Phó Ban • Cụm trưởng Cụm Kỹ thuật (06 Chi hội)',
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-17')!,
-      role: 'Phó Ban • Cụm trưởng Cụm CNTT (07 Chi hội)',
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-05')!,
-      role: 'Phó Ban • Cụm trưởng Cụm KHSK (06 Chi hội)',
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-08')!,
-      role: 'Phó Ban • Quản lý Cụm 30 CLB – Đội – Nhóm',
-    },
-  ];
-
-  // Ban Tuyên giáo - Phong trào (02 Mảng)
-  const tgptPropaganda = [
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-06')!,
-      role: 'Trưởng Ban TG-PT (Trưởng mảng Tuyên giáo)',
-      featured: true,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-11')!,
-      role: 'Phó Trưởng Ban TG-PT (Mảng Tuyên giáo)',
-      featured: false,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-12')!,
-      role: 'Phó Trưởng Ban TG-PT (Mảng Tuyên giáo)',
-      featured: false,
-    },
-  ];
-
-  const tgptMovement = [
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-04')!,
-      role: 'Trưởng Ban TG-PT (Trưởng mảng Phong trào)',
-      featured: true,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-16')!,
-      role: 'Phó Trưởng Ban TG-PT (Mảng Phong trào)',
-      featured: false,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-20')!,
-      role: 'Phó Ban TG-PT • Đội trưởng Đội CTV Xung kích',
-      featured: false,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-07')!,
-      role: 'Ủy viên BCH • Cán bộ Ban TG-PT',
-      featured: false,
-    },
-    {
-      member: STAFF_MEMBERS.find((m) => m.id === 'staff-10')!,
-      role: 'Ủy viên BCH • Cán bộ Ban TG-PT',
-      featured: false,
-    },
-  ];
+  const openStaffById = (staffId?: string) => {
+    if (!staffId) return;
+    const found = STAFF_MEMBERS.find((m) => m.id === staffId);
+    if (found) setSelectedStaff(found);
+  };
 
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        title="Giới thiệu Tổ chức và Đội ngũ Cán bộ Chủ chốt"
-        subtitle="Cơ cấu bộ máy 3 cấp, Thường trực Ban Thư ký, Ban Chấp hành, Ban Kiểm tra và 03 Ban chuyên môn trực thuộc"
+        title={
+          mainTab === 'hsv-eiu'
+            ? 'HỘI SINH VIÊN TRƯỜNG ĐẠI HỌC QUỐC TẾ MIỀN ĐÔNG'
+            : 'CƠ CẤU TỔ CHỨC CẤP TRƯỜNG KHÓA II (2026 – 2028)'
+        }
+        subtitle={
+          mainTab === 'hsv-eiu'
+            ? 'Sứ mệnh, vai trò, hành trình hình thành, dấu ấn Đại hội II và các chương trình tiêu biểu đồng hành cùng sinh viên EIU.'
+            : 'Sơ đồ cây bộ máy lãnh đạo gồm Ban Chấp hành, Ban Thư ký, Ban Kiểm tra, Văn phòng Hội và các Ban Chuyên môn trực thuộc.'
+        }
         breadcrumbs={[
-          { label: 'Giới thiệu và Bộ máy', href: '/gioi-thieu' },
-          { label: currentTabMeta.label },
+          { label: 'Giới thiệu', href: '/gioi-thieu' },
+          {
+            label:
+              mainTab === 'hsv-eiu'
+                ? 'Hội Sinh viên EIU'
+                : 'Cơ cấu tổ chức cấp trường',
+          },
         ]}
       />
 
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6 lg:pt-9">
-        {/* Thanh chuyển phân hệ ngang gọn trên Mobile / Tablet (< 1024px) */}
-        <div
-          role="group"
-          aria-label="Chọn phân hệ Giới thiệu và Bộ máy"
-          className="lg:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1"
-        >
-          {ORG_TABS.map((tab) => {
-            const isSelected = activeTab === tab.id;
-            return (
-              <button
-                key={`mob-${tab.id}`}
-                type="button"
-                aria-current={isSelected ? 'page' : undefined}
-                onClick={() => setActiveTab(tab.id, true)}
-                className={`min-h-[44px] px-3.5 py-2 text-xs font-bold whitespace-nowrap shrink-0 border transition-colors cursor-pointer font-eiu-display ${
-                  isSelected
-                    ? 'bg-[#C10230] text-white border-[#C10230]'
-                    : 'bg-[#EAE3D2] text-[#133F68] border-slate-300'
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* CỘT TRÁI (3/12): Menu dọc Desktop (#C10230 / #EAE3D2) */}
-          <aside
-            aria-label="Danh mục Giới thiệu và Cơ cấu bộ máy"
-            className="hidden lg:block lg:col-span-3 space-y-5"
-          >
-            <div className="border border-slate-200 bg-white">
-              <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                Khám phá và Sơ đồ Bộ máy
-              </div>
-              <div className="divide-y divide-white">
-                {discoverTabs.map((tab) => {
-                  const isSelected = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setActiveTab(tab.id)}
-                      aria-current={isSelected ? 'page' : undefined}
-                      className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                        isSelected
-                          ? 'bg-[#C10230] text-white font-bold'
-                          : 'bg-[#EAE3D2] text-slate-900 hover:bg-[#dfd5be]'
-                      }`}
-                    >
-                      <span>{tab.label}</span>
-                      {tab.badge && (
-                        <span
-                          className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
-                            isSelected
-                              ? 'bg-white/20 text-white'
-                              : 'bg-[#133F68] text-white'
-                          }`}
-                        >
-                          {tab.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="border border-slate-200 bg-white">
-              <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                Lãnh đạo và 03 Ban Chuyên môn
-              </div>
-              <div className="divide-y divide-white">
-                {apparatusTabs.map((tab) => {
-                  const isSelected = activeTab === tab.id;
-                  return (
-                    <button
-                      key={tab.id}
-                      type="button"
-                      onClick={() => setActiveTab(tab.id)}
-                      aria-current={isSelected ? 'page' : undefined}
-                      className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer ${
-                        isSelected
-                          ? 'bg-[#C10230] text-white font-bold'
-                          : 'bg-[#EAE3D2] text-slate-900 hover:bg-[#dfd5be]'
-                      }`}
-                    >
-                      <span>{tab.label}</span>
-                      {tab.badge && (
-                        <span
-                          className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
-                            isSelected
-                              ? 'bg-white/20 text-white'
-                              : 'bg-white/80 text-[#133F68]'
-                          }`}
-                        >
-                          {tab.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </aside>
-
-          {/* CỘT PHẢI (9/12): Nội dung chuyên biệt theo từng Tab */}
+      {/* Thanh chuyển 02 tab chính ngay trên cùng 01 trang + lối tắt sang 02 trang còn lại */}
+      <div className="bg-white border-b border-slate-200 sticky top-[78px] z-20">
+        <div className="max-w-[1140px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
           <div
-            ref={contentTopRef}
-            className="lg:col-span-9 space-y-6 scroll-mt-24"
+            role="tablist"
+            aria-label="Chuyển đổi nội dung Giới thiệu Hội Sinh viên EIU"
+            className="flex items-center gap-2"
           >
-            {/* Tiêu đề & Mô tả học thuật */}
-            <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5 sm:p-6">
-              <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display text-balance">
-                {currentTabMeta.title}
-              </h2>
-              <p className="text-[13.5px] text-slate-600 mt-1.5 leading-relaxed">
-                {currentTabMeta.subtitle}
-              </p>
-            </div>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mainTab === 'hsv-eiu'}
+              onClick={() => setMainTab('hsv-eiu')}
+              className={`min-h-[44px] sm:min-h-[40px] px-4 sm:px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-eiu-display transition-colors cursor-pointer ${
+                mainTab === 'hsv-eiu'
+                  ? 'bg-[#C10230] text-white border border-[#C10230]'
+                  : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40'
+              }`}
+            >
+              Hội Sinh viên EIU
+            </button>
 
-            {/* ============================================================
-                TAB 1: TỔNG QUAN HỘI SINH VIÊN EIU KHÓA II (2026 - 2028)
-               ============================================================ */}
-            {activeTab === 'overview' && (
-              <div className="space-y-6">
-                {/* Khung Ảnh tập thể BCH Đại hội II & Sứ mệnh */}
-                <div className="bg-white border border-slate-200 overflow-hidden">
-                  <div className="grid grid-cols-1 md:grid-cols-12">
-                    <div className="md:col-span-6 bg-[#133F68] relative min-h-64 flex items-center justify-center p-4">
-                      <Image
-                        src="/images/hsv-bch-dh2.png"
-                        alt="Ban Chấp hành Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông Khóa II"
-                        width={236}
-                        height={288}
-                        style={{ width: 'auto' }}
-                        className="h-72 w-auto object-contain border border-white/20"
-                      />
-                    </div>
-                    <div className="md:col-span-6 p-6 flex flex-col justify-between gap-4">
-                      <div className="space-y-3">
-                        <span className="inline-block px-2.5 py-1 bg-[#0054A6] text-white text-[11px] font-bold uppercase tracking-wider font-eiu-display">
-                          NHIỆM KỲ KHÓA II (2026 – 2028)
-                        </span>
-                        <h3 className="text-lg font-bold text-[#133F68] leading-snug font-eiu-display">
-                          Đồng hành toàn diện cùng Sinh viên EIU: Bản lĩnh – Học
-                          thuật – Tình nguyện – Hội nhập Quốc tế
-                        </h3>
-                        <p className="text-[13.5px] text-slate-700 leading-relaxed">
-                          Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền
-                          Đông (EIU) là cầu nối trực tiếp giữa Nhà trường và hơn
-                          4.000 hội viên, sinh viên; tiên phong chuyển đổi số
-                          công tác Hội với Sổ tay Kỹ thuật số Sinh viên 5 Tốt,
-                          Hệ thống E-Certificate xác thực QR và Phòng họp Không
-                          giấy E-Office.
-                        </p>
-                      </div>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mainTab === 'co-cau'}
+              onClick={() => setMainTab('co-cau')}
+              className={`min-h-[44px] sm:min-h-[40px] px-4 sm:px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-eiu-display transition-colors cursor-pointer ${
+                mainTab === 'co-cau'
+                  ? 'bg-[#C10230] text-white border border-[#C10230]'
+                  : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40'
+              }`}
+            >
+              Cơ cấu tổ chức cấp trường
+            </button>
+          </div>
 
-                      <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center gap-3">
-                        <button
-                          type="button"
-                          onClick={() => setActiveTab('chart')}
-                          className="px-4 py-2 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
-                        >
-                          Xem Sơ đồ Bộ máy 3 Cấp
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setActiveTab('btk')}
-                          className="px-4 py-2 border border-[#133F68] text-[#133F68] hover:bg-[#133F68] hover:text-white text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
-                        >
-                          Danh sách Ban Thư ký
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+          <div className="flex flex-wrap items-center gap-2 text-xs font-eiu-display">
+            <Link
+              href="/hoi-sinh-vien-viet-nam"
+              className="px-3 py-1.5 text-[#0054A6] hover:text-[#C10230] font-bold hover:underline underline-offset-4"
+            >
+              Hội Sinh viên Việt Nam
+            </Link>
+            <span className="text-slate-300" aria-hidden="true">
+              |
+            </span>
+            <Link
+              href="/to-chuc?tab=chi-hoi"
+              className="px-3 py-1.5 text-[#0054A6] hover:text-[#C10230] font-bold hover:underline underline-offset-4"
+            >
+              Chi hội và CLB – Đội – Nhóm
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-8 space-y-10">
+        {/* =====================================================================
+            TAB 1 (MẶC ĐỊNH): HỘI SINH VIÊN EIU
+           ===================================================================== */}
+        {mainTab === 'hsv-eiu' && (
+          <div className="space-y-10">
+            {/* 1. Khối Giới thiệu Đại hội II & Biểu trưng chính thức */}
+            <section className="bg-white border border-slate-200 overflow-hidden shadow-2xs">
+              <div className="grid grid-cols-1 lg:grid-cols-12">
+                <div className="lg:col-span-5 bg-[#02294E] relative min-h-72 flex items-center justify-center p-5">
+                  {!posterFailed ? (
+                    <Image
+                      src="/images/hsv-dai-hoi-2-poster.jpg"
+                      alt="Biểu trưng Đại hội Đại biểu Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông lần thứ II, nhiệm kỳ 2026 – 2028"
+                      width={460}
+                      height={460}
+                      className="w-full max-w-[340px] h-auto object-contain border border-white/20 shadow-md"
+                      onError={() => setPosterFailed(true)}
+                    />
+                  ) : (
+                    <Image
+                      src="/images/hsv-bch-dh2.png"
+                      alt="Biểu trưng Đại hội II Hội Sinh viên EIU"
+                      width={240}
+                      height={290}
+                      style={{ width: 'auto' }}
+                      className="h-64 w-auto object-contain"
+                    />
+                  )}
                 </div>
 
-                {/* 04 Chỉ số quy mô tổ chức */}
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                  {[
-                    {
-                      num: '15 / 05',
-                      label: 'Ủy viên BCH / Ban Thư ký',
-                      note: '01 CT • 02 PCT • 02 UV BTK',
-                      tab: 'bch' as OrgTabId,
-                    },
-                    {
-                      num: '05 đ/c',
-                      label: 'Ủy viên Ban Kiểm tra',
-                      note: 'Giám sát Điều lệ và Kiến nghị SV',
-                      tab: 'bkt' as OrgTabId,
-                    },
-                    {
-                      num: '03 Đơn vị',
-                      label: 'Văn phòng và Ban Chuyên môn',
-                      note: 'VP 206.B06 • TC-XDH • TG-PT',
-                      tab: 'vp' as OrgTabId,
-                    },
-                    {
-                      num: '25 + 30',
-                      label: 'Chi hội Khoa và CLB/Đội/Nhóm',
-                      note: '04 Cụm Khoa • 04 Khối CLB',
-                      tab: 'tcxdh' as OrgTabId,
-                    },
-                  ].map((stat) => (
-                    <button
-                      key={stat.label}
-                      type="button"
-                      onClick={() => setActiveTab(stat.tab)}
-                      className="bg-white border border-slate-200 hover:border-[#0054A6] p-4 text-left transition-colors cursor-pointer"
-                    >
-                      <div className="text-xl font-extrabold font-eiu-serif text-[#0054A6]">
-                        {stat.num}
-                      </div>
-                      <div className="text-xs font-bold text-[#133F68] mt-1 font-eiu-display">
-                        {stat.label}
-                      </div>
-                      <div className="text-[11px] text-slate-500 mt-0.5">
-                        {stat.note}
-                      </div>
-                    </button>
-                  ))}
-                </div>
+                <div className="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between gap-6">
+                  <div className="space-y-4">
+                    <h2 className="text-xl sm:text-2xl font-extrabold text-[#133F68] font-eiu-display leading-snug text-balance">
+                      {HSV_EIU_OVERVIEW.fullName}
+                    </h2>
 
-                {/* Giá trị cốt lõi EIU & Cam kết Phát triển Bền vững UN SDGs */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="bg-white border border-slate-200">
-                    <div className="bg-[#133F68] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
-                      <Leaf className="w-4 h-4 text-[#00BCFF]" />
-                      <span>Hệ Giá trị EIU và Cam kết Sự kiện Xanh SDGs</span>
-                    </div>
-                    <div className="p-5 space-y-3 text-[13.5px] text-slate-700 leading-relaxed">
-                      <p>
-                        Kế thừa hệ giá trị cốt lõi{' '}
-                        <strong className="text-[#133F68]">
-                          Nhân bản – Cộng đồng – Sáng tạo – Bền vững
-                        </strong>{' '}
-                        của Trường Đại học Quốc tế Miền Đông và Báo cáo Phát
-                        triển Bền vững EIU (UN SDGs):
+                    <div className="bg-[#F8FAFC] border border-slate-200 p-4 space-y-1.5">
+                      <div className="text-xs font-bold uppercase tracking-wider text-[#8E6D3E] font-eiu-display">
+                        Khẩu hiệu hành động Đại hội II (2026 – 2028)
+                      </div>
+                      <p className="text-lg sm:text-xl font-eiu-serif italic font-bold text-[#C10230]">
+                        “{HSV_EIU_OVERVIEW.actionSlogan}”
                       </p>
-                      <ul className="space-y-2 text-xs text-slate-700">
-                        <li className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#51803A] shrink-0 mt-0.5" />
-                          <span>
-                            <strong>100% Sự kiện Xanh:</strong> Không sử dụng
-                            chai nhựa dùng một lần, khuyến khích bình cá nhân và
-                            ấn phẩm QR số.
-                          </span>
-                        </li>
-                        <li className="flex items-start gap-2">
-                          <CheckCircle2 className="w-4 h-4 text-[#51803A] shrink-0 mt-0.5" />
-                          <span>
-                            <strong>Họp Không Giấy (23/QĐ-HSV):</strong> Số hóa
-                            100% tài liệu kỳ họp BCH/BTK và biểu quyết nghị
-                            quyết trực tuyến.
-                          </span>
-                        </li>
-                      </ul>
+                      <p className="text-xs text-slate-600 font-sans pt-1">
+                        Hình mẫu sinh viên EIU:{' '}
+                        <strong className="text-[#133F68]">
+                          {HSV_EIU_OVERVIEW.studentIdentitySlogan}
+                        </strong>
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-sans">
+                      <div className="border border-slate-200 p-3 space-y-1">
+                        <div className="flex items-center gap-1.5 font-bold text-[#133F68] font-eiu-display uppercase">
+                          <Calendar className="w-3.5 h-3.5 text-[#0054A6]" />
+                          <span>Đại hội I (Thành lập)</span>
+                        </div>
+                        <div className="font-eiu-serif font-bold text-base text-[#133F68]">
+                          Ngày {HSV_EIU_OVERVIEW.foundingCongressDate}
+                        </div>
+                        <div className="text-slate-600">
+                          {HSV_EIU_OVERVIEW.foundingTerm}
+                        </div>
+                      </div>
+
+                      <div className="border border-slate-200 p-3 space-y-1">
+                        <div className="flex items-center gap-1.5 font-bold text-[#133F68] font-eiu-display uppercase">
+                          <Flag className="w-3.5 h-3.5 text-[#C10230]" />
+                          <span>Đại hội đại biểu lần thứ II</span>
+                        </div>
+                        <div className="font-eiu-serif font-bold text-base text-[#C10230]">
+                          Ngày {HSV_EIU_OVERVIEW.secondCongressDate}
+                        </div>
+                        <div className="text-slate-600">
+                          {HSV_EIU_OVERVIEW.secondCongressVenue}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-2 text-xs text-slate-600 font-sans">
+                      <MapPin className="w-4 h-4 text-[#A68556] shrink-0 mt-0.5" />
+                      <span>
+                        Trực thuộc <strong>{HSV_EIU_OVERVIEW.parentOrg}</strong>{' '}
+                        • {HSV_EIU_OVERVIEW.officeLocation}
+                      </span>
                     </div>
                   </div>
 
-                  <div className="bg-white border border-slate-200">
-                    <div className="bg-[#133F68] text-white px-4 py-2.5 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
-                      <FileCheck2 className="w-4 h-4 text-[#FCB900]" />
-                      <span>Nền tảng Quy chế và Văn bản Pháp lý Khóa II</span>
+                  <div className="pt-4 border-t border-slate-100 flex flex-wrap items-center gap-3">
+                    <button
+                      type="button"
+                      onClick={() => setMainTab('co-cau')}
+                      className="min-h-[44px] px-5 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display inline-flex items-center gap-1.5 cursor-pointer transition-colors"
+                    >
+                      <span>Xem Cơ cấu tổ chức cấp trường</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                    <Link
+                      href="/to-chuc?tab=chi-hoi"
+                      className="min-h-[44px] px-4 py-2.5 border border-[#133F68] text-[#133F68] hover:bg-[#133F68] hover:text-white text-xs font-bold uppercase tracking-wider font-eiu-display inline-flex items-center gap-1.5 transition-colors"
+                    >
+                      <span>Chi hội và CLB – Đội – Nhóm</span>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* 2. Sứ mệnh và Vai trò của Hội Sinh viên EIU */}
+            <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <article className="bg-white border border-slate-200 border-t-3 border-t-[#133F68] p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Target className="w-5 h-5 text-[#0054A6]" />
+                  <h3 className="text-base font-bold uppercase text-[#133F68] font-eiu-display">
+                    Sứ mệnh Đồng hành Sinh viên EIU
+                  </h3>
+                </div>
+                <p className="text-[13.5px] text-slate-700 leading-relaxed font-sans">
+                  {HSV_EIU_OVERVIEW.mission}
+                </p>
+              </article>
+
+              <article className="bg-white border border-slate-200 border-t-3 border-t-[#C10230] p-6 space-y-3">
+                <div className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-[#C10230]" />
+                  <h3 className="text-base font-bold uppercase text-[#133F68] font-eiu-display">
+                    Vai trò Tổ chức và Kết nối
+                  </h3>
+                </div>
+                <p className="text-[13.5px] text-slate-700 leading-relaxed font-sans">
+                  {HSV_EIU_OVERVIEW.role}
+                </p>
+              </article>
+            </section>
+
+            {/* 3. Các Dấu ấn nổi bật Nhiệm kỳ I (2024 – 2026) */}
+            <section className="space-y-5">
+              <div className="space-y-1">
+                <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
+                  Các Dấu ấn nổi bật Nhiệm kỳ I (2024 – 2026)
+                </h2>
+                <div className="w-12 h-1 bg-[#C10230]" aria-hidden="true" />
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {HSV_EIU_OVERVIEW.term1Highlights.map((item) => (
+                  <div
+                    key={item.label}
+                    className="bg-white border border-slate-200 p-5 space-y-2"
+                  >
+                    <div className="text-2xl sm:text-[26px] font-extrabold font-eiu-serif text-[#0054A6] tabular-nums leading-none">
+                      {item.figure}
                     </div>
-                    <div className="divide-y divide-slate-100 text-xs">
-                      {[
-                        {
-                          code: '09/QĐ-HSV',
-                          desc: 'Chuẩn Sinh viên 5 Tốt và Tập thể SV5T (Sửa đổi 2026 — GPA ≥ 3.00)',
-                        },
-                        {
-                          code: '28/QĐ-HSV',
-                          desc: 'Quy định cấp E-Certificate QR, duyệt trước 03 ngày và SLA 07 ngày',
-                        },
-                        {
-                          code: '23/QĐ-HSV',
-                          desc: 'Quy chế làm việc của Ban Chấp hành và Ban Thư ký Khóa II',
-                        },
-                        {
-                          code: '24/QĐ-HSV',
-                          desc: 'Chức năng, nhiệm vụ Văn phòng 206.B06, Ban TC-XDH và Ban TG-PT',
-                        },
-                        {
-                          code: '04/TB-HSV',
-                          desc: 'Thông báo phân công nhiệm vụ 20 cán bộ chủ chốt đầu nhiệm kỳ',
-                        },
-                      ].map((doc) => (
-                        <Link
-                          key={doc.code}
-                          href={`/van-ban?doc=${encodeURIComponent(doc.code)}`}
-                          className="px-4 py-2.5 flex items-center justify-between gap-3 hover:bg-[#F5F5F5] transition-colors"
-                        >
-                          <div>
-                            <span className="font-eiu-serif font-bold text-[#0054A6] mr-2">
-                              {doc.code}
+                    <h3 className="text-xs font-bold uppercase text-[#133F68] font-eiu-display leading-snug">
+                      {item.label}
+                    </h3>
+                    <p className="text-xs text-slate-600 leading-relaxed font-sans">
+                      {item.detail}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* 4. Những Chương trình tiêu biểu của Hội Sinh viên EIU */}
+            <section className="space-y-5">
+              <div className="space-y-1">
+                <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
+                  Những Chương trình tiêu biểu
+                </h2>
+                <div className="w-12 h-1 bg-[#C10230]" aria-hidden="true" />
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                {HSV_EIU_OVERVIEW.signaturePrograms.map((prog) => (
+                  <article
+                    key={prog.title}
+                    className="bg-white border border-slate-200 p-5 sm:p-6 space-y-2.5"
+                  >
+                    <span className="inline-block px-2.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold uppercase font-eiu-display">
+                      {prog.category}
+                    </span>
+                    <h3 className="text-base font-bold text-[#133F68] font-eiu-display leading-snug">
+                      {prog.title}
+                    </h3>
+                    <p className="text-[13.5px] text-slate-700 leading-relaxed font-sans">
+                      {prog.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </section>
+
+            {/* 5. Đại hội II (2026 – 2028): Công trình, Đề án và Hệ thống Chỉ tiêu */}
+            <section className="bg-[#02294E] text-white eiu-arch-pattern border-t-4 border-t-[#A68556] p-6 sm:p-8 space-y-6">
+              <div className="space-y-1.5">
+                <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-white font-eiu-display">
+                  Định hướng Nhiệm kỳ Đại hội II (2026 – 2028)
+                </h2>
+                <p className="text-[13.5px] text-[#DED1BE] font-sans">
+                  Trọng tâm Đề án, Chương trình, Công trình thanh niên và Hệ
+                  thống chỉ tiêu theo Văn kiện Đại hội đại biểu Hội Sinh viên
+                  EIU lần thứ II.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {HSV_EIU_OVERVIEW.term2Flagships.map((flagship) => (
+                  <div
+                    key={flagship.type}
+                    className="bg-[#133F68] border border-white/15 p-5 space-y-2"
+                  >
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#FCB900] font-eiu-display">
+                      {flagship.type}
+                    </div>
+                    <p className="text-[13.5px] text-white leading-relaxed font-sans font-medium">
+                      “{flagship.title}”
+                    </p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="bg-white text-slate-800 p-5 sm:p-6 space-y-4">
+                <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
+                  <h3 className="text-sm font-bold uppercase text-[#133F68] font-eiu-display flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-[#C10230]" />
+                    <span>Chỉ tiêu trọng tâm Nhiệm kỳ 2026 – 2028</span>
+                  </h3>
+                  <Link
+                    href="/van-ban"
+                    className="text-xs font-bold text-[#0054A6] hover:text-[#C10230] inline-flex items-center gap-1 font-eiu-display uppercase"
+                  >
+                    <FileCheck2 className="w-3.5 h-3.5" />
+                    <span>Tra cứu văn bản quy chế</span>
+                  </Link>
+                </div>
+
+                <ul className="space-y-2.5 text-[13.5px] text-slate-700 font-sans">
+                  {HSV_EIU_OVERVIEW.term2KeyTargets.map((target) => (
+                    <li key={target} className="flex items-start gap-2.5">
+                      <CheckCircle2 className="w-4 h-4 text-[#51803A] shrink-0 mt-0.5" />
+                      <span>{target}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
+          </div>
+        )}
+
+        {/* =====================================================================
+            TAB 2: CƠ CẤU TỔ CHỨC CẤP TRƯỜNG (SƠ ĐỒ CÂY TƯƠNG TÁC + DANH SÁCH)
+           ===================================================================== */}
+        {mainTab === 'co-cau' && (
+          <div className="space-y-8">
+            {/* Sơ đồ cây trực quan toàn chiều rộng */}
+            <section className="bg-white border border-slate-200 border-t-3 border-t-[#133F68] p-5 sm:p-7 space-y-6">
+              <div className="flex flex-wrap items-end justify-between gap-3 border-b border-slate-200 pb-4">
+                <div className="space-y-1">
+                  <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
+                    Sơ đồ Cây Cơ cấu Tổ chức Cấp Trường Khóa II
+                  </h2>
+                  <p className="text-xs sm:text-[13px] text-slate-600 font-sans">
+                    Theo Quyết định công nhận BCH, BKT và Thông báo phân công
+                    nhân sự các mảng công tác có hiệu lực từ 01/11/2026. Nhấp
+                    vào từng nhánh trên sơ đồ để xem nhân sự chi tiết bên dưới.
+                  </p>
+                </div>
+              </div>
+
+              {/* Đỉnh cây: Đại hội Đại biểu HSV Trường */}
+              <div className="flex flex-col items-center">
+                <div className="w-full max-w-xl bg-[#02294E] text-white px-5 py-4 text-center border-b-4 border-[#A68556]">
+                  <div className="text-xs sm:text-sm font-extrabold uppercase tracking-wide font-eiu-display">
+                    ĐẠI HỘI ĐẠI BIỂU HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐHQTMĐ
+                  </div>
+                  <div className="text-xs font-eiu-serif text-[#FCB900] mt-1">
+                    Lần thứ II, Nhiệm kỳ 2026 – 2028 (Cơ quan lãnh đạo cao nhất)
+                  </div>
+                </div>
+
+                {/* Trục dọc nối xuống Tầng 1 */}
+                <div className="w-0.5 h-6 bg-[#133F68]" aria-hidden="true" />
+                <div
+                  className="hidden md:block w-[62%] h-0.5 bg-[#133F68]"
+                  aria-hidden="true"
+                />
+              </div>
+
+              {/* Tầng 1: Nhánh Ban Chấp hành -> Ban Thư ký và Nhánh Ban Kiểm tra */}
+              <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch -mt-6">
+                {/* Nhánh trái (7/12): Ban Chấp hành -> Ban Thư ký */}
+                <div className="md:col-span-7 flex flex-col items-center">
+                  <div
+                    className="hidden md:block w-0.5 h-6 bg-[#133F68]"
+                    aria-hidden="true"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => selectOrgBranch('bch', true)}
+                    className={`w-full text-left p-4 transition-colors cursor-pointer border-2 ${
+                      activeBranch === 'bch'
+                        ? 'bg-[#133F68] text-white border-[#C10230] shadow-md'
+                        : 'bg-[#133F68] hover:bg-[#0054A6] text-white border-[#133F68]'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs sm:text-sm font-bold uppercase tracking-wider font-eiu-display text-[#00BCFF]">
+                        Ban Chấp hành Hội Sinh viên Trường
+                      </span>
+                      <span className="px-2 py-0.5 bg-white/15 font-eiu-serif text-xs font-bold shrink-0">
+                        15 đồng chí
+                      </span>
+                    </div>
+                    <p className="text-xs text-white/90 mt-1.5 font-sans">
+                      01 Chủ tịch • 01 Phó Chủ tịch thường trực • 01 Phó Chủ
+                      tịch • 02 Ủy viên Ban Thư ký • 10 Ủy viên BCH
+                    </p>
+                  </button>
+
+                  <div className="w-0.5 h-5 bg-[#0054A6]" aria-hidden="true" />
+
+                  <button
+                    type="button"
+                    onClick={() => selectOrgBranch('btk', true)}
+                    className={`w-full text-left p-4 transition-colors cursor-pointer border-2 ${
+                      activeBranch === 'btk'
+                        ? 'bg-[#0054A6] text-white border-[#FCB900] shadow-md'
+                        : 'bg-[#0054A6] hover:bg-[#133F68] text-white border-[#0054A6]'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between gap-2">
+                      <span className="text-xs sm:text-sm font-bold uppercase tracking-wider font-eiu-display text-[#FCB900]">
+                        Ban Thư ký và Thường trực Hội
+                      </span>
+                      <span className="px-2 py-0.5 bg-white/20 font-eiu-serif text-xs font-bold shrink-0">
+                        05 đồng chí
+                      </span>
+                    </div>
+                    <p className="text-xs text-white/95 mt-1.5 leading-relaxed font-sans">
+                      Chủ tịch: <strong>Trương Châu Phước Lộc</strong> • PCT TT:{' '}
+                      <strong>Nguyễn Như Quỳnh</strong> • PCT:{' '}
+                      <strong>Trần Thị Thu Huyền</strong> • 02 UV BTK:{' '}
+                      <strong>Nguyễn Mai Gia Tường</strong>,{' '}
+                      <strong>Phạm Thị Thanh Thủy</strong>
+                    </p>
+                  </button>
+                </div>
+
+                {/* Nhánh phải (5/12): Ban Kiểm tra */}
+                <div className="md:col-span-5 flex flex-col items-center">
+                  <div
+                    className="hidden md:block w-0.5 h-6 bg-[#C10230]"
+                    aria-hidden="true"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => selectOrgBranch('bkt', true)}
+                    className={`w-full flex-1 text-left p-4 flex flex-col justify-between transition-colors cursor-pointer border-2 ${
+                      activeBranch === 'bkt'
+                        ? 'bg-[#FFF5F7] border-[#C10230] shadow-md'
+                        : 'bg-[#F8FAFC] hover:bg-[#EAE3D2]/50 border-[#C10230]'
+                    }`}
+                  >
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold uppercase text-[#C10230] font-eiu-display">
+                          <ShieldCheck className="w-4 h-4 shrink-0" />
+                          <span>Ban Kiểm tra HSV Trường</span>
+                        </span>
+                        <span className="px-2 py-0.5 bg-[#C10230] text-white font-eiu-serif text-xs font-bold shrink-0">
+                          05 đ/c
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-700 leading-relaxed font-sans">
+                        Kiểm tra thi hành Điều lệ Hội, Nghị quyết Đại hội II,
+                        công tác tài chính – hội phí và bảo vệ quyền lợi hợp
+                        pháp của hội viên.
+                      </p>
+                    </div>
+
+                    <div className="pt-3 mt-3 border-t border-slate-200 text-xs text-slate-800 space-y-0.5 font-sans">
+                      <div>
+                        Trưởng ban:{' '}
+                        <strong className="text-[#133F68]">
+                          Đ/c Trần Thị Thu Huyền
+                        </strong>
+                      </div>
+                      <div>
+                        Phó Trưởng ban:{' '}
+                        <strong className="text-[#133F68]">
+                          Đ/c Đặng Trí Toàn
+                        </strong>
+                      </div>
+                      <div>
+                        03 Ủy viên: Nguyễn Thị Thùy Nhi, Trần Nguyễn Quỳnh Trân,
+                        Lê Thị Hải Yến
+                      </div>
+                    </div>
+                  </button>
+                </div>
+              </div>
+
+              {/* Trục nối xuống 03 Ban Chuyên môn và Văn phòng */}
+              <div className="flex flex-col items-center -my-2">
+                <div className="w-0.5 h-6 bg-[#133F68]" aria-hidden="true" />
+                <div
+                  className="hidden lg:block w-[68%] h-0.5 bg-[#133F68]"
+                  aria-hidden="true"
+                />
+              </div>
+
+              {/* Tầng 2: 03 Ban Chuyên môn và Văn phòng (phân công theo 03 Thường trực) */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 -mt-4">
+                {SCHOOL_ORG_DEPARTMENTS.map((dept) => {
+                  const isActive = activeBranch === dept.id;
+                  const IconComponent =
+                    dept.id === 'tgpt'
+                      ? GitBranch
+                      : dept.id === 'vp'
+                      ? Building2
+                      : Layers;
+                  return (
+                    <div key={dept.id} className="flex flex-col items-center">
+                      <div
+                        className="hidden lg:block w-0.5 h-5 bg-[#133F68]"
+                        aria-hidden="true"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => selectOrgBranch(dept.id, true)}
+                        className={`w-full flex-1 text-left p-4 flex flex-col justify-between gap-3 transition-colors cursor-pointer border-2 ${
+                          isActive
+                            ? 'bg-[#F0F6FC] border-[#C10230] shadow-md'
+                            : 'bg-[#F8FAFC] hover:border-[#133F68] border-slate-300'
+                        }`}
+                      >
+                        <div className="space-y-2.5">
+                          <div className="flex items-center justify-between gap-2">
+                            <span className="px-2 py-0.5 bg-[#133F68] text-white text-[11px] font-eiu-serif font-bold">
+                              {dept.badge}
                             </span>
-                            <span className="text-slate-700">{doc.desc}</span>
+                            <IconComponent className="w-4 h-4 text-[#0054A6]" />
                           </div>
-                          <ArrowRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                        </Link>
+                          <div className="text-sm font-bold text-[#133F68] font-eiu-display">
+                            {dept.name}
+                          </div>
+                          <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1 font-sans">
+                            <div className="text-[11px] font-bold uppercase text-[#8E6D3E] font-eiu-display">
+                              Quản lý và Điều phối
+                            </div>
+                            <div className="font-bold text-[#133F68]">
+                              Đ/c {dept.coordinatorName}
+                            </div>
+                            <div className="text-slate-600 text-[11.5px]">
+                              {dept.coordinatorTitle}
+                            </div>
+                          </div>
+                        </div>
+
+                        <ul className="space-y-1 text-[11.5px] text-slate-600 pt-2 border-t border-slate-200 font-sans">
+                          {dept.subDivisions.map((sd) => (
+                            <li key={sd}>• {sd}</li>
+                          ))}
+                        </ul>
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Trục nối xuống Cơ sở Hội trực thuộc (Link sang trang /to-chuc) */}
+              <div className="flex flex-col items-center -my-2">
+                <div className="w-0.5 h-6 bg-[#A68556]" aria-hidden="true" />
+              </div>
+
+              <div className="border-2 border-[#A68556] bg-[#FAF8F4] p-4 sm:p-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Link
+                  href="/to-chuc?tab=chi-hoi"
+                  className="bg-white border border-slate-200 hover:border-[#133F68] p-4 flex items-center justify-between gap-3 group transition-colors"
+                >
+                  <div className="space-y-1">
+                    <div className="text-xs font-bold uppercase text-[#133F68] group-hover:text-[#C10230] font-eiu-display">
+                      Hệ thống {CHI_HOI_SUMMARY_STATS.totalChiHoiAllCohorts} Chi
+                      hội (04 Cụm Khoa)
+                    </div>
+                    <p className="text-xs text-slate-600 font-sans">
+                      {CHI_HOI_SUMMARY_STATS.totalActiveBoardChiHoi} Chi hội có
+                      BCH đang hoạt động •{' '}
+                      {CHI_HOI_SUMMARY_STATS.totalMembers.toLocaleString(
+                        'vi-VN'
+                      )}{' '}
+                      hội viên
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-[#0054A6] shrink-0 group-hover:translate-x-1 transition-transform" />
+                </Link>
+
+                <Link
+                  href="/to-chuc?tab=clb"
+                  className="bg-white border border-slate-200 hover:border-[#133F68] p-4 flex items-center justify-between gap-3 group transition-colors"
+                >
+                  <div className="space-y-1">
+                    <div className="text-xs font-bold uppercase text-[#133F68] group-hover:text-[#C10230] font-eiu-display">
+                      Hệ thống CLB – Đội – Nhóm EIU ({EIU_CLUBS_DIRECTORY.length}{' '}
+                      đơn vị)
+                    </div>
+                    <p className="text-xs text-slate-600 font-sans">
+                      06 CLB/Đội trực thuộc Hội Sinh viên và các CLB Học thuật,
+                      Nghệ thuật, Thể thao, Cộng đồng
+                    </p>
+                  </div>
+                  <ArrowRight className="w-4 h-4 text-[#0054A6] shrink-0 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </div>
+            </section>
+
+            {/* Thanh chọn nhánh nhân sự chi tiết */}
+            <section
+              ref={branchDetailRef}
+              className="scroll-mt-36 space-y-5"
+            >
+              <div
+                role="tablist"
+                aria-label="Chọn nhánh cơ cấu để xem danh sách nhân sự"
+                className="flex flex-wrap items-center gap-2"
+              >
+                {(
+                  [
+                    { id: 'bch', label: 'Ban Chấp hành (15)' },
+                    { id: 'btk', label: 'Ban Thư ký (05)' },
+                    { id: 'bkt', label: 'Ban Kiểm tra (05)' },
+                    { id: 'tgpt', label: 'Ban Tuyên giáo – Phong trào (19)' },
+                    { id: 'vp', label: 'Văn phòng Hội (06)' },
+                    { id: 'tcxdh', label: 'Ban Tổ chức – Xây dựng Hội (11)' },
+                  ] as { id: OrgBranchId; label: string }[]
+                ).map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={activeBranch === item.id}
+                    onClick={() => selectOrgBranch(item.id, false)}
+                    className={`min-h-[40px] px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider font-eiu-display transition-colors cursor-pointer ${
+                      activeBranch === item.id
+                        ? 'bg-[#133F68] text-white border border-[#133F68]'
+                        : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Nội dung chi tiết: Ban Chấp hành */}
+              {activeBranch === 'bch' && (
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#8E6D3E] font-eiu-display">
+                      I. Thường trực Hội Sinh viên Trường (03 đồng chí)
+                    </h3>
+                    <StaffCompactCard
+                      member={president}
+                      roleHighlight="Chủ tịch HSV Trường"
+                      featured
+                      onSelect={setSelectedStaff}
+                    />
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {vicePresidents.map((vp) => (
+                        <StaffCompactCard
+                          key={vp.id}
+                          member={vp}
+                          roleHighlight={`${vp.bchRole} HSV Trường`}
+                          featured
+                          onSelect={setSelectedStaff}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#8E6D3E] font-eiu-display">
+                      II. Ủy viên Ban Thư ký (02 đồng chí)
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {btkMembersOnly.map((m) => (
+                        <StaffCompactCard
+                          key={m.id}
+                          member={m}
+                          roleHighlight="Ủy viên Ban Thư ký"
+                          onSelect={setSelectedStaff}
+                        />
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="space-y-3">
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-[#8E6D3E] font-eiu-display">
+                      III. Ủy viên Ban Chấp hành Hội Sinh viên Trường (10 đồng
+                      chí)
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {bchMembersOnly.map((m) => (
+                        <StaffCompactCard
+                          key={m.id}
+                          member={m}
+                          roleHighlight="Ủy viên Ban Chấp hành"
+                          onSelect={setSelectedStaff}
+                        />
                       ))}
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* ============================================================
-                TAB 2: SƠ ĐỒ CƠ CẤU TỔ CHỨC 3 CẤP TRỰC QUAN TƯƠNG TÁC
-               ============================================================ */}
-            {activeTab === 'chart' && (
-              <div className="space-y-6">
-                {/* CẤP 01: LÃNH ĐẠO & GIÁM SÁT */}
-                <div className="bg-white border-2 border-[#133F68] p-5 sm:p-6 space-y-5">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#133F68] text-white text-xs font-eiu-serif font-bold">
-                        CẤP 01
-                      </span>
-                      <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
-                        Cấp Lãnh đạo, Chỉ đạo và Giám sát Toàn trường
-                      </h3>
-                    </div>
-                    <span className="text-[11px] font-eiu-serif text-slate-500">
-                      Nhấp vào từng khối để xem nhân sự chi tiết
-                    </span>
-                  </div>
-
-                  {/* Đỉnh sơ đồ: Đại hội II */}
-                  <div className="max-w-lg mx-auto bg-[#02294E] text-white p-3.5 text-center border-b-3 border-[#A68556]">
-                    <div className="text-[11px] font-eiu-serif uppercase tracking-widest text-[#FCB900]">
-                      CƠ QUAN QUYỀN LỰC CAO NHẤT
-                    </div>
-                    <div className="text-xs sm:text-sm font-bold font-eiu-display mt-0.5">
-                      ĐẠI HỘI ĐẠI BIỂU HỘI SINH VIÊN TRƯỜNG ĐHQTMĐ KHÓA II (2026
-                      – 2028)
-                    </div>
-                  </div>
-
-                  {/* Trục nối xuống BCH & BKT */}
-                  <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
-                    {/* Nhánh chính BCH -> BTK */}
-                    <div className="md:col-span-7 space-y-3">
-                      <button
-                        type="button"
-                        onClick={() => setActiveTab('bch')}
-                        className="w-full text-left bg-[#133F68] hover:bg-[#0054A6] text-white p-4 transition-colors cursor-pointer"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#00BCFF]">
-                            BAN CHẤP HÀNH HSV TRƯỜNG
-                          </span>
-                          <span className="px-2 py-0.5 bg-white/15 font-eiu-serif text-xs font-bold">
-                            15 ĐỒNG CHÍ
-                          </span>
-                        </div>
-                        <p className="text-xs text-white/90 mt-1.5">
-                          01 Chủ tịch • 01 PCT Thường trực • 01 PCT • 02 UV Ban
-                          Thư ký • 10 Ủy viên BCH
-                        </p>
-                      </button>
-
-                      <div className="flex justify-center" aria-hidden="true">
-                        <div className="w-0.5 h-4 bg-[#133F68]" />
-                      </div>
-
-                      <button
-                        type="button"
-                        onClick={() => setActiveTab('btk')}
-                        className="w-full text-left bg-[#0054A6] hover:bg-[#133F68] text-white p-4 border border-[#00BCFF]/50 hover:border-[#00BCFF] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#FCB900]">
-                            BAN THƯ KÝ VÀ THƯỜNG TRỰC HỘI
-                          </span>
-                          <span className="px-2 py-0.5 bg-white/20 font-eiu-serif text-xs font-bold">
-                            05 ĐỒNG CHÍ
-                          </span>
-                        </div>
-                        <p className="text-xs text-white/95 mt-1.5 leading-relaxed">
-                          Chủ tịch: <strong>Đ/c Trương Châu Phước Lộc</strong> •
-                          PCT TT: <strong>Đ/c Nguyễn Như Quỳnh</strong> • PCT:{' '}
-                          <strong>Đ/c Trần Thị Thu Huyền</strong> • 02 UV BTK:{' '}
-                          <strong>Đ/c Nguyễn Mai Gia Tường</strong>,{' '}
-                          <strong>Đ/c Phạm Thị Thanh Thủy</strong>
-                        </p>
-                      </button>
-                    </div>
-
-                    {/* Nhánh Giám sát độc lập: Ban Kiểm tra */}
-                    <div className="md:col-span-5 flex">
-                      <button
-                        type="button"
-                        onClick={() => setActiveTab('bkt')}
-                        className="w-full text-left bg-[#F8FAFC] hover:bg-[#EAE3D2]/60 border-2 border-[#C10230] p-4 flex flex-col justify-between transition-colors cursor-pointer"
-                      >
-                        <div className="space-y-2">
-                          <div className="flex items-center justify-between">
-                            <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase text-[#C10230] font-eiu-display">
-                              <ShieldCheck className="w-4 h-4" />
-                              <span>BAN KIỂM TRA HSV TRƯỜNG</span>
-                            </span>
-                            <span className="px-2 py-0.5 bg-[#C10230] text-white font-eiu-serif text-xs font-bold">
-                              05 Đ/C
-                            </span>
-                          </div>
-                          <p className="text-xs text-slate-700 leading-relaxed">
-                            Kiểm tra thi hành Điều lệ Hội, giám sát quy trình
-                            xét SV5T, cấp E-Certificate và xử lý Hộp thư Lắng
-                            nghe Sinh viên.
-                          </p>
-                        </div>
-                        <div className="pt-3 mt-3 border-t border-slate-200 text-xs text-slate-800 space-y-0.5">
-                          <div>
-                            • Trưởng ban:{' '}
-                            <strong className="text-[#133F68]">
-                              Đ/c Trần Thị Thu Huyền
-                            </strong>
-                          </div>
-                          <div>
-                            • Phó ban:{' '}
-                            <strong className="text-[#133F68]">
-                              Đ/c Đặng Trí Toàn
-                            </strong>
-                          </div>
-                          <div>
-                            • 03 Ủy viên: Thúy Nhi, Quỳnh Trân, Hải Yến
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Trục kết nối Cấp 01 -> Cấp 02 */}
-                <div className="flex justify-center -my-3" aria-hidden="true">
-                  <div className="w-0.5 h-6 bg-[#133F68]" />
-                </div>
-
-                {/* CẤP 02: 03 ĐƠN VỊ CHUYÊN MÔN CẤP TRƯỜNG */}
-                <div className="bg-white border-2 border-[#0054A6] p-5 sm:p-6 space-y-5">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#0054A6] text-white text-xs font-eiu-serif font-bold">
-                        CẤP 02
-                      </span>
-                      <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
-                        Văn phòng và Các Ban Chuyên môn Cấp Trường (03 Đơn vị)
-                      </h3>
-                    </div>
-                    <span className="text-[11px] font-eiu-serif text-[#0054A6] font-bold">
-                      Quyết định 24/QĐ-HSV
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    {/* 01. Văn phòng HSV */}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('vp')}
-                      className="text-left border border-slate-300 hover:border-[#133F68] bg-[#F8FAFC] p-4 flex flex-col justify-between gap-3 transition-colors cursor-pointer"
-                    >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#133F68] text-white text-[11px] font-eiu-serif font-bold">
-                            PHÒNG 206.B06
-                          </span>
-                          <Building2 className="w-4 h-4 text-[#133F68]" />
-                        </div>
-                        <div className="text-sm font-bold text-[#133F68] font-eiu-display">
-                          01. Văn phòng Hội Sinh viên
-                        </div>
-                        <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1">
-                          <div className="font-bold text-[#C10230] uppercase text-[11px]">
-                            Cơ chế Đồng điều hành:
-                          </div>
-                          <div>
-                            • Chánh VP (Đối ngoại):{' '}
-                            <strong>Nguyễn Mỹ Hạnh</strong>
-                          </div>
-                          <div>
-                            • Tổng Thư ký (Nội bộ):{' '}
-                            <strong>Nguyễn Như Quỳnh</strong>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-[11.5px] text-slate-600 pt-2 border-t border-slate-200">
-                        02 Phó CVP (Hồng Ngọc, Hải Yến) • 02 Cán bộ VP (Gia Hân,
-                        Văn Thanh)
-                      </div>
-                    </button>
-
-                    {/* 02. Ban TC-XDH */}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('tcxdh')}
-                      className="text-left border border-slate-300 hover:border-[#133F68] bg-[#F8FAFC] p-4 flex flex-col justify-between gap-3 transition-colors cursor-pointer"
-                    >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#0054A6] text-white text-[11px] font-eiu-serif font-bold">
-                            05 CỤM QUẢN LÝ
-                          </span>
-                          <Layers className="w-4 h-4 text-[#0054A6]" />
-                        </div>
-                        <div className="text-sm font-bold text-[#133F68] font-eiu-display">
-                          02. Ban Tổ chức và Xây dựng Hội
-                        </div>
-                        <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1">
-                          <div>
-                            • Trưởng ban:{' '}
-                            <strong className="text-[#133F68]">
-                              Trần Thị Thu Huyền
-                            </strong>
-                          </div>
-                          <div>• 04 Cụm trưởng Khoa (QTKD, KT, CNTT, KHSK)</div>
-                          <div>
-                            • Phó ban Cụm 30 CLB:{' '}
-                            <strong>Nguyễn Mỹ Hạnh</strong>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-[11.5px] text-slate-600 pt-2 border-t border-slate-200">
-                        Thẩm định Ngày tình nguyện trước ≥ 03 ngày và Quản lý
-                        cán bộ, hội viên
-                      </div>
-                    </button>
-
-                    {/* 03. Ban TG-PT */}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab('tgpt')}
-                      className="text-left border border-slate-300 hover:border-[#133F68] bg-[#F8FAFC] p-4 flex flex-col justify-between gap-3 transition-colors cursor-pointer"
-                    >
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#C10230] text-white text-[11px] font-eiu-serif font-bold">
-                            02 MẢNG + ĐỘI CTVXK
-                          </span>
-                          <GitBranch className="w-4 h-4 text-[#C10230]" />
-                        </div>
-                        <div className="text-sm font-bold text-[#133F68] font-eiu-display">
-                          03. Ban Tuyên giáo – Phong trào
-                        </div>
-                        <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1.5">
-                          <div>
-                            • <strong>Mảng Tuyên giáo</strong> (Đặng Trí Toàn):
-                            03 Tiểu ban <em>Design, Video, Photo</em>
-                          </div>
-                          <div>
-                            • <strong>Mảng Phong trào</strong> (Nguyễn Mai Gia
-                            Tường): 03 Tiểu ban{' '}
-                            <em>Tài chính, Nội dung, MC</em> +{' '}
-                            <strong className="text-[#C10230]">
-                              Đội CTV Xung kích
-                            </strong>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-[11.5px] text-slate-600 pt-2 border-t border-slate-200">
-                        Đội CTVXK quản lý 02 Tiểu ban: <em>Hậu cần – Sân khấu</em>{' '}
-                        và <em>Lễ tân – Khánh tiết – VTM</em>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-
-                {/* Trục kết nối Cấp 02 -> Cấp 03 */}
-                <div className="flex justify-center -my-3" aria-hidden="true">
-                  <div className="w-0.5 h-6 bg-[#A68556]" />
-                </div>
-
-                {/* CẤP 03: HỆ THỐNG 55 CƠ SỞ HỘI TRỰC THUỘC */}
-                <div className="bg-white border-2 border-[#A68556] p-5 sm:p-6 space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-200 pb-3">
-                    <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-1 bg-[#A68556] text-white text-xs font-eiu-serif font-bold">
-                        CẤP 03
-                      </span>
-                      <h3 className="text-sm sm:text-base font-bold uppercase text-[#133F68] font-eiu-display">
-                        Hệ thống Cơ sở Hội Trực thuộc ({BRANCH_UNITS.length} Chi
-                        hội và {CLUB_UNITS.length} CLB – Đội – Nhóm)
-                      </h3>
-                    </div>
-                    <span className="text-[11px] text-slate-500">
-                      Mỗi đơn vị do BCH / BCN gồm 05 đồng chí điều hành
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <Link
-                      href="/to-chuc?tab=branches"
-                      className="border border-slate-200 hover:border-[#133F68] p-4 bg-[#F8FAFC] flex flex-col justify-between gap-3 group"
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold uppercase text-[#133F68] group-hover:text-[#C10230] font-eiu-display">
-                            CẤP 03A — 25 CHI HỘI (04 CỤM KHOA × 06 KHÓA)
-                          </span>
-                          <ArrowRight className="w-4 h-4 text-[#0054A6]" />
-                        </div>
-                        <p className="text-xs text-slate-600 leading-relaxed">
-                          Cụm QTKD (06) • Cụm Kỹ thuật (06) • Cụm CNTT (07) •
-                          Cụm Khoa học Sức khỏe (06), trải dài từ Khóa K21 đến
-                          K26.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 text-[11px] font-eiu-serif">
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          BBS: 06
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          SET: 06
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          CIT: 07
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          SNS: 06
-                        </span>
-                      </div>
-                    </Link>
-
-                    <Link
-                      href="/to-chuc?tab=clubs"
-                      className="border border-slate-200 hover:border-[#133F68] p-4 bg-[#F8FAFC] flex flex-col justify-between gap-3 group"
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs font-bold uppercase text-[#133F68] group-hover:text-[#C10230] font-eiu-display">
-                            CẤP 03B — 30 CLB – ĐỘI – NHÓM (04 KHỐI LĨNH VỰC)
-                          </span>
-                          <ArrowRight className="w-4 h-4 text-[#0054A6]" />
-                        </div>
-                        <p className="text-xs text-slate-600 leading-relaxed">
-                          Gồm 02 đơn vị nòng cốt của Hội (
-                          <strong>CLB Sinh viên 5 tốt</strong> và{' '}
-                          <strong>Đội CTV Xung kích</strong>) cùng 28 CLB học
-                          thuật, nghệ thuật, thể thao, cộng đồng.
-                        </p>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-eiu-serif">
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#C10230] font-bold">
-                          Cộng đồng: 07
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          Học thuật: 06
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          Nghệ thuật: 10
-                        </span>
-                        <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
-                          Thể thao: 07
-                        </span>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ============================================================
-                TAB 3: BAN THƯ KÝ (05 ĐỒNG CHÍ) — PHÂN TẦNG LÃNH ĐẠO
-               ============================================================ */}
-            {activeTab === 'btk' && (
-              <div className="space-y-5">
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Chủ tịch Hội Sinh viên Trường
-                  </div>
+              {/* Nội dung chi tiết: Ban Thư ký */}
+              {activeBranch === 'btk' && (
+                <div className="space-y-5">
                   <StaffCompactCard
                     member={president}
                     roleHighlight="Chủ tịch HSV Trường"
@@ -1035,12 +908,6 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     featured
                     onSelect={setSelectedStaff}
                   />
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Các Phó Chủ tịch Hội Sinh viên Trường (02 đồng chí)
-                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {vicePresidents.map((vp) => (
                       <StaffCompactCard
@@ -1053,12 +920,6 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       />
                     ))}
                   </div>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Ủy viên Ban Thư ký Hội Sinh viên Trường (02 đồng chí)
-                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {btkMembersOnly.map((m) => (
                       <StaffCompactCard
@@ -1071,99 +932,28 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     ))}
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* ============================================================
-                TAB 4: BAN CHẤP HÀNH (15 ĐỒNG CHÍ) — PHÂN TẦNG 3 CẤP
-               ============================================================ */}
-            {activeTab === 'bch' && (
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    I. Thường trực Hội Sinh viên Trường (03 đồng chí)
-                  </div>
-                  <StaffCompactCard
-                    member={president}
-                    roleHighlight="Chủ tịch HSV Trường"
-                    featured
-                    onSelect={setSelectedStaff}
-                  />
+              {/* Nội dung chi tiết: Ban Kiểm tra */}
+              {activeBranch === 'bkt' && (
+                <div className="space-y-5">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {vicePresidents.map((vp) => (
-                      <StaffCompactCard
-                        key={vp.id}
-                        member={vp}
-                        roleHighlight={`${vp.bchRole} HSV Trường`}
-                        featured
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
+                    <StaffCompactCard
+                      member={bktHead}
+                      roleHighlight="Trưởng Ban Kiểm tra"
+                      subLabel="Phó Chủ tịch HSV Trường • Trưởng Ban Tổ chức và Xây dựng Hội"
+                      featured
+                      onSelect={setSelectedStaff}
+                    />
+                    <StaffCompactCard
+                      member={bktDeputy}
+                      roleHighlight="Phó Trưởng Ban Kiểm tra"
+                      subLabel="Ủy viên BCH • Trưởng Ban Tuyên giáo – Phong trào (Mảng Tuyên giáo)"
+                      featured
+                      onSelect={setSelectedStaff}
+                    />
                   </div>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    II. Ủy viên Ban Thư ký (02 đồng chí)
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {btkMembersOnly.map((m) => (
-                      <StaffCompactCard
-                        key={m.id}
-                        member={m}
-                        roleHighlight="Ủy viên Ban Thư ký"
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    III. Ủy viên Ban Chấp hành Hội Sinh viên Trường (10 đồng
-                    chí)
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {bchMembersOnly.map((m) => (
-                      <StaffCompactCard
-                        key={m.id}
-                        member={m}
-                        roleHighlight="Ủy viên Ban Chấp hành"
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ============================================================
-                TAB 5: BAN KIỂM TRA (05 ĐỒNG CHÍ)
-               ============================================================ */}
-            {activeTab === 'bkt' && (
-              <div className="space-y-5">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <StaffCompactCard
-                    member={bktHead}
-                    roleHighlight="Trưởng Ban Kiểm tra"
-                    subLabel="Phó Chủ tịch HSV Trường • Trưởng Ban Tổ chức và Xây dựng Hội"
-                    featured
-                    onSelect={setSelectedStaff}
-                  />
-                  <StaffCompactCard
-                    member={bktDeputy}
-                    roleHighlight="Phó Trưởng Ban Kiểm tra"
-                    subLabel="Ủy viên BCH • Trưởng Ban TG-PT (Mảng Tuyên giáo)"
-                    featured
-                    onSelect={setSelectedStaff}
-                  />
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Ủy viên Ban Kiểm tra Hội Sinh viên Trường (03 đồng chí)
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {bktMembers.map((m) => (
                       <StaffCompactCard
                         key={m.id}
@@ -1174,202 +964,101 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     ))}
                   </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {/* ============================================================
-                TAB 6: VĂN PHÒNG HỘI SINH VIÊN (PHÒNG 206.B06)
-               ============================================================ */}
-            {activeTab === 'vp' && (
-              <div className="space-y-5">
-                <div className="bg-white border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-[#133F68] font-semibold">
-                    <MapPin className="w-4 h-4 text-[#C10230]" />
-                    <span>
-                      Trụ sở: <strong>Phòng 206.B06</strong> • Văn thư, lưu trữ,
-                      quản lý con dấu Mộc và tài sản dùng chung
-                    </span>
-                  </div>
-                  <span className="font-eiu-serif font-bold text-[#0054A6]">
-                    Quyết định 24/QĐ-HSV
-                  </span>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Ban Lãnh đạo Đồng điều hành (Đối ngoại và Nội bộ)
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {vpCoLeaders.map((m) => (
-                      <StaffCompactCard
-                        key={m.id}
-                        member={m}
-                        roleHighlight={
-                          m.id === 'staff-08'
-                            ? 'Chánh Văn phòng (Đối ngoại)'
-                            : 'Tổng Thư ký VP (Nội bộ)'
-                        }
-                        subLabel={
-                          m.id === 'staff-08'
-                            ? 'Phụ trách đối ngoại với các phòng, ban EIU • Phó Ban TC-XDH (30 CLB)'
-                            : 'Phó Chủ tịch Thường trực HSV • Điều hành tác vụ nội bộ Phòng 206.B06'
-                        }
-                        featured
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Phó Chánh Văn phòng và Cán bộ Chuyên trách Văn phòng (04
-                    đồng chí)
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {vpOfficers.map((m) => (
-                      <StaffCompactCard
-                        key={m.id}
-                        member={m}
-                        roleHighlight={
-                          m.internalDeptRole.includes('Phó Chánh Văn phòng')
-                            ? 'Phó Chánh Văn phòng'
-                            : 'Cán bộ Văn phòng'
-                        }
-                        subLabel={m.internalDeptRole}
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ============================================================
-                TAB 7: BAN TỔ CHỨC và XÂY DỰNG HỘI (05 CỤM QUẢN LÝ)
-               ============================================================ */}
-            {activeTab === 'tcxdh' && (
-              <div className="space-y-5">
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    Trưởng Ban Tổ chức và Xây dựng Hội
-                  </div>
-                  <StaffCompactCard
-                    member={tcxdhHead}
-                    roleHighlight="Trưởng Ban TC-XDH"
-                    subLabel="Phó Chủ tịch, Trưởng Ban Kiểm tra HSV Trường • Tiếp nhận thẩm định Ngày tình nguyện trước ≥ 03 ngày"
-                    featured
-                    onSelect={setSelectedStaff}
-                  />
-                </div>
-
-                <div className="space-y-2.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-[#A68556] font-eiu-display">
-                    04 Cụm trưởng Cụm Chi hội Khoa và Phó Ban Quản lý 30 CLB
-                    – Đội – Nhóm
-                  </div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tcxdhClusterLeaders.map((item) => (
-                      <StaffCompactCard
-                        key={item.member.id + item.role}
-                        member={item.member}
-                        roleHighlight={item.role.split(' • ')[1]}
-                        subLabel={item.role}
-                        onSelect={setSelectedStaff}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* ============================================================
-                TAB 8: BAN TUYÊN GIÁO - PHONG TRÀO và ĐỘI CTV XUNG KÍCH
-               ============================================================ */}
-            {activeTab === 'tgpt' && (
-              <div className="space-y-6">
-                {/* Mảng 1: Tuyên giáo */}
-                <div className="bg-white border border-slate-200 p-5 space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
-                    <div>
-                      <h3 className="text-sm font-bold uppercase text-[#133F68] font-eiu-display">
-                        I. Mảng Tuyên giáo — Truyền thông và Nhận diện Số
+              {/* Nội dung chi tiết: 03 Ban Chuyên môn và Văn phòng (từ Thông báo phân công PDF 3) */}
+              {selectedDept && (
+                <div className="bg-white border border-slate-200 p-5 sm:p-6 space-y-5">
+                  <div className="flex flex-wrap items-start justify-between gap-4 pb-4 border-b border-slate-200">
+                    <div className="space-y-1.5 max-w-2xl">
+                      <h3 className="text-base sm:text-lg font-bold uppercase text-[#133F68] font-eiu-display">
+                        {selectedDept.name}
                       </h3>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        Quản lý 03 Tiểu ban chuyên môn:{' '}
-                        <strong>Tiểu ban Design</strong> •{' '}
-                        <strong>Tiểu ban Video</strong> •{' '}
-                        <strong>Tiểu ban Photo</strong>
+                      <p className="text-[13px] text-slate-600 leading-relaxed font-sans">
+                        {selectedDept.summary}
                       </p>
                     </div>
-                    <span className="px-2.5 py-1 bg-[#133F68] text-white font-eiu-serif text-[11px] font-bold">
-                      03 TIỂU BAN
-                    </span>
+                    <button
+                      type="button"
+                      onClick={() => openStaffById(selectedDept.coordinatorStaffId)}
+                      className="bg-[#F8FAFC] hover:bg-[#EAE3D2]/50 border border-slate-300 px-4 py-3 text-left transition-colors cursor-pointer shrink-0"
+                    >
+                      <div className="text-[11px] font-bold uppercase text-[#8E6D3E] font-eiu-display">
+                        Chủ chốt Quản lý và Điều phối
+                      </div>
+                      <div className="text-sm font-bold text-[#133F68] font-eiu-display mt-0.5">
+                        Đ/c {selectedDept.coordinatorName}
+                      </div>
+                      <div className="text-xs text-slate-600 font-sans">
+                        {selectedDept.coordinatorTitle}
+                      </div>
+                    </button>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tgptPropaganda.map((item) => (
-                      <div
-                        key={item.member.id}
-                        className={item.featured ? 'md:col-span-2' : ''}
-                      >
-                        <StaffCompactCard
-                          member={item.member}
-                          roleHighlight={item.role}
-                          featured={item.featured}
-                          onSelect={setSelectedStaff}
-                        />
-                      </div>
-                    ))}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
+                    {selectedDept.officers.map((officer, idx) => {
+                      const isLeader =
+                        officer.assignedPosition.startsWith('Trưởng') ||
+                        officer.assignedPosition.startsWith('Chánh') ||
+                        officer.assignedPosition.startsWith('Phó');
+                      const clickable = Boolean(officer.staffId);
+                      const CardTag = clickable ? 'button' : 'div';
+                      return (
+                        <CardTag
+                          key={`${selectedDept.id}-${officer.fullName}-${idx}`}
+                          {...(clickable
+                            ? {
+                                type: 'button' as const,
+                                onClick: () => openStaffById(officer.staffId),
+                              }
+                            : {})}
+                          className={`text-left border p-4 space-y-1.5 transition-colors ${
+                            isLeader
+                              ? 'bg-[#F8FAFC] border-[#133F68]/40'
+                              : 'bg-white border-slate-200'
+                          } ${
+                            clickable
+                              ? 'hover:border-[#133F68] cursor-pointer group'
+                              : ''
+                          }`}
+                        >
+                          <div className="flex flex-wrap items-center gap-1.5">
+                            <span
+                              className={`px-2 py-0.5 text-[11px] font-bold uppercase font-eiu-display ${
+                                officer.assignedPosition.startsWith('Trưởng') ||
+                                officer.assignedPosition.startsWith('Chánh')
+                                  ? 'bg-[#C10230] text-white'
+                                  : isLeader
+                                  ? 'bg-[#0054A6] text-white'
+                                  : 'bg-[#EAE3D2] text-[#133F68]'
+                              }`}
+                            >
+                              {officer.assignedPosition}
+                            </span>
+                          </div>
+                          <div className="text-sm font-bold text-[#133F68] group-hover:text-[#C10230] font-eiu-display">
+                            Đ/c {officer.fullName}
+                          </div>
+                          <div className="text-xs text-slate-600 font-sans">
+                            {officer.currentRole}
+                          </div>
+                          {officer.division && (
+                            <div className="pt-1 text-[11.5px] font-semibold text-[#0054A6] font-sans">
+                              {officer.division}
+                            </div>
+                          )}
+                        </CardTag>
+                      );
+                    })}
                   </div>
                 </div>
-
-                {/* Mảng 2: Phong trào & Đội CTVXK */}
-                <div className="bg-white border border-slate-200 p-5 space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200">
-                    <div>
-                      <h3 className="text-sm font-bold uppercase text-[#133F68] font-eiu-display">
-                        II. Mảng Phong trào và Đội Cộng tác viên Xung kích
-                      </h3>
-                      <p className="text-xs text-slate-600 mt-0.5">
-                        03 Tiểu ban Phong trào (<strong>Tài chính</strong> •{' '}
-                        <strong>Nội dung – Kịch bản</strong> •{' '}
-                        <strong>MC</strong>) +{' '}
-                        <strong className="text-[#C10230]">
-                          Đội CTV Xung kích
-                        </strong>{' '}
-                        quản lý 02 Tiểu ban (<strong>Hậu cần – Sân khấu</strong>{' '}
-                        và <strong>Lễ tân – Khánh tiết – Văn thể mỹ</strong>)
-                      </p>
-                    </div>
-                    <span className="px-2.5 py-1 bg-[#C10230] text-white font-eiu-serif text-[11px] font-bold">
-                      03 TB + ĐỘI CTVXK
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {tgptMovement.map((item) => (
-                      <div
-                        key={item.member.id}
-                        className={item.featured ? 'md:col-span-2' : ''}
-                      >
-                        <StaffCompactCard
-                          member={item.member}
-                          roleHighlight={item.role}
-                          featured={item.featured}
-                          onSelect={setSelectedStaff}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </section>
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Modal Hồ sơ Cán bộ & Danh mục Vị trí Kiêm nhiệm (Focus Trap + Restored Focus) */}
+      {/* Modal Hồ sơ Cán bộ (Ẩn SĐT cá nhân & Ngày sinh theo quy tắc bảo mật công khai) */}
       {selectedStaff && (
         <div
           className="fixed inset-0 z-50 bg-slate-900/65 flex items-center justify-center p-4 overflow-y-auto"
@@ -1379,7 +1068,9 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
             ref={staffModalRef}
             role="dialog"
             aria-modal="true"
-            aria-label={`Hồ sơ cán bộ ${selectedStaff.fullName}`}
+            aria-label={`Hồ sơ cán bộ ${normalizeStaffDisplayName(
+              selectedStaff.fullName
+            )}`}
             tabIndex={-1}
             className="bg-white max-w-xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto focus:outline-none"
             onClick={(e) => e.stopPropagation()}
@@ -1389,13 +1080,11 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <Award className="w-5 h-5 text-[#FCB900] shrink-0" />
                 <div className="min-w-0">
                   <div className="text-sm font-bold font-eiu-display truncate">
-                    HỒ SƠ CÁN BỘ HỘI — Đ/c {selectedStaff.fullName}
+                    HỒ SƠ CÁN BỘ — Đ/c{' '}
+                    {normalizeStaffDisplayName(selectedStaff.fullName)}
                   </div>
                   <div className="text-[11px] font-eiu-serif text-[#DED1BE] truncate">
-                    {selectedStaff.studentId !== '-'
-                      ? `MSSV: ${selectedStaff.studentId}`
-                      : 'Chuyên viên Phòng Công tác Sinh viên'}{' '}
-                    • {selectedStaff.email}
+                    {selectedStaff.email}
                   </div>
                 </div>
               </div>
@@ -1448,7 +1137,8 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 <div className="font-bold uppercase tracking-wider text-[#133F68] flex items-center gap-1.5 font-eiu-display">
                   <Users className="w-3.5 h-3.5 text-[#0054A6]" />
                   <span>
-                    Danh mục Vị trí và Kiêm nhiệm ({selectedStaff.positions.length})
+                    Danh mục Vị trí và Kiêm nhiệm (
+                    {selectedStaff.positions.length})
                   </span>
                 </div>
                 <div className="space-y-2">
@@ -1483,14 +1173,31 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
 function GioiThieuSearchBridge() {
   const searchParams = useSearchParams();
-  const rawTab = searchParams.get('tab');
-  const normalizedTab = rawTab === 'staff' ? 'bch' : (rawTab as OrgTabId | null);
-  const validTab =
-    normalizedTab && ORG_TABS.some((t) => t.id === normalizedTab)
-      ? normalizedTab
-      : 'overview';
+  const rawTab = (searchParams.get('tab') || '').trim().toLowerCase();
 
-  return <GioiThieuContent key={validTab} initialTab={validTab} />;
+  const orgAliases: Record<string, OrgBranchId> = {
+    'co-cau': 'bch',
+    chart: 'bch',
+    bch: 'bch',
+    staff: 'bch',
+    btk: 'btk',
+    bkt: 'bkt',
+    tgpt: 'tgpt',
+    vp: 'vp',
+    tcxdh: 'tcxdh',
+  };
+
+  const isOrgTab = Boolean(orgAliases[rawTab]);
+  const initialMainTab: MainTabId = isOrgTab ? 'co-cau' : 'hsv-eiu';
+  const initialBranch: OrgBranchId = orgAliases[rawTab] || 'bch';
+
+  return (
+    <GioiThieuContent
+      key={`${initialMainTab}::${initialBranch}`}
+      initialMainTab={initialMainTab}
+      initialBranch={initialBranch}
+    />
+  );
 }
 
 export default function GioiThieuPage() {
@@ -1498,7 +1205,7 @@ export default function GioiThieuPage() {
     <Suspense
       fallback={
         <div className="max-w-[1140px] mx-auto px-4 py-16 text-center text-sm text-slate-500">
-          Đang tải chuyên trang Giới thiệu và Cơ cấu bộ máy...
+          Đang tải chuyên trang Giới thiệu Hội Sinh viên EIU...
         </div>
       }
     >

@@ -36,9 +36,9 @@
     "semantic_hash": "97223e87f0efb267ab0976d80ed7f8ac"
   },
   "next.config.ts": {
-    "mtime": 1794898267.2352488,
-    "seen": 1794898544.142229,
-    "ast_hash": "c8d6ae23fdcac73ba3e88639be799c02",
+    "mtime": 1795606697.537048,
+    "seen": 1795607300.927628,
+    "ast_hash": "08099e1004b761d474798aa3ee160fb2",
     "semantic_hash": ""
   },
   "package.json": {
@@ -48,9 +48,9 @@
     "semantic_hash": ""
   },
   "src/app/(public)/gioi-thieu/page.tsx": {
-    "mtime": 1795116411.2313056,
-    "seen": 1795600238.889569,
-    "ast_hash": "c03b008022e4447a7df593b3d0a604de",
+    "mtime": 1795607093.1648512,
+    "seen": 1795607300.927644,
+    "ast_hash": "ab6f1f087a7531c835198319963bb130",
     "semantic_hash": ""
   },
   "src/app/(public)/layout.tsx": {
@@ -60,14 +60,14 @@
     "semantic_hash": "41015d9e864e586cce895640eec901a0"
   },
   "src/app/(public)/page.tsx": {
-    "mtime": 1795116411.328503,
-    "seen": 1795600238.8895779,
-    "ast_hash": "05d8aa757e8e743624d00cc7c9a6ff7a",
+    "mtime": 1795607260.4895136,
+    "seen": 1795607300.927659,
+    "ast_hash": "e1d9df94165522386b1ee45f08987e57",
     "semantic_hash": ""
   },
   "src/app/(public)/su-kien/page.tsx": {
-    "mtime": 1795600893.7353537,
-    "seen": 1795600916.2208798,
+    "mtime": 1795600932.2959733,
+    "seen": 1795601477.655618,
     "ast_hash": "f884dc7c6f00ce95724ecb1ce6f7d1c4",
     "semantic_hash": ""
   },
@@ -90,9 +90,9 @@
     "semantic_hash": ""
   },
   "src/app/(public)/to-chuc/page.tsx": {
-    "mtime": 1795116411.667835,
-    "seen": 1795600238.8896031,
-    "ast_hash": "962689d0b9479437406b9d1b6d70d010",
+    "mtime": 1795607249.8290179,
+    "seen": 1795607300.9276822,
+    "ast_hash": "6674f108e6b7dfe99798c054c5cef4ed",
     "semantic_hash": ""
   },
   "src/app/(public)/tra-cuu-gcn/page.tsx": {
@@ -102,9 +102,9 @@
     "semantic_hash": ""
   },
   "src/app/(public)/van-ban/page.tsx": {
-    "mtime": 1795116411.7813408,
-    "seen": 1795600238.889612,
-    "ast_hash": "e8c58de251c6b86c79622580782bc794",
+    "mtime": 1795601648.617947,
+    "seen": 1795607300.927691,
+    "ast_hash": "fe366de3e4862549ef861db33c8dcd6e",
     "semantic_hash": ""
   },
   "src/app/(student-portal)/portal/layout.tsx": {
@@ -144,15 +144,15 @@
     "semantic_hash": "492ebc71af68af6e02227fbd5beab61a"
   },
   "src/components/public/public-footer.tsx": {
-    "mtime": 1795113565.4626374,
-    "seen": 1795113893.884853,
-    "ast_hash": "ff7242fb2761d0b1f826ae235a47451a",
+    "mtime": 1795607255.1066592,
+    "seen": 1795607300.927723,
+    "ast_hash": "9064df7b771fc71576fd59081e4cfd2e",
     "semantic_hash": ""
   },
   "src/components/public/public-navbar.tsx": {
-    "mtime": 1795113565.4995155,
-    "seen": 1795113893.884856,
-    "ast_hash": "6f41929dcaa19640404698e8b0227130",
+    "mtime": 1795607253.532499,
+    "seen": 1795607300.9277272,
+    "ast_hash": "c2f0ac421d1abd5febaaf5a36491d174",
     "semantic_hash": ""
   },
   "src/components/public/subpage-banner.tsx": {
@@ -747,6 +747,30 @@
     "mtime": 1795113889.6965413,
     "seen": 1795113893.884927,
     "ast_hash": "35b1c6ec5548ea28981304c7bc028916",
+    "semantic_hash": ""
+  },
+  "src/app/(public)/hoi-sinh-vien-viet-nam/page.tsx": {
+    "mtime": 1795607091.1447017,
+    "seen": 1795607300.927649,
+    "ast_hash": "bc6c2f081912228be3b61c1c4d935f5e",
+    "semantic_hash": ""
+  },
+  "src/data/about-data.ts": {
+    "mtime": 1795606901.9728851,
+    "seen": 1795607300.927763,
+    "ast_hash": "61dc38e8f6ea5f7206704e7e5ff9802c",
+    "semantic_hash": ""
+  },
+  "public/images/hsv-dai-hoi-2-poster.jpg": {
+    "mtime": 1795606695.6697679,
+    "seen": 1795607300.928193,
+    "ast_hash": "69e4db141bce54a7efc2b9812fbaa541",
+    "semantic_hash": ""
+  },
+  "public/images/hsv-vn-logo.png": {
+    "mtime": 1795606695.6659474,
+    "seen": 1795607300.928202,
+    "ast_hash": "ab679603206c0d0714568a164a3336d9",
     "semantic_hash": ""
   }
 }

@@ -48,11 +48,11 @@ const NAV_ITEMS: NavItem[] = [
     href: '/gioi-thieu',
     label: 'GIỚI THIỆU',
     children: [
-      { label: 'Hội Sinh viên EIU', href: '/gioi-thieu?tab=overview' },
-      { label: 'Sơ đồ Tổ chức Khóa II', href: '/gioi-thieu?tab=chart' },
-      { label: 'Ban Chuyên môn', href: '/gioi-thieu?tab=tcxdh' },
-      { label: 'Chi hội', href: '/to-chuc?tab=branches' },
-      { label: 'CLB – Đội – Nhóm', href: '/to-chuc?tab=clubs' },
+      { label: 'Hội Sinh viên Việt Nam', href: '/hoi-sinh-vien-viet-nam' },
+      { label: 'Hội Sinh viên EIU', href: '/gioi-thieu?tab=hsv-eiu' },
+      { label: 'Cơ cấu tổ chức cấp trường', href: '/gioi-thieu?tab=co-cau' },
+      { label: 'Chi hội', href: '/to-chuc?tab=chi-hoi' },
+      { label: 'CLB – Đội – Nhóm', href: '/to-chuc?tab=clb' },
     ],
   },
   { href: '/tra-cuu-gcn', label: 'TRA CỨU GCN' },
@@ -131,9 +131,12 @@ function PublicNavbarInner() {
                     pathname.startsWith(`${item.href}/`) ||
                     Boolean(
                       item.children &&
-                        item.children.some(
-                          (sub) => pathname === sub.href.split('?')[0]
-                        )
+                        item.children.some((sub) => {
+                          const base = sub.href.split('?')[0];
+                          return (
+                            pathname === base || pathname.startsWith(`${base}/`)
+                          );
+                        })
                     );
               const isDropdownOpen = openDesktopDropdown === item.href;
 

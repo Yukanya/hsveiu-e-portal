@@ -12,6 +12,22 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "plus.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: "eiu.edu.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.tuoitre.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn2.tuoitre.vn",
+      },
+      {
+        protocol: "https",
+        hostname: "hoisinhvien.com.vn",
+      },
     ],
   },
   cacheComponents: true,
