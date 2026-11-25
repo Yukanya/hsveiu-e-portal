@@ -2670,6 +2670,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 245,
     maxParticipants: 300,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Chương trình hiến máu nhân đạo thường niên tại khuôn viên EIU phối hợp cùng Trung tâm Truyền máu Chợ Rẫy, tiếp nhận đơn vị máu an toàn phục vụ cấp cứu và lan tỏa tinh thần sẻ chia vì cộng đồng.',
+    benefits: [
+      'Ghi nhận cố định +5.0 ngày tình nguyện và +1 điểm rèn luyện (Xét tiêu chuẩn "Tình nguyện tốt").',
+      'Cấp Giấy chứng nhận hiến máu tình nguyện chính thức và Giấy chứng nhận điện tử có mã QR.',
+      'Khám sàng lọc sức khỏe miễn phí, bồi dưỡng sau hiến máu và nhận quà lưu niệm từ Ban Tổ chức.',
+    ],
   },
   {
     id: 'evt-04',
@@ -2696,6 +2705,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 112,
     maxParticipants: 150,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Buổi chuyên đề thực hành giúp sinh viên nhận diện các kịch bản lừa đảo trực tuyến, giả mạo danh tính và deepfake; rèn luyện thói quen kiểm chứng nguồn tin và bảo vệ tài khoản học tập EIU.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện, +1 điểm rèn luyện và chứng nhận kỹ năng thực hành xã hội (tiêu chuẩn "Hội nhập tốt").',
+      'Thực hành kiểm tra đường dẫn giả mạo, cấu hình bảo mật hai lớp và xử lý sự cố tài khoản số.',
+      'Cấp E-Certificate điện tử đồng bộ trực tiếp về Sổ tay Hội viên sau khi hoàn thành điểm danh.',
+    ],
   },
   {
     id: 'evt-05',
@@ -2722,6 +2740,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 136,
     maxParticipants: 180,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Hoạt động thu gom pin cũ, rác thải điện tử nhỏ và vệ sinh cảnh quan xanh trong khuôn viên trường, gắn với mục tiêu phát triển bền vững của EIU không sử dụng chai nhựa dùng một lần.',
+    benefits: [
+      'Ghi nhận +1.0 ngày tình nguyện và +1 điểm rèn luyện (Xét tiêu chuẩn "Tình nguyện tốt").',
+      'Đổi pin đã qua sử dụng lấy cây xanh trang trí bàn học và nhận E-Certificate xác thực QR.',
+      'Tham gia đội hình tình nguyện trực tiếp tại các phân khu xanh trong khuôn viên EIU.',
+    ],
   },
   {
     id: 'evt-06',
@@ -2748,6 +2775,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 164,
     maxParticipants: 200,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Diễn đàn học thuật kết nối sinh viên các khối ngành Công nghệ thông tin, Kỹ thuật và Kinh doanh trình bày đề tài nghiên cứu, mô hình mẫu tại FabLab và trao đổi phương pháp công bố khoa học.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện, +1 điểm rèn luyện và tiêu chí tham gia học thuật ("Học tập tốt").',
+      'Cơ hội kết nối giảng viên hướng dẫn nghiên cứu khoa học sinh viên và nhóm dự án liên ngành.',
+      'Cấp Giấy chứng nhận tham dự Diễn đàn Học thuật qua Sổ tay Hội viên EIU.',
+    ],
   },
   {
     id: 'evt-07',
@@ -2774,6 +2810,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 198,
     maxParticipants: 250,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Giải chạy cự ly 3 km và 5 km buổi chiều quanh cung đường nội khu EIU, khuyến khích rèn luyện thể chất thường xuyên và đóng góp vào quỹ học bổng sinh viên vượt khó.',
+    benefits: [
+      'Ghi nhận +1.0 ngày tình nguyện, +1 điểm rèn luyện và minh chứng rèn luyện "Thể lực tốt".',
+      'Nhận số BIB thi đấu, tiếp nước tại các trạm chạy và huy chương hoàn thành cự ly quy định.',
+      'Cấp E-Certificate hoàn thành giải chạy xác thực tự động trên Cổng Thông tin HSV.',
+    ],
   },
   {
     id: 'evt-08',
@@ -2800,6 +2845,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 88,
     maxParticipants: 120,
     isGreenEvent: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Chương trình giao lưu huấn luyện kỹ năng thuyết trình, phản biện đa chiều và dẫn dắt đội nhóm liên trường tại Nhà Văn hóa Sinh viên TP. Hồ Chí Minh.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện, +1 điểm rèn luyện (Tiêu chuẩn "Hội nhập tốt").',
+      'Thực hành tranh biện trực tiếp theo mô hình đội nhóm cùng diễn giả và thành viên CLB EIU Speakers.',
+      'Hỗ trợ xe đưa đón tập trung từ cơ sở EIU và cấp E-Certificate tham dự.',
+    ],
   },
   {
     id: 'evt-09',
@@ -2826,6 +2880,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 0,
     maxParticipants: 80,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Đội hình tình nguyện chuyên sâu triển khai công trình giao thông nông thôn, tập huấn kỹ năng số cơ bản cho thanh thiếu nhi và số hóa dữ liệu văn hóa địa phương tại huyện Dương Minh Châu.',
+    benefits: [
+      'Ghi nhận +5.0 ngày tình nguyện và +1 điểm rèn luyện (Xét trực tiếp danh hiệu "Tình nguyện tốt").',
+      'Được trang bị đồng phục chiến sĩ, bảo hiểm tai nạn và bố trí ăn ở tập trung suốt 5 ngày chiến dịch.',
+      'Cấp Giấy chứng nhận Chiến sĩ Mùa hè xanh 2026 kèm E-Certificate xác thực mã QR.',
+    ],
   },
   {
     id: 'evt-10',
@@ -2852,6 +2915,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 140,
     maxParticipants: 160,
     isGreenEvent: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Tọa đàm đối thoại trực tiếp cùng đại diện nhân sự các doanh nghiệp Nhật Bản và Singapore về lộ trình thực tập, chuẩn năng lực ngoại ngữ và cơ hội việc làm sau tốt nghiệp.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện hỗ trợ định hướng nghề nghiệp (Tiêu chuẩn "Học tập tốt").',
+      'Nộp hồ sơ ứng tuyển thực tập trực tiếp và nhận góp ý CV từ bộ phận tuyển dụng doanh nghiệp FDI.',
+      'Cấp Giấy chứng nhận tham dự Tọa đàm Hướng nghiệp qua Sổ tay Hội viên.',
+    ],
   },
   {
     id: 'evt-11',
@@ -2878,6 +2950,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 95,
     maxParticipants: 120,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Sân chơi thể thao điện tử đồng đội chính thức dành cho sinh viên các chi hội EIU, đề cao tinh thần phối hợp chiến thuật, thi đấu văn minh và giao lưu cộng đồng công nghệ.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện (Hoạt động phong trào thuộc tiêu chuẩn "Thể lực tốt").',
+      'Cơ hội tranh giải thưởng đồng đội từ Ban Tổ chức và giao lưu cùng CLB EIU E-Club.',
+      'Cấp Giấy chứng nhận điện tử tham gia Giải đấu tại Phòng Lab B10.301.',
+    ],
   },
   {
     id: 'evt-12',
@@ -2904,6 +2985,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 160,
     maxParticipants: 200,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Chương trình huấn luyện thực hành quy trình báo cháy, sử dụng bình chữa cháy xách tay và kỹ năng thoát nạn an toàn trong tòa nhà cao tầng tại khuôn viên EIU.',
+    benefits: [
+      'Ghi nhận +1.0 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Đạo đức tốt").',
+      'Trực tiếp thực hành dập tắt đám cháy giả định và diễn tập sơ tán an toàn cùng lực lượng chuyên trách.',
+      'Cấp E-Certificate hoàn thành khóa tập huấn an toàn học đường.',
+    ],
   },
   {
     id: 'evt-13',
@@ -2930,6 +3020,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 0,
     maxParticipants: 90,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1559027615-cd4628902d4a?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Chiến dịch tình nguyện dịp cuối năm tổ chức gói bánh chưng, trao quà Tết và sân chơi thiếu nhi cho học sinh có hoàn cảnh khó khăn tại huyện Bắc Tân Uyên.',
+    benefits: [
+      'Ghi nhận +3.0 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Tình nguyện tốt").',
+      'Trải nghiệm hoạt động cộng đồng thực tế, được bố trí phương tiện di chuyển và hậu cần chiến dịch.',
+      'Cấp Giấy chứng nhận Chiến sĩ Xuân Tình nguyện 2026 kèm E-Certificate.',
+    ],
   },
   {
     id: 'evt-14',
@@ -2956,6 +3055,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 110,
     maxParticipants: 130,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Hội thảo song ngữ hướng dẫn cấu trúc CV chuẩn ATS và tổ chức phiên phỏng vấn thử 1-1 cùng chuyên viên nhân sự doanh nghiệp tại Hội trường B3.201.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện (Hỗ trợ tiêu chuẩn "Học tập tốt").',
+      'Được chỉnh sửa CV trực tiếp tại bàn tư vấn và trải nghiệm phỏng vấn thử bằng tiếng Anh hoặc tiếng Việt.',
+      'Cấp Giấy chứng nhận điện tử tham gia Hội thảo Kỹ năng Nghề nghiệp.',
+    ],
   },
   {
     id: 'evt-15',
@@ -2982,6 +3090,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 68,
     maxParticipants: 80,
     isGreenEvent: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Đêm giao lưu văn hóa thanh niên các nước ASEAN với không gian triển lãm trang phục, ẩm thực và đối thoại hội nhập quốc tế giữa sinh viên EIU và sinh viên quốc tế tại TP.HCM.',
+    benefits: [
+      'Ghi nhận +1.5 ngày tình nguyện và +1 điểm rèn luyện (Xét trực tiếp tiêu chuẩn "Hội nhập tốt").',
+      'Mở rộng mạng lưới giao lưu văn hóa và thực hành giao tiếp tiếng Anh cùng sinh viên quốc tế.',
+      'Cấp E-Certificate chứng nhận tham gia sự kiện giao lưu thanh niên ASEAN.',
+    ],
   },
   {
     id: 'evt-16',
@@ -3008,6 +3125,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 40,
     maxParticipants: 40,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Đội hình sinh viên xung kích phối hợp điều phối luồng xe giờ cao điểm tại cổng trường, nhắc nhở đội mũ bảo hiểm và phát cẩm nang an toàn giao thông.',
+    benefits: [
+      'Ghi nhận +1.0 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Đạo đức tốt").',
+      'Trang bị áo phản quang, gậy điều phối an toàn và nước uống trong ca trực.',
+      'Cấp E-Certificate xác nhận thành tích xung kích an toàn giao thông.',
+    ],
   },
   {
     id: 'evt-17',
@@ -3034,6 +3160,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 180,
     maxParticipants: 180,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Khóa bồi dưỡng kiến thức Điều lệ Hội Sinh viên Việt Nam, kỹ năng công tác thanh niên và chuyên đề tư tưởng chính trị dành cho hội viên ưu tú Khóa II.',
+    benefits: [
+      'Ghi nhận +2.0 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Đạo đức tốt").',
+      'Cấp Giấy chứng nhận hoàn thành lớp bồi dưỡng cảm tình Đoàn - Hội có giá trị xét kết nạp.',
+      'Cung cấp bộ tài liệu học tập số và bài kiểm tra trực tuyến ngay trên Sổ tay Hội viên.',
+    ],
   },
   {
     id: 'evt-03',
@@ -3061,6 +3196,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 380,
     maxParticipants: 400,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Kỳ kiểm tra thể lực tập trung theo khung chuẩn Phụ lục 1 (chạy bền, bật xa tại chỗ, gập bụng và lực bóp tay) để công nhận danh hiệu "Sinh viên Khỏe" năm học 2026–2027.',
+    benefits: [
+      'Ghi nhận +1.0 ngày tình nguyện và +1 điểm rèn luyện khi hoàn thành đủ nội dung kiểm tra.',
+      'Cấp Giấy chứng nhận "Sinh viên Khỏe" Cấp Trường — điều kiện bắt buộc của tiêu chuẩn "Thể lực tốt".',
+      'Tra cứu kết quả và tải E-Certificate điện tử ngay sau khi Ban Thư ký ban hành Quyết định.',
+    ],
   },
   {
     id: 'evt-02',
@@ -3088,6 +3232,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 125,
     maxParticipants: 130,
     isGreenEvent: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Chương trình tập huấn nghiệp vụ dành cho Ban Chấp hành 25 Chi hội và Ban Chủ nhiệm 30 CLB về quy trình trình duyệt kế hoạch, điểm danh QR động và xét duyệt hồ sơ SV5T trên E-Office.',
+    benefits: [
+      'Ghi nhận +0.5 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Đạo đức tốt").',
+      'Nắm vững quy trình lập hồ sơ Phụ lục 1, thể thức văn bản HSV và quản trị Phòng họp số.',
+      'Đã ban hành Quyết định 32/QĐ-HSV kèm E-Certificate điện tử trên mục Tra cứu GCN.',
+    ],
   },
   {
     id: 'evt-18',
@@ -3115,6 +3268,15 @@ export const EVENT_ITEMS: EventItem[] = [
     registeredCount: 110,
     maxParticipants: 110,
     isGreenEvent: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=1200&q=80',
+    description:
+      'Giải đấu giao hữu bóng đá tứ hùng giữa đội hình cán bộ Hội các cụm khoa nhằm thắt chặt tinh thần đoàn kết và rèn luyện thể lực chào mừng Đại hội Hội Sinh viên Khóa II.',
+    benefits: [
+      'Ghi nhận +1.5 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Thể lực tốt").',
+      'Giao lưu thể thao giữa các Chi hội và Ban Chấp hành Hội Sinh viên Trường.',
+      'Đã ban hành Quyết định 29/QĐ-HSV kèm E-Certificate điện tử xác thực QR.',
+    ],
   },
 ];
 

@@ -9,6 +9,7 @@ import React, {
   useSyncExternalStore,
 } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import { DeterministicQrCode } from '@/components/shared/deterministic-qr';
@@ -293,7 +294,9 @@ function SuKienContent({
       return null;
     });
 
-  const [roleMultiplier, setRoleMultiplier] = useState<1 | 2 | 3>(1);
+  const [failedModalThumbIds, setFailedModalThumbIds] = useState<
+    Record<string, boolean>
+  >({});
   const eventModalRef = useRef<HTMLDivElement>(null);
 
   const registeredRaw = useSyncExternalStore(
@@ -379,7 +382,6 @@ function SuKienContent({
 
   const openEventModal = (ev: EventItem) => {
     setSelectedModalEvent(ev);
-    setRoleMultiplier(1);
     if (typeof window !== 'undefined' && window.history) {
       const url = new URL(window.location.href);
       url.searchParams.set('event', ev.id);
@@ -447,15 +449,20 @@ function SuKienContent({
     gridTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  const isMultiplierEligible = Boolean(
-    selectedModalEvent?.isUnionWorkMultiplierEligible
-  );
-  const effectiveMultiplier: 1 | 2 | 3 = isMultiplierEligible
-    ? roleMultiplier
-    : 1;
-  const computedVolunteerDays = selectedModalEvent
-    ? selectedModalEvent.baseVolunteerDays * effectiveMultiplier
-    : 0;
+  const modalBenefits = useMemo(() => {
+    if (!selectedModalEvent) return [];
+    if (selectedModalEvent.benefits && selectedModalEvent.benefits.length > 0) {
+      return selectedModalEvent.benefits;
+    }
+    const ptsLabel = selectedModalEvent.hasTrainingPoints
+      ? ` và +${selectedModalEvent.trainingPoints ?? 1} điểm rèn luyện`
+      : '';
+    return [
+      `Ghi nhận +${selectedModalEvent.baseVolunteerDays.toFixed(1)} ngày tình nguyện${ptsLabel}.`,
+      `Minh chứng xét chọn tiêu chuẩn "${selectedModalEvent.sv5tCriterion}" Sinh viên 5 Tốt.`,
+      'Cấp Giấy chứng nhận điện tử (E-Certificate) có mã QR sau khi hoàn thành điểm danh.',
+    ];
+  }, [selectedModalEvent]);
 
   const isModalEventRegistered = selectedModalEvent
     ? registeredIds.includes(selectedModalEvent.id)
@@ -1032,16 +1039,13 @@ function SuKienContent({
             >
               {/* Header Modal cố định */}
               <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556] shrink-0">
-                <div className="flex items-center gap-2.5">
-                  <span className="w-2.5 h-2.5 bg-[#FCB900] rounded-full inline-block" />
-                  <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
-                    {modalMeta.isOpen
-                      ? 'Phiếu Đăng ký Tham gia Sự kiện'
-                      : modalMeta.label === 'Đã kết thúc'
-                      ? 'Thông tin Sự kiện và Nhận GCN Điện tử'
-                      : 'Thông tin Chi tiết Sự kiện'}
-                  </span>
-                </div>
+                <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
+                  {modalMeta.isOpen
+                    ? 'Phiếu Đăng ký Tham gia Sự kiện'
+                    : modalMeta.label === 'Đã kết thúc'
+                    ? 'Thông tin Sự kiện và Nhận GCN Điện tử'
+                    : 'Thông tin Chi tiết Sự kiện'}
+                </span>
                 <button
                   type="button"
                   onClick={closeEventModal}
@@ -1054,24 +1058,35 @@ function SuKienContent({
 
               {/* Thân Modal cuộn độc lập */}
               <div className="p-5 sm:p-6 space-y-5 text-xs flex-1 overflow-y-auto">
-                {/* Thông tin cơ bản sự kiện & Tag trạng thái chuẩn */}
-                <div className="space-y-2 pb-3.5 border-b border-slate-200">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span
-                      className={`px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display ${modalMeta.bgClass}`}
-                    >
-                      {modalMeta.label}
-                    </span>
-                    <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[11px] font-bold uppercase font-eiu-display">
-                      {selectedModalEvent.category}
-                    </span>
-                    <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[11px] font-bold uppercase font-eiu-display">
-                      SV5T: {selectedModalEvent.sv5tCriterion}
-                    </span>
-                    {selectedModalEvent.hasTrainingPoints && (
-                      <span className="px-2.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold font-eiu-serif">
-                        +{selectedModalEvent.trainingPoints ?? 1} Điểm rèn luyện
-                      </span>
+                {/* Ảnh thumbnail và thông tin cơ bản sự kiện */}
+                <div className="space-y-3 pb-4 border-b border-slate-200">
+                  <div className="relative w-full h-44 sm:h-48 bg-[#02294E] overflow-hidden border border-slate-200">
+                    {selectedModalEvent.imageUrl &&
+                    !failedModalThumbIds[selectedModalEvent.id] ? (
+                      <Image
+                        src={selectedModalEvent.imageUrl}
+                        alt={selectedModalEvent.title}
+                        fill
+                        sizes="(max-width: 672px) 100vw, 624px"
+                        className="object-cover"
+                        onError={() =>
+                          setFailedModalThumbIds((prev) => ({
+                            ...prev,
+                            [selectedModalEvent.id]: true,
+                          }))
+                        }
+                      />
+                    ) : (
+                      <div className="w-full h-full eiu-arch-pattern bg-[#02294E] flex items-center justify-center">
+                        <Image
+                          src="/images/hsv-logo.png"
+                          alt={selectedModalEvent.title}
+                          width={56}
+                          height={56}
+                          style={{ width: 'auto' }}
+                          className="h-14 w-auto object-contain opacity-90"
+                        />
+                      </div>
                     )}
                   </div>
 
@@ -1082,7 +1097,7 @@ function SuKienContent({
                     {selectedModalEvent.title}
                   </h3>
 
-                  <div className="text-slate-600 space-y-1.5 pt-1 sm:text-[13px] font-sans">
+                  <div className="text-slate-600 space-y-1.5 sm:text-[13px] font-sans">
                     <div className="flex items-center gap-2">
                       <Calendar className="w-4 h-4 text-[#A68556] shrink-0" />
                       <span>
@@ -1103,77 +1118,34 @@ function SuKienContent({
                       </span>
                     </div>
                   </div>
+
+                  <div className="pt-2.5 mt-1 border-t border-slate-100 space-y-1.5">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#133F68] font-eiu-display">
+                      Quyền lợi tham gia
+                    </div>
+                    <ul className="space-y-1.5 text-slate-700 text-xs sm:text-[13px] font-sans">
+                      {modalBenefits.map((benefit, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <CheckCircle2
+                            className="w-4 h-4 text-[#51803A] shrink-0 mt-0.5"
+                            aria-hidden="true"
+                          />
+                          <span>{benefit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
 
-                {/* Khối Quy đổi Ngày tình nguyện chuẩn Phụ lục 2 QĐ 09/QĐ-HSV */}
-                <div className="bg-[#F8FAFC] border border-slate-200 p-4 space-y-3">
-                  <div className="font-bold text-[#133F68] uppercase tracking-wider text-[11px] font-eiu-display flex items-center justify-between">
-                    <span>Quy đổi Ngày tình nguyện</span>
-                    <span className="text-[#C10230] font-eiu-serif font-bold">
-                      {selectedModalEvent.baseVolunteerDays.toFixed(1)} Ngày TN
-                      gốc
-                    </span>
+                {/* Khối Mô tả chương trình */}
+                <div className="bg-[#F8FAFC] border border-slate-200 p-4 space-y-2">
+                  <div className="font-bold text-[#133F68] uppercase tracking-wider text-[11px] font-eiu-display">
+                    Mô tả chương trình
                   </div>
-                  <div className="text-slate-700 font-sans">
-                    Nhóm hoạt động:{' '}
-                    <strong>{selectedModalEvent.volunteerCategory}</strong>
-                  </div>
-
-                  {isMultiplierEligible ? (
-                    <div className="space-y-1.5">
-                      <label
-                        htmlFor="role-multiplier-select"
-                        className="block font-bold text-slate-900 font-sans"
-                      >
-                        Vai trò tham gia:
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="role-multiplier-select"
-                          name="roleMultiplier"
-                          value={roleMultiplier}
-                          onChange={(e) =>
-                            setRoleMultiplier(
-                              Number(e.target.value) as 1 | 2 | 3
-                            )
-                          }
-                          className="w-full h-11 sm:h-9.5 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-base sm:text-xs text-slate-900 font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
-                        >
-                          <option value={1}>
-                            Hệ số ×1 — CTV hỗ trợ / Chiến sĩ / Sinh viên tham gia
-                          </option>
-                          <option value={2}>
-                            Hệ số ×2 — Thành viên Ban Tổ chức chương trình
-                          </option>
-                          <option value={3}>
-                            Hệ số ×3 — Trưởng / Phó các Ban, Đội, Đội hình BTC
-                          </option>
-                        </select>
-                        <ChevronDown
-                          className="w-4 h-4 text-[#133F68] pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2"
-                          aria-hidden="true"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="p-2.5 bg-white border border-slate-200 text-slate-700 leading-relaxed font-sans">
-                      <strong>Quy đổi cố định:</strong> Ghi nhận{' '}
-                      <strong className="font-eiu-serif text-[#C10230]">
-                        +{selectedModalEvent.baseVolunteerDays.toFixed(1)}{' '}
-                        ngày/lần
-                      </strong>
-                      .
-                    </div>
-                  )}
-
-                  <div className="pt-2 border-t border-slate-200 flex items-center justify-between font-sans">
-                    <span className="font-bold text-slate-900">
-                      Số ngày dự kiến ghi nhận:
-                    </span>
-                    <span className="text-base font-extrabold font-eiu-serif text-[#C10230]">
-                      +{computedVolunteerDays.toFixed(1)} ngày TN
-                    </span>
-                  </div>
+                  <p className="text-slate-700 text-xs sm:text-[13px] leading-relaxed font-sans">
+                    {selectedModalEvent.description ||
+                      `Chương trình "${selectedModalEvent.title}" do ${selectedModalEvent.organizerUnit} tổ chức tại ${selectedModalEvent.location}, hướng tới rèn luyện tiêu chuẩn "${selectedModalEvent.sv5tCriterion}" cho sinh viên EIU.`}
+                  </p>
                 </div>
 
                 {/* Thông tin đăng ký */}

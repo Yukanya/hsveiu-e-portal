@@ -1,7 +1,7 @@
 # Graph Report - CỔNG THÔNG TIN ĐIỆN TỬ HSV TRƯỜNG  (2026-11-25)
 
 ## Corpus Check
-- 62 files · ~370,998 words
+- 62 files · ~372,346 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 71 file(s) not represented in the graph (top: .css 67, (none) 2, .ico 2)
 
@@ -11,7 +11,7 @@
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6c249529`
+- Built from commit: `76a96e3c`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -651,15 +651,15 @@ Nodes (5): getClubSv5tBenefit(), UnitMicrositeContent(), UnitMicrositeInner(), U
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `all_stylesheets` connect `Https: Eiu Edu Vn` to `EIU Stylesheet Manifest`, `EIU Stylesheet Manifest`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`, `Design System & Typography`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Navigation & Header Components`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`?**
-  _High betweenness centrality (0.149) - this node is a cross-community bridge._
+  _High betweenness centrality (0.142) - this node is a cross-community bridge._
 - **Are the 7 inferred relationships involving `SubpageBanner()` (e.g. with `Subpage Banner Component Pattern` and `Design Health Score`) actually correct?**
   _`SubpageBanner()` has 7 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Image: [HSV] [PRO5] LIÊU GIA KỲ.jpg`, `Image: [HSV] [PRO5] LƯƠNG GIA HÂN.jpg`, `Image: [HSV] [PRO5] NGUYỄN HOÀNG THỊ BÍCH NGỌC.png` to the rest of the system?**
   _119 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `SV5T Awardees & Portfolios` be split into smaller, more focused modules?**
   _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
-- **Why does `react` connect `react` to `Document: 01_PRD.md`, `Tooling & Package Dependencies`, `van-ban/page.tsx`, `useRole`, `su-kien/page.tsx`, `to-chuc/[slug]/page.tsx`, `workspace/page.tsx`, `mock-data.ts`, `app/layout.tsx`, `public-navbar.tsx`, `useFocusTrap`, `contest-system.tsx`, `portal/page.tsx`, `role-context.tsx`, `SubpageBanner`, `(public)/page.tsx`?**
-  _High betweenness centrality (0.035) - this node is a cross-community bridge._
+- **Why does `ISSUED_CERTIFICATES` connect `SV5T Awardees & Portfolios` to `Document: 01_PRD.md`, `mock-data.ts`, `workspace/page.tsx`, `portal-storage.ts`, `portal/page.tsx`?**
+  _High betweenness centrality (0.034) - this node is a cross-community bridge._
 - **Are the 21 inferred relationships involving `ISSUED_CERTIFICATES` (e.g. with `SV5T Awardee: [Hsv] [Pro5] LiêU Gia Kỳ` and `SV5T Awardee: [Hsv] [Pro5] LưƠNg Gia HâN`) actually correct?**
   _`ISSUED_CERTIFICATES` has 21 INFERRED edges - model-reasoned connections that need verification._
 - **Should `Document: 01_PRD.md` be split into smaller, more focused modules?**

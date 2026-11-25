@@ -185,6 +185,9 @@ export interface EventItem {
   registeredCount: number;
   maxParticipants: number;
   isGreenEvent: boolean; // Theo Báo cáo Phát triển bền vững EIU (Không chai nhựa 1 lần)
+  imageUrl?: string;
+  description?: string;
+  benefits?: string[];
 }
 
 export type DocTypeCategory =
