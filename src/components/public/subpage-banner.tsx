@@ -107,16 +107,19 @@ export function SubpageBanner({
           </Link>
           {breadcrumbs.map((item, idx) => (
             <React.Fragment key={item.label}>
-              <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronRight className="w-3.5 h-3.5 text-slate-400 shrink-0" />
               {item.href && idx < breadcrumbs.length - 1 ? (
                 <Link
                   href={item.href}
-                  className="text-[#0054A6] hover:text-[#133F68] hover:underline font-medium"
+                  className="text-[#0054A6] hover:text-[#133F68] hover:underline font-medium shrink-0"
                 >
                   {item.label}
                 </Link>
               ) : (
-                <span className="text-[#133F68] font-semibold">
+                <span
+                  title={item.label}
+                  className="text-[#133F68] font-semibold truncate max-w-[260px] sm:max-w-[420px] inline-block align-bottom"
+                >
                   {item.label}
                 </span>
               )}

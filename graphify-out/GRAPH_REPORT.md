@@ -1,17 +1,17 @@
-# Graph Report - CỔNG THÔNG TIN ĐIỆN TỬ HSV TRƯỜNG  (2026-11-20)
+# Graph Report - CỔNG THÔNG TIN ĐIỆN TỬ HSV TRƯỜNG  (2026-11-25)
 
 ## Corpus Check
-- 62 files · ~371,194 words
+- 62 files · ~370,998 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 71 file(s) not represented in the graph (top: .css 67, (none) 2, .ico 2)
 
 ## Summary
-- 1115 nodes · 1621 edges · 139 communities (118 shown, 21 thin omitted)
+- 1115 nodes · 1620 edges · 136 communities (115 shown, 21 thin omitted)
 - Extraction: 92% EXTRACTED · 8% INFERRED · 0% AMBIGUOUS · INFERRED: 130 edges (avg confidence: 0.91)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `c648c6c1`
+- Built from commit: `6c249529`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -121,7 +121,7 @@
 - Tin Tuyen Sinh Html
 - useRole
 - Readme Md
-- tra-cuu-gcn/page.tsx
+- Document: 03_DATABASE_SCHEMA.md
 - Student Handbook Guidelines
 - Sustainability Initiatives
 - mock-data.ts
@@ -133,7 +133,7 @@
 - Vercel Svg
 - Window Svg
 - Image: eiu-logo-full.png
-- to-chuc/page.tsx
+- SubpageBanner
 - Image: eiu-logo-full-white.png
 - Image: eiu-logo-shorten-gold.png
 - (public)/page.tsx
@@ -149,10 +149,7 @@
 - Image: eiu-logo-shorten-white.png
 - Image: hsv-logo.png
 - van-ban/page.tsx
-- tin-tuc/page.tsx
-- SubpageBanner
-- next
-- cuoc-thi/page.tsx
+- CLUB_UNITS
 - useFocusTrap
 - to-chuc/[slug]/page.tsx
 
@@ -183,7 +180,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (139 total, 21 thin omitted)
+## Communities (136 total, 21 thin omitted)
 
 ### Community 0 - "react"
 Cohesion: 0.50
@@ -194,8 +191,8 @@ Cohesion: 0.05
 Nodes (43): Image: [HSV] [PRO5] LIÊU GIA KỲ.jpg, SV5T Awardee: [Hsv] [Pro5] LiêU Gia Kỳ, Image: [HSV] [PRO5] LƯƠNG GIA HÂN.jpg, SV5T Awardee: [Hsv] [Pro5] LưƠNg Gia HâN, Image: [HSV] [PRO5] NGUYỄN HOÀNG THỊ BÍCH NGỌC.png, SV5T Awardee: [Hsv] [Pro5] NguyễN HoàNg Thị BíCh NgọC, Image: [HSV] [PRO5] NGUYỄN MAI GIA TƯỜNG.jpg, SV5T Awardee: [Hsv] [Pro5] NguyễN Mai Gia TưỜNg (+35 more)
 
 ### Community 2 - "Document: 01_PRD.md"
-Cohesion: 0.07
-Nodes (30): Document: 01_PRD.md, 1. TỔNG QUAN & MỤC TIÊU HỆ THỐNG, 2.1. Các Khối Đơn vị (`units`) trong Hệ thống (Chuẩn hóa theo Sơ đồ Cơ cấu Tổ ch, 2. CƠ CẤU TỔ CHỨC NGHIỆP VỤ (THEO VĂN BẢN PHÁP LÝ KHÓA II, NK 2026 – 2028), 3.1. Ma trận Phân quyền 6 Cấp độ (`role_level` từ 1 đến 6), 3.2. Cơ chế Kiêm nhiệm Đa vị trí (Multi-Role & Context Switcher), 3. HỆ THỐNG PHÂN QUYỀN 6 CẤP & CƠ CHẾ KIÊM NHIỆM ĐA VAI TRÒ (RBAC + CONTEXT SWIT, 4.1. Tự động Nhận diện Hồ sơ Sinh viên từ Email `@eiu.edu.vn` & Giải mã MSSV 10  (+22 more)
+Cohesion: 0.06
+Nodes (39): Document: 01_PRD.md, 1. TỔNG QUAN & MỤC TIÊU HỆ THỐNG, 2.1. Các Khối Đơn vị (`units`) trong Hệ thống (Chuẩn hóa theo Sơ đồ Cơ cấu Tổ ch, 2. CƠ CẤU TỔ CHỨC NGHIỆP VỤ (THEO VĂN BẢN PHÁP LÝ KHÓA II, NK 2026 – 2028), 3.1. Ma trận Phân quyền 6 Cấp độ (`role_level` từ 1 đến 6), 3.2. Cơ chế Kiêm nhiệm Đa vị trí (Multi-Role & Context Switcher), 3. HỆ THỐNG PHÂN QUYỀN 6 CẤP & CƠ CHẾ KIÊM NHIỆM ĐA VAI TRÒ (RBAC + CONTEXT SWIT, 4.1. Tự động Nhận diện Hồ sơ Sinh viên từ Email `@eiu.edu.vn` & Giải mã MSSV 10  (+31 more)
 
 ### Community 3 - "Tooling & Package Dependencies"
 Cohesion: 0.08
@@ -210,8 +207,8 @@ Cohesion: 0.22
 Nodes (9): Document: 02_DESIGN_SYSTEM.md, 1. Triết lý Hòa phối Thương hiệu: "70% Di sản Học thuật EIU × 30% Bản sắc Thanh , 2. Hệ Màu Quy Chuẩn (Chromatic Architecture), 3. Hệ thống Chữ viết 3 Bộ Font Chuẩn (Typography Scale), 4. Quy chuẩn Hình học & Khung Lưới 3 Khu vực (Geometry & Layout Grids), BỘ QUY CHUẨN THIẾT KẾ CỐT LÕI (EIU × HSV DESIGN SPECIFICATION), EIU Gold Accent (#D4AF37), EIU Navy Primary (#002855) (+1 more)
 
 ### Community 6 - "mock-data.ts"
-Cohesion: 0.09
-Nodes (29): Document: 03_DATABASE_SCHEMA.md, 1. DANH MỤC KIỂU DỮ LIỆU ĐỊNH ĐỊNH NGHĨA TRƯỚC (ENUM TYPES), Table: certificates, Table: events, Table: news_articles, Table: plan_submissions, Table: profiles, Table: units (+21 more)
+Cohesion: 0.13
+Nodes (20): Phân hệ Xét duyệt SV 5 Tốt (QĐ 09), Table: events, Table: plan_submissions, Sv5tCandidateRecord, OFFICE_206_ASSETS, OFFICIAL_DOCUMENTS, ONLINE_QUIZ_QUESTIONS, PLAN_SUBMISSIONS (+12 more)
 
 ### Community 7 - "HSV Organization Structure"
 Cohesion: 0.17
@@ -222,20 +219,20 @@ Cohesion: 0.20
 Nodes (10): 2.1. Phân hệ Tổ chức, Hồ sơ Sinh viên & Phân quyền Đa vị trí (Giai đoạn 2 & 6), 2.2. Phân hệ Cổng thông tin Truyền thông - Public CMS (Giai đoạn 3), 2.3. Phân hệ Sự kiện, QR Check-in, Ngày tình nguyện & E-Certificate (Giai đoạn 4, 2.4. Phân hệ Thi Trắc nghiệm Trực tuyến - Online Quiz (Giai đoạn 4), 2.5. Phân hệ Số hóa Xét duyệt "Sinh viên 5 Tốt" & "Tập thể SV5T" (Giai đoạn 5 – , 2.6. Phân hệ E-Office, Văn thư Lưu trữ, Phòng 206.B06 & Họp Không Giấy (Giai đoạ, 2. CẤU TRÚC BẢNG CHI TIẾT (CORE TABLES), Bảng `profiles` (Hồ sơ Sinh viên & Cán bộ Hội – Liên kết `auth.users`) (+2 more)
 
 ### Community 9 - "su-kien/page.tsx"
-Cohesion: 0.17
-Nodes (19): CriteriaFilter, EVENT_CRITERIA_PILLS, EventCardMeta, formatEventTimeRange(), getEventCardMeta(), matchesLocationArea(), matchesStatus(), matchesTimeSlot() (+11 more)
+Cohesion: 0.24
+Nodes (14): CriteriaFilter, EVENT_CRITERIA_PILLS, EventCardMeta, formatEventTimeRange(), getEventCardMeta(), matchesLocationArea(), matchesStatus(), matchesTimeSlot() (+6 more)
 
 ### Community 10 - "HSV Organization Structure"
 Cohesion: 0.11
 Nodes (18): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, lib, module (+10 more)
 
 ### Community 11 - "workspace/page.tsx"
-Cohesion: 0.15
-Nodes (20): DEFAULT_WORKSPACE_STATE, escapeCsvCell(), getHashSnapshot(), getServerEmptySnapshot(), getStorageSnapshot(), INITIAL_SV5T_CANDIDATES, isValidWorkspaceModule(), OFFICE_SHIFTS (+12 more)
+Cohesion: 0.16
+Nodes (19): DEFAULT_WORKSPACE_STATE, escapeCsvCell(), getHashSnapshot(), getServerEmptySnapshot(), getStorageSnapshot(), INITIAL_SV5T_CANDIDATES, isValidWorkspaceModule(), OFFICE_SHIFTS (+11 more)
 
 ### Community 12 - "contest-system.tsx"
-Cohesion: 0.16
-Nodes (19): clearContestDraft(), ContestAttemptRecord, ContestCard(), ContestCardMeta, ContestDraftData, ContestExamModalInner(), ExamConfirmMode, formatContestTimeRange() (+11 more)
+Cohesion: 0.17
+Nodes (17): clearContestDraft(), ContestAttemptRecord, ContestCardMeta, ContestDraftData, ContestExamModalInner(), ExamConfirmMode, getContestAttemptsSnapshot(), getServerContestAttemptsSnapshot() (+9 more)
 
 ### Community 13 - "EIU Stylesheet Manifest"
 Cohesion: 0.12
@@ -247,19 +244,19 @@ Nodes (15): Document: 2026-11-03T09-26-34Z__src-app-public-page-tsx.md, Design H
 
 ### Community 15 - "portal-storage.ts"
 Cohesion: 0.23
-Nodes (14): appendDynamicIssuedCerts(), getAllCertificates(), getDynamicIssuedCerts(), getRegisteredEventsMap(), getWorkspaceStoredState(), LEGACY_REGISTERED_EVENTS_KEY, QuarterInputStr, readJsonStorage() (+6 more)
+Nodes (15): appendDynamicIssuedCerts(), clearWorkspaceStoredState(), emitStorageSync(), getAllCertificates(), getDynamicIssuedCerts(), getRegisteredEventsMap(), getWorkspaceStoredState(), LEGACY_REGISTERED_EVENTS_KEY (+7 more)
 
 ### Community 16 - "Product Strategy & Accessibility"
 Cohesion: 0.14
 Nodes (14): Document: PRODUCT.md, Accessibility & Inclusion, Brand Commitments, Capabilities and Constraints, Chức năng Cốt lõi (Confirmed Capabilities), Evidence on Hand, Operating Context, Platform (+6 more)
 
 ### Community 17 - "portal/page.tsx"
-Cohesion: 0.22
-Nodes (15): calculateWeightedQuarterGpa(), getEmptyServerSnapshot(), getStorageItemSnapshot(), parseLocaleDecimal(), PORTAL_MENU, PortalTab, StudentPortalContent(), StudentPortalPage() (+7 more)
+Cohesion: 0.17
+Nodes (19): calculateWeightedQuarterGpa(), getEmptyServerSnapshot(), getStorageItemSnapshot(), parseLocaleDecimal(), PORTAL_MENU, PortalTab, StudentPortalContent(), StudentPortalPage() (+11 more)
 
 ### Community 18 - "role-context.tsx"
-Cohesion: 0.21
-Nodes (13): DEMO_PERSONAS, DEMO_STUDENT_PROFILE, getRoleSessionSnapshot(), getServerRoleSessionSnapshot(), RoleContext, RoleContextValue, RoleProvider(), emitStorageSync() (+5 more)
+Cohesion: 0.22
+Nodes (12): DEMO_PERSONAS, DEMO_STUDENT_PROFILE, getRoleSessionSnapshot(), getServerRoleSessionSnapshot(), RoleContext, RoleContextValue, RoleProvider(), ROLE_SESSION_KEY (+4 more)
 
 ### Community 19 - "Product Requirements & Core Modules"
 Cohesion: 0.25
@@ -605,9 +602,9 @@ Nodes (6): WorkspaceLayout(), WorkspaceShell(), WORKSPACE_MODULE_GROUPS, WORKSPA
 Cohesion: 0.40
 Nodes (5): Document: README.md, Deploy on Vercel, Getting Started, Learn More, or
 
-### Community 105 - "tra-cuu-gcn/page.tsx"
-Cohesion: 0.39
-Nodes (8): CertificatePreviewPhuLuc2(), getDynamicCertsSnapshot(), getServerDynamicCertsSnapshot(), TraCuuGcnContent(), TraCuuGcnPage(), TraCuuSearchBridge(), decodeEiuStudentId(), ISSUED_CERTS_KEY
+### Community 105 - "Document: 03_DATABASE_SCHEMA.md"
+Cohesion: 0.20
+Nodes (10): Document: 03_DATABASE_SCHEMA.md, 1. DANH MỤC KIỂU DỮ LIỆU ĐỊNH ĐỊNH NGHĨA TRƯỚC (ENUM TYPES), Table: certificates, Table: news_articles, Table: profiles, Table: units, Table: user_positions, TÀI LIỆU THIẾT KẾ CƠ SỞ DỮ LIỆU TẬP TRUNG (DATABASE SCHEMA) (+2 more)
 
 ### Community 108 - "mock-data.ts"
 Cohesion: 0.27
@@ -621,33 +618,21 @@ Nodes (7): Persona Switcher Bar Design, beVietnamPro, crimsonText, metadata, mon
 Cohesion: 0.40
 Nodes (4): NAV_ITEMS, NavItem, NavSubItem, PublicNavbarInner()
 
-### Community 117 - "to-chuc/page.tsx"
-Cohesion: 0.10
-Nodes (24): Document: Danh Sách Câu Lạc Bộ EIU_87912758.md, Khối Học thuật & Kỹ năng, Khối Thể dục Thể thao, Khối Tình nguyện Xã hội, Khối Văn hóa Nghệ thuật, Sheet: Infor CLB, Image: hsv-bchđh2.png, BCH HSV Khóa II Photo (+16 more)
+### Community 117 - "SubpageBanner"
+Cohesion: 0.05
+Nodes (55): Design Health Score, Design Specificity Verdict, Minor Observations, Overall Impression, Persona Red Flags, Priority Issues, Questions to Consider, What's Working (+47 more)
 
 ### Community 120 - "(public)/page.tsx"
 Cohesion: 0.17
 Nodes (15): GET(), EVENT_CRITERIA_PILLS, formatDateDot(), formatEventTimeRange(), getEventCardMeta(), getReducedMotionSnapshot(), HomePage(), subscribeEmpty() (+7 more)
 
 ### Community 132 - "van-ban/page.tsx"
-Cohesion: 0.23
-Nodes (14): buildPrintableHtml(), DOC_TYPE_PILLS, DocTypeFilter, downloadDocumentFile(), escapeHtml(), FIELD_OPTIONS, formatDateInputMasked(), formatSignedDateParts() (+6 more)
+Cohesion: 0.19
+Nodes (16): buildPrintableHtml(), DOC_TYPE_PILLS, DocTypeFilter, downloadDocumentFile(), escapeHtml(), FIELD_OPTIONS, formatDateInputMasked(), formatSignedDateParts() (+8 more)
 
-### Community 133 - "tin-tuc/page.tsx"
-Cohesion: 0.30
-Nodes (11): FILTER_PILLS, formatDateDot(), getCategorySemantic(), getLatestPostYearMonth(), getPostLevel(), isPostInLatestMonth(), matchesFilterPill(), NewsFilterPillId (+3 more)
-
-### Community 134 - "SubpageBanner"
-Cohesion: 0.27
-Nodes (10): Design Health Score, Design Specificity Verdict, Minor Observations, Overall Impression, Persona Red Flags, Priority Issues, Questions to Consider, What's Working (+2 more)
-
-### Community 135 - "next"
-Cohesion: 0.25
-Nodes (8): nextConfig, lucide-react, next, formatDateDot(), TinTucDetailInner(), TinTucDetailPage(), SubpageBannerProps, OFFICIAL_DOCUMENTS
-
-### Community 136 - "cuoc-thi/page.tsx"
-Cohesion: 0.33
-Nodes (9): CONTEST_CRITERIA_PILLS, CriteriaFilter, CuocThiContent(), CuocThiPage(), CuocThiSearchBridge(), matchesBenefit(), matchesContestDuration(), matchesContestStatus() (+1 more)
+### Community 133 - "CLUB_UNITS"
+Cohesion: 0.43
+Nodes (7): Document: Danh Sách Câu Lạc Bộ EIU_87912758.md, Khối Học thuật & Kỹ năng, Khối Thể dục Thể thao, Khối Tình nguyện Xã hội, Khối Văn hóa Nghệ thuật, Sheet: Infor CLB, CLUB_UNITS
 
 ### Community 137 - "useFocusTrap"
 Cohesion: 0.43
@@ -666,16 +651,16 @@ Nodes (5): getClubSv5tBenefit(), UnitMicrositeContent(), UnitMicrositeInner(), U
 _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `all_stylesheets` connect `Https: Eiu Edu Vn` to `EIU Stylesheet Manifest`, `EIU Stylesheet Manifest`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`, `Design System & Typography`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Navigation & Header Components`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Https: Eiu Edu Vn`, `Design System & Typography`, `Design System & Typography`?**
-  _High betweenness centrality (0.160) - this node is a cross-community bridge._
+  _High betweenness centrality (0.149) - this node is a cross-community bridge._
 - **Are the 7 inferred relationships involving `SubpageBanner()` (e.g. with `Subpage Banner Component Pattern` and `Design Health Score`) actually correct?**
   _`SubpageBanner()` has 7 INFERRED edges - model-reasoned connections that need verification._
 - **What connects `Image: [HSV] [PRO5] LIÊU GIA KỲ.jpg`, `Image: [HSV] [PRO5] LƯƠNG GIA HÂN.jpg`, `Image: [HSV] [PRO5] NGUYỄN HOÀNG THỊ BÍCH NGỌC.png` to the rest of the system?**
   _119 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `SV5T Awardees & Portfolios` be split into smaller, more focused modules?**
   _Cohesion score 0.046511627906976744 - nodes in this community are weakly interconnected._
-- **Why does `ISSUED_CERTIFICATES` connect `SV5T Awardees & Portfolios` to `mock-data.ts`, `tra-cuu-gcn/page.tsx`, `workspace/page.tsx`, `portal-storage.ts`, `portal/page.tsx`?**
-  _High betweenness centrality (0.034) - this node is a cross-community bridge._
+- **Why does `react` connect `react` to `Document: 01_PRD.md`, `Tooling & Package Dependencies`, `van-ban/page.tsx`, `useRole`, `su-kien/page.tsx`, `to-chuc/[slug]/page.tsx`, `workspace/page.tsx`, `mock-data.ts`, `app/layout.tsx`, `public-navbar.tsx`, `useFocusTrap`, `contest-system.tsx`, `portal/page.tsx`, `role-context.tsx`, `SubpageBanner`, `(public)/page.tsx`?**
+  _High betweenness centrality (0.035) - this node is a cross-community bridge._
 - **Are the 21 inferred relationships involving `ISSUED_CERTIFICATES` (e.g. with `SV5T Awardee: [Hsv] [Pro5] LiêU Gia Kỳ` and `SV5T Awardee: [Hsv] [Pro5] LưƠNg Gia HâN`) actually correct?**
   _`ISSUED_CERTIFICATES` has 21 INFERRED edges - model-reasoned connections that need verification._
 - **Should `Document: 01_PRD.md` be split into smaller, more focused modules?**
-  _Cohesion score 0.06666666666666667 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06219512195121951 - nodes in this community are weakly interconnected._

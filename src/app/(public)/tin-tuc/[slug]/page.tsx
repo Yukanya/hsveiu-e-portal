@@ -4,16 +4,13 @@ import React, { Suspense, use, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SubpageBanner } from '@/components/public/subpage-banner';
-import { NEWS_POSTS, OFFICIAL_DOCUMENTS } from '@/data/mock-data';
+import { NEWS_POSTS } from '@/data/mock-data';
 import {
   ArrowLeft,
   Calendar,
   CheckCircle2,
-  ChevronRight,
   Clock,
   Eye,
-  FileCheck2,
-  QrCode,
 } from 'lucide-react';
 
 function formatDateDot(dateStr?: string | null): string {
@@ -33,6 +30,7 @@ function TinTucDetailInner({
 }) {
   const { slug } = use(params);
   const [coverFailed, setCoverFailed] = useState(false);
+  const [failedThumbIds, setFailedThumbIds] = useState<Record<string, boolean>>({});
   const article = NEWS_POSTS.find((p) => p.slug === slug);
 
   if (!article) {
@@ -57,12 +55,6 @@ function TinTucDetailInner({
     );
   }
 
-  const relatedDoc = article.relatedDocNumber
-    ? OFFICIAL_DOCUMENTS.find(
-        (d) => d.documentNumber === article.relatedDocNumber
-      )
-    : undefined;
-
   const targetCategoryFilter =
     article.category === 'SINH_VIEN_5_TOT'
       ? 'SINH_VIEN_5_TOT'
@@ -82,7 +74,7 @@ function TinTucDetailInner({
             label: article.categoryLabel,
             href: `/tin-tuc?category=${encodeURIComponent(targetCategoryFilter)}`,
           },
-          { label: 'Chi tiết bài viết' },
+          { label: article.title },
         ]}
       />
 
@@ -176,7 +168,7 @@ function TinTucDetailInner({
             </div>
 
             {/* Chân bài viết */}
-            <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
+            <div className="pt-6 border-t border-slate-200 flex items-center">
               <Link
                 href="/tin-tuc"
                 className="min-h-[44px] inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display"
@@ -184,110 +176,72 @@ function TinTucDetailInner({
                 <ArrowLeft className="w-4 h-4" />
                 <span>QUAY LẠI DANH SÁCH TIN TỨC</span>
               </Link>
-
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/su-kien"
-                  className="min-h-[44px] inline-flex items-center px-4 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded transition-colors font-eiu-display"
-                >
-                  Đăng ký Sự kiện liên quan
-                </Link>
-              </div>
             </div>
           </article>
 
-          {/* CỘT PHẢI (4/12): Văn bản Pháp lý Gắn Kèm + Tin Liên Quan */}
+          {/* CỘT PHẢI (4/12): Tin tức và Thông báo Khác */}
           <aside className="lg:col-span-4 space-y-6">
-            {relatedDoc && (
-              <div className="bg-white border-2 border-[#133F68]">
-                <div className="bg-[#133F68] text-white px-4 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                  <span className="inline-flex items-center gap-1.5">
-                    <FileCheck2 className="w-4 h-4 text-[#FCB900]" />
-                    <span>Văn bản Pháp lý Gốc</span>
-                  </span>
-                  <span className="font-eiu-serif text-[#00BCFF]">
-                    {relatedDoc.documentNumber}
-                  </span>
-                </div>
-                <div className="p-5 space-y-3 text-xs">
-                  <div className="font-bold text-sm text-[#133F68] leading-snug">
-                    {relatedDoc.title}
-                  </div>
-                  <div className="text-slate-600 space-y-1">
-                    <div>
-                      Ngày ký: <strong className="font-eiu-serif">{relatedDoc.signedDate}</strong>
-                    </div>
-                    <div>
-                      Người ký: <strong>{relatedDoc.signerName}</strong> ({relatedDoc.signerTitle})
-                    </div>
-                  </div>
-                  <div className="pt-2 flex flex-wrap gap-2">
-                    <Link
-                      href={`/van-ban?doc=${encodeURIComponent(relatedDoc.documentNumber)}`}
-                      className="min-h-[38px] inline-flex items-center gap-1 px-3 py-1.5 bg-[#133F68] text-white font-bold uppercase tracking-wider hover:bg-[#0054A6]"
-                    >
-                      <QrCode className="w-3.5 h-3.5" />
-                      <span>Xem Văn bản</span>
-                    </Link>
-                    {relatedDoc.documentNumber === '32/QĐ-HSV' && (
-                      <Link
-                        href="/tra-cuu-gcn?q=32/QĐ-HSV"
-                        className="min-h-[38px] inline-flex items-center gap-1 px-3 py-1.5 bg-[#8E6D3E] hover:bg-[#78592B] text-white font-bold uppercase tracking-wider"
-                      >
-                        <span>Tra cứu GCN</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Hộp Đỏ Đô #C10230 Hành động Nhanh (Fix WCAG AA contrast + xóa backtick markdown) */}
-            <div className="bg-[#C10230] text-white p-6 space-y-3">
-              <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
-              <h3 className="text-base font-bold font-eiu-display">
-                Sổ tay Hội viên và SV5T Số
-              </h3>
-              <p className="text-[13px] text-white/95 leading-relaxed">
-                Đăng nhập bằng tài khoản Google Workspace trường (eiu.edu.vn) để tự động tính GPA Quý EIU, làm bài thi Online Quiz và theo dõi E-Certificate cá nhân.
-              </p>
-              <Link
-                href="/portal"
-                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white underline underline-offset-4 hover:text-[#EAE3D2] font-eiu-display pt-1"
-              >
-                <span>MỞ SỔ TAY HỘI VIÊN</span>
-                <ChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
-
-            {/* Danh sách Tin tức khác */}
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-4 py-3 text-xs font-bold uppercase tracking-wider font-eiu-display">
                 Tin tức và Thông báo Khác
               </div>
               <div className="divide-y divide-slate-200">
-                {relatedPosts.map((rp) => (
-                  <Link
-                    key={rp.id}
-                    href={`/tin-tuc/${rp.slug}`}
-                    className="block p-4 hover:bg-[#F5F5F5] transition-colors group space-y-1"
-                  >
-                    <div className="flex items-center justify-between text-[11px]">
-                      <span className="font-bold text-[#0054A6]">
-                        {rp.categoryLabel}
-                      </span>
-                      <time
-                        dateTime={rp.publishedAt}
-                        className="font-eiu-serif text-[#8E6D3E] font-medium"
-                      >
-                        {formatDateDot(rp.publishedAt)}
-                      </time>
-                    </div>
-                    <div className="text-[13.5px] font-bold text-[#133F68] group-hover:text-[#C10230] leading-snug line-clamp-2">
-                      {rp.title}
-                    </div>
-                  </Link>
-                ))}
+                {relatedPosts.map((rp) => {
+                  const thumbAvailable =
+                    Boolean(rp.imageUrl) && !failedThumbIds[rp.id];
+                  return (
+                    <Link
+                      key={rp.id}
+                      href={`/tin-tuc/${rp.slug}`}
+                      className="block p-4 hover:bg-[#F5F5F5] transition-colors group space-y-2.5"
+                    >
+                      <div className="relative w-full h-28 bg-[#02294E] overflow-hidden border border-slate-200/80">
+                        {thumbAvailable ? (
+                          <Image
+                            src={rp.imageUrl as string}
+                            alt={rp.title}
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 340px"
+                            className="object-cover object-top transition-transform duration-300 motion-reduce:transition-none group-hover:scale-[1.03]"
+                            onError={() =>
+                              setFailedThumbIds((prev) => ({
+                                ...prev,
+                                [rp.id]: true,
+                              }))
+                            }
+                          />
+                        ) : (
+                          <div className="w-full h-full eiu-arch-pattern bg-[#02294E] flex items-center justify-center">
+                            <Image
+                              src="/images/hsv-logo.png"
+                              alt={rp.title}
+                              width={44}
+                              height={44}
+                              style={{ width: 'auto' }}
+                              className="h-10 w-auto object-contain opacity-90"
+                            />
+                          </div>
+                        )}
+                      </div>
+                      <div className="space-y-1">
+                        <div className="flex items-center justify-between text-[11px]">
+                          <span className="font-bold text-[#0054A6]">
+                            {rp.categoryLabel}
+                          </span>
+                          <time
+                            dateTime={rp.publishedAt}
+                            className="font-eiu-serif text-[#8E6D3E] font-medium"
+                          >
+                            {formatDateDot(rp.publishedAt)}
+                          </time>
+                        </div>
+                        <div className="text-[13.5px] font-bold text-[#133F68] group-hover:text-[#C10230] leading-snug line-clamp-2">
+                          {rp.title}
+                        </div>
+                      </div>
+                    </Link>
+                  );
+                })}
               </div>
             </div>
           </aside>
