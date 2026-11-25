@@ -499,10 +499,10 @@ export const HSV_VN_SONG_STANZAS: SongStanza[] = [
       'Kìa Tổ quốc biết bao tươi đẹp',
       'Tới những công trình mới',
       'Dệt nên những ước mơ cho đời',
-      'Ta mơ một ngày mai',
+      'Ta yêu một ngày mai',
       'Bàn tay ta biến sông thành điện',
       'Đi đi nào bạn ơi',
-      'Dệt lên những ước mơ cho đời.',
+      'Dệt nên những ước mơ cho đời.',
     ],
   },
 ];
