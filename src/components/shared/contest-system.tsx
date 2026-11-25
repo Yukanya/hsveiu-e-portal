@@ -1,8 +1,25 @@
 'use client';
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import Link from 'next/link';
 import { useRole } from '@/context/role-context';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
+import {
+  CONTEST_ATTEMPTS_KEY,
+  emitStorageSync,
+  getContestDraftKey,
+  LEGACY_CONTEST_ATTEMPTS_KEY,
+  readJsonStorage,
+  subscribeStorageSync,
+  writeJsonStorage,
+} from '@/lib/portal-storage';
 import { OnlineContestItem } from '@/types';
 import {
   CheckCircle2,
@@ -28,18 +45,19 @@ export interface ContestAttemptRecord {
   completedAt: string;
 }
 
-const STORAGE_KEY = 'hsv_eiu_contest_attempts_v1';
-const DRAFT_PREFIX = 'hsv_eiu_contest_draft_v1_';
-
 interface ContestDraftData {
   answers: Record<string, number>;
   endsAt: number;
 }
 
-function loadContestDraft(contestId: string): ContestDraftData | null {
+function loadContestDraft(
+  personaId: string,
+  contestId: string
+): ContestDraftData | null {
   if (typeof window === 'undefined') return null;
   try {
-    const raw = window.localStorage.getItem(`${DRAFT_PREFIX}${contestId}`);
+    const key = getContestDraftKey(personaId, contestId);
+    const raw = window.localStorage.getItem(key);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as ContestDraftData;
     if (
@@ -52,18 +70,22 @@ function loadContestDraft(contestId: string): ContestDraftData | null {
     ) {
       return parsed;
     }
-    window.localStorage.removeItem(`${DRAFT_PREFIX}${contestId}`);
+    window.localStorage.removeItem(key);
     return null;
   } catch {
     return null;
   }
 }
 
-function saveContestDraft(contestId: string, draft: ContestDraftData) {
+function saveContestDraft(
+  personaId: string,
+  contestId: string,
+  draft: ContestDraftData
+) {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(
-      `${DRAFT_PREFIX}${contestId}`,
+      getContestDraftKey(personaId, contestId),
       JSON.stringify(draft)
     );
   } catch {
@@ -71,37 +93,66 @@ function saveContestDraft(contestId: string, draft: ContestDraftData) {
   }
 }
 
-function clearContestDraft(contestId: string) {
+function clearContestDraft(personaId: string, contestId: string) {
   if (typeof window === 'undefined') return;
   try {
-    window.localStorage.removeItem(`${DRAFT_PREFIX}${contestId}`);
+    window.localStorage.removeItem(getContestDraftKey(personaId, contestId));
   } catch {
     // Ignore storage errors cleanly
   }
 }
 
-export function useContestAttempts() {
-  const [attempts, setAttempts] = useState<
-    Record<string, ContestAttemptRecord>
-  >({});
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (parsed && typeof parsed === 'object') {
-          setAttempts(parsed);
-        }
+function getContestAttemptsSnapshot(): string {
+  try {
+    const raw = window.localStorage.getItem(CONTEST_ATTEMPTS_KEY);
+    if (raw) return raw;
+    const legacy = window.localStorage.getItem(LEGACY_CONTEST_ATTEMPTS_KEY);
+    if (legacy) {
+      const parsedLegacy = JSON.parse(legacy);
+      if (parsedLegacy && typeof parsedLegacy === 'object') {
+        const migrated = JSON.stringify({ 'staff-01': parsedLegacy });
+        window.localStorage.setItem(CONTEST_ATTEMPTS_KEY, migrated);
+        return migrated;
       }
-    } catch {
-      // Ignore storage read errors cleanly
     }
-  }, []);
+    return '';
+  } catch {
+    return '';
+  }
+}
 
-  const saveAttempt = useCallback((record: ContestAttemptRecord) => {
-    setAttempts((prev) => {
-      const existing = prev[record.contestId];
+function getServerContestAttemptsSnapshot(): string {
+  return '';
+}
+
+export function useContestAttempts() {
+  const { currentPersona } = useRole();
+  const rawMap = useSyncExternalStore(
+    subscribeStorageSync,
+    getContestAttemptsSnapshot,
+    getServerContestAttemptsSnapshot
+  );
+
+  const attempts = useMemo<Record<string, ContestAttemptRecord>>(() => {
+    if (!rawMap) return {};
+    try {
+      const parsed = JSON.parse(rawMap) as Record<
+        string,
+        Record<string, ContestAttemptRecord>
+      >;
+      return parsed[currentPersona.id] || {};
+    } catch {
+      return {};
+    }
+  }, [rawMap, currentPersona.id]);
+
+  const saveAttempt = useCallback(
+    (record: ContestAttemptRecord) => {
+      const allMap = readJsonStorage<
+        Record<string, Record<string, ContestAttemptRecord>>
+      >(CONTEST_ATTEMPTS_KEY, {});
+      const prevPersonaMap = allMap[currentPersona.id] || {};
+      const existing = prevPersonaMap[record.contestId];
       const merged: ContestAttemptRecord = existing
         ? {
             ...record,
@@ -110,15 +161,18 @@ export function useContestAttempts() {
             passed: existing.passed || record.passed,
           }
         : record;
-      const next = { ...prev, [record.contestId]: merged };
-      try {
-        window.localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      } catch {
-        // Ignore storage write errors cleanly
-      }
-      return next;
-    });
-  }, []);
+      const nextMap = {
+        ...allMap,
+        [currentPersona.id]: {
+          ...prevPersonaMap,
+          [record.contestId]: merged,
+        },
+      };
+      writeJsonStorage(CONTEST_ATTEMPTS_KEY, nextMap, true);
+      emitStorageSync();
+    },
+    [currentPersona.id]
+  );
 
   return { attempts, saveAttempt };
 }
@@ -294,7 +348,11 @@ export function ContestCard({
             <button
               type="button"
               onClick={() => onOpenModal(contest)}
-              aria-label={`Mở thông tin và phòng thi cuộc thi: ${contest.title}`}
+              aria-label={`${contest.title} — ${
+                attempt?.passed
+                  ? `Đã đạt ${attempt.bestScore}%`
+                  : meta.label
+              }`}
               className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
             >
               {contest.title}
@@ -394,56 +452,77 @@ export function ContestExamModal({
   onSaveAttempt: (record: ContestAttemptRecord) => void;
 }) {
   const { currentPersona } = useRole();
+  if (!contest) return null;
 
-  const [step, setStep] = useState<ModalStep>('intro');
-  const [answers, setAnswers] = useState<Record<string, number>>({});
-  const [secondsLeft, setSecondsLeft] = useState<number>(0);
-  const [examEndsAt, setExamEndsAt] = useState<number | null>(null);
-  const [hasSavedDraft, setHasSavedDraft] = useState(false);
-  const [latestResult, setLatestResult] =
-    useState<ContestAttemptRecord | null>(null);
+  return (
+    <ContestExamModalInner
+      key={`${currentPersona.id}:${contest.id}`}
+      contest={contest}
+      attempt={attempt}
+      onClose={onClose}
+      onSaveAttempt={onSaveAttempt}
+    />
+  );
+}
+
+function ContestExamModalInner({
+  contest,
+  attempt,
+  onClose,
+  onSaveAttempt,
+}: {
+  contest: OnlineContestItem;
+  attempt?: ContestAttemptRecord;
+  onClose: () => void;
+  onSaveAttempt: (record: ContestAttemptRecord) => void;
+}) {
+  const { currentPersona } = useRole();
+  const meta = getContestCardMeta(contest);
+  const initialShowStoredResult = Boolean(attempt && !meta.isOpen);
+
+  const [initialDraft] = useState(() =>
+    loadContestDraft(currentPersona.id, contest.id)
+  );
+  const [step, setStep] = useState<ModalStep>(() =>
+    initialShowStoredResult ? 'result' : 'intro'
+  );
+  const [answers, setAnswers] = useState<Record<string, number>>(() =>
+    initialShowStoredResult && attempt
+      ? attempt.answers
+      : initialDraft
+      ? initialDraft.answers
+      : {}
+  );
+  const [secondsLeft, setSecondsLeft] = useState<number>(() =>
+    initialDraft
+      ? Math.max(1, Math.round((initialDraft.endsAt - Date.now()) / 1000))
+      : contest.durationMinutes * 60
+  );
+  const [examEndsAt, setExamEndsAt] = useState<number | null>(() =>
+    initialDraft ? initialDraft.endsAt : null
+  );
+  const [hasSavedDraft, setHasSavedDraft] = useState<boolean>(() =>
+    Boolean(initialDraft)
+  );
+  const [latestResult, setLatestResult] = useState<ContestAttemptRecord | null>(
+    () => attempt || null
+  );
   const [confirmMode, setConfirmMode] = useState<ExamConfirmMode>(null);
-  const prevContestIdRef = useRef<string | null>(null);
+  const hasAutoSubmittedRef = useRef(false);
+  const modalDialogRef = useRef<HTMLDivElement>(null);
+  const confirmDialogRef = useRef<HTMLDivElement>(null);
 
-  // Reset modal step chỉ khi mở cuộc thi khác hoặc đóng/mở lại modal
+  // Lưu nháp tự động vào localStorage tách theo personaId mỗi khi chọn đáp án
   useEffect(() => {
-    const currentId = contest?.id ?? null;
-    if (currentId === prevContestIdRef.current) return;
-    prevContestIdRef.current = currentId;
-
-    if (!contest) return;
-    setConfirmMode(null);
-    const savedDraft = loadContestDraft(contest.id);
-    setHasSavedDraft(Boolean(savedDraft));
-    if (attempt && !getContestCardMeta(contest).isOpen) {
-      setLatestResult(attempt);
-      setAnswers(attempt.answers);
-      setStep('result');
-    } else {
-      setStep('intro');
-      setAnswers(savedDraft ? savedDraft.answers : {});
-      setLatestResult(attempt || null);
-      setSecondsLeft(
-        savedDraft
-          ? Math.max(1, Math.round((savedDraft.endsAt - Date.now()) / 1000))
-          : contest.durationMinutes * 60
-      );
-      setExamEndsAt(savedDraft ? savedDraft.endsAt : null);
-    }
-  }, [contest, attempt]);
-
-  // Lưu nháp tự động vào localStorage mỗi khi chọn đáp án trong phòng thi
-  useEffect(() => {
-    if (!contest || step !== 'exam' || !examEndsAt) return;
-    saveContestDraft(contest.id, {
+    if (step !== 'exam' || !examEndsAt) return;
+    saveContestDraft(currentPersona.id, contest.id, {
       answers,
       endsAt: examEndsAt,
     });
-  }, [contest, step, answers, examEndsAt]);
+  }, [contest.id, currentPersona.id, step, answers, examEndsAt]);
 
   const handleSubmitExam = useCallback(
     (nextStep: ModalStep = 'result') => {
-      if (!contest) return;
       const totalQuestions = contest.questions.length || 1;
       const correctCount = contest.questions.reduce(
         (acc, q) => acc + (answers[q.id] === q.correctIndex ? 1 : 0),
@@ -462,7 +541,7 @@ export function ContestExamModal({
         answers,
         completedAt: new Date().toISOString(),
       };
-      clearContestDraft(contest.id);
+      clearContestDraft(currentPersona.id, contest.id);
       setHasSavedDraft(false);
       setExamEndsAt(null);
       setLatestResult(record);
@@ -470,53 +549,49 @@ export function ContestExamModal({
       setConfirmMode(null);
       setStep(nextStep);
     },
-    [contest, answers, onSaveAttempt]
+    [contest, currentPersona.id, answers, onSaveAttempt]
   );
 
   // Countdown Timer during active exam step
   useEffect(() => {
-    if (!contest || step !== 'exam') return;
-    if (secondsLeft <= 0) {
-      handleSubmitExam('result');
-      return;
-    }
+    if (step !== 'exam' || !examEndsAt) return;
     const timer = setInterval(() => {
-      setSecondsLeft((prev) => Math.max(0, prev - 1));
+      const remaining = Math.max(
+        0,
+        Math.ceil((examEndsAt - Date.now()) / 1000)
+      );
+      setSecondsLeft(remaining);
+      if (remaining <= 0 && !hasAutoSubmittedRef.current) {
+        hasAutoSubmittedRef.current = true;
+        clearInterval(timer);
+        handleSubmitExam('result');
+      }
     }, 1000);
     return () => clearInterval(timer);
-  }, [contest, step, secondsLeft, handleSubmitExam]);
+  }, [step, examEndsAt, handleSubmitExam]);
 
-  // Keyboard ESC handler + lock body scroll (chặn thoát nhầm khi đang thi)
-  useEffect(() => {
-    if (!contest) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        if (confirmMode) {
-          setConfirmMode(null);
-        } else if (step === 'exam') {
-          setConfirmMode('back');
-        } else {
-          onClose();
-        }
-      }
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [contest, confirmMode, step, onClose]);
+  const handleDialogEscape = useCallback(() => {
+    if (step === 'exam') {
+      setConfirmMode('back');
+    } else {
+      onClose();
+    }
+  }, [step, onClose]);
 
-  if (!contest) return null;
+  const handleConfirmEscape = useCallback(() => {
+    setConfirmMode(null);
+  }, []);
 
-  const meta = getContestCardMeta(contest);
+  useFocusTrap(true, modalDialogRef, handleDialogEscape);
+  useFocusTrap(Boolean(confirmMode), confirmDialogRef, handleConfirmEscape);
+
   const attemptsUsed = attempt?.attemptsUsed ?? 0;
   const canRetake =
     meta.isOpen && attemptsUsed < contest.maxAttempts;
 
   const startExam = () => {
-    const existingDraft = loadContestDraft(contest.id);
+    hasAutoSubmittedRef.current = false;
+    const existingDraft = loadContestDraft(currentPersona.id, contest.id);
     if (existingDraft) {
       setAnswers(existingDraft.answers);
       setExamEndsAt(existingDraft.endsAt);
@@ -528,7 +603,10 @@ export function ContestExamModal({
       setAnswers({});
       setExamEndsAt(nextEndsAt);
       setSecondsLeft(contest.durationMinutes * 60);
-      saveContestDraft(contest.id, { answers: {}, endsAt: nextEndsAt });
+      saveContestDraft(currentPersona.id, contest.id, {
+        answers: {},
+        endsAt: nextEndsAt,
+      });
     }
     setStep('exam');
   };
@@ -540,17 +618,21 @@ export function ContestExamModal({
 
   return (
     <div
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-contest-title"
       className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
       onClick={(e) => {
-        if (e.target === e.currentTarget && step !== 'exam') {
+        if (e.target === e.currentTarget && step !== 'exam' && !confirmMode) {
           onClose();
         }
       }}
     >
-      <div className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden">
+      <div
+        ref={modalDialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-contest-title"
+        tabIndex={-1}
+        className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden focus:outline-none"
+      >
         {/* Header Modal */}
         <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
           <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
@@ -771,25 +853,6 @@ export function ContestExamModal({
                 </div>
               )}
 
-              {/* Chú giải nhanh cho Sinh viên & Liên hệ Văn phòng 206.B06 */}
-              <div className="bg-[#F8FAFC] border border-slate-200 p-3 text-[11px] text-slate-600 font-sans leading-relaxed space-y-1">
-                <div>
-                  <strong className="text-[#133F68]">Chú giải nhanh:</strong>{' '}
-                  <strong>SV5T</strong> là danh hiệu <em>Sinh viên 5 Tốt</em>{' '}
-                  (QĐ 09/QĐ-HSV); <strong>+1 ĐRL</strong> được cộng vào Điểm rèn
-                  luyện học kỳ khi đạt chuẩn ≥ {contest.passScore}% số câu đúng.
-                </div>
-                <div>
-                  <strong className="text-[#133F68]">Hỗ trợ kỹ thuật:</strong>{' '}
-                  Văn phòng Hội Sinh viên EIU — <strong>Phòng 206.B06</strong>{' '}
-                  hoặc email{' '}
-                  <span className="text-[#0054A6] font-semibold">
-                    studentassociation@eiu.edu.vn
-                  </span>
-                  .
-                </div>
-              </div>
-
               {/* Nếu đã có lịch sử thi */}
               {attempt && (
                 <div
@@ -839,9 +902,9 @@ export function ContestExamModal({
                     )}
                   </div>
                   <p className="text-slate-600 font-sans leading-relaxed">
-                    Cuộc thi đã kết thúc và hoàn tất tổng hợp danh sách theo MSSV
-                    tăng dần (QĐ 28/QĐ-HSV). Sinh viên đạt chuẩn có thể tra cứu
-                    và tải Giấy chứng nhận điện tử kèm mã QR xác thực.
+                    Cuộc thi đã kết thúc và hoàn tất tổng hợp danh sách công
+                    nhận kết quả. Sinh viên đạt chuẩn có thể tra cứu và tải Giấy
+                    chứng nhận điện tử kèm mã QR xác thực.
                   </p>
                   <div className="flex flex-wrap items-center gap-2 pt-1">
                     <Link
@@ -1066,50 +1129,64 @@ export function ContestExamModal({
         {/* POPUP XÁC NHẬN MỜ NỀN PHÍA SAU KHI QUAY LẠI HOẶC NỘP BÀI */}
         {confirmMode && (
           <div
-            role="alertdialog"
-            aria-modal="true"
-            aria-labelledby="exam-confirm-title"
             className="absolute inset-0 z-30 bg-[#02294E]/60 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6"
             onClick={(e) => {
               if (e.target === e.currentTarget) setConfirmMode(null);
             }}
           >
-            <div className="bg-white border-2 border-[#133F68] w-full max-w-md shadow-2xl overflow-hidden">
+            <div
+              ref={confirmDialogRef}
+              role="alertdialog"
+              aria-modal="true"
+              aria-labelledby="exam-confirm-title"
+              tabIndex={-1}
+              className="bg-white border-2 border-[#133F68] w-full max-w-md shadow-2xl overflow-hidden focus:outline-none"
+            >
               <div className="bg-[#133F68] text-white px-5 py-3.5 border-b-3 border-[#A68556]">
                 <h4
                   id="exam-confirm-title"
                   className="text-xs font-bold uppercase tracking-wider font-eiu-display"
                 >
                   {confirmMode === 'back'
-                    ? 'Xác nhận thoát phòng thi'
+                    ? 'Tạm dừng hoặc Nộp bài thi'
                     : 'Xác nhận nộp bài thi'}
                 </h4>
               </div>
               <div className="p-5 space-y-4">
                 <p className="text-sm text-slate-700 leading-relaxed font-sans">
                   {confirmMode === 'back'
-                    ? 'Khi quay lại sẽ tự động nộp bài và lưu kết quả lần thi.'
+                    ? 'Bài làm hiện tại của bạn đã được lưu nháp an toàn trên trình duyệt. Bạn có thể đóng tạm cửa sổ để xem lại thể lệ (không mất lượt thi), tiếp tục làm bài, hoặc nộp bài ngay.'
                     : answeredCount < totalQ
                     ? `Bạn mới hoàn thành ${answeredCount}/${totalQ} câu hỏi. Bạn có chắc chắn muốn nộp bài thi ngay bây giờ?`
                     : `Bạn đã hoàn thành ${answeredCount}/${totalQ} câu hỏi. Xác nhận nộp bài để hệ thống chấm điểm?`}
                 </p>
 
-                <div className="flex flex-wrap items-center justify-end gap-2.5 pt-2 border-t border-slate-100">
+                <div className="flex flex-wrap items-center justify-end gap-2 pt-2 border-t border-slate-100">
                   {confirmMode === 'back' ? (
                     <>
                       <button
                         type="button"
                         onClick={() => setConfirmMode(null)}
-                        className="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                        className="min-h-[44px] px-3.5 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
                       >
-                        Hủy bỏ
+                        Làm tiếp
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setConfirmMode(null);
+                          onClose();
+                        }}
+                        className="min-h-[44px] px-3.5 py-2 bg-[#EAE3D2] hover:bg-[#DED1BE] text-[#133F68] text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
+                      >
+                        Đóng (giữ nháp)
                       </button>
                       <button
                         type="button"
                         onClick={() => handleSubmitExam('intro')}
-                        className="px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
+                        className="min-h-[44px] px-4 py-2 bg-[#C10230] hover:bg-[#9E0024] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
                       >
-                        Nộp bài và thoát
+                        Nộp bài ngay
                       </button>
                     </>
                   ) : (
@@ -1117,14 +1194,14 @@ export function ContestExamModal({
                       <button
                         type="button"
                         onClick={() => setConfirmMode(null)}
-                        className="px-4 py-2.5 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                        className="min-h-[44px] px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
                       >
                         Quay lại
                       </button>
                       <button
                         type="button"
                         onClick={() => handleSubmitExam('result')}
-                        className="px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
+                        className="min-h-[44px] px-5 py-2 bg-[#133F68] hover:bg-[#02294E] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer transition-colors"
                       >
                         Nộp bài
                       </button>

@@ -1,10 +1,11 @@
 'use client';
 
-import React, { Suspense, useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 import {
   BRANCH_UNITS,
   CLUB_UNITS,
@@ -70,7 +71,7 @@ const ORG_TABS: OrgTabMeta[] = [
     label: 'Ban Thư ký (05 đ/c)',
     title: 'BAN THƯ KÝ HỘI SINH VIÊN TRƯỜNG KHÓA II (05 ĐỒNG CHÍ)',
     subtitle:
-      'Cơ quan thường trực điều hành công tác Hội và phong trào sinh viên toàn trường giữa hai kỳ họp Ban Chấp hành (23/QĐ-HSV).',
+      'Cơ quan thường trực điều hành công tác Hội và phong trào sinh viên toàn trường giữa hai kỳ họp Ban Chấp hành.',
     badge: '05',
   },
   {
@@ -97,7 +98,7 @@ const ORG_TABS: OrgTabMeta[] = [
     label: 'Văn phòng Hội (206.B06)',
     title: 'VĂN PHÒNG HỘI SINH VIÊN TRƯỜNG — TRỤ SỞ PHÒNG 206.B06',
     subtitle:
-      'Tham mưu hành chính, văn thư – lưu trữ, con dấu pháp lý và quản trị tài sản theo cơ chế đồng điều hành Đối ngoại – Nội bộ (24/QĐ-HSV).',
+      'Tham mưu hành chính, văn thư – lưu trữ, con dấu pháp lý và quản trị tài sản theo cơ chế đồng điều hành Đối ngoại – Nội bộ.',
   },
   {
     id: 'tcxdh',
@@ -111,7 +112,7 @@ const ORG_TABS: OrgTabMeta[] = [
     id: 'tgpt',
     group: 'APPARATUS',
     label: 'Ban Tuyên giáo – Phong trào',
-    title: 'BAN TUYÊN GIÁO – PHONG TRÀO và ĐỘI CỘNG TÁC VIÊN XUNG KÍCH',
+    title: 'BAN TUYÊN GIÁO – PHONG TRÀO VÀ ĐỘI CỘNG TÁC VIÊN XUNG KÍCH',
     subtitle:
       'Vận hành 02 mảng chuyên trách (Mảng Tuyên giáo và Mảng Phong trào), 06 tiểu ban trực thuộc và Đội CTV Xung kích quản lý 02 tiểu ban sự kiện.',
   },
@@ -156,7 +157,7 @@ function StaffCompactCard({
         <span className="font-bold font-eiu-display tracking-wide group-hover:scale-105 transition-transform">
           {initials}
         </span>
-        <span className="text-[9px] font-eiu-serif text-[#DED1BE] leading-none mt-0.5">
+        <span className="text-[11px] font-eiu-serif text-[#DED1BE] leading-none mt-0.5">
           {member.cohortYear ? `K${member.cohortYear}` : 'CTSV'}
         </span>
       </div>
@@ -165,7 +166,7 @@ function StaffCompactCard({
       <div className="min-w-0 flex-1 space-y-1">
         <div className="flex flex-wrap items-center gap-1.5">
           <span
-            className={`px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wider font-eiu-display ${
+            className={`px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display ${
               featured
                 ? 'bg-[#C10230] text-white'
                 : 'bg-[#0054A6]/10 text-[#0054A6]'
@@ -174,7 +175,7 @@ function StaffCompactCard({
             {roleHighlight}
           </span>
           {member.positions.length > 1 && (
-            <span className="px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] font-eiu-serif text-[10px] font-bold">
+            <span className="px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] font-eiu-serif text-[11px] font-bold">
               {member.positions.length} vị trí
             </span>
           )}
@@ -211,31 +212,23 @@ function StaffCompactCard({
 function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
   const [activeTab, setActiveTabState] = useState<OrgTabId>(initialTab);
   const [selectedStaff, setSelectedStaff] = useState<StaffMember | null>(null);
+  const contentTopRef = useRef<HTMLDivElement>(null);
+  const staffModalRef = useRef<HTMLDivElement>(null);
 
-  const setActiveTab = useCallback((tab: OrgTabId) => {
+  const setActiveTab = useCallback((tab: OrgTabId, scrollMobile = false) => {
     setActiveTabState(tab);
     if (typeof window !== 'undefined' && window.history) {
       const url = new URL(window.location.href);
       url.searchParams.set('tab', tab);
       window.history.replaceState({}, '', url.toString());
     }
+    if (scrollMobile && typeof window !== 'undefined' && window.innerWidth < 1024) {
+      contentTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, []);
 
-  // Khóa cuộn nền và bắt phím Escape khi mở Modal Hồ sơ Cán bộ
-  useEffect(() => {
-    if (!selectedStaff) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedStaff(null);
-      }
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [selectedStaff]);
+  const closeStaffModal = useCallback(() => setSelectedStaff(null), []);
+  useFocusTrap(Boolean(selectedStaff), staffModalRef, closeStaffModal);
 
   const currentTabMeta =
     ORG_TABS.find((t) => t.id === activeTab) || ORG_TABS[0];
@@ -352,7 +345,6 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker="HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐHQTMĐ — KHÓA II (2026 – 2028)"
         title="Giới thiệu Tổ chức và Đội ngũ Cán bộ Chủ chốt"
         subtitle="Cơ cấu bộ máy 3 cấp, Thường trực Ban Thư ký, Ban Chấp hành, Ban Kiểm tra và 03 Ban chuyên môn trực thuộc"
         breadcrumbs={[
@@ -361,12 +353,38 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
         ]}
       />
 
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6 lg:pt-9">
+        {/* Thanh chuyển phân hệ ngang gọn trên Mobile / Tablet (< 1024px) */}
+        <div
+          role="group"
+          aria-label="Chọn phân hệ Giới thiệu và Bộ máy"
+          className="lg:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1"
+        >
+          {ORG_TABS.map((tab) => {
+            const isSelected = activeTab === tab.id;
+            return (
+              <button
+                key={`mob-${tab.id}`}
+                type="button"
+                aria-current={isSelected ? 'page' : undefined}
+                onClick={() => setActiveTab(tab.id, true)}
+                className={`min-h-[44px] px-3.5 py-2 text-xs font-bold whitespace-nowrap shrink-0 border transition-colors cursor-pointer font-eiu-display ${
+                  isSelected
+                    ? 'bg-[#C10230] text-white border-[#C10230]'
+                    : 'bg-[#EAE3D2] text-[#133F68] border-slate-300'
+                }`}
+              >
+                {tab.label}
+              </button>
+            );
+          })}
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* CỘT TRÁI (3/12): Menu dọc Đỏ #C10230 / Kem #EAE3D2 chia 2 cụm chuẩn EIU */}
+          {/* CỘT TRÁI (3/12): Menu dọc Desktop (#C10230 / #EAE3D2) */}
           <aside
             aria-label="Danh mục Giới thiệu và Cơ cấu bộ máy"
-            className="lg:col-span-3 space-y-5"
+            className="hidden lg:block lg:col-span-3 space-y-5"
           >
             <div className="border border-slate-200 bg-white">
               <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
@@ -390,7 +408,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <span>{tab.label}</span>
                       {tab.badge && (
                         <span
-                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
+                          className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-[#133F68] text-white'
@@ -427,7 +445,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <span>{tab.label}</span>
                       {tab.badge && (
                         <span
-                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
+                          className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                             isSelected
                               ? 'bg-white/20 text-white'
                               : 'bg-white/80 text-[#133F68]'
@@ -441,33 +459,16 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                 })}
               </div>
             </div>
-
-            {/* Hộp Trụ sở Văn phòng 206.B06 chuẩn lib.eiu.edu.vn */}
-            <div className="bg-[#C10230] text-white p-5 space-y-2.5">
-              <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
-              <div className="text-sm font-bold font-eiu-display">
-                Trụ sở Văn phòng Hội
-              </div>
-              <p className="text-xs text-white/92 leading-relaxed">
-                <strong>Phòng 206.B06</strong> — Khu Hành chính Trường ĐH Quốc
-                tế Miền Đông. Tiếp hội viên từ 08:00 – 16:30 (Thứ Hai – Thứ
-                Sáu).
-              </p>
-              <Link
-                href="/to-chuc"
-                className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#FCB900] hover:underline font-eiu-display pt-1"
-              >
-                <span>XEM 25 CHI HỘI và 30 CLB</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
           </aside>
 
           {/* CỘT PHẢI (9/12): Nội dung chuyên biệt theo từng Tab */}
-          <div className="lg:col-span-9 space-y-6">
+          <div
+            ref={contentTopRef}
+            className="lg:col-span-9 space-y-6 scroll-mt-24"
+          >
             {/* Tiêu đề & Mô tả học thuật */}
             <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5 sm:p-6">
-              <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
+              <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display text-balance">
                 {currentTabMeta.title}
               </h2>
               <p className="text-[13.5px] text-slate-600 mt-1.5 leading-relaxed">
@@ -487,14 +488,15 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       <Image
                         src="/images/hsv-bch-dh2.png"
                         alt="Ban Chấp hành Hội Sinh viên Việt Nam Trường Đại học Quốc tế Miền Đông Khóa II"
-                        width={480}
-                        height={320}
-                        className="w-full h-auto max-h-72 object-contain border border-white/20"
+                        width={236}
+                        height={288}
+                        style={{ width: 'auto' }}
+                        className="h-72 w-auto object-contain border border-white/20"
                       />
                     </div>
                     <div className="md:col-span-6 p-6 flex flex-col justify-between gap-4">
                       <div className="space-y-3">
-                        <span className="inline-block px-2.5 py-1 bg-[#0054A6] text-white text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
+                        <span className="inline-block px-2.5 py-1 bg-[#0054A6] text-white text-[11px] font-bold uppercase tracking-wider font-eiu-display">
                           NHIỆM KỲ KHÓA II (2026 – 2028)
                         </span>
                         <h3 className="text-lg font-bold text-[#133F68] leading-snug font-eiu-display">
@@ -686,7 +688,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
 
                   {/* Đỉnh sơ đồ: Đại hội II */}
                   <div className="max-w-lg mx-auto bg-[#02294E] text-white p-3.5 text-center border-b-3 border-[#A68556]">
-                    <div className="text-[10.5px] font-eiu-serif uppercase tracking-widest text-[#FCB900]">
+                    <div className="text-[11px] font-eiu-serif uppercase tracking-widest text-[#FCB900]">
                       CƠ QUAN QUYỀN LỰC CAO NHẤT
                     </div>
                     <div className="text-xs sm:text-sm font-bold font-eiu-display mt-0.5">
@@ -729,7 +731,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                       >
                         <div className="flex items-center justify-between">
                           <span className="text-xs font-bold uppercase tracking-wider font-eiu-display text-[#FCB900]">
-                            BAN THƯ KÝ và THƯỜNG TRỰC HỘI
+                            BAN THƯ KÝ VÀ THƯỜNG TRỰC HỘI
                           </span>
                           <span className="px-2 py-0.5 bg-white/20 font-eiu-serif text-xs font-bold">
                             05 ĐỒNG CHÍ
@@ -820,7 +822,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#133F68] text-white text-[10.5px] font-eiu-serif font-bold">
+                          <span className="px-2 py-0.5 bg-[#133F68] text-white text-[11px] font-eiu-serif font-bold">
                             PHÒNG 206.B06
                           </span>
                           <Building2 className="w-4 h-4 text-[#133F68]" />
@@ -829,7 +831,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           01. Văn phòng Hội Sinh viên
                         </div>
                         <div className="bg-white border border-slate-200 p-2.5 text-xs space-y-1">
-                          <div className="font-bold text-[#C10230] uppercase text-[10.5px]">
+                          <div className="font-bold text-[#C10230] uppercase text-[11px]">
                             Cơ chế Đồng điều hành:
                           </div>
                           <div>
@@ -856,7 +858,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#0054A6] text-white text-[10.5px] font-eiu-serif font-bold">
+                          <span className="px-2 py-0.5 bg-[#0054A6] text-white text-[11px] font-eiu-serif font-bold">
                             05 CỤM QUẢN LÝ
                           </span>
                           <Layers className="w-4 h-4 text-[#0054A6]" />
@@ -892,7 +894,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between">
-                          <span className="px-2 py-0.5 bg-[#C10230] text-white text-[10.5px] font-eiu-serif font-bold">
+                          <span className="px-2 py-0.5 bg-[#C10230] text-white text-[11px] font-eiu-serif font-bold">
                             02 MẢNG + ĐỘI CTVXK
                           </span>
                           <GitBranch className="w-4 h-4 text-[#C10230]" />
@@ -963,7 +965,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           K26.
                         </p>
                       </div>
-                      <div className="flex flex-wrap gap-1.5 text-[10.5px] font-eiu-serif">
+                      <div className="flex flex-wrap gap-1.5 text-[11px] font-eiu-serif">
                         <span className="px-2 py-0.5 bg-white border border-slate-200 text-[#133F68]">
                           BBS: 06
                         </span>
@@ -1367,17 +1369,19 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
         </div>
       </div>
 
-      {/* Modal Hồ sơ Cán bộ & Danh mục Vị trí Kiêm nhiệm */}
+      {/* Modal Hồ sơ Cán bộ & Danh mục Vị trí Kiêm nhiệm (Focus Trap + Restored Focus) */}
       {selectedStaff && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Hồ sơ cán bộ ${selectedStaff.fullName}`}
           className="fixed inset-0 z-50 bg-slate-900/65 flex items-center justify-center p-4 overflow-y-auto"
-          onClick={() => setSelectedStaff(null)}
+          onClick={closeStaffModal}
         >
           <div
-            className="bg-white max-w-xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto"
+            ref={staffModalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Hồ sơ cán bộ ${selectedStaff.fullName}`}
+            tabIndex={-1}
+            className="bg-white max-w-xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto focus:outline-none"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="bg-[#133F68] text-white px-5 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
@@ -1397,7 +1401,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedStaff(null)}
+                onClick={closeStaffModal}
                 aria-label="Đóng hồ sơ"
                 className="w-11 h-11 -mr-2 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer shrink-0"
               >
@@ -1462,7 +1466,7 @@ function GioiThieuContent({ initialTab }: { initialTab: OrgTabId }) {
                           {pos.divisionName ? ` — ${pos.divisionName}` : ''}
                         </div>
                       </div>
-                      <span className="px-2 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-eiu-serif text-[10.5px] font-bold shrink-0">
+                      <span className="px-2 py-0.5 bg-[#0054A6]/10 text-[#0054A6] font-eiu-serif text-[11px] font-bold shrink-0">
                         Cấp {pos.roleLevel}/6
                       </span>
                     </div>

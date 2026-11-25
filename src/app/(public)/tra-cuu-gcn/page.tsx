@@ -1,33 +1,39 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useMemo, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
+import { DeterministicQrCode } from '@/components/shared/deterministic-qr';
 import {
   decodeEiuStudentId,
   ISSUED_CERTIFICATES,
   OFFICIAL_DOCUMENTS,
 } from '@/data/mock-data';
-import { useRole } from '@/context/role-context';
+import {
+  ISSUED_CERTS_KEY,
+  subscribeStorageSync,
+} from '@/lib/portal-storage';
 import { IssuedCertificateRecord } from '@/types';
 import {
   AlertCircle,
-  CheckCircle2,
   Eye,
-  FileCheck2,
-  QrCode,
   Search,
   ShieldCheck,
 } from 'lucide-react';
 
-const SAMPLE_QUERIES = [
-  { label: 'Quyết định 32/QĐ-HSV (Phụ lục 1 — 11 SV)', value: '32/QĐ-HSV' },
-  { label: 'MSSV: 2331200066 (Hệ số ×3)', value: '2331200066' },
-  { label: 'MSSV: 2531200188 (Hội viên mẫu ×1)', value: '2531200188' },
-  { label: 'Mã GCN: 32-007/GCN-HSV', value: '32-007/GCN-HSV' },
-];
+function getDynamicCertsSnapshot(): string {
+  try {
+    return window.localStorage.getItem(ISSUED_CERTS_KEY) || '';
+  } catch {
+    return '';
+  }
+}
+
+function getServerDynamicCertsSnapshot(): string {
+  return '';
+}
 
 function CertificatePreviewPhuLuc2({
   cert,
@@ -39,15 +45,16 @@ function CertificatePreviewPhuLuc2({
       aria-label={`Bản xem trước Giấy chứng nhận ${cert.certCode}`}
       className="bg-white border-2 border-[#133F68] p-6 sm:p-11 max-w-4xl mx-auto shadow-xs space-y-6"
     >
-      {/* Header Quốc hiệu & Cụm Logo chuẩn Phụ lục 2 Quyết định 28/QĐ-HSV */}
+      {/* Header Quốc hiệu và Cụm Logo chuẩn Phụ lục 2 Quyết định 28/QĐ-HSV */}
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-start border-b border-slate-200 pb-6 text-center">
         <div className="sm:col-span-5 space-y-1">
           <div className="flex items-center justify-center gap-3 mb-2">
             <Image
               src="/images/eiu-logo-full.png"
               alt="Trường Đại học Quốc tế Miền Đông"
-              width={140}
+              width={40}
               height={40}
+              style={{ width: 'auto' }}
               className="h-10 w-auto object-contain"
             />
             <Image
@@ -60,7 +67,7 @@ function CertificatePreviewPhuLuc2({
           </div>
           {cert.headerMode === 'DOAN_HOI' ? (
             <>
-              <div className="text-[10.5px] font-medium uppercase text-slate-800">
+              <div className="text-[11px] font-medium uppercase text-slate-800">
                 ĐOÀN TNCS HỒ CHÍ MINH – HỘI SINH VIÊN VIỆT NAM
               </div>
               <div className="text-[11px] font-bold uppercase text-[#133F68]">
@@ -69,7 +76,7 @@ function CertificatePreviewPhuLuc2({
             </>
           ) : (
             <>
-              <div className="text-[10.5px] font-medium uppercase text-slate-800">
+              <div className="text-[11px] font-medium uppercase text-slate-800">
                 HỘI SINH VIÊN VIỆT NAM
               </div>
               <div className="text-[11px] font-bold uppercase text-[#133F68]">
@@ -88,7 +95,7 @@ function CertificatePreviewPhuLuc2({
             Độc lập – Tự do – Hạnh phúc
           </div>
           <div className="pt-2 text-[11px] font-eiu-serif text-slate-500">
-            Số thứ tự Phụ lục 1:{' '}
+            Số thứ tự:{' '}
             <strong className="text-[#133F68]">
               #{String(cert.certSerialNumber).padStart(2, '0')}
             </strong>{' '}
@@ -116,7 +123,7 @@ function CertificatePreviewPhuLuc2({
           </div>
         </div>
 
-        <p className="text-xs sm:text-sm text-slate-800 max-w-2xl mx-auto leading-relaxed pt-2">
+        <p className="text-xs sm:text-sm text-slate-800 max-w-prose mx-auto leading-relaxed pt-2">
           Đã hoàn thành nhiệm vụ với vai trò{' '}
           <strong className="text-[#133F68]">{cert.roleTitle}</strong> trong
           chương trình <strong>&ldquo;{cert.eventTitle}&rdquo;</strong> — được
@@ -124,20 +131,24 @@ function CertificatePreviewPhuLuc2({
           <strong className="font-eiu-serif text-[#C10230]">
             +{cert.volunteerDays.toFixed(1)} ngày tình nguyện
           </strong>{' '}
-          theo Phụ lục 2 Quyết định 09/QĐ-HSV và Quyết định số{' '}
+          theo Quyết định số{' '}
           <strong className="font-eiu-serif">{cert.decisionNumber}</strong>.
         </p>
       </div>
 
-      {/* Footer Giấy chứng nhận: Mã QR 2×2cm bên trái + Chữ "(Đã ký)" bên phải (TUYỆT ĐỐI KHÔNG CHÈN ẢNH MỘC/CHỮ KÝ) */}
+      {/* Footer Giấy chứng nhận: Mã QR 2×2cm xác định theo mã GCN bên trái + Chữ "(Đã ký)" bên phải */}
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 items-end pt-6 border-t border-slate-200 text-xs">
         <div className="sm:col-span-5 flex items-center gap-3.5">
           <Link
             href={`/van-ban?doc=${encodeURIComponent(cert.decisionNumber)}`}
             title={`Mở Quyết định gốc ${cert.decisionNumber}`}
-            className="w-20 h-20 border-2 border-[#133F68] p-1.5 flex items-center justify-center bg-white shrink-0 hover:border-[#0054A6]"
+            className="w-20 h-20 border-2 border-[#133F68] p-1 flex items-center justify-center bg-white shrink-0 hover:border-[#0054A6]"
           >
-            <QrCode className="w-15 h-15 text-[#133F68]" />
+            <DeterministicQrCode
+              value={`${cert.certCode}|${cert.decisionNumber}|${cert.studentId}`}
+              size={68}
+              label={`Mã QR xác thực ${cert.certCode}`}
+            />
           </Link>
           <div className="space-y-1 text-[11px] text-slate-700 font-eiu-serif">
             <div className="font-bold text-[#133F68]">Số: {cert.certCode}</div>
@@ -178,6 +189,26 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
   const [submittedQuery, setSubmittedQuery] = useState(initialQuery);
   const [previewCertId, setPreviewCertId] = useState<string | null>(null);
 
+  const dynamicCertsRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    getDynamicCertsSnapshot,
+    getServerDynamicCertsSnapshot
+  );
+
+  const allCertificates = useMemo<IssuedCertificateRecord[]>(() => {
+    if (!dynamicCertsRaw) return ISSUED_CERTIFICATES;
+    try {
+      const parsed = JSON.parse(dynamicCertsRaw) as IssuedCertificateRecord[];
+      if (!Array.isArray(parsed) || parsed.length === 0) {
+        return ISSUED_CERTIFICATES;
+      }
+      const seen = new Set(ISSUED_CERTIFICATES.map((c) => c.certCode));
+      return [...parsed.filter((c) => !seen.has(c.certCode)), ...ISSUED_CERTIFICATES];
+    } catch {
+      return ISSUED_CERTIFICATES;
+    }
+  }, [dynamicCertsRaw]);
+
   const normalized = submittedQuery.trim();
   const upper = normalized.toUpperCase();
 
@@ -188,10 +219,10 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
   const matchedCerts: IssuedCertificateRecord[] = !normalized
     ? []
     : isDecisionSearch
-    ? ISSUED_CERTIFICATES.filter((c) =>
+    ? allCertificates.filter((c) =>
         c.decisionNumber.toUpperCase().includes(upper.replace('QD32', '32/QĐ'))
       )
-    : ISSUED_CERTIFICATES.filter(
+    : allCertificates.filter(
         (c) =>
           c.studentId === normalized ||
           c.certCode.toUpperCase() === upper ||
@@ -215,190 +246,125 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
       )
     : undefined;
 
-  const executeLookup = (val: string) => {
-    setInputVal(val);
-    setSubmittedQuery(val);
-    setPreviewCertId(null);
-  };
-
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker="XÁC THỰC SỐ QUYẾT ĐỊNH 28/QĐ-HSV — CHỐNG LÀM GIẢ MINH CHỨNG SV5T"
-        title="Tra cứu và Xác thực Giấy chứng nhận (E-Certificate)"
-        subtitle="Tra cứu theo Mã số sinh viên (10 chữ số), Số Quyết định (Phụ lục 1 tăng dần MSSV) hoặc Mã số Giấy chứng nhận"
-        breadcrumbs={[{ label: 'Tra cứu E-Certificate (QĐ 28/QĐ-HSV)' }]}
+        title="TRA CỨU VÀ XÁC THỰC GIẤY CHỨNG NHẬN"
+        subtitle="Tra cứu theo Mã số sinh viên, Số Quyết định hoặc Mã số Giấy chứng nhận."
+        breadcrumbs={[{ label: 'Tra cứu GCN' }]}
       />
 
       <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9 space-y-8">
-        {/* KHU VỰC TRA CỨU 8/4 CHUẨN EIU */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-7 items-start">
-          <div className="lg:col-span-8 bg-white border border-slate-200">
-            <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-              <span>Cổng Xác thực Hồ sơ E-Certificate Trực tuyến</span>
-              <span className="font-eiu-serif text-[#00BCFF]">
-                CSDL VĂN PHÒNG 206.B06
-              </span>
-            </div>
-
-            <div className="p-5 space-y-4">
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSubmittedQuery(inputVal);
-                  setPreviewCertId(null);
-                }}
-                className="flex flex-col sm:flex-row gap-2.5"
-              >
-                <div className="relative flex-1">
-                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
-                  <input
-                    id="cert-search-id"
-                    type="text"
-                    value={inputVal}
-                    onChange={(e) => setInputVal(e.target.value)}
-                    placeholder="Nhập MSSV (VD: 2331200066), Số QĐ (32/QĐ-HSV) hoặc Mã GCN..."
-                    aria-label="Nhập MSSV, Số Quyết định hoặc Mã Giấy chứng nhận"
-                    className="w-full h-10 pl-10 pr-3 border border-slate-300 rounded font-eiu-serif text-xs sm:text-sm text-slate-900"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="px-6 h-10 bg-[#0054A6] hover:bg-[#133F68] text-white font-bold rounded text-xs uppercase tracking-wider cursor-pointer shrink-0 font-eiu-display"
-                >
-                  Xác thực ngay
-                </button>
-              </form>
-
-              {/* Chip dữ liệu mẫu thử nhanh */}
-              <div className="flex flex-wrap items-center gap-1.5 text-xs">
-                <span className="text-slate-500 font-semibold mr-1">
-                  Tra cứu mẫu:
-                </span>
-                {SAMPLE_QUERIES.map((sq) => (
-                  <button
-                    key={sq.value}
-                    type="button"
-                    onClick={() => executeLookup(sq.value)}
-                    className={`px-2.5 py-1 border text-[11px] font-eiu-serif transition-colors cursor-pointer ${
-                      submittedQuery === sq.value
-                        ? 'bg-[#133F68] text-white border-[#133F68] font-bold'
-                        : 'bg-[#F5F5F5] text-[#133F68] border-slate-300 hover:border-[#133F68]'
-                    }`}
-                  >
-                    {sq.label}
-                  </button>
-                ))}
-              </div>
-
-              {/* Kết quả tóm tắt trạng thái xác thực trung thực */}
-              {matchedCerts.length > 0 ? (
-                <div className="bg-[#51803A]/10 border border-[#51803A]/30 border-t-2 border-t-[#51803A] p-4 space-y-1.5 text-xs">
-                  <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
-                    <ShieldCheck className="w-4 h-4 text-[#51803A]" />
-                    <span>
-                      XÁC THỰC HỢP LỆ — TÌM THẤY {matchedCerts.length} HỒ SƠ
-                      GIẤY CHỨNG NHẬN ĐÃ BAN HÀNH QUYẾT ĐỊNH
-                    </span>
-                  </div>
-                  {matchedDecisionDoc && (
-                    <div className="text-emerald-900/90">
-                      Căn cứ pháp lý:{' '}
-                      <strong className="font-eiu-serif">
-                        Quyết định số {matchedDecisionDoc.documentNumber}
-                      </strong>{' '}
-                      ký ngày {matchedDecisionDoc.signedDate} bởi{' '}
-                      <strong>{matchedDecisionDoc.signerName}</strong> (
-                      {matchedDecisionDoc.signerTitle}).
-                    </div>
-                  )}
-                  {decodedMssv && decodedMssv.isValid && (
-                    <div className="text-slate-700 font-eiu-serif text-[11px] pt-0.5">
-                      Cấu trúc MSSV EIU hợp lệ: Khóa {decodedMssv.enrollmentYear}{' '}
-                      • {decodedMssv.degreeLevel} • {decodedMssv.majorName}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="bg-[#C10230]/[0.06] border border-[#C10230]/25 border-t-2 border-t-[#C10230] p-4 space-y-1.5 text-xs">
-                  <div className="font-bold text-[#C10230] flex items-center gap-1.5 uppercase font-eiu-display">
-                    <AlertCircle className="w-4 h-4 shrink-0" />
-                    <span>
-                      Chưa ghi nhận Giấy chứng nhận đã ban hành Quyết định cho
-                      mã &ldquo;{normalized || '(Trống)'}&rdquo;
-                    </span>
-                  </div>
-                  {decodedMssv && decodedMssv.isValid ? (
-                    <p className="text-slate-700 leading-relaxed">
-                      Mã số sinh viên <strong>{normalized}</strong> có cấu trúc
-                      EIU hợp lệ (Khóa {decodedMssv.enrollmentYear} —{' '}
-                      {decodedMssv.majorName}), tuy nhiên hiện chưa có tên trong
-                      các Phụ lục Quyết định đã ban hành hoặc hồ sơ sự kiện đang
-                      trong thời hạn thẩm định{' '}
-                      <strong>SLA 07 ngày làm việc</strong> tại Văn phòng
-                      206.B06.
-                    </p>
-                  ) : (
-                    <p className="text-slate-700 leading-relaxed">
-                      Vui lòng kiểm tra lại đúng Mã số sinh viên EIU (10 chữ
-                      số), Số Quyết định (VD: <code>32/QĐ-HSV</code>) hoặc Mã số
-                      GCN (VD: <code>32-003/GCN-HSV</code>).
-                    </p>
-                  )}
-                </div>
-              )}
-            </div>
+        <div className="bg-white border border-slate-200">
+          <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
+            <span>Tra cứu Hồ sơ Giấy chứng nhận Trực tuyến</span>
           </div>
 
-          {/* Cột phải 4/12: Quy chuẩn Phụ lục 2 Quyết định 28/QĐ-HSV */}
-          <aside className="lg:col-span-4 space-y-4">
-            <div className="bg-[#C10230] text-white p-6 space-y-2.5">
-              <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
-              <h2 className="text-base font-bold font-eiu-display">
-                Quy chuẩn Phụ lục 1 và Phụ lục 2
-              </h2>
-              <p className="text-xs text-white/92 leading-relaxed">
-                Theo <strong>Quyết định 28/QĐ-HSV</strong>: Danh sách Phụ lục 1
-                bắt buộc sắp xếp <strong>tăng dần theo MSSV</strong>; mỗi
-                E-Certificate có STT trùng khớp Quyết định, gắn mã QR xác thực
-                và mặc định ghi chữ <strong>&ldquo;(Đã ký)&rdquo;</strong>.
-              </p>
-              <Link
-                href="/van-ban?doc=28/QĐ-HSV"
-                className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#FCB900] hover:underline font-eiu-display pt-1"
+          <div className="p-5 space-y-4">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                setSubmittedQuery(inputVal);
+                setPreviewCertId(null);
+              }}
+              className="flex flex-col sm:flex-row gap-2.5"
+            >
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  id="cert-search-id"
+                  name="certificateQuery"
+                  type="text"
+                  value={inputVal}
+                  onChange={(e) => setInputVal(e.target.value)}
+                  placeholder="Nhập MSSV, số quyết định hoặc mã GCN..."
+                  aria-label="Nhập MSSV, Số Quyết định hoặc Mã Giấy chứng nhận"
+                  className="w-full h-11 sm:h-10 pl-10 pr-3 border border-slate-300 rounded font-eiu-serif text-base sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                />
+              </div>
+              <button
+                type="submit"
+                className="px-6 h-11 sm:h-10 bg-[#0054A6] hover:bg-[#133F68] text-white font-bold rounded text-xs uppercase tracking-wider cursor-pointer shrink-0 font-eiu-display"
               >
-                <FileCheck2 className="w-3.5 h-3.5" />
-                <span>XEM QUYẾT ĐỊNH 28/QĐ-HSV</span>
-              </Link>
-            </div>
-          </aside>
+                Xác thực ngay
+              </button>
+            </form>
+
+            {!normalized ? null : matchedCerts.length > 0 ? (
+              <div className="bg-[#51803A]/10 border border-[#51803A]/30 border-t-2 border-t-[#51803A] p-4 space-y-1.5 text-xs">
+                <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
+                  <ShieldCheck className="w-4 h-4 text-[#51803A]" />
+                  <span>
+                    XÁC THỰC HỢP LỆ — {matchedCerts.length} GIẤY CHỨNG NHẬN ĐÃ
+                    BAN HÀNH QUYẾT ĐỊNH
+                  </span>
+                </div>
+                {matchedDecisionDoc ? (
+                  <div className="text-emerald-900/90 max-w-prose">
+                    Căn cứ:{' '}
+                    <strong className="font-eiu-serif">
+                      Quyết định số {matchedDecisionDoc.documentNumber}
+                    </strong>{' '}
+                    ký ngày {matchedDecisionDoc.signedDate} bởi{' '}
+                    <strong>{matchedDecisionDoc.signerName}</strong> (
+                    {matchedDecisionDoc.signerTitle}).
+                  </div>
+                ) : activePreviewCert ? (
+                  <div className="text-emerald-900/90 max-w-prose">
+                    Căn cứ:{' '}
+                    <strong className="font-eiu-serif">
+                      Quyết định số {activePreviewCert.decisionNumber}
+                    </strong>{' '}
+                    ký ngày {activePreviewCert.decisionDate} bởi{' '}
+                    <strong>{activePreviewCert.signerName}</strong> (
+                    {activePreviewCert.signerTitle}).
+                  </div>
+                ) : null}
+              </div>
+            ) : (
+              <div className="bg-[#C10230]/[0.06] border border-[#C10230]/25 border-t-2 border-t-[#C10230] p-4 space-y-1.5 text-xs">
+                <div className="font-bold text-[#C10230] flex items-center gap-1.5 uppercase font-eiu-display">
+                  <AlertCircle className="w-4 h-4 shrink-0" />
+                  <span>
+                    Chưa ghi nhận Giấy chứng nhận cho mã &ldquo;{normalized}
+                    &rdquo;
+                  </span>
+                </div>
+                {decodedMssv && decodedMssv.isValid ? (
+                  <p className="text-slate-700 leading-relaxed max-w-prose">
+                    Mã số sinh viên <strong>{normalized}</strong> chưa có trong
+                    danh sách Giấy chứng nhận đã ban hành.
+                  </p>
+                ) : (
+                  <p className="text-slate-700 leading-relaxed max-w-prose">
+                    Không tìm thấy hồ sơ khớp với mã vừa nhập. Vui lòng kiểm tra
+                    lại Mã số sinh viên, Số Quyết định hoặc Mã Giấy chứng nhận.
+                  </p>
+                )}
+              </div>
+            )}
+          </div>
         </div>
 
-        {/* BẢNG DANH SÁCH PHỤ LỤC 1 (SẮP XẾP TĂNG DẦN MSSV) KHI TRA CỨU THEO SỐ QUYẾT ĐỊNH HOẶC CÓ NHIỀU KẾT QUẢ */}
+        {/* DANH SÁCH CẤP GIẤY CHỨNG NHẬN */}
         {matchedCerts.length > 1 && (
           <section className="space-y-3">
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <h2 className="text-base sm:text-lg font-bold uppercase text-[#133F68] font-eiu-display">
-                DANH SÁCH PHỤ LỤC 1 KÈM THEO QUYẾT ĐỊNH{' '}
-                {matchedCerts[0].decisionNumber} (SẮP XẾP TĂNG DẦN THEO MSSV)
-              </h2>
-              <span className="inline-flex items-center gap-1 text-xs font-semibold text-emerald-700">
-                <CheckCircle2 className="w-3.5 h-3.5" />
-                <span>Đã kiểm tra thứ tự MSSV tăng dần ({matchedCerts.length} SV)</span>
-              </span>
-            </div>
+            <h2 className="text-base sm:text-lg font-bold uppercase text-[#133F68] font-eiu-display text-balance">
+              DANH SÁCH CẤP GIẤY CHỨNG NHẬN — QUYẾT ĐỊNH{' '}
+              {matchedCerts[0].decisionNumber}
+            </h2>
 
             <div className="bg-white border border-slate-300 overflow-x-auto">
-              <table className="eiu-table">
+              <table className="eiu-table min-w-[720px]">
                 <thead>
                   <tr>
                     <th className="w-12 text-center">STT</th>
-                    <th className="w-34">Mã GCN</th>
-                    <th className="w-28">MSSV (↑)</th>
+                    <th className="w-36">Mã GCN</th>
+                    <th className="w-28">MSSV</th>
                     <th>Họ và tên • Đơn vị</th>
                     <th>Vai trò và Hệ số</th>
                     <th className="w-24 text-center">Ngày TN</th>
-                    <th className="w-28 text-right">Bản Phụ lục 2</th>
+                    <th className="w-32 text-right">Giấy chứng nhận</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -412,10 +378,10 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                         <td className="text-center font-eiu-serif text-xs font-bold text-[#133F68]">
                           {String(cert.certSerialNumber).padStart(2, '0')}
                         </td>
-                        <td className="font-eiu-serif text-xs font-bold text-[#0054A6]">
+                        <td className="font-eiu-serif text-xs font-bold text-[#0054A6] whitespace-nowrap">
                           {cert.certCode}
                         </td>
-                        <td className="font-eiu-serif text-xs font-bold text-slate-900">
+                        <td className="font-eiu-serif text-xs font-bold text-slate-900 whitespace-nowrap">
                           {cert.studentId}
                         </td>
                         <td className="text-xs">
@@ -432,15 +398,15 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
                             {cert.evidenceNote}
                           </div>
                         </td>
-                        <td className="text-center font-eiu-serif text-xs font-extrabold text-[#C10230]">
+                        <td className="text-center font-eiu-serif text-xs font-extrabold text-[#C10230] whitespace-nowrap">
                           +{cert.volunteerDays.toFixed(1)} (×
                           {cert.multiplierApplied})
                         </td>
-                        <td className="text-right">
+                        <td className="text-right whitespace-nowrap">
                           <button
                             type="button"
                             onClick={() => setPreviewCertId(cert.id)}
-                            className={`inline-flex items-center gap-1 px-2.5 py-1 text-[11px] font-bold uppercase cursor-pointer font-eiu-display ${
+                            className={`inline-flex items-center gap-1 min-h-[36px] px-3 py-1.5 text-[11px] font-bold uppercase cursor-pointer font-eiu-display whitespace-nowrap shrink-0 ${
                               isPreviewing
                                 ? 'bg-[#C10230] text-white'
                                 : 'bg-[#133F68] text-white hover:bg-[#0054A6]'
@@ -469,18 +435,11 @@ function TraCuuGcnContent({ initialQuery }: { initialQuery: string }) {
 }
 
 function TraCuuSearchBridge() {
-  const { currentPersona } = useRole();
   const searchParams = useSearchParams();
   const urlQ = searchParams.get('q');
+  const defaultQuery = urlQ && urlQ.trim() ? urlQ.trim() : '';
 
-  const defaultQuery =
-    urlQ && urlQ.trim()
-      ? urlQ.trim()
-      : currentPersona.studentId !== '-'
-      ? currentPersona.studentId
-      : '32/QĐ-HSV';
-
-  return <TraCuuGcnContent key={defaultQuery} initialQuery={defaultQuery} />;
+  return <TraCuuGcnContent key={defaultQuery || 'empty'} initialQuery={defaultQuery} />;
 }
 
 export default function TraCuuGcnPage() {

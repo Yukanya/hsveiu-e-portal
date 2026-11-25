@@ -49,10 +49,20 @@ function formatDateDot(dateStr?: string | null): string {
   return dateStr;
 }
 
-function isPostInCurrentMonth(publishedAt?: string): boolean {
+function getLatestPostYearMonth(posts: NewsPost[]): string {
+  const validMonths = posts
+    .map((p) => (p.publishedAt || '').slice(0, 7))
+    .filter((ym) => /^\d{4}-\d{2}$/.test(ym))
+    .sort((a, b) => b.localeCompare(a));
+  return validMonths[0] || new Date().toISOString().slice(0, 7);
+}
+
+function isPostInLatestMonth(
+  publishedAt: string | undefined,
+  latestMonth: string
+): boolean {
   if (!publishedAt) return false;
-  // Đối chiếu tháng hiện hành (2026-11) hoặc tháng mới nhất trong tập dữ liệu
-  return publishedAt.startsWith('2026-11') || publishedAt.startsWith('2026-10');
+  return publishedAt.startsWith(latestMonth);
 }
 
 function getPostLevel(post: NewsPost): 'CAP_TRUONG' | 'CO_SO_HOI' {
@@ -70,12 +80,16 @@ function getPostLevel(post: NewsPost): 'CAP_TRUONG' | 'CO_SO_HOI' {
   return 'CAP_TRUONG';
 }
 
-function matchesFilterPill(post: NewsPost, pillId: NewsFilterPillId): boolean {
+function matchesFilterPill(
+  post: NewsPost,
+  pillId: NewsFilterPillId,
+  latestMonth: string
+): boolean {
   switch (pillId) {
     case 'ALL':
       return true;
     case 'THIS_MONTH':
-      return isPostInCurrentMonth(post.publishedAt);
+      return isPostInLatestMonth(post.publishedAt, latestMonth);
     case 'SINH_VIEN_5_TOT':
       return post.category === 'SINH_VIEN_5_TOT';
     case 'CAP_TRUONG':
@@ -178,12 +192,14 @@ function TinTucContent({
     setCurrentPage(1);
   };
 
+  const latestMonth = getLatestPostYearMonth(sortedAllPosts);
+
   const filteredPosts = sortedAllPosts.filter((p) => {
     // Khi xem "Tất cả" và chưa nhập từ khóa tìm kiếm, loại trừ 03 bài đã chiếu trên Carousel tiêu điểm để không lặp bài
     if (activeFilter === 'ALL' && !query.trim() && featuredIdSet.has(p.id)) {
       return false;
     }
-    const matchPill = matchesFilterPill(p, activeFilter);
+    const matchPill = matchesFilterPill(p, activeFilter, latestMonth);
     const q = query.trim().toLowerCase();
     const matchQ =
       !q ||
@@ -254,7 +270,7 @@ function TinTucContent({
                     [post.id]: true,
                   }))
                 }
-                className={`object-cover object-center transition-all duration-700 ease-out ${
+                className={`object-cover object-top transition-all duration-700 ease-out ${
                   isSelected
                     ? 'opacity-100 scale-100 z-0'
                     : 'opacity-0 scale-102 pointer-events-none -z-10'
@@ -295,7 +311,7 @@ function TinTucContent({
                 <span className="text-white/35" aria-hidden="true">
                   •
                 </span>
-                <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
+                <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[11px] font-bold uppercase tracking-wider font-eiu-display">
                   {activeFeaturedPost.categoryLabel}
                 </span>
               </div>
@@ -346,10 +362,10 @@ function TinTucContent({
                   {String(latestThreePosts.length).padStart(2, '0')}
                 </span>
 
-                {/* 03 thanh ngang chỉ báo slide kết hợp thanh tiến độ động (Progress countdown) */}
+                {/* 03 thanh ngang chỉ báo slide kết hợp thanh tiến độ động */}
                 <div
                   className="flex items-center gap-1.5"
-                  role="tablist"
+                  role="group"
                   aria-label="Chọn bài viết tiêu điểm mới nhất"
                 >
                   {latestThreePosts.map((item, idx) => {
@@ -358,8 +374,7 @@ function TinTucContent({
                       <button
                         key={item.id}
                         type="button"
-                        role="tab"
-                        aria-selected={isSelected}
+                        aria-current={isSelected ? 'true' : undefined}
                         aria-label={`Tin mới ${idx + 1}: ${item.title}`}
                         onClick={() => setFeaturedIndex(idx)}
                         className="py-2 cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900]"
@@ -443,10 +458,10 @@ function TinTucContent({
         {/* Mốc cuộn mượt chính xác đến đầu danh sách tin tức */}
         <div ref={gridTopRef} className="scroll-mt-6" />
 
-        {/* Thanh lọc chuyên mục dạng Pill theo đúng thứ tự yêu cầu + Ô tìm kiếm placeholder="Tìm" */}
+        {/* Thanh lọc chuyên mục dạng Pill + Ô tìm kiếm */}
         <div className="bg-white border border-slate-200/90 p-4 flex flex-col lg:flex-row lg:items-center justify-between gap-4 shadow-2xs">
           <div
-            role="tablist"
+            role="group"
             aria-label="Lọc bài viết theo nhóm tin tức"
             className="flex flex-wrap items-center gap-2"
           >
@@ -456,10 +471,9 @@ function TinTucContent({
                 <button
                   key={pill.id}
                   type="button"
-                  role="tab"
-                  aria-selected={active}
+                  aria-pressed={active}
                   onClick={() => handleFilterChange(pill.id)}
-                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer font-eiu-display min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
+                  className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer font-eiu-display min-h-[44px] sm:min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                     active
                       ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs scale-[1.02]'
                       : 'bg-[#F5F5F5] text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40'
@@ -475,20 +489,20 @@ function TinTucContent({
             <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               id="news-search-input"
-              name="q"
+              name="newsSearchQuery"
               type="text"
               value={query}
               onChange={(e) => handleQueryChange(e.target.value)}
               placeholder="Tìm"
               aria-label="Tìm kiếm bài viết"
-              className="w-full h-10 pl-9 pr-9 bg-white border border-slate-300 focus:border-[#133F68] focus:outline-none focus:ring-2 focus:ring-[#133F68]/20 rounded text-sm text-slate-900 placeholder:text-slate-500 transition-colors"
+              className="w-full h-11 sm:h-10 pl-9 pr-10 bg-white border border-slate-300 focus:border-[#133F68] focus:outline-none focus:ring-2 focus:ring-[#133F68]/20 rounded text-base sm:text-sm text-slate-900 placeholder:text-slate-500 transition-colors"
             />
             {query && (
               <button
                 type="button"
                 onClick={() => handleQueryChange('')}
                 aria-label="Xóa nội dung tìm kiếm"
-                className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer transition-colors"
+                className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer transition-colors"
               >
                 <X className="w-3.5 h-3.5" />
               </button>
@@ -558,7 +572,7 @@ function TinTucContent({
                               [post.id]: true,
                             }))
                           }
-                          className="object-cover object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                          className="object-cover object-top group-hover:scale-105 transition-transform duration-500 ease-out"
                         />
                       ) : null}
 

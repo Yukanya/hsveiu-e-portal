@@ -1,9 +1,18 @@
 'use client';
 
-import React, { Suspense, useState, useSyncExternalStore } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useRole } from '@/context/role-context';
+import { ConfirmDialog } from '@/components/shared/confirm-dialog';
 import {
   BRANCH_UNITS,
   CLUB_UNITS,
@@ -16,19 +25,43 @@ import {
   PLAN_SUBMISSIONS,
   STAFF_MEMBERS,
 } from '@/data/mock-data';
-import { FacultyCode, PlanSubmissionItem } from '@/types';
-import { WORKSPACE_MODULES, WorkspaceModuleId } from './layout';
+import {
+  appendDynamicIssuedCerts,
+  clearWorkspaceStoredState,
+  getWorkspaceStoredState,
+  ISSUED_CERTS_KEY,
+  PORTAL_STATE_KEY,
+  PortalPersonaState,
+  saveWorkspaceStoredState,
+  subscribeStorageSync,
+  VoiceTicketRecord,
+  WORKSPACE_STATE_KEY,
+  WorkspaceStoredState,
+} from '@/lib/portal-storage';
+import {
+  WORKSPACE_MODULE_GROUPS,
+  WORKSPACE_MODULES,
+  WorkspaceModuleId,
+} from '@/lib/workspace-config';
+import {
+  FacultyCode,
+  IssuedCertificateRecord,
+  PlanSubmissionItem,
+  StaffMember,
+} from '@/types';
 import {
   ArrowRight,
   Building2,
   CheckCircle2,
-  ChevronDown,
   Clock,
+  Download,
   Eye,
   FileCheck2,
   GitBranch,
   Layers,
   Package,
+  RotateCcw,
+  Search,
   ShieldCheck,
   Vote,
 } from 'lucide-react';
@@ -198,6 +231,46 @@ const PLAN_STAGE_LABELS: Record<
   },
 };
 
+const DEFAULT_WORKSPACE_STATE: WorkspaceStoredState = {
+  eventOverrides: {},
+  candidateStages: {},
+  planStages: {},
+  assetOverrides: {},
+  nextDecisionSeq: 35,
+  votesByPersona: {},
+};
+
+const VOTE_OPTION_LABELS: Record<'APPROVE' | 'REJECT' | 'ABSTAIN', string> = {
+  APPROVE: 'Tán thành Nghị quyết',
+  REJECT: 'Không tán thành Nghị quyết',
+  ABSTAIN: 'Ý kiến khác',
+};
+
+type WorkspaceConfirmState =
+  | {
+      type: 'issue_decision';
+      eventId: string;
+      title: string;
+      baseVolunteerDays: number;
+      isUnionWorkMultiplierEligible: boolean;
+    }
+  | {
+      type: 'sv5t_stage3';
+      candId: string;
+      fullName: string;
+    }
+  | {
+      type: 'plan_btk';
+      plan: PlanSubmissionItem;
+    }
+  | {
+      type: 'unlock_vote';
+    }
+  | {
+      type: 'reset_workspace';
+    }
+  | null;
+
 function subscribeToHash(callback: () => void) {
   window.addEventListener('hashchange', callback);
   window.addEventListener('popstate', callback);
@@ -211,7 +284,16 @@ function getHashSnapshot(): string {
   return window.location.hash.replace(/^#/, '');
 }
 
-function getServerHashSnapshot(): string {
+function getStorageSnapshot(key: string): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    return window.localStorage.getItem(key) || '';
+  } catch {
+    return '';
+  }
+}
+
+function getServerEmptySnapshot(): string {
   return '';
 }
 
@@ -219,145 +301,515 @@ function isValidWorkspaceModule(val: string | null): val is WorkspaceModuleId {
   return Boolean(val && WORKSPACE_MODULES.some((m) => m.id === val));
 }
 
+function selectDecisionRecipients(currentPersona: StaffMember): StaffMember[] {
+  const pool = [
+    currentPersona,
+    ...STAFF_MEMBERS.filter((m) => m.id !== currentPersona.id),
+  ];
+  const uniqueByMssv: StaffMember[] = [];
+  const seen = new Set<string>();
+
+  for (const member of pool) {
+    if (/^\d{10}$/.test(member.studentId) && !seen.has(member.studentId)) {
+      seen.add(member.studentId);
+      uniqueByMssv.push(member);
+    }
+    if (uniqueByMssv.length >= 4) break;
+  }
+
+  return uniqueByMssv
+    .slice(0, 4)
+    .sort((a, b) => a.studentId.localeCompare(b.studentId));
+}
+
+function escapeCsvCell(val: string | number): string {
+  const str = String(val);
+  if (/[",\n]/.test(str)) {
+    return `"${str.replace(/"/g, '""')}"`;
+  }
+  return str;
+}
+
 function WorkspaceContent({
   initialModule,
 }: {
   initialModule: WorkspaceModuleId;
 }) {
-  const {
-    currentPersona,
-    activePosition,
-    allPersonas,
-    setActivePositionById,
-    setPersonaById,
-  } = useRole();
+  const { currentPersona, activePosition, setPersonaById } = useRole();
 
-  const [activeModule, setActiveModule] =
-    useState<WorkspaceModuleId>(initialModule);
+  const [moduleSelection, setModuleSelection] = useState<{
+    base: WorkspaceModuleId;
+    value: WorkspaceModuleId;
+  }>({ base: initialModule, value: initialModule });
+  const activeModule =
+    moduleSelection.base === initialModule
+      ? moduleSelection.value
+      : initialModule;
+
   const [actionToast, setActionToast] = useState<string | null>(null);
+  const toastTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const contentTopRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // State các phân hệ nghiệp vụ
-  const [eventsState, setEventsState] = useState(EVENT_ITEMS);
+  // State bộ lọc & tìm kiếm theo phân hệ
   const [showPhuLuc1Table, setShowPhuLuc1Table] = useState(false);
-
-  const [candidatesState, setCandidatesState] = useState<Sv5tCandidateRecord[]>(
-    INITIAL_SV5T_CANDIDATES
-  );
+  const [certSearch, setCertSearch] = useState('');
+  const [sv5tSearch, setSv5tSearch] = useState('');
   const [onlyTop10Sv5t, setOnlyTop10Sv5t] = useState(false);
-
   const [branchFacultyFilter, setBranchFacultyFilter] = useState<
     'ALL' | FacultyCode
   >('ALL');
+  const [branchSearch, setBranchSearch] = useState('');
+  const [docSearch, setDocSearch] = useState('');
+  const [cmsSearch, setCmsSearch] = useState('');
+  const [confirmState, setConfirmState] = useState<WorkspaceConfirmState>(null);
 
-  const [plansState, setPlansState] =
-    useState<PlanSubmissionItem[]>(PLAN_SUBMISSIONS);
+  // Đồng bộ dữ liệu bền vững qua useSyncExternalStore
+  const workspaceRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    () => getStorageSnapshot(WORKSPACE_STATE_KEY),
+    getServerEmptySnapshot
+  );
+  const issuedCertsRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    () => getStorageSnapshot(ISSUED_CERTS_KEY),
+    getServerEmptySnapshot
+  );
+  const portalRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    () => getStorageSnapshot(PORTAL_STATE_KEY),
+    getServerEmptySnapshot
+  );
 
-  const [assetsState, setAssetsState] = useState(OFFICE_206_ASSETS);
-
-  const [myVote, setMyVote] = useState<
-    'APPROVE' | 'REJECT' | 'ABSTAIN' | null
-  >(null);
-
-  const triggerToast = (msg: string) => {
-    setActionToast(msg);
-    setTimeout(() => setActionToast(null), 4000);
-  };
-
-  const selectModule = (id: WorkspaceModuleId) => {
-    setActiveModule(id);
-    if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', `/workspace#${id}`);
+  const storedWorkspace = useMemo<WorkspaceStoredState>(() => {
+    if (!workspaceRaw) return DEFAULT_WORKSPACE_STATE;
+    try {
+      const saved = JSON.parse(workspaceRaw) as Partial<WorkspaceStoredState>;
+      return {
+        ...DEFAULT_WORKSPACE_STATE,
+        ...saved,
+        eventOverrides: saved.eventOverrides || {},
+        candidateStages: saved.candidateStages || {},
+        planStages: saved.planStages || {},
+        assetOverrides: saved.assetOverrides || {},
+        votesByPersona: saved.votesByPersona || {},
+        nextDecisionSeq: saved.nextDecisionSeq || 35,
+      };
+    } catch {
+      return DEFAULT_WORKSPACE_STATE;
     }
-  };
+  }, [workspaceRaw]);
+
+  const allIssuedCerts = useMemo<IssuedCertificateRecord[]>(() => {
+    if (!issuedCertsRaw) return ISSUED_CERTIFICATES;
+    try {
+      const dynamicCerts = JSON.parse(
+        issuedCertsRaw
+      ) as IssuedCertificateRecord[];
+      if (!Array.isArray(dynamicCerts) || dynamicCerts.length === 0) {
+        return ISSUED_CERTIFICATES;
+      }
+      const seen = new Set(ISSUED_CERTIFICATES.map((c) => c.certCode));
+      return [
+        ...dynamicCerts.filter((c) => !seen.has(c.certCode)),
+        ...ISSUED_CERTIFICATES,
+      ];
+    } catch {
+      return ISSUED_CERTIFICATES;
+    }
+  }, [issuedCertsRaw]);
+
+  const sortedPhuLuc1Certs = useMemo(
+    () =>
+      [...allIssuedCerts].sort((a, b) =>
+        a.studentId.localeCompare(b.studentId)
+      ),
+    [allIssuedCerts]
+  );
+
+  const submittedVoiceTickets = useMemo(() => {
+    if (!portalRaw) return [];
+    try {
+      const portalMap = JSON.parse(
+        portalRaw
+      ) as Record<string, PortalPersonaState>;
+      const items: (VoiceTicketRecord & { personaKey: string })[] = [];
+      for (const [personaKey, pState] of Object.entries(portalMap)) {
+        if (pState && Array.isArray(pState.voiceTickets)) {
+          for (const ticket of pState.voiceTickets) {
+            items.push({ ...ticket, personaKey });
+          }
+        }
+      }
+      return items.reverse();
+    } catch {
+      return [];
+    }
+  }, [portalRaw]);
+
+  const eventsState = useMemo(
+    () =>
+      EVENT_ITEMS.map((ev) => {
+        const override = storedWorkspace.eventOverrides[ev.id];
+        return override ? { ...ev, ...override } : ev;
+      }),
+    [storedWorkspace.eventOverrides]
+  );
+
+  const candidatesState = useMemo(
+    () =>
+      INITIAL_SV5T_CANDIDATES.map((cand) => {
+        const stage = storedWorkspace.candidateStages[cand.id];
+        return stage ? { ...cand, reviewStage: stage } : cand;
+      }),
+    [storedWorkspace.candidateStages]
+  );
+
+  const plansState = useMemo(
+    () =>
+      PLAN_SUBMISSIONS.map((plan) => {
+        const stage = storedWorkspace.planStages[plan.id];
+        return stage ? { ...plan, stage } : plan;
+      }),
+    [storedWorkspace.planStages]
+  );
+
+  const assetsState = useMemo(
+    () =>
+      OFFICE_206_ASSETS.map((ast) => {
+        const override = storedWorkspace.assetOverrides[ast.id];
+        return override ? { ...ast, ...override } : ast;
+      }),
+    [storedWorkspace.assetOverrides]
+  );
+
+  const nextDecisionSeq = storedWorkspace.nextDecisionSeq || 35;
+  const myVote =
+    storedWorkspace.votesByPersona[currentPersona.id]?.['res-q4-2026'] ?? null;
+
+  const triggerToast = useCallback((msg: string) => {
+    setActionToast(msg);
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current);
+    }
+    toastTimerRef.current = setTimeout(() => {
+      setActionToast(null);
+      toastTimerRef.current = null;
+    }, 4500);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) {
+        clearTimeout(toastTimerRef.current);
+      }
+    };
+  }, []);
+
+  // Phím tắt Cmd/Ctrl + K để trỏ nhanh vào ô tìm kiếm của phân hệ hiện tại
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        if (searchInputRef.current) {
+          e.preventDefault();
+          searchInputRef.current.focus();
+          searchInputRef.current.select();
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const updateWorkspaceState = useCallback(
+    (updater: (prev: WorkspaceStoredState) => WorkspaceStoredState) => {
+      const current = getWorkspaceStoredState()
+        ? {
+            ...DEFAULT_WORKSPACE_STATE,
+            ...getWorkspaceStoredState(),
+          }
+        : DEFAULT_WORKSPACE_STATE;
+      const next = updater(current);
+      saveWorkspaceStoredState(next);
+    },
+    []
+  );
+
+  const selectModule = useCallback(
+    (id: WorkspaceModuleId, scrollMobile = false) => {
+      setModuleSelection({ base: initialModule, value: id });
+      if (typeof window !== 'undefined') {
+        window.history.replaceState(null, '', '/workspace?module=' + id);
+      }
+      if (
+        scrollMobile &&
+        typeof window !== 'undefined' &&
+        window.innerWidth < 1024
+      ) {
+        contentTopRef.current?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }
+    },
+    [initialModule]
+  );
 
   const handleApprove3DaysPrior = (eventId: string, title: string) => {
-    setEventsState((prev) =>
-      prev.map((ev) =>
-        ev.id === eventId
-          ? { ...ev, preApprovalStatus: 'approved_3days_prior' }
-          : ev
-      )
-    );
+    if (activePosition.roleLevel < 4) return;
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      eventOverrides: {
+        ...prev.eventOverrides,
+        [eventId]: {
+          ...prev.eventOverrides[eventId],
+          preApprovalStatus: 'approved_3days_prior',
+          certWorkflowStatus:
+            eventsState.find((e) => e.id === eventId)?.certWorkflowStatus ??
+            'upcoming',
+        },
+      },
+    }));
     triggerToast(
       `Đã thẩm định và duyệt chủ trương Ngày tình nguyện trước 03 ngày: "${title}".`
     );
   };
 
-  const handleIssueDecisionAndCerts = (eventId: string, title: string) => {
-    setEventsState((prev) =>
-      prev.map((ev) =>
-        ev.id === eventId
-          ? {
-              ...ev,
-              certWorkflowStatus: 'decision_issued',
-              decisionNumber: '35/QĐ-HSV',
-              slaDaysRemaining: 0,
-            }
-          : ev
-      )
-    );
+  const executeIssueDecisionAndCerts = (target: {
+    eventId: string;
+    title: string;
+    baseVolunteerDays: number;
+    isUnionWorkMultiplierEligible: boolean;
+  }) => {
+    const seq = nextDecisionSeq;
+    const decisionNumber = `${seq}/QĐ-HSV`;
+    const now = new Date();
+    const decisionDate = `${String(now.getDate()).padStart(2, '0')}/${String(
+      now.getMonth() + 1
+    ).padStart(2, '0')}/${now.getFullYear()}`;
+
+    const recipients = selectDecisionRecipients(currentPersona);
+    const newCerts: IssuedCertificateRecord[] = recipients.map((member, idx) => {
+      const multiplier: 1 | 2 | 3 = target.isUnionWorkMultiplierEligible
+        ? idx === 0
+          ? 3
+          : idx === 1
+          ? 2
+          : 1
+        : 1;
+      const roleTitle = target.isUnionWorkMultiplierEligible
+        ? idx === 0
+          ? 'Trưởng Ban Tổ chức'
+          : idx === 1
+          ? 'Thành viên Ban Tổ chức'
+          : 'Hội viên / Cộng tác viên tham gia'
+        : 'Sinh viên / Hội viên tham gia';
+
+      return {
+        id: `dyn-cert-${seq}-${idx + 1}`,
+        certSerialNumber: idx + 1,
+        certCode: `${seq}-${String(idx + 1).padStart(2, '0')}/GCN-HSV`,
+        decisionNumber,
+        decisionDate,
+        headerMode: 'HOI_SINH_VIEN',
+        studentId: member.studentId,
+        fullName: member.fullName,
+        email: member.email,
+        unitName: member.positions[0]?.unitName || 'Hội Sinh viên EIU',
+        eventId: target.eventId,
+        eventTitle: target.title,
+        roleTitle,
+        multiplierApplied: multiplier,
+        volunteerDays: Number(
+          (target.baseVolunteerDays * multiplier).toFixed(1)
+        ),
+        evidenceNote: `Phê duyệt trực tuyến theo Quy trình 07 ngày QĐ 28/QĐ-HSV trên E-Office (${decisionNumber})`,
+        signerName: currentPersona.fullName,
+        signerTitle: activePosition.positionTitle,
+      };
+    });
+
+    appendDynamicIssuedCerts(newCerts);
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      nextDecisionSeq: seq + 1,
+      eventOverrides: {
+        ...prev.eventOverrides,
+        [target.eventId]: {
+          ...prev.eventOverrides[target.eventId],
+          preApprovalStatus:
+            eventsState.find((e) => e.id === target.eventId)
+              ?.preApprovalStatus ?? 'approved_3days_prior',
+          certWorkflowStatus: 'decision_issued',
+          decisionNumber,
+          slaDaysRemaining: 0,
+        },
+      },
+    }));
+
     triggerToast(
-      `Đã ký Quyết định 35/QĐ-HSV (đúng hạn SLA 07 ngày) và kích hoạt QR E-Certificate: "${title}".`
+      `Đã ký Quyết định ${decisionNumber} và cấp ${newCerts.length} mã E-Certificate cho "${target.title}".`
     );
   };
 
-  const handleAdvanceSv5tStage = (candId: string, fullName: string) => {
-    setCandidatesState((prev) =>
-      prev.map((c) =>
-        c.id === candId && c.reviewStage < 3
-          ? { ...c, reviewStage: (c.reviewStage + 1) as 1 | 2 | 3 }
-          : c
-      )
+  const executeAdvanceSv5tStage = (
+    candId: string,
+    fullName: string,
+    nextStage: 2 | 3
+  ) => {
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      candidateStages: {
+        ...prev.candidateStages,
+        [candId]: nextStage,
+      },
+    }));
+    triggerToast(
+      `Đã phê duyệt hồ sơ Sinh viên 5 Tốt của ${fullName} lên Cấp ${nextStage}/3.`
     );
-    triggerToast(`Đã phê duyệt nâng cấp hồ sơ SV5T của hội viên ${fullName}.`);
   };
 
-  const handleAdvancePlanStage = (plan: PlanSubmissionItem) => {
-    const nextMap: Record<
-      PlanSubmissionItem['stage'],
-      PlanSubmissionItem['stage']
-    > = {
-      unit_submitted: 'cluster_reviewed',
-      cluster_reviewed: 'office_format_checked',
-      office_format_checked: 'btk_approved',
-      btk_approved: 'btk_approved',
-    };
-    const nextStage = nextMap[plan.stage];
-    setPlansState((prev) =>
-      prev.map((p) => (p.id === plan.id ? { ...p, stage: nextStage } : p))
-    );
+  const handleRequestSv5tAdvance = (cand: Sv5tCandidateRecord) => {
+    if (cand.reviewStage >= 3) return;
+    if (cand.reviewStage === 1) {
+      if (activePosition.roleLevel < 4) return;
+      executeAdvanceSv5tStage(cand.id, cand.fullName, 2);
+      return;
+    }
+    if (activePosition.roleLevel < 6) return;
+    setConfirmState({
+      type: 'sv5t_stage3',
+      candId: cand.id,
+      fullName: cand.fullName,
+    });
+  };
+
+  const executeAdvancePlanStage = (
+    plan: PlanSubmissionItem,
+    nextStage: PlanSubmissionItem['stage']
+  ) => {
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      planStages: {
+        ...prev.planStages,
+        [plan.id]: nextStage,
+      },
+    }));
     triggerToast(
       `Đã chuyển kế hoạch ${plan.planCode} sang: ${PLAN_STAGE_LABELS[nextStage].label}.`
     );
   };
 
+  const handleRequestPlanAdvance = (plan: PlanSubmissionItem) => {
+    if (plan.stage === 'btk_approved') return;
+    if (plan.stage === 'office_format_checked') {
+      if (activePosition.roleLevel < 6) return;
+      setConfirmState({ type: 'plan_btk', plan });
+      return;
+    }
+    if (activePosition.roleLevel < 4) return;
+    const nextStage: PlanSubmissionItem['stage'] =
+      plan.stage === 'unit_submitted'
+        ? 'cluster_reviewed'
+        : 'office_format_checked';
+    executeAdvancePlanStage(plan, nextStage);
+  };
+
   const handleToggleAssetReturn = (assetId: string, name: string) => {
-    setAssetsState((prev) =>
-      prev.map((ast) => {
-        if (ast.id !== assetId) return ast;
-        if (ast.status === 'borrowed') {
-          return {
-            ...ast,
-            status: 'available',
-            availableQty: ast.totalQty,
-            borrowerUnit: undefined,
-            borrowerName: undefined,
-            dueDate: undefined,
-          };
-        }
-        return {
-          ...ast,
-          status: 'borrowed',
-          availableQty: Math.max(0, ast.totalQty - 1),
-          borrowerUnit: activePosition.unitName,
-          borrowerName: currentPersona.fullName,
-          dueDate: '20/11/2026',
-        };
-      })
-    );
+    if (activePosition.roleLevel < 3) return;
+    const ast = assetsState.find((a) => a.id === assetId);
+    if (!ast) return;
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      assetOverrides: {
+        ...prev.assetOverrides,
+        [assetId]:
+          ast.status === 'borrowed'
+            ? {
+                status: 'available',
+                availableQty: ast.totalQty,
+                borrowerUnit: undefined,
+                borrowerName: undefined,
+                dueDate: undefined,
+              }
+            : {
+                status: 'borrowed',
+                availableQty: Math.max(0, ast.totalQty - 1),
+                borrowerUnit: activePosition.unitName,
+                borrowerName: currentPersona.fullName,
+                dueDate: '20/11/2026',
+              },
+      },
+    }));
     triggerToast(`Đã cập nhật sổ tài sản Phòng 206.B06: "${name}".`);
   };
 
+  const handleCastVote = (choice: 'APPROVE' | 'REJECT' | 'ABSTAIN') => {
+    if (activePosition.roleLevel < 5 || myVote !== null) return;
+    updateWorkspaceState((prev) => ({
+      ...prev,
+      votesByPersona: {
+        ...prev.votesByPersona,
+        [currentPersona.id]: {
+          ...(prev.votesByPersona[currentPersona.id] || {}),
+          'res-q4-2026': choice,
+        },
+      },
+    }));
+    triggerToast(
+      `Đã ghi nhận phiếu biểu quyết của ${currentPersona.fullName}: ${VOTE_OPTION_LABELS[choice]}.`
+    );
+  };
+
+  const handleExportPhuLuc1Csv = () => {
+    const headers = [
+      'STT',
+      'MSSV',
+      'Ho va ten',
+      'Don vi',
+      'Ma GCN',
+      'So Quyet dinh',
+      'Ngay ky',
+      'Chuong trinh',
+      'Vai tro',
+      'He so',
+      'Ngay tinh nguyen',
+    ];
+    const rows = sortedPhuLuc1Certs.map((cert, index) => [
+      index + 1,
+      cert.studentId,
+      cert.fullName,
+      cert.unitName,
+      cert.certCode,
+      cert.decisionNumber,
+      cert.decisionDate,
+      cert.eventTitle,
+      cert.roleTitle,
+      `x${cert.multiplierApplied}`,
+      cert.volunteerDays.toFixed(1),
+    ]);
+
+    const csvContent =
+      '\uFEFF' +
+      [headers, ...rows]
+        .map((row) => row.map(escapeCsvCell).join(','))
+        .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'Phu-luc-1-HSV-EIU.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    triggerToast(
+      `Đã kết xuất Phụ lục 1 (${sortedPhuLuc1Certs.length} dòng, sắp xếp MSSV tăng dần).`
+    );
+  };
+
+  // Thống kê và dữ liệu lọc
   const pendingCertEvents = eventsState.filter(
     (e) =>
       e.preApprovalStatus === 'pending_tcxdh' ||
@@ -372,18 +824,141 @@ function WorkspaceContent({
   );
   const borrowedAssets = assetsState.filter((a) => a.status === 'borrowed');
 
-  const filteredBranches =
-    branchFacultyFilter === 'ALL'
-      ? BRANCH_UNITS
-      : BRANCH_UNITS.filter((b) => b.facultyCode === branchFacultyFilter);
+  const filteredCertEvents = useMemo(() => {
+    const q = certSearch.trim().toLowerCase();
+    if (!q) return eventsState;
+    return eventsState.filter(
+      (ev) =>
+        ev.title.toLowerCase().includes(q) ||
+        ev.organizerUnit.toLowerCase().includes(q) ||
+        ev.sv5tCriterion.toLowerCase().includes(q) ||
+        (ev.decisionNumber || '').toLowerCase().includes(q)
+    );
+  }, [eventsState, certSearch]);
 
-  const displayedCandidates = onlyTop10Sv5t
-    ? candidatesState.filter((c) => c.isTop10Eligible)
-    : candidatesState;
+  const displayedCandidates = useMemo(() => {
+    const q = sv5tSearch.trim().toLowerCase();
+    return candidatesState.filter((c) => {
+      if (onlyTop10Sv5t && !c.isTop10Eligible) return false;
+      if (!q) return true;
+      return (
+        c.fullName.toLowerCase().includes(q) ||
+        c.studentId.includes(q) ||
+        c.branchCode.toLowerCase().includes(q)
+      );
+    });
+  }, [candidatesState, onlyTop10Sv5t, sv5tSearch]);
+
+  const filteredBranches = useMemo(() => {
+    const q = branchSearch.trim().toLowerCase();
+    return BRANCH_UNITS.filter((b) => {
+      if (branchFacultyFilter !== 'ALL' && b.facultyCode !== branchFacultyFilter)
+        return false;
+      if (!q) return true;
+      return (
+        b.code.toLowerCase().includes(q) ||
+        b.name.toLowerCase().includes(q) ||
+        b.clusterLeaderName.toLowerCase().includes(q)
+      );
+    });
+  }, [branchFacultyFilter, branchSearch]);
+
+  const filteredPlans = useMemo(() => {
+    const q = docSearch.trim().toLowerCase();
+    if (!q) return plansState;
+    return plansState.filter(
+      (p) =>
+        p.planCode.toLowerCase().includes(q) ||
+        p.title.toLowerCase().includes(q) ||
+        p.submittingUnit.toLowerCase().includes(q) ||
+        p.clusterName.toLowerCase().includes(q)
+    );
+  }, [plansState, docSearch]);
+
+  const filteredDocs = useMemo(() => {
+    const q = docSearch.trim().toLowerCase();
+    if (!q) return OFFICIAL_DOCUMENTS;
+    return OFFICIAL_DOCUMENTS.filter(
+      (doc) =>
+        doc.documentNumber.toLowerCase().includes(q) ||
+        doc.title.toLowerCase().includes(q)
+    );
+  }, [docSearch]);
+
+  const filteredNewsPosts = useMemo(() => {
+    const q = cmsSearch.trim().toLowerCase();
+    if (!q) return NEWS_POSTS;
+    return NEWS_POSTS.filter(
+      (p) =>
+        p.title.toLowerCase().includes(q) ||
+        p.categoryLabel.toLowerCase().includes(q)
+    );
+  }, [cmsSearch]);
 
   const currentModuleMeta =
     WORKSPACE_MODULES.find((m) => m.id === activeModule) ||
     WORKSPACE_MODULES[0];
+
+  const greetingName =
+    activePosition.roleLevel >= 2
+      ? `Đ/c ${currentPersona.fullName}`
+      : `Hội viên ${currentPersona.fullName}`;
+
+  const confirmDialogConfig = (() => {
+    if (!confirmState) return null;
+    if (confirmState.type === 'issue_decision') {
+      return {
+        title: `Ký Quyết định ${nextDecisionSeq}/QĐ-HSV và Cấp E-Certificate`,
+        description: `Hệ thống sẽ ghi nhận Quyết định ${nextDecisionSeq}/QĐ-HSV cho chương trình "${confirmState.title}", đồng thời tự động tạo 04 mã E-Certificate sắp xếp MSSV tăng dần để tra cứu công khai trên Cổng xác thực.`,
+        details: [
+          `Người ký: ${currentPersona.fullName} — ${activePosition.positionTitle}`,
+          `Số Quyết định mới: ${nextDecisionSeq}/QĐ-HSV`,
+          `Ngày tình nguyện gốc: +${confirmState.baseVolunteerDays.toFixed(1)} ngày`,
+        ],
+        confirmLabel: `Ký ${nextDecisionSeq}/QĐ-HSV`,
+        variant: 'primary' as const,
+      };
+    }
+    if (confirmState.type === 'sv5t_stage3') {
+      return {
+        title: 'Phê duyệt Thường trực Cấp 3/3 — Sinh viên 5 Tốt',
+        description: `Xác nhận chốt duyệt hồ sơ Sinh viên 5 Tốt cấp Trường cho hội viên ${confirmState.fullName}? Sau bước này hồ sơ chuyển sang trạng thái Đủ điều kiện ra Quyết định.`,
+        details: [
+          `Thẩm quyền chốt duyệt: ${currentPersona.fullName} (Cấp ${activePosition.roleLevel}/6)`,
+        ],
+        confirmLabel: 'Chốt duyệt Cấp 3/3',
+        variant: 'primary' as const,
+      };
+    }
+    if (confirmState.type === 'plan_btk') {
+      return {
+        title: `Ban Thư ký ký ban hành Kế hoạch ${confirmState.plan.planCode}`,
+        description: `Xác nhận ký ban hành chính thức kế hoạch "${confirmState.plan.title}" của ${confirmState.plan.submittingUnit}?`,
+        details: [
+          `Cụm quản lý: ${confirmState.plan.clusterName}`,
+          `Ngày tổ chức dự kiến: ${confirmState.plan.eventDate}`,
+        ],
+        confirmLabel: 'Ký ban hành kế hoạch',
+        variant: 'primary' as const,
+      };
+    }
+    if (confirmState.type === 'unlock_vote') {
+      return {
+        title: 'Mở khóa để đổi phiếu biểu quyết',
+        description:
+          'Phiếu biểu quyết điện tử hiện tại sẽ được gỡ để đ/c chọn lại phương án biểu quyết mới trong Hội nghị.',
+        confirmLabel: 'Mở khóa đổi phiếu',
+        variant: 'primary' as const,
+      };
+    }
+    return {
+      title: 'Đặt lại dữ liệu điều hành',
+      description:
+        'Toàn bộ quyết định vừa ký, tiến độ duyệt SV5T, kế hoạch, mượn – trả thiết bị và phiếu biểu quyết lưu cục bộ sẽ được đưa về trạng thái mặc định ban đầu.',
+      confirmLabel: 'Đặt lại dữ liệu',
+      variant: 'danger' as const,
+    };
+  })();
 
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
@@ -401,21 +976,21 @@ function WorkspaceContent({
         </div>
       )}
 
-      {/* E-OFFICE COMMAND HEADER (MAX-W-1200PX) — TÍCH HỢP CHUYỂN VAI TRÒ KIÊM NHIỆM & 4 KPI ĐIỀU HÀNH */}
+      {/* E-OFFICE COMMAND HEADER (MAX-W-1200PX) */}
       <section className="bg-[#02294E] eiu-arch-pattern text-white border-b-3 border-[#A68556]">
         <div className="max-w-[1200px] mx-auto px-4 sm:px-6 py-7 space-y-5">
-          <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-5">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="space-y-1.5">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="px-2.5 py-0.5 bg-[#C10230] text-white text-[10.5px] font-bold uppercase tracking-wider font-eiu-display">
+                <span className="px-2.5 py-0.5 bg-[#C10230] text-white text-[11px] font-bold uppercase tracking-wider font-eiu-display">
                   HỆ THỐNG QUẢN TRỊ NỘI BỘ E-OFFICE KHÓA II
                 </span>
                 <span className="px-2 py-0.5 bg-[#00BCFF]/20 text-[#00BCFF] font-eiu-serif text-xs font-bold">
-                  RBAC: CẤP {activePosition.roleLevel}/6
+                  PHÂN QUYỀN: CẤP {activePosition.roleLevel}/6
                 </span>
               </div>
               <h1 className="text-xl sm:text-2xl font-bold font-eiu-display">
-                Đ/c {currentPersona.fullName}
+                {greetingName}
               </h1>
               <div className="text-xs text-[#DED1BE]">
                 Đang tác nghiệp với vai trò:{' '}
@@ -426,127 +1001,79 @@ function WorkspaceContent({
               </div>
             </div>
 
-            {/* Bộ chuyển nhanh Cán bộ & Vị trí Kiêm nhiệm ngay trên Command Header */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 xl:w-full xl:max-w-[500px] shrink-0">
-              <div className="bg-[#133F68] border border-white/15 p-2.5">
-                <label
-                  htmlFor="eoffice-persona-select"
-                  className="block text-[10px] font-eiu-serif uppercase text-[#DED1BE] mb-1"
-                >
-                  Đóng vai Cán bộ / Hội viên (6 Cấp):
-                </label>
-                <div className="relative">
-                  <select
-                    id="eoffice-persona-select"
-                    value={currentPersona.id}
-                    onChange={(e) => setPersonaById(e.target.value)}
-                    className="w-full h-8 pl-2.5 pr-7 py-0 bg-white text-slate-900 rounded text-xs font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
-                  >
-                    {allPersonas.map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.fullName} (Cấp {p.positions[0].roleLevel}/6)
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown
-                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-
-              <div className="bg-[#133F68] border border-white/15 p-2.5">
-                <label
-                  htmlFor="eoffice-pos-select"
-                  className="block text-[10px] font-eiu-serif uppercase text-[#DED1BE] mb-1"
-                >
-                  Ngữ cảnh Kiêm nhiệm ({currentPersona.positions.length} vị
-                  trí):
-                </label>
-                <div className="relative">
-                  <select
-                    id="eoffice-pos-select"
-                    value={activePosition.id}
-                    onChange={(e) => setActivePositionById(e.target.value)}
-                    className="w-full h-8 pl-2.5 pr-7 py-0 bg-white text-slate-900 rounded text-xs font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
-                  >
-                    {currentPersona.positions.map((pos) => (
-                      <option key={pos.id} value={pos.id}>
-                        [Cấp {pos.roleLevel}] {pos.positionTitle}
-                      </option>
-                    ))}
-                  </select>
-                  <ChevronDown
-                    className="w-3.5 h-3.5 text-[#133F68] pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
-                    aria-hidden="true"
-                  />
-                </div>
-              </div>
-            </div>
+            <button
+              type="button"
+              onClick={() => setConfirmState({ type: 'reset_workspace' })}
+              className="inline-flex items-center justify-center gap-2 min-h-11 sm:min-h-10 px-4 py-2 bg-[#133F68] hover:bg-[#1B5387] border border-white/25 text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer transition-colors font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+            >
+              <RotateCcw className="w-3.5 h-3.5 text-[#FCB900]" aria-hidden="true" />
+              <span>Đặt lại dữ liệu</span>
+            </button>
           </div>
 
           {/* 04 Ô KPI Điều hành thời gian thực */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pt-1">
             <button
               type="button"
-              onClick={() => selectModule('certificates')}
+              onClick={() => selectModule('certificates', true)}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
-              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
-                Hàng đợi QĐ 28 và SLA
+              <div className="text-[11px] font-eiu-serif uppercase text-[#DED1BE]">
+                Hàng đợi Phê duyệt
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-[#FCB900] mt-0.5">
-                0{pendingCertEvents.length} Hồ sơ
+                {String(pendingCertEvents.length).padStart(2, '0')} Hồ sơ
               </div>
-              <div className="text-[11px] text-white/80 mt-0.5">
+              <div className="text-[11px] text-white/85 mt-0.5">
                 Duyệt trước 3N và Cấp E-Cert
               </div>
             </button>
 
             <button
               type="button"
-              onClick={() => selectModule('documents')}
+              onClick={() => selectModule('documents', true)}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
-              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
+              <div className="text-[11px] font-eiu-serif uppercase text-[#DED1BE]">
                 Kế hoạch Trình duyệt
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-[#00BCFF] mt-0.5">
-                0{pendingPlans.length} / 0{plansState.length} KH
+                {String(pendingPlans.length).padStart(2, '0')} /{' '}
+                {String(plansState.length).padStart(2, '0')} KH
               </div>
-              <div className="text-[11px] text-white/80 mt-0.5">
+              <div className="text-[11px] text-white/85 mt-0.5">
                 Đang luân chuyển 4 bước
               </div>
             </button>
 
             <button
               type="button"
-              onClick={() => selectModule('collective')}
+              onClick={() => selectModule('collective', true)}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
-              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
+              <div className="text-[11px] font-eiu-serif uppercase text-[#DED1BE]">
                 Tập thể SV5T Đạt chuẩn
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-emerald-300 mt-0.5">
                 {qualifiedCollectiveBranches.length} / {BRANCH_UNITS.length} CH
               </div>
-              <div className="text-[11px] text-white/80 mt-0.5">
+              <div className="text-[11px] text-white/85 mt-0.5">
                 100% ĐK • ≥ 30% Đạt • 0 KL
               </div>
             </button>
 
             <button
               type="button"
-              onClick={() => selectModule('office')}
+              onClick={() => selectModule('office', true)}
               className="bg-[#133F68]/90 border border-white/15 hover:border-[#00BCFF] p-3.5 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
             >
-              <div className="text-[10.5px] font-eiu-serif uppercase text-[#DED1BE]">
+              <div className="text-[11px] font-eiu-serif uppercase text-[#DED1BE]">
                 Văn phòng 206.B06 và Mộc
               </div>
               <div className="text-xl font-extrabold font-eiu-serif text-white mt-0.5">
-                0{borrowedAssets.length} Thiết bị
+                {String(borrowedAssets.length).padStart(2, '0')} Thiết bị
               </div>
-              <div className="text-[11px] text-white/80 mt-0.5">
+              <div className="text-[11px] text-white/85 mt-0.5">
                 Đang cho cơ sở Hội mượn
               </div>
             </button>
@@ -554,71 +1081,96 @@ function WorkspaceContent({
         </div>
       </section>
 
-      {/* LƯỚI RỘNG 3/9 (MAX-W-1200PX) — LOẠI BỎ HOÀN TOÀN BỐ CỤC 3-6-3 CHẬT HẸP */}
-      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-8">
+      {/* LƯỚI RỘNG 3/9 (MAX-W-1200PX) */}
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 pt-6 lg:pt-8">
+        {/* Thanh chuyển phân hệ ngang cho Mobile & Tablet (< 1024px) */}
+        <nav
+          aria-label="Điều hướng nhanh phân hệ E-Office"
+          className="lg:hidden mb-5 -mx-4 px-4 overflow-x-auto pb-2"
+        >
+          <div className="flex items-center gap-2 w-max">
+            {WORKSPACE_MODULES.map((item) => {
+              const isSelected = activeModule === item.id;
+              return (
+                <button
+                  key={`mob-${item.id}`}
+                  type="button"
+                  onClick={() => selectModule(item.id, true)}
+                  aria-current={isSelected ? 'page' : undefined}
+                  className={`min-h-[44px] px-3.5 py-2 text-xs font-bold whitespace-nowrap shrink-0 border transition-colors cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] ${
+                    isSelected
+                      ? 'bg-[#C10230] text-white border-[#C10230]'
+                      : 'bg-white text-[#133F68] border-slate-300 hover:bg-[#EAE3D2]'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
+          </div>
+        </nav>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* CỘT TRÁI (3/12): Menu 08 Phân hệ E-Office góc vuông chuẩn EIU */}
+          {/* CỘT TRÁI (3/12): Menu 08 Phân hệ E-Office chia 03 nhóm nghiệp vụ */}
           <aside
             aria-label="Danh mục 08 Phân hệ E-Office"
-            className="lg:col-span-3 space-y-5"
+            className="hidden lg:block lg:col-span-3 space-y-5"
           >
             <div className="bg-white border border-slate-200">
               <div className="bg-[#133F68] text-white px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display">
                 08 Phân hệ Điều hành Số
               </div>
-              <div className="divide-y divide-white">
-                {WORKSPACE_MODULES.map((item) => {
-                  const isSelected = activeModule === item.id;
-                  return (
-                    <button
-                      key={item.id}
-                      type="button"
-                      onClick={() => selectModule(item.id)}
-                      aria-current={isSelected ? 'page' : undefined}
-                      className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-inset ${
-                        isSelected
-                          ? 'bg-[#C10230] text-white font-bold'
-                          : 'bg-[#EAE3D2] text-slate-900 hover:bg-[#dfd5be]'
-                      }`}
-                    >
-                      <span>{item.label}</span>
-                      {item.badge && (
-                        <span
-                          className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
+
+              {WORKSPACE_MODULE_GROUPS.map((group) => (
+                <div key={group.id} className="border-t border-slate-200 first:border-t-0">
+                  <div className="px-4 py-2 bg-[#F8FAFC] text-[11px] font-bold uppercase tracking-wider text-slate-600 font-eiu-display border-b border-slate-200">
+                    {group.label}
+                  </div>
+                  <div className="divide-y divide-white">
+                    {group.moduleIds.map((modId) => {
+                      const item = WORKSPACE_MODULES.find((m) => m.id === modId);
+                      if (!item) return null;
+                      const isSelected = activeModule === item.id;
+                      return (
+                        <button
+                          key={item.id}
+                          type="button"
+                          onClick={() => selectModule(item.id)}
+                          aria-current={isSelected ? 'page' : undefined}
+                          className={`w-full text-left px-4 py-3 text-xs font-semibold flex items-center justify-between gap-2 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-inset ${
                             isSelected
-                              ? 'bg-white/20 text-white'
-                              : 'bg-white/85 text-[#133F68]'
+                              ? 'bg-[#C10230] text-white font-bold'
+                              : 'bg-[#EAE3D2] text-slate-900 hover:bg-[#dfd5be]'
                           }`}
                         >
-                          {item.badge}
-                        </span>
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="bg-[#C10230] text-white p-5 space-y-2">
-              <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
-              <h2 className="text-sm font-bold font-eiu-display">
-                Trực Văn phòng 206.B06
-              </h2>
-              <p className="text-xs text-white/92 leading-relaxed">
-                Đồng điều hành bởi <strong>Chánh Văn phòng</strong> (Đối ngoại)
-                và <strong>Tổng Thư ký</strong> (Nội bộ) theo Quyết định
-                24/QĐ-HSV.
-              </p>
+                          <span>{item.label}</span>
+                          {item.badge && (
+                            <span
+                              className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold shrink-0 ${
+                                isSelected
+                                  ? 'bg-white/20 text-white'
+                                  : 'bg-white/90 text-[#133F68]'
+                              }`}
+                            >
+                              {item.badge}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </aside>
 
-          {/* CỘT PHẢI (9/12): Không gian làm việc rộng rãi cho Bảng dữ liệu & Quy trình */}
-          <div className="lg:col-span-9 space-y-6">
+          {/* CỘT PHẢI (9/12): Không gian làm việc rộng rãi cho Bảng dữ liệu và Quy trình */}
+          <div ref={contentTopRef} className="lg:col-span-9 space-y-6 scroll-mt-4">
             <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5">
               <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
                 {currentModuleMeta.title}
               </h2>
-              <p className="text-[13.5px] text-slate-600 mt-1 leading-relaxed">
+              <p className="text-[13.5px] text-slate-600 mt-1 leading-relaxed max-w-prose">
                 {currentModuleMeta.shortDesc}
               </p>
             </div>
@@ -628,19 +1180,19 @@ function WorkspaceContent({
                 role="alert"
                 className="bg-[#FFF9F0] border border-[#C10230]/40 p-4 flex flex-wrap items-center justify-between gap-3 text-xs"
               >
-                <div>
+                <div className="max-w-prose">
                   <strong className="text-[#133F68]">
-                    Chế độ xem Hội viên (Cấp 1/6):
+                    Quyền xem (Cấp 1/6):
                   </strong>{' '}
-                  Bạn đang đăng nhập bằng tài khoản Sinh viên mẫu. Chuyển sang
-                  tài khoản Thường trực / BCH (Cấp 4 – 6) để thực hiện ký duyệt.
+                  Tài khoản hiện tại đang ở chế độ xem. Chuyển sang tài khoản
+                  Ban Chấp hành để thực hiện phê duyệt.
                 </div>
                 <button
                   type="button"
                   onClick={() => setPersonaById('staff-01')}
-                  className="px-4 py-1.5 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold shrink-0 cursor-pointer font-eiu-display"
+                  className="min-h-11 sm:min-h-9 px-4 py-1.5 bg-[#0054A6] hover:bg-[#133F68] text-white text-xs font-bold shrink-0 cursor-pointer font-eiu-display"
                 >
-                  Chuyển sang Chủ tịch HSV (Cấp 6)
+                  Chuyển tài khoản Ban Chấp hành
                 </button>
               </div>
             )}
@@ -687,114 +1239,160 @@ function WorkspaceContent({
 
                 {/* Hàng đợi phê duyệt ưu tiên */}
                 <div className="bg-white border border-slate-200">
-                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                    <span>Hàng đợi Phê duyệt Ưu tiên (QĐ 28/QĐ-HSV và Văn thư)</span>
-                    <span className="font-eiu-serif text-[#FCB900]">
-                      SLA CAM KẾT ≤ 07 NGÀY LÀM VIỆC
-                    </span>
+                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 font-eiu-display">
+                    <span>Hàng đợi Phê duyệt Ưu tiên</span>
                   </div>
                   <div className="divide-y divide-slate-200 text-xs">
-                    {pendingCertEvents.map((ev) => (
-                      <div
-                        key={ev.id}
-                        className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                      >
-                        <div className="space-y-1">
-                          <div className="font-bold text-[#133F68] text-sm">
-                            {ev.title}
-                          </div>
-                          <div className="text-slate-600">
-                            Đơn vị: <strong>{ev.organizerUnit}</strong> • Quy
-                            đổi gốc:{' '}
-                            <strong className="font-eiu-serif text-[#C10230]">
-                              +{ev.baseVolunteerDays.toFixed(1)} ngày
-                            </strong>
-                          </div>
-                        </div>
-                        {ev.preApprovalStatus === 'pending_tcxdh' ? (
-                          <button
-                            type="button"
-                            disabled={activePosition.roleLevel < 4}
-                            onClick={() =>
-                              handleApprove3DaysPrior(ev.id, ev.title)
-                            }
-                            className="px-4 py-2 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-300 text-white rounded text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
-                          >
-                            Duyệt trước 03 ngày
-                          </button>
-                        ) : (
-                          <button
-                            type="button"
-                            disabled={activePosition.roleLevel < 6}
-                            onClick={() =>
-                              handleIssueDecisionAndCerts(ev.id, ev.title)
-                            }
-                            className="px-4 py-2 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-300 text-white rounded text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
-                          >
-                            Ký QĐ và Cấp E-Cert (SLA 0{ev.slaDaysRemaining}N)
-                          </button>
-                        )}
+                    {pendingCertEvents.length === 0 ? (
+                      <div className="p-6 text-center text-emerald-700 font-semibold">
+                        ✓ Toàn bộ hồ sơ ưu tiên trong hàng đợi đã được xử lý
+                        hoàn tất.
                       </div>
-                    ))}
+                    ) : (
+                      pendingCertEvents.map((ev) => (
+                        <div
+                          key={ev.id}
+                          className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
+                        >
+                          <div className="space-y-1">
+                            <div className="font-bold text-[#133F68] text-sm">
+                              {ev.title}
+                            </div>
+                            <div className="text-slate-600">
+                              Đơn vị: <strong>{ev.organizerUnit}</strong> • Quy
+                              đổi gốc:{' '}
+                              <strong className="font-eiu-serif text-[#C10230]">
+                                +{ev.baseVolunteerDays.toFixed(1)} ngày
+                              </strong>
+                            </div>
+                          </div>
+                          {ev.preApprovalStatus === 'pending_tcxdh' ? (
+                            <button
+                              type="button"
+                              disabled={activePosition.roleLevel < 4}
+                              title={
+                                activePosition.roleLevel < 4
+                                  ? 'Yêu cầu phân quyền từ Cấp 4/6 trở lên để duyệt trước 03 ngày'
+                                  : 'Duyệt chủ trương trước 03 ngày'
+                              }
+                              onClick={() =>
+                                handleApprove3DaysPrior(ev.id, ev.title)
+                              }
+                              className="min-h-11 sm:min-h-9 px-4 py-2 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
+                            >
+                              Duyệt trước 03 ngày
+                            </button>
+                          ) : (
+                            <button
+                              type="button"
+                              disabled={activePosition.roleLevel < 6}
+                              title={
+                                activePosition.roleLevel < 6
+                                  ? 'Yêu cầu phân quyền Cấp 6/6 (Thường trực / Chủ tịch HSV) để ký Quyết định'
+                                  : `Ký Quyết định ${nextDecisionSeq}/QĐ-HSV`
+                              }
+                              onClick={() =>
+                                setConfirmState({
+                                  type: 'issue_decision',
+                                  eventId: ev.id,
+                                  title: ev.title,
+                                  baseVolunteerDays: ev.baseVolunteerDays,
+                                  isUnionWorkMultiplierEligible: Boolean(
+                                    ev.isUnionWorkMultiplierEligible
+                                  ),
+                                })
+                              }
+                              className="min-h-11 sm:min-h-9 px-4 py-2 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold uppercase tracking-wider shrink-0 cursor-pointer font-eiu-display"
+                            >
+                              Ký QĐ và Cấp E-Cert (SLA{' '}
+                              {String(ev.slaDaysRemaining).padStart(2, '0')}N)
+                            </button>
+                          )}
+                        </div>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
             )}
 
             {/* ============================================================
-                2. DUYỆT NGÀY TÌNH NGUYỆN và CẤP GCN (CERTIFICATES — QĐ 28)
+                2. DUYỆT NGÀY TÌNH NGUYỆN VÀ CẤP GCN (CERTIFICATES)
                ============================================================ */}
             {activeModule === 'certificates' && (
               <div className="space-y-6">
-                <div className="bg-white border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="text-slate-700">
-                    <strong>Quy tắc Hệ số Phụ lục 2:</strong> Nhóm{' '}
-                    <em>06 - Công tác Đoàn – Hội</em> nhân{' '}
-                    <strong>×3 (Trưởng/Phó BTC)</strong>,{' '}
-                    <strong>×2 (Thành viên BTC)</strong>,{' '}
-                    <strong>×1 (CTV/Chiến sĩ/SV)</strong>. Hiến máu cố định{' '}
-                    <strong>5.0 ngày/lần</strong>.
+                <div className="bg-white border border-slate-200 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+                  <div className="relative flex-1 min-w-[220px]">
+                    <label htmlFor="ws-cert-search" className="sr-only">
+                      Tìm chương trình hoặc số quyết định
+                    </label>
+                    <Search
+                      className="w-4 h-4 text-slate-400 pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
+                    <input
+                      id="ws-cert-search"
+                      name="certEventSearch"
+                      ref={searchInputRef}
+                      type="text"
+                      value={certSearch}
+                      onChange={(e) => setCertSearch(e.target.value)}
+                      placeholder="Tìm chương trình, đơn vị, số quyết định..."
+                      className="w-full min-h-11 sm:min-h-9 pl-9 pr-3 bg-[#F8FAFC] border border-slate-300 text-base sm:text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
+                    />
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setShowPhuLuc1Table(!showPhuLuc1Table)}
-                    className="px-3.5 py-1.5 bg-[#133F68] hover:bg-[#0054A6] text-white font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
-                  >
-                    {showPhuLuc1Table
-                      ? 'Ẩn Bảng Phụ lục 1 Mẫu'
-                      : 'Xem Phụ lục 1 (MSSV Tăng dần)'}
-                  </button>
+                  <div className="flex flex-wrap items-center gap-2 shrink-0">
+                    <button
+                      type="button"
+                      onClick={handleExportPhuLuc1Csv}
+                      className="min-h-11 sm:min-h-9 px-3.5 py-1.5 bg-[#51803A] hover:bg-emerald-800 text-white font-bold uppercase tracking-wider cursor-pointer inline-flex items-center gap-1.5 font-eiu-display"
+                    >
+                      <Download className="w-3.5 h-3.5" aria-hidden="true" />
+                      <span>Xuất danh sách (CSV)</span>
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowPhuLuc1Table(!showPhuLuc1Table)}
+                      className="min-h-11 sm:min-h-9 px-3.5 py-1.5 bg-[#133F68] hover:bg-[#0054A6] text-white font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
+                    >
+                      {showPhuLuc1Table
+                        ? 'Ẩn danh sách đã cấp'
+                        : `Xem danh sách đã cấp (${sortedPhuLuc1Certs.length})`}
+                    </button>
+                  </div>
                 </div>
 
                 {showPhuLuc1Table && (
                   <div className="bg-white border-2 border-[#133F68] overflow-x-auto">
-                    <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
+                    <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 font-eiu-display">
                       <span>
-                        Mẫu Kết xuất Phụ lục 1 — Quyết định 32/QĐ-HSV (Đã sắp
-                        xếp MSSV tăng dần)
+                        Danh sách Giấy chứng nhận đã cấp (
+                        {sortedPhuLuc1Certs.length})
                       </span>
                       <Link
-                        href="/tra-cuu-gcn?q=32/QĐ-HSV"
+                        href={`/tra-cuu-gcn?q=${encodeURIComponent(
+                          sortedPhuLuc1Certs[0]?.decisionNumber || '32/QĐ-HSV'
+                        )}`}
                         className="text-[#00BCFF] hover:underline"
                       >
                         Mở trang Xác thực Công khai →
                       </Link>
                     </div>
-                    <table className="eiu-table">
+                    <table className="eiu-table min-w-[760px]">
                       <thead>
                         <tr>
                           <th className="w-12 text-center">STT</th>
-                          <th className="w-28">MSSV (↑)</th>
+                          <th className="w-28">MSSV</th>
                           <th>Họ và tên • Đơn vị</th>
-                          <th>Vai trò tham gia</th>
-                          <th className="w-24 text-right">Ngày TN</th>
+                          <th>Số QĐ • Vai trò</th>
+                          <th className="w-28 text-right">Ngày TN</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {ISSUED_CERTIFICATES.map((cert) => (
+                        {sortedPhuLuc1Certs.map((cert, index) => (
                           <tr key={cert.id}>
                             <td className="text-center font-eiu-serif text-xs font-bold">
-                              {String(cert.certSerialNumber).padStart(2, '0')}
+                              {String(index + 1).padStart(2, '0')}
                             </td>
                             <td className="font-eiu-serif text-xs font-bold text-[#133F68]">
                               {cert.studentId}
@@ -808,7 +1406,10 @@ function WorkspaceContent({
                               </div>
                             </td>
                             <td className="text-xs text-slate-700">
-                              {cert.roleTitle}
+                              <span className="font-eiu-serif font-bold text-[#0054A6]">
+                                {cert.decisionNumber}
+                              </span>{' '}
+                              • {cert.roleTitle}
                             </td>
                             <td className="text-right font-eiu-serif text-xs font-bold text-[#C10230]">
                               +{cert.volunteerDays.toFixed(1)} (×
@@ -822,17 +1423,17 @@ function WorkspaceContent({
                 )}
 
                 <div className="bg-white border border-slate-300 overflow-x-auto">
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[760px]">
                     <thead>
                       <tr>
                         <th>Chương trình và Đơn vị tổ chức</th>
-                        <th className="w-44">Cơ chế Quy đổi Ngày TN</th>
-                        <th className="w-44">Tiến độ QĐ 28 và SLA</th>
-                        <th className="w-40 text-right">Thao tác duyệt</th>
+                        <th className="w-48">Cơ chế Quy đổi Ngày TN</th>
+                        <th className="w-48">Tiến độ và SLA</th>
+                        <th className="w-44 text-right">Thao tác duyệt</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {eventsState.map((ev) => (
+                      {filteredCertEvents.map((ev) => (
                         <tr key={ev.id}>
                           <td className="space-y-1">
                             <div className="font-bold text-[#133F68]">
@@ -855,22 +1456,26 @@ function WorkspaceContent({
                           </td>
                           <td className="text-xs">
                             {ev.certWorkflowStatus === 'decision_issued' ? (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] font-bold">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-[#51803A]" />
+                              <span className="inline-flex items-center whitespace-nowrap gap-1 px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] text-[11px] font-bold">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-[#51803A] shrink-0" />
                                 <span>Đã cấp {ev.decisionNumber}</span>
                               </span>
                             ) : ev.certWorkflowStatus ===
                               'list_submitted_sla' ? (
-                              <span className="inline-flex items-center gap-1 px-2 py-0.5 bg-[#FCB900]/15 border border-[#FCB900]/40 text-[#8F5200] font-bold">
-                                <Clock className="w-3.5 h-3.5 text-[#8F5200]" />
-                                <span>SLA còn 0{ev.slaDaysRemaining}/07N</span>
+                              <span className="inline-flex items-center whitespace-nowrap gap-1 px-2 py-0.5 bg-[#FCB900]/15 border border-[#FCB900]/40 text-[#8F5200] text-[11px] font-bold">
+                                <Clock className="w-3.5 h-3.5 text-[#8F5200] shrink-0" />
+                                <span>
+                                  SLA còn{' '}
+                                  {String(ev.slaDaysRemaining).padStart(2, '0')}
+                                  /07N
+                                </span>
                               </span>
                             ) : ev.preApprovalStatus === 'pending_tcxdh' ? (
-                              <span className="px-2 py-0.5 bg-[#C10230]/10 border border-[#C10230]/30 text-[#9E0024] font-bold">
+                              <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#C10230]/10 border border-[#C10230]/30 text-[#9E0024] text-[11px] font-bold">
                                 Chờ duyệt trước 03 ngày
                               </span>
                             ) : (
-                              <span className="px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] font-semibold">
+                              <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] text-[11px] font-semibold">
                                 ✓ Đã duyệt chủ trương 3N
                               </span>
                             )}
@@ -880,10 +1485,15 @@ function WorkspaceContent({
                               <button
                                 type="button"
                                 disabled={activePosition.roleLevel < 4}
+                                title={
+                                  activePosition.roleLevel < 4
+                                    ? 'Yêu cầu phân quyền từ Cấp 4/6 trở lên để duyệt trước 03 ngày'
+                                    : 'Duyệt chủ trương trước 03 ngày'
+                                }
                                 onClick={() =>
                                   handleApprove3DaysPrior(ev.id, ev.title)
                                 }
-                                className="px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-300 text-white rounded text-xs font-bold cursor-pointer"
+                                className="min-h-11 sm:min-h-9 px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold cursor-pointer whitespace-nowrap"
                               >
                                 Duyệt trước 3N
                               </button>
@@ -892,10 +1502,23 @@ function WorkspaceContent({
                               <button
                                 type="button"
                                 disabled={activePosition.roleLevel < 6}
-                                onClick={() =>
-                                  handleIssueDecisionAndCerts(ev.id, ev.title)
+                                title={
+                                  activePosition.roleLevel < 6
+                                    ? 'Yêu cầu phân quyền Cấp 6/6 (Thường trực / Chủ tịch HSV) để ký QĐ 28'
+                                    : `Ký ${nextDecisionSeq}/QĐ-HSV và cấp E-Certificate`
                                 }
-                                className="px-3 py-1.5 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-300 text-white rounded text-xs font-bold cursor-pointer"
+                                onClick={() =>
+                                  setConfirmState({
+                                    type: 'issue_decision',
+                                    eventId: ev.id,
+                                    title: ev.title,
+                                    baseVolunteerDays: ev.baseVolunteerDays,
+                                    isUnionWorkMultiplierEligible: Boolean(
+                                      ev.isUnionWorkMultiplierEligible
+                                    ),
+                                  })
+                                }
+                                className="min-h-11 sm:min-h-9 px-3 py-1.5 bg-[#C10230] hover:bg-[#a10228] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold cursor-pointer whitespace-nowrap"
                               >
                                 Ký QĐ và E-Cert
                               </button>
@@ -904,9 +1527,9 @@ function WorkspaceContent({
                                 href={`/tra-cuu-gcn?q=${encodeURIComponent(
                                   ev.decisionNumber || '32/QĐ-HSV'
                                 )}`}
-                                className="inline-flex items-center gap-1 text-xs font-bold text-[#0054A6] hover:text-[#C10230]"
+                                className="inline-flex items-center gap-1 text-xs font-bold text-[#0054A6] hover:text-[#C10230] whitespace-nowrap"
                               >
-                                <Eye className="w-3.5 h-3.5" />
+                                <Eye className="w-3.5 h-3.5" aria-hidden="true" />
                                 <span>Xem GCN</span>
                               </Link>
                             ) : (
@@ -924,118 +1547,146 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                3. HỘI ĐỒNG XÉT CHỌN SV5T 3 CẤP và TOP 10% (QĐ 09/2026)
+                3. HỘI ĐỒNG XÉT CHỌN SV5T 3 CẤP VÀ TOP 10% (QĐ 09/2026)
                ============================================================ */}
             {activeModule === 'sv5t' && (
               <div className="space-y-5">
-                <div className="bg-white border border-slate-200 p-4 flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setOnlyTop10Sv5t(false)}
-                      className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
-                        !onlyTop10Sv5t
-                          ? 'bg-[#C10230] text-white border-[#C10230]'
-                          : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
-                      }`}
-                    >
-                      Tất cả Hồ sơ Đạt chuẩn GPA ≥ 3.00 ({candidatesState.length})
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setOnlyTop10Sv5t(true)}
-                      className={`px-4 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
-                        onlyTop10Sv5t
-                          ? 'bg-[#C10230] text-white border-[#C10230]'
-                          : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
-                      }`}
-                    >
-                      ★ Lọc Ứng viên Top 10% Tiêu biểu Toàn trường
-                    </button>
+                <div className="bg-white border border-slate-200 p-4 space-y-3">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setOnlyTop10Sv5t(false)}
+                        className={`min-h-11 sm:min-h-9 px-4 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
+                          !onlyTop10Sv5t
+                            ? 'bg-[#C10230] text-white border-[#C10230]'
+                            : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
+                        }`}
+                      >
+                        Tất cả Hồ sơ Đạt chuẩn GPA ≥ 3.00 ({candidatesState.length})
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setOnlyTop10Sv5t(true)}
+                        className={`min-h-11 sm:min-h-9 px-4 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
+                          onlyTop10Sv5t
+                            ? 'bg-[#C10230] text-white border-[#C10230]'
+                            : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
+                        }`}
+                      >
+                        ★ Lọc Ứng viên Top 10% Tiêu biểu Toàn trường
+                      </button>
+                    </div>
                   </div>
 
-                  <span className="text-xs font-eiu-serif text-slate-600">
-                    Cấp 1 Cơ sở → Cấp 2 Ban CM → Cấp 3 Thường trực
-                  </span>
+                  <div>
+                    <label htmlFor="ws-sv5t-search" className="sr-only">
+                      Tìm ứng viên SV5T
+                    </label>
+                    <div className="relative">
+                      <Search
+                        className="w-4 h-4 text-slate-400 pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                        aria-hidden="true"
+                      />
+                      <input
+                        id="ws-sv5t-search"
+                        name="sv5tSearch"
+                        ref={searchInputRef}
+                        type="text"
+                        value={sv5tSearch}
+                        onChange={(e) => setSv5tSearch(e.target.value)}
+                        placeholder="Tìm ứng viên, MSSV, Chi hội..."
+                        className="w-full min-h-11 sm:min-h-9 pl-9 pr-3 bg-[#F8FAFC] border border-slate-300 text-base sm:text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="bg-white border border-slate-300 overflow-x-auto">
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[760px]">
                     <thead>
                       <tr>
                         <th>Ứng viên • Chi hội</th>
-                        <th>Chỉ số 05 Tiêu chuẩn (GPA ≥ 3.00)</th>
-                        <th className="w-44">Cấp xét duyệt hiện tại</th>
-                        <th className="w-36 text-right">Phê duyệt</th>
+                        <th>Chỉ số 05 Tiêu chuẩn</th>
+                        <th className="w-52">Cấp xét duyệt hiện tại</th>
+                        <th className="w-40 text-right">Phê duyệt</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {displayedCandidates.map((c) => (
-                        <tr key={c.id}>
-                          <td className="space-y-0.5">
-                            <div className="font-bold text-[#133F68]">
-                              {c.fullName}
-                            </div>
-                            <div className="text-xs font-eiu-serif text-slate-500">
-                              {c.studentId} • {c.branchCode}
-                            </div>
-                            {c.isTop10Eligible && (
-                              <span className="inline-block px-1.5 py-0.5 bg-[#C10230] text-white text-[10px] font-bold uppercase font-eiu-display">
-                                ★ Ứng viên Top 10% Tiêu biểu
-                              </span>
-                            )}
-                          </td>
-                          <td className="text-xs text-slate-700 space-y-1">
-                            <div>
-                              ĐRL: <strong>{c.ethicsScore}</strong> • GPA MAX:{' '}
-                              <strong className="font-eiu-serif text-[#0054A6]">
-                                {c.gpaMax.toFixed(2)}/4.00
-                              </strong>{' '}
-                              • TN:{' '}
-                              <strong className="font-eiu-serif text-[#C10230]">
-                                {c.volunteerDays.toFixed(1)} ngày
-                              </strong>
-                            </div>
-                            <div className="text-[11px] text-slate-500">
-                              {c.englishLevel} • Tích lũy:{' '}
-                              <strong>{c.subCriteriaCount} tiêu chí phụ</strong>
-                            </div>
-                          </td>
-                          <td className="text-xs">
-                            {c.reviewStage === 3 ? (
-                              <span className="px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] font-bold">
-                                ✓ Cấp 3: Thường trực đã chốt
-                              </span>
-                            ) : c.reviewStage === 2 ? (
-                              <span className="px-2 py-0.5 bg-[#0054A6]/10 border border-[#0054A6]/30 text-[#0054A6] font-bold">
-                                Cấp 2: Ban TG-PT/TC-XDH duyệt
-                              </span>
-                            ) : (
-                              <span className="px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] font-bold">
-                                Cấp 1: Cơ sở Hội sơ duyệt
-                              </span>
-                            )}
-                          </td>
-                          <td className="text-right">
-                            {c.reviewStage < 3 ? (
-                              <button
-                                type="button"
-                                disabled={activePosition.roleLevel < 4}
-                                onClick={() =>
-                                  handleAdvanceSv5tStage(c.id, c.fullName)
-                                }
-                                className="px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-300 text-white rounded text-xs font-bold cursor-pointer"
-                              >
-                                Duyệt Cấp {c.reviewStage + 1} →
-                              </button>
-                            ) : (
-                              <span className="text-xs font-bold text-emerald-700">
-                                Đủ điều kiện QĐ
-                              </span>
-                            )}
-                          </td>
-                        </tr>
-                      ))}
+                      {displayedCandidates.map((c) => {
+                        const requiredLevel = c.reviewStage === 2 ? 6 : 4;
+                        const isDisabled =
+                          activePosition.roleLevel < requiredLevel;
+                        return (
+                          <tr key={c.id}>
+                            <td className="space-y-0.5">
+                              <div className="font-bold text-[#133F68]">
+                                {c.fullName}
+                              </div>
+                              <div className="text-xs font-eiu-serif text-slate-500">
+                                {c.studentId} • {c.branchCode}
+                              </div>
+                              {c.isTop10Eligible && (
+                                <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#C10230] text-white text-[11px] font-bold uppercase font-eiu-display">
+                                  ★ Ứng viên Top 10% Tiêu biểu
+                                </span>
+                              )}
+                            </td>
+                            <td className="text-xs text-slate-700 space-y-1">
+                              <div>
+                                ĐRL: <strong>{c.ethicsScore}</strong> • GPA MAX:{' '}
+                                <strong className="font-eiu-serif text-[#0054A6]">
+                                  {c.gpaMax.toFixed(2)}/4.00
+                                </strong>{' '}
+                                • TN:{' '}
+                                <strong className="font-eiu-serif text-[#C10230]">
+                                  {c.volunteerDays.toFixed(1)} ngày
+                                </strong>
+                              </div>
+                              <div className="text-[11px] text-slate-500">
+                                {c.englishLevel} • Tích lũy:{' '}
+                                <strong>{c.subCriteriaCount} tiêu chí phụ</strong>
+                              </div>
+                            </td>
+                            <td className="text-xs">
+                              {c.reviewStage === 3 ? (
+                                <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#51803A]/10 border border-[#51803A]/30 text-[#2E521D] text-[11px] font-bold">
+                                  ✓ Cấp 3: Thường trực đã chốt
+                                </span>
+                              ) : c.reviewStage === 2 ? (
+                                <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#0054A6]/10 border border-[#0054A6]/30 text-[#0054A6] text-[11px] font-bold">
+                                  Cấp 2: Ban TG-PT/TC-XDH duyệt
+                                </span>
+                              ) : (
+                                <span className="inline-flex items-center whitespace-nowrap px-2 py-0.5 bg-[#EAE3D2] border border-[#A68556]/30 text-[#133F68] text-[11px] font-bold">
+                                  Cấp 1: Cơ sở Hội sơ duyệt
+                                </span>
+                              )}
+                            </td>
+                            <td className="text-right">
+                              {c.reviewStage < 3 ? (
+                                <button
+                                  type="button"
+                                  disabled={isDisabled}
+                                  title={
+                                    isDisabled
+                                      ? `Yêu cầu phân quyền từ Cấp ${requiredLevel}/6 trở lên để duyệt Cấp ${c.reviewStage + 1}`
+                                      : `Phê duyệt hồ sơ lên Cấp ${c.reviewStage + 1}`
+                                  }
+                                  onClick={() => handleRequestSv5tAdvance(c)}
+                                  className="min-h-11 sm:min-h-9 px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold cursor-pointer whitespace-nowrap"
+                                >
+                                  Duyệt Cấp {c.reviewStage + 1} →
+                                </button>
+                              ) : (
+                                <span className="text-xs font-bold text-emerald-700 whitespace-nowrap">
+                                  Đủ điều kiện QĐ
+                                </span>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
                 </div>
@@ -1047,39 +1698,63 @@ function WorkspaceContent({
                ============================================================ */}
             {activeModule === 'collective' && (
               <div className="space-y-5">
-                <div className="bg-white border border-slate-200 p-4 flex flex-wrap items-center gap-2">
-                  {(
-                    [
-                      { code: 'ALL', label: 'Tất cả 25 Chi hội' },
-                      { code: 'BBS', label: 'Cụm QTKD (06)' },
-                      { code: 'SET', label: 'Cụm Kỹ thuật (06)' },
-                      { code: 'CIT', label: 'Cụm CNTT (07)' },
-                      { code: 'SNS', label: 'Cụm KH Sức khỏe (06)' },
-                    ] as const
-                  ).map((tab) => (
-                    <button
-                      key={tab.code}
-                      type="button"
-                      onClick={() => setBranchFacultyFilter(tab.code)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
-                        branchFacultyFilter === tab.code
-                          ? 'bg-[#C10230] text-white border-[#C10230]'
-                          : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
+                <div className="bg-white border border-slate-200 p-4 space-y-3">
+                  <div className="flex flex-wrap items-center gap-2">
+                    {(
+                      [
+                        { code: 'ALL', label: 'Tất cả 25 Chi hội' },
+                        { code: 'BBS', label: 'Cụm QTKD (06)' },
+                        { code: 'SET', label: 'Cụm Kỹ thuật (06)' },
+                        { code: 'CIT', label: 'Cụm CNTT (07)' },
+                        { code: 'SNS', label: 'Cụm KH Sức khỏe (06)' },
+                      ] as const
+                    ).map((tab) => (
+                      <button
+                        key={tab.code}
+                        type="button"
+                        onClick={() => setBranchFacultyFilter(tab.code)}
+                        className={`min-h-11 sm:min-h-9 px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
+                          branchFacultyFilter === tab.code
+                            ? 'bg-[#C10230] text-white border-[#C10230]'
+                            : 'bg-[#F5F5F5] text-[#133F68] border-slate-300'
+                        }`}
+                      >
+                        {tab.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div>
+                    <label htmlFor="ws-branch-search" className="sr-only">
+                      Tìm Chi hội theo mã lớp hoặc tên Cụm trưởng
+                    </label>
+                    <div className="relative">
+                      <Search
+                        className="w-4 h-4 text-slate-400 pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                        aria-hidden="true"
+                      />
+                      <input
+                        id="ws-branch-search"
+                        name="branchSearch"
+                        ref={searchInputRef}
+                        type="text"
+                        value={branchSearch}
+                        onChange={(e) => setBranchSearch(e.target.value)}
+                        placeholder="Tìm mã Chi hội hoặc Cụm trưởng..."
+                        className="w-full min-h-11 sm:min-h-9 pl-9 pr-3 bg-[#F8FAFC] border border-slate-300 text-base sm:text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <div className="bg-white border border-slate-300 overflow-x-auto">
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[720px]">
                     <thead>
                       <tr>
                         <th className="w-28">Mã Chi hội</th>
                         <th>Cụm Khoa và Cụm trưởng</th>
                         <th className="w-24 text-center">ĐK SV5T</th>
-                        <th className="w-52">Tỷ lệ Đạt SV5T (≥ 30%)</th>
+                        <th className="w-52">Tỷ lệ Đạt SV5T</th>
                         <th className="w-32 text-right">Xếp loại</th>
                       </tr>
                     </thead>
@@ -1125,7 +1800,7 @@ function WorkspaceContent({
                                   >
                                     {branch.sv5tAchievedRate}% / 30%
                                   </span>
-                                  <span className="text-[10.5px] text-slate-500">
+                                  <span className="text-[11px] text-slate-500">
                                     0% KL
                                   </span>
                                 </div>
@@ -1148,7 +1823,7 @@ function WorkspaceContent({
                                 </div>
                               </div>
                             </td>
-                            <td className="text-right text-xs font-bold">
+                            <td className="text-right text-xs font-bold whitespace-nowrap">
                               {isQualified ? (
                                 <span className="text-emerald-700">
                                   ✓ ĐẠT CHUẨN
@@ -1169,38 +1844,61 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                5. VĂN THƯ LƯU TRỮ và TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC (DOCUMENTS)
+                5. VĂN THƯ LƯU TRỮ VÀ TRÌNH DUYỆT KẾ HOẠCH 04 BƯỚC (DOCUMENTS)
                ============================================================ */}
             {activeModule === 'documents' && (
               <div className="space-y-6">
-                {/* Quy trình trình duyệt kế hoạch trực tuyến 4 bước */}
+                <div className="bg-white border border-slate-200 p-4">
+                  <label htmlFor="ws-doc-search" className="sr-only">
+                    Tìm kế hoạch trình duyệt hoặc văn bản pháp lý
+                  </label>
+                  <div className="relative">
+                    <Search
+                      className="w-4 h-4 text-slate-400 pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
+                    <input
+                      id="ws-doc-search"
+                      name="docSearch"
+                      ref={searchInputRef}
+                      type="text"
+                      value={docSearch}
+                      onChange={(e) => setDocSearch(e.target.value)}
+                      placeholder="Tìm số kế hoạch, tên văn bản, đơn vị..."
+                      className="w-full min-h-11 sm:min-h-9 pl-9 pr-3 bg-[#F8FAFC] border border-slate-300 text-base sm:text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
+                    />
+                  </div>
+                </div>
+
+                {/* Quy trình trình duyệt kế hoạch trực tuyến */}
                 <div className="bg-white border border-slate-300 overflow-x-auto">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
                     <span className="inline-flex items-center gap-2">
                       <FileCheck2 className="w-4 h-4 text-[#FCB900]" />
-                      <span>
-                        Luồng Trình duyệt Kế hoạch Trực tuyến 04 Bước (Cơ sở →
-                        Cụm trưởng → VP 206.B06 → BTK)
-                      </span>
+                      <span>Trình duyệt Kế hoạch Trực tuyến</span>
                     </span>
                   </div>
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[760px]">
                     <thead>
                       <tr>
                         <th className="w-32">Số KH</th>
                         <th>Tên Kế hoạch và Đơn vị trình</th>
-                        <th className="w-52">Bước xử lý hiện tại</th>
+                        <th className="w-56">Bước xử lý hiện tại</th>
                         <th className="w-44 text-right">Luân chuyển</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {plansState.map((plan) => {
+                      {filteredPlans.map((plan) => {
                         const stageMeta = PLAN_STAGE_LABELS[plan.stage];
+                        const requiredLevel =
+                          plan.stage === 'office_format_checked' ? 6 : 4;
+                        const isDisabled =
+                          activePosition.roleLevel < requiredLevel;
                         return (
                           <tr key={plan.id}>
                             <td className="font-eiu-serif text-xs font-bold text-[#133F68]">
                               {plan.planCode}
-                              <div className="text-[10.5px] font-normal text-slate-500">
+                              <div className="text-[11px] font-normal text-slate-500">
                                 Tổ chức: {plan.eventDate}
                               </div>
                             </td>
@@ -1214,7 +1912,7 @@ function WorkspaceContent({
                             </td>
                             <td>
                               <span
-                                className={`inline-block px-2 py-1 text-[11px] font-bold ${stageMeta.badgeClass}`}
+                                className={`inline-flex items-center whitespace-nowrap px-2 py-1 text-[11px] font-bold ${stageMeta.badgeClass}`}
                               >
                                 {stageMeta.label}
                               </span>
@@ -1223,14 +1921,19 @@ function WorkspaceContent({
                               {stageMeta.nextAction ? (
                                 <button
                                   type="button"
-                                  disabled={activePosition.roleLevel < 4}
-                                  onClick={() => handleAdvancePlanStage(plan)}
-                                  className="px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-300 text-white rounded text-xs font-bold cursor-pointer"
+                                  disabled={isDisabled}
+                                  title={
+                                    isDisabled
+                                      ? `Yêu cầu phân quyền từ Cấp ${requiredLevel}/6 trở lên để chuyển bước này`
+                                      : stageMeta.nextAction
+                                  }
+                                  onClick={() => handleRequestPlanAdvance(plan)}
+                                  className="min-h-11 sm:min-h-9 px-3 py-1.5 bg-[#0054A6] hover:bg-[#133F68] disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold cursor-pointer whitespace-nowrap"
                                 >
                                   {stageMeta.nextAction}
                                 </button>
                               ) : (
-                                <span className="text-xs font-bold text-emerald-700">
+                                <span className="text-xs font-bold text-emerald-700 whitespace-nowrap">
                                   ✓ Đã ban hành
                                 </span>
                               )}
@@ -1244,8 +1947,11 @@ function WorkspaceContent({
 
                 {/* Sổ Đăng ký Văn bản Đi / Quyết định Khóa II */}
                 <div className="bg-white border border-slate-200">
-                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                    <span>Sổ Đăng ký Văn bản Pháp lý Đã Ban hành ({OFFICIAL_DOCUMENTS.length})</span>
+                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 font-eiu-display">
+                    <span>
+                      Sổ Đăng ký Văn bản Pháp lý Đã Ban hành (
+                      {filteredDocs.length})
+                    </span>
                     <Link
                       href="/van-ban"
                       className="text-[#00BCFF] hover:underline"
@@ -1254,7 +1960,7 @@ function WorkspaceContent({
                     </Link>
                   </div>
                   <div className="divide-y divide-slate-200 text-xs">
-                    {OFFICIAL_DOCUMENTS.map((doc) => (
+                    {filteredDocs.map((doc) => (
                       <div
                         key={doc.id}
                         className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
@@ -1278,7 +1984,7 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                6. BAN TUYÊN GIÁO - PHONG TRÀO và ĐỘI CTV XUNG KÍCH (TGPT)
+                6. BAN TUYÊN GIÁO - PHONG TRÀO VÀ ĐỘI CTV XUNG KÍCH (TGPT)
                ============================================================ */}
             {activeModule === 'tgpt' && (
               <div className="space-y-6">
@@ -1348,10 +2054,35 @@ function WorkspaceContent({
                   </div>
                 </div>
 
-                {/* Quản trị CMS Tin tức đã xuất bản */}
+                {/* Tìm kiếm & Quản trị CMS Tin tức đã xuất bản */}
+                <div className="bg-white border border-slate-200 p-4">
+                  <label htmlFor="ws-cms-search" className="sr-only">
+                    Tìm bài viết CMS trong mục Tuyên giáo
+                  </label>
+                  <div className="relative">
+                    <Search
+                      className="w-4 h-4 text-slate-400 pointer-events-none absolute left-3 top-1/2 -translate-y-1/2"
+                      aria-hidden="true"
+                    />
+                    <input
+                      id="ws-cms-search"
+                      name="cmsSearch"
+                      ref={searchInputRef}
+                      type="text"
+                      value={cmsSearch}
+                      onChange={(e) => setCmsSearch(e.target.value)}
+                      placeholder="Tìm tiêu đề hoặc chuyên mục bài viết..."
+                      className="w-full min-h-11 sm:min-h-9 pl-9 pr-3 bg-[#F8FAFC] border border-slate-300 text-base sm:text-xs text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6]"
+                    />
+                  </div>
+                </div>
+
                 <div className="bg-white border border-slate-300 overflow-x-auto">
-                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
-                    <span>Quản trị Bản tin CMS Cổng thông tin ({NEWS_POSTS.length} bài đã xuất bản)</span>
+                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 font-eiu-display">
+                    <span>
+                      Quản trị Bản tin CMS Cổng thông tin (
+                      {filteredNewsPosts.length} bài đã xuất bản)
+                    </span>
                     <Link
                       href="/tin-tuc"
                       className="text-[#00BCFF] hover:underline"
@@ -1359,17 +2090,17 @@ function WorkspaceContent({
                       Mở Chuyên trang Tin tức →
                     </Link>
                   </div>
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[680px]">
                     <thead>
                       <tr>
                         <th>Tiêu đề bài viết</th>
-                        <th className="w-40">Chuyên mục</th>
+                        <th className="w-44">Chuyên mục</th>
                         <th className="w-28 text-center">Lượt đọc</th>
                         <th className="w-24 text-right">Xem bài</th>
                       </tr>
                     </thead>
                     <tbody>
-                      {NEWS_POSTS.map((post) => (
+                      {filteredNewsPosts.map((post) => (
                         <tr key={post.id}>
                           <td className="text-xs font-bold text-[#133F68]">
                             {post.title}
@@ -1380,13 +2111,16 @@ function WorkspaceContent({
                           <td className="text-center font-eiu-serif text-xs text-slate-600">
                             {post.viewCount.toLocaleString('vi-VN')}
                           </td>
-                          <td className="text-right">
+                          <td className="text-right whitespace-nowrap">
                             <Link
                               href={`/tin-tuc/${post.slug}`}
                               className="inline-flex items-center gap-1 text-xs font-bold text-[#0054A6] hover:text-[#C10230]"
                             >
                               <span>Mở</span>
-                              <ArrowRight className="w-3.5 h-3.5" />
+                              <ArrowRight
+                                className="w-3.5 h-3.5"
+                                aria-hidden="true"
+                              />
                             </Link>
                           </td>
                         </tr>
@@ -1398,26 +2132,23 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                7. VĂN PHÒNG 206.B06, TÀI SẢN và CON DẤU MỘC (OFFICE — QĐ 24)
+                7. VĂN PHÒNG 206.B06, TÀI SẢN VÀ CON DẤU MỘC (OFFICE — QĐ 24)
                ============================================================ */}
             {activeModule === 'office' && (
               <div className="space-y-6">
                 {/* Lịch trực Phòng 206.B06 */}
                 <div className="bg-white border border-slate-300 overflow-x-auto">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
-                    <Building2 className="w-4 h-4 text-[#FCB900]" />
-                    <span>
-                      Lịch trực Hành chính Văn phòng 206.B06 (Đồng điều hành:
-                      Chánh VP Nguyễn Mỹ Hạnh và Tổng Thư ký Nguyễn Như Quỳnh)
-                    </span>
+                    <Building2 className="w-4 h-4 text-[#FCB900] shrink-0" />
+                    <span>Lịch trực Hành chính Văn phòng 206.B06</span>
                   </div>
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[720px]">
                     <thead>
                       <tr>
                         <th className="w-28">Ngày trực</th>
                         <th>Ca Sáng (08:00 – 11:30)</th>
                         <th>Ca Chiều (13:00 – 16:30)</th>
-                        <th className="w-44">Trọng tâm nghiệp vụ</th>
+                        <th className="w-48">Trọng tâm nghiệp vụ</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -1441,15 +2172,15 @@ function WorkspaceContent({
                   </table>
                 </div>
 
-                {/* Sổ Mượn - Trả Tài sản & Thiết bị Dùng chung Phòng 206.B06 */}
+                {/* Sổ Mượn - Trả Tài sản và Thiết bị Dùng chung Phòng 206.B06 */}
                 <div className="bg-white border border-slate-300 overflow-x-auto">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
-                    <Package className="w-4 h-4 text-[#00BCFF]" />
+                    <Package className="w-4 h-4 text-[#00BCFF] shrink-0" />
                     <span>
                       Sổ Quản lý Tài sản và Thiết bị Dùng chung Phòng 206.B06
                     </span>
                   </div>
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[720px]">
                     <thead>
                       <tr>
                         <th className="w-32">Mã tài sản</th>
@@ -1486,10 +2217,17 @@ function WorkspaceContent({
                             <button
                               type="button"
                               disabled={activePosition.roleLevel < 3}
+                              title={
+                                activePosition.roleLevel < 3
+                                  ? 'Yêu cầu phân quyền từ Cấp 3/6 (BCH Cơ sở / Chủ nhiệm CLB trở lên) để mượn – trả thiết bị'
+                                  : ast.status === 'borrowed'
+                                  ? 'Xác nhận đã trả về kho 206.B06'
+                                  : 'Đăng ký mượn thiết bị'
+                              }
                               onClick={() =>
                                 handleToggleAssetReturn(ast.id, ast.name)
                               }
-                              className={`px-3 py-1.5 rounded text-xs font-bold cursor-pointer disabled:bg-slate-300 text-white ${
+                              className={`min-h-11 sm:min-h-9 px-3 py-1.5 text-xs font-bold cursor-pointer disabled:bg-slate-400 disabled:opacity-50 disabled:cursor-not-allowed text-white whitespace-nowrap ${
                                 ast.status === 'borrowed'
                                   ? 'bg-[#51803A] hover:bg-emerald-800'
                                   : 'bg-[#0054A6] hover:bg-[#133F68]'
@@ -1534,19 +2272,16 @@ function WorkspaceContent({
             )}
 
             {/* ============================================================
-                8. HỌP KHÔNG GIẤY và BAN KIỂM TRA (MEETINGS — QĐ 23)
+                8. HỌP KHÔNG GIẤY VÀ BAN KIỂM TRA (MEETINGS — QĐ 23)
                ============================================================ */}
             {activeModule === 'meetings' && (
               <div className="space-y-6">
                 {/* Phòng họp không giấy & Biểu quyết điện tử */}
                 <div className="bg-white border-2 border-[#133F68]">
-                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center justify-between font-eiu-display">
+                  <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex flex-wrap items-center justify-between gap-2 font-eiu-display">
                     <span className="inline-flex items-center gap-2">
-                      <Vote className="w-4 h-4 text-[#FCB900]" />
-                      <span>
-                        Phiên Họp Không Giấy và Biểu quyết Nghị quyết Điện tử
-                        (23/QĐ-HSV)
-                      </span>
+                      <Vote className="w-4 h-4 text-[#FCB900] shrink-0" />
+                      <span>Biểu quyết Nghị quyết Hội nghị</span>
                     </span>
                     <span className="font-eiu-serif text-[#00BCFF]">
                       PHÒNG 206.B06
@@ -1559,7 +2294,7 @@ function WorkspaceContent({
                         Dự thảo Nghị quyết Hội nghị Ban Chấp hành Mở rộng Quý
                         IV/2026 (15 đ/c BCH và 05 đ/c BKT)
                       </div>
-                      <p className="text-slate-600 leading-relaxed">
+                      <p className="text-slate-600 leading-relaxed max-w-prose">
                         Nội dung biểu quyết: Thông qua chỉ tiêu hỗ trợ 04 Chi
                         hội Tân sinh viên Khóa K26 đạt chuẩn Tập thể SV5T và áp
                         dụng 100% tiêu chí Sự kiện Xanh UN SDGs cho Chiến dịch
@@ -1570,14 +2305,18 @@ function WorkspaceContent({
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                       <button
                         type="button"
-                        disabled={activePosition.roleLevel < 5}
-                        onClick={() => {
-                          setMyVote('APPROVE');
-                          triggerToast(
-                            'Đã ghi nhận phiếu biểu quyết: TÁN THÀNH Nghị quyết.'
-                          );
-                        }}
-                        className={`p-3 border text-left cursor-pointer disabled:cursor-not-allowed ${
+                        disabled={
+                          activePosition.roleLevel < 5 || myVote !== null
+                        }
+                        title={
+                          activePosition.roleLevel < 5
+                            ? 'Yêu cầu phân quyền từ Cấp 5/6 (Ủy viên BCH / BKT) để biểu quyết'
+                            : myVote !== null
+                            ? 'Phiếu đã được ghi nhận; bấm "Đổi phiếu biểu quyết" nếu muốn thay đổi'
+                            : 'Bỏ phiếu Tán thành'
+                        }
+                        onClick={() => handleCastVote('APPROVE')}
+                        className={`p-3 border text-left cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed ${
                           myVote === 'APPROVE'
                             ? 'border-2 border-[#51803A] bg-[#51803A]/10'
                             : 'border-slate-200 bg-[#F8FAFC] hover:border-[#133F68]'
@@ -1593,14 +2332,18 @@ function WorkspaceContent({
 
                       <button
                         type="button"
-                        disabled={activePosition.roleLevel < 5}
-                        onClick={() => {
-                          setMyVote('REJECT');
-                          triggerToast(
-                            'Đã ghi nhận phiếu biểu quyết: KHÔNG TÁN THÀNH.'
-                          );
-                        }}
-                        className={`p-3 border text-left cursor-pointer disabled:cursor-not-allowed ${
+                        disabled={
+                          activePosition.roleLevel < 5 || myVote !== null
+                        }
+                        title={
+                          activePosition.roleLevel < 5
+                            ? 'Yêu cầu phân quyền từ Cấp 5/6 (Ủy viên BCH / BKT) để biểu quyết'
+                            : myVote !== null
+                            ? 'Phiếu đã được ghi nhận; bấm "Đổi phiếu biểu quyết" nếu muốn thay đổi'
+                            : 'Bỏ phiếu Không tán thành'
+                        }
+                        onClick={() => handleCastVote('REJECT')}
+                        className={`p-3 border text-left cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed ${
                           myVote === 'REJECT'
                             ? 'border-2 border-[#C10230] bg-rose-50'
                             : 'border-slate-200 bg-[#F8FAFC] hover:border-[#133F68]'
@@ -1616,20 +2359,24 @@ function WorkspaceContent({
 
                       <button
                         type="button"
-                        disabled={activePosition.roleLevel < 5}
-                        onClick={() => {
-                          setMyVote('ABSTAIN');
-                          triggerToast(
-                            'Đã ghi nhận phiếu biểu quyết: Ý KIẾN KHÁC.'
-                          );
-                        }}
-                        className={`p-3 border text-left cursor-pointer disabled:cursor-not-allowed ${
+                        disabled={
+                          activePosition.roleLevel < 5 || myVote !== null
+                        }
+                        title={
+                          activePosition.roleLevel < 5
+                            ? 'Yêu cầu phân quyền từ Cấp 5/6 (Ủy viên BCH / BKT) để biểu quyết'
+                            : myVote !== null
+                            ? 'Phiếu đã được ghi nhận; bấm "Đổi phiếu biểu quyết" nếu muốn thay đổi'
+                            : 'Bỏ phiếu Ý kiến khác'
+                        }
+                        onClick={() => handleCastVote('ABSTAIN')}
+                        className={`p-3 border text-left cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed ${
                           myVote === 'ABSTAIN'
                             ? 'border-2 border-[#A68556] bg-[#FFF9F0]'
                             : 'border-slate-200 bg-[#F8FAFC] hover:border-[#133F68]'
                         }`}
                       >
-                        <div className="font-bold text-[#A68556] uppercase font-eiu-display">
+                        <div className="font-bold text-[#7A5928] uppercase font-eiu-display">
                           Ý kiến khác
                         </div>
                         <div className="text-xl font-extrabold font-eiu-serif text-[#133F68] mt-1">
@@ -1637,13 +2384,35 @@ function WorkspaceContent({
                         </div>
                       </button>
                     </div>
+
+                    {myVote !== null && (
+                      <div className="bg-[#F0F6FC] border border-[#0054A6]/30 p-3.5 flex flex-wrap items-center justify-between gap-3">
+                        <div className="text-xs text-[#133F68]">
+                          ✓ Đã chốt phiếu biểu quyết của{' '}
+                          <strong>{currentPersona.fullName}</strong>:{' '}
+                          <strong className="text-[#0054A6]">
+                            {VOTE_OPTION_LABELS[myVote]}
+                          </strong>
+                        </div>
+                        <button
+                          type="button"
+                          disabled={activePosition.roleLevel < 5}
+                          onClick={() =>
+                            setConfirmState({ type: 'unlock_vote' })
+                          }
+                          className="min-h-11 sm:min-h-9 px-3.5 py-1.5 border border-[#133F68] bg-white hover:bg-[#133F68] hover:text-white text-[#133F68] text-xs font-bold uppercase cursor-pointer transition-colors font-eiu-display disabled:opacity-50"
+                        >
+                          Đổi phiếu biểu quyết
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </div>
 
                 {/* Giám sát Ban Kiểm tra (05 đồng chí) */}
                 <div className="bg-white border border-slate-200">
                   <div className="bg-[#133F68] text-white px-5 py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 font-eiu-display">
-                    <ShieldCheck className="w-4 h-4 text-[#00BCFF]" />
+                    <ShieldCheck className="w-4 h-4 text-[#00BCFF] shrink-0" />
                     <span>
                       Ban Kiểm tra HSV Trường (
                       {
@@ -1654,6 +2423,33 @@ function WorkspaceContent({
                     </span>
                   </div>
                   <div className="divide-y divide-slate-200 text-xs">
+                    {submittedVoiceTickets.map((ticket) => (
+                      <div key={ticket.id} className="p-4 space-y-1 bg-[#FFF9F0]">
+                        <div className="flex flex-wrap items-center justify-between gap-2">
+                          <span className="font-bold text-[#133F68]">
+                            Hồ sơ #{ticket.id} — {ticket.category} (
+                            {ticket.isAnonymous
+                              ? 'Ẩn danh từ Cổng Hội viên'
+                              : `Gửi từ ${ticket.personaKey}`}
+                            )
+                          </span>
+                          <span className="font-eiu-serif text-[11px] text-slate-600">
+                            {ticket.createdAt}
+                          </span>
+                        </div>
+                        <p className="text-slate-700 leading-relaxed">
+                          {ticket.content}
+                        </p>
+                        <div className="text-[#0054A6] font-semibold">
+                          • Trạng thái tiếp nhận: {ticket.status} (Đơn vị thụ
+                          lý:{' '}
+                          {ticket.recipient === 'BKT'
+                            ? 'Ban Kiểm tra HSV'
+                            : 'Ban Tuyên giáo – Phong trào'}
+                          )
+                        </div>
+                      </div>
+                    ))}
                     <div className="p-4 space-y-1">
                       <div className="font-bold text-[#133F68]">
                         Hồ sơ #BKT-2601 — Kiến nghị mở thêm đợt Kiểm tra Thể lực
@@ -1681,6 +2477,54 @@ function WorkspaceContent({
           </div>
         </div>
       </div>
+
+      {/* Modal Xác nhận thao tác điều hành E-Office (Cấp 6 / Đổi phiếu / Khôi phục) */}
+      <ConfirmDialog
+        open={Boolean(confirmState && confirmDialogConfig)}
+        title={confirmDialogConfig?.title || ''}
+        description={confirmDialogConfig?.description || ''}
+        details={confirmDialogConfig?.details}
+        confirmLabel={confirmDialogConfig?.confirmLabel}
+        variant={confirmDialogConfig?.variant}
+        onCancel={() => setConfirmState(null)}
+        onConfirm={() => {
+          if (!confirmState) return;
+          if (confirmState.type === 'issue_decision') {
+            executeIssueDecisionAndCerts(confirmState);
+          } else if (confirmState.type === 'sv5t_stage3') {
+            executeAdvanceSv5tStage(
+              confirmState.candId,
+              confirmState.fullName,
+              3
+            );
+          } else if (confirmState.type === 'plan_btk') {
+            executeAdvancePlanStage(confirmState.plan, 'btk_approved');
+          } else if (confirmState.type === 'unlock_vote') {
+            updateWorkspaceState((prev) => {
+              const personaVotes = {
+                ...(prev.votesByPersona[currentPersona.id] || {}),
+              };
+              delete personaVotes['res-q4-2026'];
+              return {
+                ...prev,
+                votesByPersona: {
+                  ...prev.votesByPersona,
+                  [currentPersona.id]: personaVotes,
+                },
+              };
+            });
+            triggerToast(
+              'Đã mở khóa phiếu biểu quyết — đ/c có thể chọn lại phương án biểu quyết.'
+            );
+          } else if (confirmState.type === 'reset_workspace') {
+            clearWorkspaceStoredState();
+            triggerToast(
+              'Đã đặt lại toàn bộ dữ liệu E-Office và danh sách Giấy chứng nhận về mặc định.'
+            );
+          }
+          setConfirmState(null);
+        }}
+      />
     </div>
   );
 }
@@ -1690,19 +2534,20 @@ function WorkspaceSearchAndHashBridge() {
   const hashVal = useSyncExternalStore(
     subscribeToHash,
     getHashSnapshot,
-    getServerHashSnapshot
+    getServerEmptySnapshot
   );
   const queryMod = searchParams.get('module');
+  const queryTab = searchParams.get('tab');
 
   const resolvedModule: WorkspaceModuleId = isValidWorkspaceModule(hashVal)
     ? hashVal
     : isValidWorkspaceModule(queryMod)
     ? queryMod
+    : isValidWorkspaceModule(queryTab)
+    ? queryTab
     : 'overview';
 
-  return (
-    <WorkspaceContent key={resolvedModule} initialModule={resolvedModule} />
-  );
+  return <WorkspaceContent initialModule={resolvedModule} />;
 }
 
 export default function WorkspacePage() {

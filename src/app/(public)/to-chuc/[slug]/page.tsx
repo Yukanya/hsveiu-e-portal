@@ -31,14 +31,14 @@ function getClubSv5tBenefit(club: ClubUnit): {
 } {
   if (club.code === 'CLB-SV5T') {
     return {
-      pillar: 'Đồng hành cả 05 Tiêu chuẩn Sinh viên 5 Tốt (09/QĐ-HSV 2026)',
-      rule: 'Hỗ trợ rà soát hồ sơ Sổ tay số, tổ chức chuỗi Workshop kỹ năng thực hành xã hội (Phụ lục 3) và diễn đàn Gương SV5T Tiêu biểu.',
+      pillar: 'Đồng hành cả 05 Tiêu chuẩn Sinh viên 5 Tốt',
+      rule: 'Hỗ trợ rà soát hồ sơ Sổ tay số, tổ chức chuỗi Workshop kỹ năng thực hành xã hội và diễn đàn Gương SV5T Tiêu biểu.',
     };
   }
   if (club.code === 'DOI-CTVXK') {
     return {
       pillar: 'Tiêu chuẩn Tình nguyện tốt — Lĩnh vực 06: Công tác Đoàn – Hội',
-      rule: 'Áp dụng quy đổi Ngày tình nguyện nhân Hệ số 1 – 2 – 3 (Phụ lục 2 QĐ 09 và QĐ 28/QĐ-HSV) khi trực tiếp điều phối Hậu cần – Sân khấu và Lễ tân – Khánh tiết.',
+      rule: 'Áp dụng quy đổi Ngày tình nguyện nhân Hệ số 1 – 2 – 3 khi trực tiếp điều phối Hậu cần – Sân khấu và Lễ tân – Khánh tiết.',
     };
   }
   if (club.code === 'CLB-BLOOD') {
@@ -55,7 +55,7 @@ function getClubSv5tBenefit(club: ClubUnit): {
       };
     case 'THE_THAO':
       return {
-        pillar: 'Tiêu chuẩn Thể lực tốt (Phụ lục 1 — Sinh viên Khỏe)',
+        pillar: 'Tiêu chuẩn Thể lực tốt — Sinh viên Khỏe',
         rule: 'Hội viên tham gia tập luyện định kỳ tại CLB thể thao hoặc thi đấu giải cấp Khoa/Trường được xét đạt tiêu chuẩn Thể lực tốt.',
       };
     case 'NGHE_THUAT':
@@ -66,7 +66,7 @@ function getClubSv5tBenefit(club: ClubUnit): {
     default:
       return {
         pillar: 'Tiêu chuẩn Tình nguyện tốt (Tối thiểu 5.0 ngày/năm)',
-        rule: 'Tham gia chiến dịch công tác xã hội và dự án cộng đồng được cấp E-Certificate xác thực QR trong 07 ngày làm việc (28/QĐ-HSV).',
+        rule: 'Tham gia chiến dịch công tác xã hội và dự án cộng đồng được cấp Giấy chứng nhận điện tử xác thực QR.',
       };
   }
 }
@@ -77,16 +77,24 @@ function UnitMicrositeInner({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
+  return <UnitMicrositeContent key={slug} slug={slug} />;
+}
+
+function UnitMicrositeContent({ slug }: { slug: string }) {
   const { currentPersona } = useRole();
 
   const club = CLUB_UNITS.find((c) => c.slug === slug);
   const branch = BRANCH_UNITS.find((b) => b.slug === slug);
 
-  const [selectedDivision, setSelectedDivision] = useState(
-    'Ban Chuyên môn / Hoạt động'
-  );
+  const defaultDivision =
+    club?.managedSubteams?.[0] ?? 'Ban Chuyên môn / Hoạt động';
+  const [selectedDivision, setSelectedDivision] = useState(defaultDivision);
   const [reasonText, setReasonText] = useState('');
-  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formError, setFormError] = useState('');
+  const [submittedNote, setSubmittedNote] = useState<{
+    division: string;
+    submittedAt: string;
+  } | null>(null);
 
   if (!club && !branch) {
     return (
@@ -123,11 +131,6 @@ function UnitMicrositeInner({
     return (
       <div className="bg-[#F5F5F5] min-h-screen pb-16">
         <SubpageBanner
-          kicker={
-            club.isCoreUnionUnit
-              ? 'ĐƠN VỊ NÒNG CỐT TRỰC THUỘC HỘI SINH VIÊN TRƯỜNG'
-              : `KHỐI ${club.categoryLabel.toUpperCase()}`
-          }
           title={club.name}
           subtitle={club.description}
           breadcrumbs={[
@@ -157,7 +160,9 @@ function UnitMicrositeInner({
                       Tên chính thức:
                     </div>
                     <div className="sm:col-span-8 font-bold text-[#133F68]">
-                      {club.name} ({club.shortName})
+                      {club.name.includes(club.shortName)
+                        ? club.name
+                        : `${club.name} (${club.shortName})`}
                     </div>
                   </div>
 
@@ -297,8 +302,24 @@ function UnitMicrositeInner({
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
-                      setFormSubmitted(true);
+                      const cleaned = reasonText.trim();
+                      if (cleaned.length < 10) {
+                        setFormError(
+                          'Vui lòng nhập tối thiểu 10 ký tự giới thiệu thế mạnh hoặc nguyện vọng (không chỉ nhập khoảng trắng).'
+                        );
+                        return;
+                      }
+                      setFormError('');
+                      setSubmittedNote({
+                        division: selectedDivision,
+                        submittedAt: new Date().toLocaleTimeString('vi-VN', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        }),
+                      });
+                      setReasonText('');
                     }}
+                    noValidate
                     className="p-5 space-y-4 text-xs"
                   >
                     <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-2">
@@ -324,9 +345,10 @@ function UnitMicrositeInner({
                       <div className="sm:col-span-8 relative">
                         <select
                           id="club-division"
+                          name="clubDivision"
                           value={selectedDivision}
                           onChange={(e) => setSelectedDivision(e.target.value)}
-                          className="w-full h-9 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-slate-900 font-medium appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                          className="w-full h-11 sm:h-9 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-base sm:text-xs text-slate-900 font-medium appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                         >
                           {club.managedSubteams &&
                           club.managedSubteams.length > 0 ? (
@@ -363,38 +385,53 @@ function UnitMicrositeInner({
                       >
                         Kỹ năng và Nguyện vọng:
                       </label>
-                      <div className="sm:col-span-8">
+                      <div className="sm:col-span-8 space-y-1.5">
                         <textarea
                           id="club-reason"
+                          name="clubApplyReason"
                           rows={3}
                           required
+                          minLength={10}
+                          maxLength={1000}
                           value={reasonText}
-                          onChange={(e) => setReasonText(e.target.value)}
-                          placeholder="Giới thiệu ngắn gọn thế mạnh hoặc mong muốn rèn luyện của bạn tại CLB..."
-                          className="w-full p-2.5 border border-slate-300 rounded text-slate-900"
+                          onChange={(e) => {
+                            setReasonText(e.target.value);
+                            if (formError) setFormError('');
+                          }}
+                          placeholder="Nhập kỹ năng và nguyện vọng tham gia..."
+                          className="w-full p-2.5 border border-slate-300 rounded text-base sm:text-xs text-slate-900"
                         />
+                        {formError && (
+                          <p role="alert" className="text-xs font-semibold text-[#C10230]">
+                            {formError}
+                          </p>
+                        )}
                       </div>
                     </div>
 
-                    {formSubmitted && (
-                      <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold">
-                        ✓ Đã chuyển hồ sơ ứng tuyển ({selectedDivision}) của{' '}
+                    {submittedNote && (
+                      <div
+                        role="status"
+                        className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold leading-relaxed"
+                      >
+                        ✓ Đã chuyển hồ sơ ứng tuyển ({submittedNote.division}) của{' '}
                         {currentPersona.fullName} tới Ban Chủ nhiệm{' '}
-                        {club.shortName}.
+                        {club.shortName} lúc {submittedNote.submittedAt}. Thời
+                        gian phản hồi dự kiến: trong 02 ngày làm việc.
                       </div>
                     )}
 
                     <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
                       <Link
                         href="/to-chuc?tab=clubs"
-                        className="inline-flex items-center gap-1 text-slate-600 hover:text-[#133F68] font-semibold"
+                        className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-slate-600 hover:text-[#133F68] font-semibold"
                       >
                         <ArrowLeft className="w-3.5 h-3.5" />
                         <span>Quay lại danh bạ CLB</span>
                       </Link>
                       <button
                         type="submit"
-                        className="px-5 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
+                        className="min-h-[44px] sm:min-h-[38px] px-5 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
                       >
                         Gửi hồ sơ ứng tuyển
                       </button>
@@ -507,8 +544,7 @@ function UnitMicrositeInner({
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker={`CỤM CHI HỘI ${facultyMeta.nameVi.toUpperCase()} — KHÓA 20${b.cohortYear}`}
-        title={`${b.name} (${b.code})`}
+        title={b.name.includes(b.code) ? b.name : `${b.name} (${b.code})`}
         subtitle={b.description}
         breadcrumbs={[
           { label: 'Chi hội và CLB', href: '/to-chuc?tab=branches' },
@@ -680,8 +716,24 @@ function UnitMicrositeInner({
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  setFormSubmitted(true);
+                  const cleaned = reasonText.trim();
+                  if (cleaned.length < 10) {
+                    setFormError(
+                      'Vui lòng nhập tối thiểu 10 ký tự nội dung đề xuất hoặc rà soát (không chỉ nhập khoảng trắng).'
+                    );
+                    return;
+                  }
+                  setFormError('');
+                  setSubmittedNote({
+                    division: b.name,
+                    submittedAt: new Date().toLocaleTimeString('vi-VN', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    }),
+                  });
+                  setReasonText('');
                 }}
+                noValidate
                 className="p-5 space-y-4 text-xs"
               >
                 <div className="grid grid-cols-1 sm:grid-cols-12 items-center gap-2">
@@ -701,37 +753,52 @@ function UnitMicrositeInner({
                   >
                     Nội dung đề xuất / rà soát:
                   </label>
-                  <div className="sm:col-span-8">
+                  <div className="sm:col-span-8 space-y-1.5">
                     <textarea
                       id="branch-note"
+                      name="branchNote"
                       rows={3}
                       required
+                      minLength={10}
+                      maxLength={1000}
                       value={reasonText}
-                      onChange={(e) => setReasonText(e.target.value)}
-                      placeholder="Nhập đề xuất hoạt động Chi hội hoặc yêu cầu BCH Chi hội sơ duyệt minh chứng SV5T Cấp 1..."
-                      className="w-full p-2.5 border border-slate-300 rounded text-slate-900"
+                      onChange={(e) => {
+                        setReasonText(e.target.value);
+                        if (formError) setFormError('');
+                      }}
+                      placeholder="Nhập nội dung đề xuất hoặc yêu cầu..."
+                      className="w-full p-2.5 border border-slate-300 rounded text-base sm:text-xs text-slate-900"
                     />
+                    {formError && (
+                      <p role="alert" className="text-xs font-semibold text-[#C10230]">
+                        {formError}
+                      </p>
+                    )}
                   </div>
                 </div>
 
-                {formSubmitted && (
-                  <div className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold">
+                {submittedNote && (
+                  <div
+                    role="status"
+                    className="p-3.5 bg-emerald-50 border border-emerald-200 text-emerald-900 font-semibold leading-relaxed"
+                  >
                     ✓ Đã gửi thông tin tới BCH {b.name} và Cụm trưởng{' '}
-                    {b.clusterLeaderName}.
+                    {b.clusterLeaderName} lúc {submittedNote.submittedAt}. Dự
+                    kiến phản hồi trong 02 ngày làm việc.
                   </div>
                 )}
 
-                <div className="pt-2 flex items-center justify-between border-t border-slate-100">
+                <div className="pt-2 flex items-center justify-between gap-2 border-t border-slate-100">
                   <Link
                     href={`/to-chuc?tab=branches&faculty=${b.facultyCode}`}
-                    className="inline-flex items-center gap-1 text-slate-600 hover:text-[#133F68] font-semibold"
+                    className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1 text-slate-600 hover:text-[#133F68] font-semibold"
                   >
                     <ArrowLeft className="w-3.5 h-3.5" />
                     <span>Danh sách Chi hội {facultyMeta.shortCode}</span>
                   </Link>
                   <button
                     type="submit"
-                    className="px-5 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
+                    className="min-h-[44px] sm:min-h-[38px] px-5 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white rounded text-xs font-bold uppercase tracking-wider cursor-pointer font-eiu-display"
                   >
                     Gửi BCH Chi hội
                   </button>

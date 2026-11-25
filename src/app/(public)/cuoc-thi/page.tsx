@@ -89,7 +89,7 @@ function CuocThiContent({
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const activeDropdownFilterCount = [
-    statusFilter !== 'ALL' && statusFilter !== 'OPEN_ALL',
+    statusFilter !== 'ALL',
     topicFilter !== 'ALL',
     trainingPointsFilter !== 'ALL',
     durationFilter !== 'ALL',
@@ -198,7 +198,6 @@ function CuocThiContent({
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       {/* BANNER KIẾN TRÚC EIU ĐỒNG BỘ 1-1 VỚI TRANG SỰ KIỆN */}
       <SubpageBanner
-        kicker="THI TRỰC TUYẾN • ĐỒNG BỘ SỔ TAY SV5T • CẤP E-CERTIFICATE CHỐNG GIẢ MẠO"
         title="CUỘC THI TRỰC TUYẾN"
         subtitle="Tổng hợp các cuộc thi trắc nghiệm tìm hiểu kiến thức, học thuật và kỹ năng dành cho Sinh viên trường Đại học Quốc tế Miền Đông."
         breadcrumbs={[
@@ -211,7 +210,7 @@ function CuocThiContent({
         ref={gridTopRef}
         className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9 space-y-8 scroll-mt-24"
       >
-        {/* BỘ LỌC ĐA TIÊU CHÍ: PILLS TIÊU CHUẨN SV5T & BỘ LỌC 5 Ô */}
+        {/* BỘ LỌC ĐA TIÊU CHÍ: PILLS TIÊU CHUẨN SV5T và BỘ LỌC 5 Ô */}
         <div className="space-y-4">
           <div className="text-center space-y-3">
             <h2 className="text-xl sm:text-2xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
@@ -219,7 +218,7 @@ function CuocThiContent({
             </h2>
 
             <div
-              role="tablist"
+              role="group"
               aria-label="Lọc Cuộc thi theo Tiêu chuẩn Sinh viên 5 Tốt"
               className="flex flex-wrap items-center justify-center gap-2 pt-1"
             >
@@ -236,10 +235,9 @@ function CuocThiContent({
                   <button
                     key={pill.id}
                     type="button"
-                    role="tab"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     onClick={() => handleCriteriaChange(pill.id)}
-                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[38px] ${
+                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[44px] sm:min-h-[38px] ${
                       isSelected
                         ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs scale-[1.02]'
                         : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40 hover:scale-[1.01]'
@@ -252,23 +250,23 @@ function CuocThiContent({
             </div>
           </div>
 
-          {/* Hộp Tìm kiếm & Bộ lọc 5 tiêu chí */}
+          {/* Hộp Tìm kiếm và Bộ lọc 5 tiêu chí */}
           <div className="bg-white border border-slate-200 p-4 space-y-3.5 shadow-2xs">
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <div className="relative flex-1">
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   id="contest-search-input"
-                  name="q"
+                  name="contestSearchQuery"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setCurrentPage(1);
                   }}
-                  placeholder="Tìm kiếm cuộc thi theo tên, chủ đề..."
+                  placeholder="Tìm cuộc thi..."
                   aria-label="Tìm kiếm cuộc thi"
-                  className="w-full h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
+                  className="w-full h-11 sm:h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-base sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
                 />
                 {searchQuery && (
                   <button
@@ -278,7 +276,7 @@ function CuocThiContent({
                       setCurrentPage(1);
                     }}
                     aria-label="Xóa từ khóa tìm kiếm"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -288,13 +286,14 @@ function CuocThiContent({
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
+                  aria-pressed={statusFilter === 'OPEN_ALL'}
                   onClick={() => {
                     setStatusFilter((prev) =>
                       prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
                     );
                     setCurrentPage(1);
                   }}
-                  className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
+                  className={`px-4 h-11 sm:h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
                     statusFilter === 'OPEN_ALL'
                       ? 'bg-[#51803A] text-white shadow-xs'
                       : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
@@ -308,7 +307,7 @@ function CuocThiContent({
                   type="button"
                   onClick={() => setShowMobileFilters((prev) => !prev)}
                   aria-expanded={showMobileFilters}
-                  className="sm:hidden px-3.5 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
+                  className="sm:hidden px-3.5 h-11 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>
                     Bộ lọc chi tiết
@@ -327,7 +326,7 @@ function CuocThiContent({
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                    className="px-3 h-11 sm:h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
                   >
                     Đặt lại bộ lọc
                   </button>
@@ -335,7 +334,7 @@ function CuocThiContent({
               </div>
             </div>
 
-            {/* Hàng 5 Bộ Lọc Chuyên Sâu (Căn giữa chữ dọc với appearance-none + ChevronDown) */}
+            {/* Hàng 5 Bộ Lọc Chuyên Sâu */}
             <div
               className={`${
                 showMobileFilters || activeDropdownFilterCount > 0
@@ -349,19 +348,21 @@ function CuocThiContent({
                   htmlFor="contest-filter-status"
                   className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
-                  Trạng thái Tag:
+                  Trạng thái:
                 </label>
                 <div className="relative">
                   <select
                     id="contest-filter-status"
-                    value={statusFilter === 'OPEN_ALL' ? 'ALL' : statusFilter}
+                    name="contestStatusFilter"
+                    value={statusFilter}
                     onChange={(e) => {
                       setStatusFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả trạng thái</option>
+                    <option value="OPEN_ALL">Tất cả đang mở</option>
                     <option value="Chưa mở đăng ký">Chưa mở thi</option>
                     <option value="Đang mở đăng ký">Đang mở thi</option>
                     <option value="Còn 5 ngày">Còn 5 ngày</option>
@@ -388,12 +389,13 @@ function CuocThiContent({
                 <div className="relative">
                   <select
                     id="contest-filter-topic"
+                    name="contestTopicFilter"
                     value={topicFilter}
                     onChange={(e) => {
                       setTopicFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả chủ đề</option>
                     <option value="Lý luận và Quy chế Hội">
@@ -427,15 +429,16 @@ function CuocThiContent({
                 <div className="relative">
                   <select
                     id="contest-filter-training-points"
+                    name="contestTrainingPointsFilter"
                     value={trainingPointsFilter}
                     onChange={(e) => {
                       setTrainingPointsFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả</option>
-                    <option value="YES">Có điểm rèn luyện (+1 ĐRL)</option>
+                    <option value="YES">Có điểm rèn luyện</option>
                     <option value="NO">Không có điểm rèn luyện</option>
                   </select>
                   <ChevronDown
@@ -456,12 +459,13 @@ function CuocThiContent({
                 <div className="relative">
                   <select
                     id="contest-filter-duration"
+                    name="contestDurationFilter"
                     value={durationFilter}
                     onChange={(e) => {
                       setDurationFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả thời lượng</option>
                     <option value="SHORT">Nhanh (≤ 15 phút)</option>
@@ -475,7 +479,7 @@ function CuocThiContent({
                 </div>
               </div>
 
-              {/* 5. Quyền lợi & Minh chứng */}
+              {/* 5. Quyền lợi và Minh chứng */}
               <div className="space-y-1">
                 <label
                   htmlFor="contest-filter-benefit"
@@ -486,12 +490,13 @@ function CuocThiContent({
                 <div className="relative">
                   <select
                     id="contest-filter-benefit"
+                    name="contestBenefitFilter"
                     value={benefitFilter}
                     onChange={(e) => {
                       setBenefitFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả quyền lợi</option>
                     <option value="SV5T">Đồng bộ tiêu chí SV5T</option>

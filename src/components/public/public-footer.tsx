@@ -41,7 +41,6 @@ function PublicFooterInner() {
 
   return (
     <footer className="bg-[#133F68] text-[#DED1BE] border-t-4 border-[#A68556]">
-      {/* Vùng cột liên kết học thuật — Font Crimson Text chuẩn post-157.css của eiu.edu.vn */}
       <div className={`${containerClass} mx-auto px-4 sm:px-6 pt-11 pb-9`}>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-7 lg:gap-6">
           {/* Cột 1 (4/12): Cụm Logo EIU trắng và Logo Hội Sinh viên cân đối + Khẩu hiệu học thuật */}
@@ -50,7 +49,7 @@ function PublicFooterInner() {
               <Image
                 src="/images/eiu-logo-full-white.png"
                 alt="Trường Đại học Quốc tế Miền Đông"
-                width={180}
+                width={81}
                 height={70}
                 loading="lazy"
                 style={{ width: 'auto' }}
@@ -85,15 +84,15 @@ function PublicFooterInner() {
           </div>
 
           {/* Cột 2 (2/12): Nổi bật */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+          <div className="lg:col-span-2 font-eiu-serif text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
               Nổi bật
             </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
+            <ul className="space-y-1 text-[#DED1BE]">
               <li>
                 <Link
                   href="/gioi-thieu"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Về Hội Sinh viên EIU
                 </Link>
@@ -101,7 +100,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/gioi-thieu?tab=bch"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Đội ngũ cán bộ
                 </Link>
@@ -109,7 +108,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/portal"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Sinh viên 5 tốt
                 </Link>
@@ -117,7 +116,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/tin-tuc"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tin tức Sinh viên
                 </Link>
@@ -126,15 +125,15 @@ function PublicFooterInner() {
           </div>
 
           {/* Cột 3 (2/12): Hội viên – Sinh viên */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+          <div className="lg:col-span-2 font-eiu-serif text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
               Hội viên – Sinh viên
             </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
+            <ul className="space-y-1 text-[#DED1BE]">
               <li>
                 <Link
                   href="/su-kien"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Sự kiện phong trào
                 </Link>
@@ -142,7 +141,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/portal"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Sổ tay hội viên
                 </Link>
@@ -150,7 +149,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/cuoc-thi"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Cuộc thi trực tuyến
                 </Link>
@@ -158,7 +157,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/tra-cuu-gcn"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tra cứu GCN
                 </Link>
@@ -167,23 +166,23 @@ function PublicFooterInner() {
           </div>
 
           {/* Cột 4 (2/12): Cán bộ Hội */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+          <div className="lg:col-span-2 font-eiu-serif text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
               Cán bộ Hội
             </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
+            <ul className="space-y-1 text-[#DED1BE]">
               <li>
                 <Link
                   href="/workspace"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   e-Office
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/workspace?tab=meetings"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  href="/workspace?module=meetings"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Phòng họp số
                 </Link>
@@ -191,7 +190,7 @@ function PublicFooterInner() {
               <li>
                 <Link
                   href="/van-ban"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Văn bản
                 </Link>
@@ -200,15 +199,15 @@ function PublicFooterInner() {
           </div>
 
           {/* Cột 5 (2/12): Kết nối với HSV */}
-          <div className="lg:col-span-2 font-eiu-serif text-[13.5px] sm:text-[14px] leading-snug">
+          <div className="lg:col-span-2 font-eiu-serif text-[14px] leading-snug">
             <h2 className="text-[15.5px] font-semibold text-white mb-2">
               Kết nối với HSV
             </h2>
-            <ul className="space-y-1.5 text-[#DED1BE]">
+            <ul className="space-y-1 text-[#DED1BE]">
               <li>
                 <Link
                   href="/"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Cổng thông tin
                 </Link>
@@ -218,7 +217,7 @@ function PublicFooterInner() {
                   href="https://www.facebook.com/eiuhsv"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Fanpage
                 </a>
@@ -228,7 +227,7 @@ function PublicFooterInner() {
                   href="https://www.instagram.com/vnsa.eiu"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Instagram
                 </a>
@@ -238,7 +237,7 @@ function PublicFooterInner() {
                   href="https://www.tiktok.com/@vnsa.eiu"
                   target="_blank"
                   rel="noreferrer"
-                  className="hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
+                  className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
                   Tiktok
                 </a>
@@ -248,7 +247,7 @@ function PublicFooterInner() {
         </div>
       </div>
 
-      {/* Thanh đáy Footer chuẩn eiu.edu.vn: Địa chỉ Phòng 206.B06 bên trái, Form nhận bản tin bên phải */}
+      {/* Thanh đáy Footer */}
       <div className="border-t border-white/15 bg-[#0F3356]">
         <div
           className={`${containerClass} mx-auto px-4 sm:px-6 py-5 flex flex-col lg:flex-row lg:items-center justify-between gap-5`}
@@ -297,6 +296,7 @@ function PublicFooterInner() {
                   </label>
                   <input
                     id="footer-email"
+                    name="newsletterEmail"
                     type="email"
                     required
                     maxLength={100}
@@ -307,12 +307,12 @@ function PublicFooterInner() {
                       if (errorMsg) setErrorMsg('');
                     }}
                     placeholder="Nhập email để nhận thông báo mới"
-                    className="w-full sm:w-68 h-10 px-3.5 bg-white text-slate-900 placeholder:text-slate-600 text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="w-full sm:w-68 min-h-11 sm:min-h-10 px-3.5 bg-white text-slate-900 placeholder:text-slate-600 text-base sm:text-xs focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   />
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="h-10 px-5 bg-[#8E6D3E] hover:bg-[#78592B] disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
+                    className="min-h-11 sm:min-h-10 px-5 bg-[#8E6D3E] hover:bg-[#78592B] disabled:opacity-70 text-white text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5 shrink-0 cursor-pointer font-eiu-display transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900]"
                   >
                     <span>{isSubmitting ? 'ĐANG GỬI...' : 'ĐĂNG KÝ'}</span>
                     <Send className="w-3.5 h-3.5" />
@@ -329,7 +329,7 @@ function PublicFooterInner() {
         </div>
       </div>
 
-      {/* Dòng bản quyền & Nhóm sinh viên phát triển ở cuối chân trang */}
+      {/* Dòng bản quyền */}
       <div className="border-t border-white/10 bg-[#09223B] text-[#DED1BE] py-3.5">
         <div className={`${containerClass} mx-auto px-4 sm:px-6 text-center text-xs sm:text-[12.5px] leading-relaxed`}>
           <p>

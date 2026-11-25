@@ -1,11 +1,26 @@
 'use client';
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, {
+  Suspense,
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  useSyncExternalStore,
+} from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
+import { DeterministicQrCode } from '@/components/shared/deterministic-qr';
 import { EVENT_ITEMS } from '@/data/mock-data';
 import { useRole } from '@/context/role-context';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
+import {
+  getRegisteredEventIds,
+  REGISTERED_EVENTS_KEY,
+  setRegisteredEventIds,
+  subscribeStorageSync,
+} from '@/lib/portal-storage';
 import { EventItem, EventStatusTag } from '@/types';
 import {
   ArrowRight,
@@ -16,7 +31,6 @@ import {
   ChevronRight,
   Clock,
   MapPin,
-  QrCode,
   Search,
   Users,
   X,
@@ -280,22 +294,30 @@ function SuKienContent({
     });
 
   const [roleMultiplier, setRoleMultiplier] = useState<1 | 2 | 3>(1);
-  const [registeredIds, setRegisteredIds] = useState<string[]>([]);
+  const eventModalRef = useRef<HTMLDivElement>(null);
 
-  // Đọc trạng thái đăng ký sự kiện từ localStorage
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem('hsv_eiu_registered_events_v1');
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        if (Array.isArray(parsed)) {
-          setRegisteredIds(parsed.filter((x) => typeof x === 'string'));
-        }
+  const registeredRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    () => {
+      try {
+        return window.localStorage.getItem(REGISTERED_EVENTS_KEY) || '';
+      } catch {
+        return '';
       }
+    },
+    () => ''
+  );
+
+  const registeredIds = useMemo<string[]>(() => {
+    if (!registeredRaw) return [];
+    try {
+      const parsed = JSON.parse(registeredRaw) as Record<string, string[]>;
+      const list = parsed[currentPersona.id];
+      return Array.isArray(list) ? list : [];
     } catch {
-      // Ignore storage read errors
+      return [];
     }
-  }, []);
+  }, [registeredRaw, currentPersona.id]);
 
   const showToast = (msg: string) => {
     if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
@@ -305,24 +327,16 @@ function SuKienContent({
     }, 3500);
   };
 
-  // Đóng mở modal & xử lý phím ESC
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedModalEvent(null);
-      }
-    };
-    if (selectedModalEvent) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
+  const closeEventModal = useCallback(() => {
+    setSelectedModalEvent(null);
+    if (typeof window !== 'undefined' && window.history) {
+      const url = new URL(window.location.href);
+      url.searchParams.delete('event');
+      window.history.replaceState({}, '', url.toString());
     }
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedModalEvent]);
+  }, []);
+
+  useFocusTrap(Boolean(selectedModalEvent), eventModalRef, closeEventModal);
 
   // Bộ lọc mượt mà có hiệu ứng transition êm dịu (Filter Continuity)
   const handleCriteriaChange = (newCrit: CriteriaFilter) => {
@@ -347,7 +361,7 @@ function SuKienContent({
   };
 
   const activeDropdownFilterCount = [
-    statusFilter !== 'ALL' && statusFilter !== 'OPEN_ALL',
+    statusFilter !== 'ALL',
     volunteerDaysFilter !== 'ALL',
     trainingPointsFilter !== 'ALL',
     timeSlotFilter !== 'ALL',
@@ -373,45 +387,22 @@ function SuKienContent({
     }
   };
 
-  const closeEventModal = () => {
-    setSelectedModalEvent(null);
-    if (typeof window !== 'undefined' && window.history) {
-      const url = new URL(window.location.href);
-      url.searchParams.delete('event');
-      window.history.replaceState({}, '', url.toString());
-    }
-  };
-
   const handleRegister = (id: string) => {
-    setRegisteredIds((prev) => {
-      if (prev.includes(id)) return prev;
-      const next = [...prev, id];
-      try {
-        window.localStorage.setItem(
-          'hsv_eiu_registered_events_v1',
-          JSON.stringify(next)
-        );
-      } catch {
-        // Ignore storage errors
-      }
-      return next;
-    });
-    showToast('✓ Đã ghi nhận đăng ký sự kiện và cấp mã QR Check-in!');
+    const current = getRegisteredEventIds(currentPersona.id);
+    if (!current.includes(id)) {
+      setRegisteredEventIds(currentPersona.id, [...current, id]);
+    }
+    showToast(
+      `✓ Đã ghi nhận đăng ký cho ${currentPersona.fullName} và đồng bộ mã QR về Sổ tay Hội viên!`
+    );
   };
 
   const handleCancelRegister = (id: string) => {
-    setRegisteredIds((prev) => {
-      const next = prev.filter((item) => item !== id);
-      try {
-        window.localStorage.setItem(
-          'hsv_eiu_registered_events_v1',
-          JSON.stringify(next)
-        );
-      } catch {
-        // Ignore storage errors
-      }
-      return next;
-    });
+    const current = getRegisteredEventIds(currentPersona.id);
+    setRegisteredEventIds(
+      currentPersona.id,
+      current.filter((item) => item !== id)
+    );
     showToast('Đã hủy đăng ký tham gia sự kiện.');
   };
 
@@ -476,9 +467,8 @@ function SuKienContent({
 
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
-      {/* BANNER KIẾN TRÚC EIU ĐỒNG BỘ: TIÊU ĐỀ & MÔ TẢ ĐÃ CẬP NHẬT THEO YÊU CẦU */}
+      {/* BANNER KIẾN TRÚC EIU ĐỒNG BỘ: TIÊU ĐỀ VÀ MÔ TẢ */}
       <SubpageBanner
-        kicker="ĐĂNG KÝ NGAY • QUY ĐỔI NGÀY TÌNH NGUYỆN • CẤP E-CERTIFICATE CHỐNG GIẢ MẠO"
         title="LỊCH SỰ KIỆN VÀ HOẠT ĐỘNG"
         subtitle="Tổng hợp tất cả các sự kiện sinh viên dành cho Sinh viên trường Đại học Quốc tế Miền Đông."
         breadcrumbs={[{ label: 'Sự kiện' }]}
@@ -499,7 +489,7 @@ function SuKienContent({
             </h2>
 
             <div
-              role="tablist"
+              role="group"
               aria-label="Lọc Sự kiện theo Tiêu chuẩn Sinh viên 5 Tốt"
               className="flex flex-wrap items-center justify-center gap-2 pt-1"
             >
@@ -515,10 +505,9 @@ function SuKienContent({
                   <button
                     key={pill.id}
                     type="button"
-                    role="tab"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     onClick={() => handleCriteriaChange(pill.id)}
-                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[38px] ${
+                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[44px] sm:min-h-[38px] ${
                       isSelected
                         ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs scale-[1.02]'
                         : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40 hover:scale-[1.01]'
@@ -539,16 +528,16 @@ function SuKienContent({
                 <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   id="event-search-input"
-                  name="q"
+                  name="eventSearchQuery"
                   type="text"
                   value={searchQuery}
                   onChange={(e) => {
                     setSearchQuery(e.target.value);
                     setCurrentPage(1);
                   }}
-                  placeholder="Tìm kiếm sự kiện theo tên, địa điểm..."
+                  placeholder="Tìm sự kiện..."
                   aria-label="Tìm kiếm sự kiện"
-                  className="w-full h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
+                  className="w-full h-11 sm:h-10 pl-9 pr-10 bg-white border border-slate-300 rounded text-base sm:text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:border-transparent placeholder:text-slate-500"
                 />
                 {searchQuery && (
                   <button
@@ -558,7 +547,7 @@ function SuKienContent({
                       setCurrentPage(1);
                     }}
                     aria-label="Xóa từ khóa tìm kiếm"
-                    className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
+                    className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -569,13 +558,14 @@ function SuKienContent({
                 {/* Nút lọc nhanh: Đang mở đăng ký */}
                 <button
                   type="button"
+                  aria-pressed={statusFilter === 'OPEN_ALL'}
                   onClick={() => {
                     setStatusFilter((prev) =>
                       prev === 'OPEN_ALL' ? 'ALL' : 'OPEN_ALL'
                     );
                     setCurrentPage(1);
                   }}
-                  className={`px-4 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
+                  className={`px-4 h-11 sm:h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 ${
                     statusFilter === 'OPEN_ALL'
                       ? 'bg-[#51803A] text-white shadow-xs'
                       : 'bg-slate-100 text-[#133F68] hover:bg-[#EAE3D2] border border-slate-300'
@@ -590,7 +580,7 @@ function SuKienContent({
                   type="button"
                   onClick={() => setShowMobileFilters((prev) => !prev)}
                   aria-expanded={showMobileFilters}
-                  className="sm:hidden px-3.5 h-10 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
+                  className="sm:hidden px-3.5 h-11 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>
                     Bộ lọc chi tiết
@@ -609,7 +599,7 @@ function SuKienContent({
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="px-3 h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                    className="px-3 h-11 sm:h-10 text-xs font-bold text-[#C10230] hover:bg-red-50 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
                   >
                     Đặt lại bộ lọc
                   </button>
@@ -631,19 +621,21 @@ function SuKienContent({
                   htmlFor="filter-status"
                   className="block text-[11px] font-bold text-slate-600 font-eiu-display uppercase"
                 >
-                  Trạng thái Tag:
+                  Trạng thái:
                 </label>
                 <div className="relative">
                   <select
                     id="filter-status"
-                    value={statusFilter === 'OPEN_ALL' ? 'ALL' : statusFilter}
+                    name="statusFilter"
+                    value={statusFilter}
                     onChange={(e) => {
                       setStatusFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả trạng thái</option>
+                    <option value="OPEN_ALL">Tất cả đang mở</option>
                     <option value="Chưa mở đăng ký">Chưa mở đăng ký</option>
                     <option value="Đang mở đăng ký">Đang mở đăng ký</option>
                     <option value="Còn 5 ngày">Còn 5 ngày</option>
@@ -670,12 +662,13 @@ function SuKienContent({
                 <div className="relative">
                   <select
                     id="filter-volunteer-days"
+                    name="volunteerDaysFilter"
                     value={volunteerDaysFilter}
                     onChange={(e) => {
                       setVolunteerDaysFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả số ngày</option>
                     <option value="0_1">0 – 1 ngày</option>
@@ -700,12 +693,13 @@ function SuKienContent({
                 <div className="relative">
                   <select
                     id="filter-training-points"
+                    name="trainingPointsFilter"
                     value={trainingPointsFilter}
                     onChange={(e) => {
                       setTrainingPointsFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả</option>
                     <option value="YES">Có điểm rèn luyện (+1 ĐRL)</option>
@@ -718,7 +712,7 @@ function SuKienContent({
                 </div>
               </div>
 
-              {/* 4. Thời gian tổ chức: Sáng (7h30 - 11h30), Chiều (12h30 - 4h30), Tối (4h30 - 8h30), Nhiều ngày */}
+              {/* 4. Thời gian tổ chức */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-time-slot"
@@ -729,12 +723,13 @@ function SuKienContent({
                 <div className="relative">
                   <select
                     id="filter-time-slot"
+                    name="timeSlotFilter"
                     value={timeSlotFilter}
                     onChange={(e) => {
                       setTimeSlotFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả khung giờ</option>
                     <option value="MORNING">Sáng (7h30 – 11h30)</option>
@@ -749,7 +744,7 @@ function SuKienContent({
                 </div>
               </div>
 
-              {/* 5. Địa điểm tổ chức: EIU, Thành phố Hồ Chí Minh, Khác */}
+              {/* 5. Địa điểm tổ chức */}
               <div className="space-y-1">
                 <label
                   htmlFor="filter-location-area"
@@ -760,12 +755,13 @@ function SuKienContent({
                 <div className="relative">
                   <select
                     id="filter-location-area"
+                    name="locationAreaFilter"
                     value={locationAreaFilter}
                     onChange={(e) => {
                       setLocationAreaFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả địa điểm</option>
                     <option value="EIU">
@@ -873,7 +869,9 @@ function SuKienContent({
                           <button
                             type="button"
                             onClick={() => openEventModal(ev)}
-                            aria-label={`Mở phiếu đăng ký sự kiện: ${ev.title}`}
+                            aria-label={`${ev.title} — ${
+                              isAlreadyRegistered ? 'Đã đăng ký' : meta.label
+                            }`}
                             className="text-left font-bold text-[#133F68] hover:text-[#C10230] transition-colors cursor-pointer w-full leading-snug line-clamp-2 break-words font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] rounded-xs"
                           >
                             {ev.title}
@@ -1015,21 +1013,25 @@ function SuKienContent({
         )}
 
         {/* =====================================================================
-            MODAL DIALOG: PHIẾU ĐĂNG KÝ HOẶC NHẬN GCN CHUẨN NGHIỆP VỤ
+            MODAL DIALOG: PHIẾU ĐĂNG KÝ HOẶC NHẬN GCN (CHÂN MODAL GHIM ĐÁY)
            ===================================================================== */}
         {selectedModalEvent && modalMeta && (
           <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-event-title"
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
             onClick={(e) => {
               if (e.target === e.currentTarget) closeEventModal();
             }}
           >
-            <div className="bg-white border-2 border-[#133F68] w-full max-w-2xl my-auto shadow-2xl relative overflow-hidden animate-in fade-in zoom-in-95 duration-200 motion-reduce:animate-none">
-              {/* Header Modal */}
-              <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
+            <div
+              ref={eventModalRef}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="modal-event-title"
+              tabIndex={-1}
+              className="bg-white border-2 border-[#133F68] w-full max-w-2xl max-h-[90vh] flex flex-col my-auto shadow-2xl relative overflow-hidden focus:outline-none"
+            >
+              {/* Header Modal cố định */}
+              <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556] shrink-0">
                 <div className="flex items-center gap-2.5">
                   <span className="w-2.5 h-2.5 bg-[#FCB900] rounded-full inline-block" />
                   <span className="text-xs font-bold uppercase tracking-wider font-eiu-display">
@@ -1050,24 +1052,24 @@ function SuKienContent({
                 </button>
               </div>
 
-              {/* Thân Modal */}
-              <div className="p-5 sm:p-6 space-y-5 text-xs max-h-[calc(90vh-120px)] overflow-y-auto">
+              {/* Thân Modal cuộn độc lập */}
+              <div className="p-5 sm:p-6 space-y-5 text-xs flex-1 overflow-y-auto">
                 {/* Thông tin cơ bản sự kiện & Tag trạng thái chuẩn */}
                 <div className="space-y-2 pb-3.5 border-b border-slate-200">
                   <div className="flex flex-wrap items-center gap-2">
                     <span
-                      className={`px-2.5 py-0.5 text-[10.5px] font-bold uppercase tracking-wider font-eiu-display ${modalMeta.bgClass}`}
+                      className={`px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display ${modalMeta.bgClass}`}
                     >
                       {modalMeta.label}
                     </span>
-                    <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[10.5px] font-bold uppercase font-eiu-display">
+                    <span className="px-2.5 py-0.5 bg-[#00BCFF] text-[#02294E] text-[11px] font-bold uppercase font-eiu-display">
                       {selectedModalEvent.category}
                     </span>
-                    <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[10.5px] font-bold uppercase font-eiu-display">
+                    <span className="px-2.5 py-0.5 bg-[#FCB900] text-[#02294E] text-[11px] font-bold uppercase font-eiu-display">
                       SV5T: {selectedModalEvent.sv5tCriterion}
                     </span>
                     {selectedModalEvent.hasTrainingPoints && (
-                      <span className="px-2.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[10.5px] font-bold font-eiu-serif">
+                      <span className="px-2.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold font-eiu-serif">
                         +{selectedModalEvent.trainingPoints ?? 1} Điểm rèn luyện
                       </span>
                     )}
@@ -1106,7 +1108,7 @@ function SuKienContent({
                 {/* Khối Quy đổi Ngày tình nguyện chuẩn Phụ lục 2 QĐ 09/QĐ-HSV */}
                 <div className="bg-[#F8FAFC] border border-slate-200 p-4 space-y-3">
                   <div className="font-bold text-[#133F68] uppercase tracking-wider text-[11px] font-eiu-display flex items-center justify-between">
-                    <span>Quy đổi Ngày tình nguyện (QĐ 09/QĐ-HSV)</span>
+                    <span>Quy đổi Ngày tình nguyện</span>
                     <span className="text-[#C10230] font-eiu-serif font-bold">
                       {selectedModalEvent.baseVolunteerDays.toFixed(1)} Ngày TN
                       gốc
@@ -1123,18 +1125,19 @@ function SuKienContent({
                         htmlFor="role-multiplier-select"
                         className="block font-bold text-slate-900 font-sans"
                       >
-                        Chọn vai trò tham gia (Nhân hệ số 1 – 2 – 3):
+                        Vai trò tham gia:
                       </label>
                       <div className="relative">
                         <select
                           id="role-multiplier-select"
+                          name="roleMultiplier"
                           value={roleMultiplier}
                           onChange={(e) =>
                             setRoleMultiplier(
                               Number(e.target.value) as 1 | 2 | 3
                             )
                           }
-                          className="w-full h-9.5 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-slate-900 font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                          className="w-full h-11 sm:h-9.5 pl-3 pr-8 py-0 border border-slate-300 rounded bg-white text-base sm:text-xs text-slate-900 font-semibold appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                         >
                           <option value={1}>
                             Hệ số ×1 — CTV hỗ trợ / Chiến sĩ / Sinh viên tham gia
@@ -1154,8 +1157,7 @@ function SuKienContent({
                     </div>
                   ) : (
                     <div className="p-2.5 bg-white border border-slate-200 text-slate-700 leading-relaxed font-sans">
-                      <strong>Quy đổi cố định (Hệ số ×1):</strong> Ghi nhận cố
-                      định{' '}
+                      <strong>Quy đổi cố định:</strong> Ghi nhận{' '}
                       <strong className="font-eiu-serif text-[#C10230]">
                         +{selectedModalEvent.baseVolunteerDays.toFixed(1)}{' '}
                         ngày/lần
@@ -1174,90 +1176,46 @@ function SuKienContent({
                   </div>
                 </div>
 
-                {/* Thông tin Hội viên SSO */}
+                {/* Thông tin đăng ký */}
                 <div className="border border-slate-200 p-3.5 flex items-center justify-between gap-3 bg-white">
-                  <div>
-                    <div className="text-[10px] uppercase text-slate-500 font-bold font-eiu-display tracking-wider">
-                      Tài khoản Hội viên EIU SSO (Đồng bộ tự động)
+                  <div className="min-w-0">
+                    <div className="text-[11px] uppercase text-slate-500 font-bold font-eiu-display tracking-wider">
+                      Thông tin đăng ký
                     </div>
-                    <div className="font-bold text-[#133F68] text-sm font-eiu-display mt-0.5">
+                    <div className="font-bold text-[#133F68] text-sm font-eiu-display mt-0.5 truncate">
                       {currentPersona.fullName}
                     </div>
-                    <div className="font-eiu-serif text-xs text-slate-600">
+                    <div className="font-eiu-serif text-xs text-slate-600 break-all">
                       MSSV: {currentPersona.studentId} • {currentPersona.email}
                     </div>
                   </div>
-                  <QrCode className="w-9 h-9 text-[#133F68] shrink-0" />
+                  <DeterministicQrCode
+                    value={`CHECKIN:${selectedModalEvent.id}:${currentPersona.studentId}`}
+                    size={48}
+                    label={`Mã QR điểm danh ${currentPersona.fullName}`}
+                    className="shrink-0 border border-slate-200"
+                  />
                 </div>
 
-                {/* Chú giải nhanh cho Sinh viên năm nhất & Kênh hỗ trợ VP 206.B06 */}
-                <div className="bg-[#F8FAFC] border border-slate-200 p-3 text-[11px] text-slate-600 font-sans leading-relaxed space-y-1">
-                  <div>
-                    <strong className="text-[#133F68]">Chú giải nhanh:</strong>{' '}
-                    <strong>SV5T</strong> là danh hiệu <em>Sinh viên 5 Tốt</em>;{' '}
-                    <strong>+1 ĐRL</strong> cộng vào Điểm rèn luyện học kỳ;{' '}
-                    <strong>Hệ số ×1/×2/×3</strong> nhân số ngày tình nguyện gốc
-                    theo vai trò tham gia.
-                  </div>
-                  <div>
-                    <strong className="text-[#133F68]">Hỗ trợ Hội viên:</strong>{' '}
-                    Văn phòng Hội Sinh viên EIU — <strong>Phòng 206.B06</strong>{' '}
-                    hoặc email{' '}
-                    <span className="text-[#0054A6] font-semibold">
-                      studentassociation@eiu.edu.vn
-                    </span>
+                {/* Trạng thái bổ sung nếu đã đăng ký */}
+                {modalMeta.isOpen && isModalEventRegistered && (
+                  <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 font-medium leading-relaxed font-sans">
+                    Hồ sơ của <strong>{currentPersona.fullName}</strong> đã được
+                    lưu bền vững vào danh sách điểm danh QR. Bạn có thể mở vé QR
+                    ngay tại{' '}
+                    <Link
+                      href="/portal?tab=certs"
+                      onClick={closeEventModal}
+                      className="font-bold underline text-[#0054A6] hover:text-[#C10230]"
+                    >
+                      Sổ tay Hội viên (Vé QR Check-in)
+                    </Link>
                     .
                   </div>
-                </div>
+                )}
 
-                {/* Hành động Modal tùy theo 07 Tag */}
-                {modalMeta.isOpen ? (
-                  <div className="space-y-2.5 pt-1">
-                    <div className="flex flex-col sm:flex-row gap-2">
-                      <button
-                        type="button"
-                        onClick={() => handleRegister(selectedModalEvent.id)}
-                        className={`flex-1 py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shadow-sm ${
-                          isModalEventRegistered
-                            ? 'bg-[#51803A] text-white hover:bg-[#436C2F]'
-                            : 'bg-[#0054A6] hover:bg-[#133F68] text-white'
-                        }`}
-                      >
-                        {isModalEventRegistered
-                          ? '✓ Đã ghi nhận đăng ký và Cấp mã QR Check-in'
-                          : 'Đăng ký ngay'}
-                      </button>
-
-                      {isModalEventRegistered && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleCancelRegister(selectedModalEvent.id)
-                          }
-                          className="px-4 py-3 rounded border border-slate-300 hover:border-[#C10230] text-slate-700 hover:text-[#C10230] hover:bg-red-50/50 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shrink-0"
-                        >
-                          Hủy đăng ký
-                        </button>
-                      )}
-                    </div>
-
-                    {isModalEventRegistered && (
-                      <div className="p-3 bg-emerald-50 border border-emerald-200 text-emerald-900 font-medium leading-relaxed font-sans">
-                        Hồ sơ của <strong>{currentPersona.fullName}</strong> đã
-                        được lưu bền vững vào danh sách điểm danh QR. Bạn có thể
-                        mở mã QR tại{' '}
-                        <Link
-                          href="/portal?tab=certs"
-                          className="font-bold underline text-[#0054A6] hover:text-[#C10230]"
-                        >
-                          Sổ tay Hội viên
-                        </Link>
-                        .
-                      </div>
-                    )}
-                  </div>
-                ) : modalMeta.label === 'Đã kết thúc' ? (
-                  <div className="p-4 bg-[#51803A]/10 border border-[#51803A]/30 border-t-3 border-t-[#51803A] space-y-2.5">
+                {!modalMeta.isOpen && modalMeta.label === 'Đã kết thúc' && (
+                  <div className="p-4 bg-[#51803A]/10 border border-[#51803A]/30 border-t-3 border-t-[#51803A] space-y-2">
                     <div className="font-bold text-emerald-900 flex items-center gap-1.5 uppercase font-eiu-display">
                       <CheckCircle2 className="w-4 h-4 text-[#51803A]" />
                       <span>
@@ -1269,18 +1227,10 @@ function SuKienContent({
                         ? `Đã ban hành Quyết định số ${selectedModalEvent.decisionNumber} công nhận ngày tình nguyện và cấp E-Certificate có mã QR xác thực.`
                         : 'Sự kiện đã hoàn tất. Bạn có thể tra cứu và tải Giấy chứng nhận điện tử (E-Certificate) chính thức.'}
                     </p>
-                    <Link
-                      href={`/tra-cuu-gcn?q=${encodeURIComponent(
-                        selectedModalEvent.decisionNumber ||
-                          selectedModalEvent.title
-                      )}`}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display"
-                    >
-                      <span>Tra cứu và Tải GCN điện tử</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
                   </div>
-                ) : modalMeta.label === 'Chưa mở đăng ký' ? (
+                )}
+
+                {!modalMeta.isOpen && modalMeta.label === 'Chưa mở đăng ký' && (
                   <div className="p-4 bg-slate-100 border border-slate-300 border-t-3 border-t-slate-500 space-y-1.5 font-sans">
                     <div className="font-bold text-slate-800 uppercase font-eiu-display">
                       Chương trình chưa mở cổng đăng ký
@@ -1291,7 +1241,9 @@ function SuKienContent({
                       từ Ban Tổ chức.
                     </p>
                   </div>
-                ) : modalMeta.label === 'Đã đóng đăng ký' ? (
+                )}
+
+                {!modalMeta.isOpen && modalMeta.label === 'Đã đóng đăng ký' && (
                   <div className="p-4 bg-amber-50 border border-amber-300 border-t-3 border-t-[#EEB31D] space-y-1.5 font-sans">
                     <div className="font-bold text-amber-900 uppercase font-eiu-display">
                       Đã đóng cổng đăng ký tham gia
@@ -1301,7 +1253,9 @@ function SuKienContent({
                       chức và lập danh sách điểm danh mã QR.
                     </p>
                   </div>
-                ) : (
+                )}
+
+                {!modalMeta.isOpen && modalMeta.label === 'Đang diễn ra' && (
                   <div className="p-4 bg-blue-50 border border-blue-300 border-t-3 border-t-[#0054A6] space-y-1.5 font-sans">
                     <div className="font-bold text-[#0054A6] uppercase font-eiu-display">
                       Sự kiện đang diễn ra
@@ -1311,6 +1265,70 @@ function SuKienContent({
                       viên tham gia vui lòng mở mã QR trên Sổ tay Hội viên để
                       quét điểm danh Check-in/Check-out tại cửa.
                     </p>
+                  </div>
+                )}
+              </div>
+
+              {/* Chân Modal ghim cố định ở đáy (giúp bấm ngay trên Mobile 390px) */}
+              <div className="p-4 sm:px-6 border-t border-slate-200 bg-white shrink-0">
+                {modalMeta.isOpen ? (
+                  <div className="flex flex-col sm:flex-row gap-2">
+                    <button
+                      type="button"
+                      onClick={() => handleRegister(selectedModalEvent.id)}
+                      className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shadow-sm ${
+                        isModalEventRegistered
+                          ? 'bg-[#51803A] text-white hover:bg-[#436C2F]'
+                          : 'bg-[#0054A6] hover:bg-[#133F68] text-white'
+                      }`}
+                    >
+                      {isModalEventRegistered
+                        ? '✓ Đã ghi nhận đăng ký và Cấp mã QR Check-in'
+                        : 'Đăng ký ngay'}
+                    </button>
+
+                    {isModalEventRegistered && (
+                      <button
+                        type="button"
+                        onClick={() =>
+                          handleCancelRegister(selectedModalEvent.id)
+                        }
+                        className="px-4 py-3 border border-slate-300 hover:border-[#C10230] text-slate-700 hover:text-[#C10230] hover:bg-red-50/50 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer font-eiu-display min-h-[44px] shrink-0"
+                      >
+                        Hủy đăng ký
+                      </button>
+                    )}
+                  </div>
+                ) : modalMeta.label === 'Đã kết thúc' ? (
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <Link
+                      href={`/tra-cuu-gcn?q=${encodeURIComponent(
+                        selectedModalEvent.decisionNumber ||
+                          selectedModalEvent.title
+                      )}`}
+                      onClick={closeEventModal}
+                      className="min-h-[44px] inline-flex items-center gap-1.5 px-5 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display"
+                    >
+                      <span>Tra cứu và Tải GCN điện tử</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                    <button
+                      type="button"
+                      onClick={closeEventModal}
+                      className="min-h-[44px] px-4 py-2 border border-slate-300 text-slate-700 hover:bg-slate-50 text-xs font-bold uppercase font-eiu-display cursor-pointer"
+                    >
+                      Đóng
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-end">
+                    <button
+                      type="button"
+                      onClick={closeEventModal}
+                      className="min-h-[44px] px-5 py-2 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                    >
+                      Đóng cửa sổ
+                    </button>
                   </div>
                 )}
               </div>

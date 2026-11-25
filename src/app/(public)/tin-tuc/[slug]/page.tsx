@@ -1,7 +1,8 @@
 'use client';
 
-import React, { Suspense, use } from 'react';
+import React, { Suspense, use, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import { NEWS_POSTS, OFFICIAL_DOCUMENTS } from '@/data/mock-data';
 import {
@@ -31,6 +32,7 @@ function TinTucDetailInner({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = use(params);
+  const [coverFailed, setCoverFailed] = useState(false);
   const article = NEWS_POSTS.find((p) => p.slug === slug);
 
   if (!article) {
@@ -45,7 +47,7 @@ function TinTucDetailInner({
           </p>
           <Link
             href="/tin-tuc"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider min-h-[44px]"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Quay lại Chuyên trang Tin tức</span>
@@ -61,16 +63,25 @@ function TinTucDetailInner({
       )
     : undefined;
 
+  const targetCategoryFilter =
+    article.category === 'SINH_VIEN_5_TOT'
+      ? 'SINH_VIEN_5_TOT'
+      : article.newsLevel === 'CO_SO_HOI'
+      ? 'CO_SO_HOI'
+      : 'CAP_TRUONG';
+
   const relatedPosts = NEWS_POSTS.filter((p) => p.id !== article.id).slice(0, 4);
 
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker={article.categoryLabel}
         title={article.title}
         breadcrumbs={[
           { label: 'Tin tức', href: '/tin-tuc' },
-          { label: article.categoryLabel, href: `/tin-tuc?category=${article.category}` },
+          {
+            label: article.categoryLabel,
+            href: `/tin-tuc?category=${encodeURIComponent(targetCategoryFilter)}`,
+          },
           { label: 'Chi tiết bài viết' },
         ]}
       />
@@ -79,6 +90,21 @@ function TinTucDetailInner({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* CỘT TRÁI (8/12): Khung Đọc Bài Chuẩn Học Thuật EIU */}
           <article className="lg:col-span-8 bg-white border border-slate-200 p-6 sm:p-9 space-y-6">
+            {/* Ảnh bìa bài viết (nếu có) dùng object-top bảo toàn chân dung */}
+            {article.imageUrl && !coverFailed && (
+              <div className="relative w-full h-56 sm:h-72 bg-[#02294E] border border-slate-200 overflow-hidden">
+                <Image
+                  src={article.imageUrl}
+                  alt={article.title}
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 760px"
+                  onError={() => setCoverFailed(true)}
+                  className="object-cover object-top"
+                />
+              </div>
+            )}
+
             {/* Thanh Metadata bài viết */}
             <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-slate-200 text-xs">
               <div className="flex flex-wrap items-center gap-2.5">
@@ -90,7 +116,7 @@ function TinTucDetailInner({
                 </span>
               </div>
 
-              <div className="flex items-center gap-4 text-slate-500 font-eiu-serif">
+              <div className="flex items-center gap-4 text-slate-600 font-eiu-serif">
                 <time
                   dateTime={article.publishedAt}
                   className="inline-flex items-center gap-1 text-[#8E6D3E] font-semibold"
@@ -110,7 +136,7 @@ function TinTucDetailInner({
             </div>
 
             {/* Sapo / Tóm tắt mở đầu */}
-            <p className="text-[15.5px] font-semibold text-slate-900 leading-relaxed">
+            <p className="text-[15.5px] font-semibold text-slate-900 leading-relaxed max-w-prose">
               {article.summary}
             </p>
 
@@ -128,7 +154,9 @@ function TinTucDetailInner({
                     {sec.heading}
                   </h2>
                   {sec.paragraphs.map((para, i) => (
-                    <p key={i}>{para}</p>
+                    <p key={i} className="max-w-prose">
+                      {para}
+                    </p>
                   ))}
                   {sec.bullets && sec.bullets.length > 0 && (
                     <ul className="bg-[#F8FAFC] border border-slate-200 p-4 sm:p-5 space-y-2.5">
@@ -147,11 +175,11 @@ function TinTucDetailInner({
               ))}
             </div>
 
-            {/* Chân bài viết: Điều hướng quay lại & Chia sẻ */}
+            {/* Chân bài viết */}
             <div className="pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3">
               <Link
                 href="/tin-tuc"
-                className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display"
+                className="min-h-[44px] inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display"
               >
                 <ArrowLeft className="w-4 h-4" />
                 <span>QUAY LẠI DANH SÁCH TIN TỨC</span>
@@ -160,7 +188,7 @@ function TinTucDetailInner({
               <div className="flex items-center gap-2">
                 <Link
                   href="/su-kien"
-                  className="px-4 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded transition-colors font-eiu-display"
+                  className="min-h-[44px] inline-flex items-center px-4 py-2 bg-[#0054A6] hover:bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded transition-colors font-eiu-display"
                 >
                   Đăng ký Sự kiện liên quan
                 </Link>
@@ -196,7 +224,7 @@ function TinTucDetailInner({
                   <div className="pt-2 flex flex-wrap gap-2">
                     <Link
                       href={`/van-ban?doc=${encodeURIComponent(relatedDoc.documentNumber)}`}
-                      className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#133F68] text-white font-bold uppercase tracking-wider hover:bg-[#0054A6]"
+                      className="min-h-[38px] inline-flex items-center gap-1 px-3 py-1.5 bg-[#133F68] text-white font-bold uppercase tracking-wider hover:bg-[#0054A6]"
                     >
                       <QrCode className="w-3.5 h-3.5" />
                       <span>Xem Văn bản</span>
@@ -204,9 +232,9 @@ function TinTucDetailInner({
                     {relatedDoc.documentNumber === '32/QĐ-HSV' && (
                       <Link
                         href="/tra-cuu-gcn?q=32/QĐ-HSV"
-                        className="inline-flex items-center gap-1 px-3 py-1.5 bg-[#A68556] text-white font-bold uppercase tracking-wider"
+                        className="min-h-[38px] inline-flex items-center gap-1 px-3 py-1.5 bg-[#8E6D3E] hover:bg-[#78592B] text-white font-bold uppercase tracking-wider"
                       >
-                        <span>Tra cứu Phụ lục 1</span>
+                        <span>Tra cứu GCN</span>
                       </Link>
                     )}
                   </div>
@@ -214,18 +242,18 @@ function TinTucDetailInner({
               </div>
             )}
 
-            {/* Hộp Đỏ Đô #C10230 Hành động Nhanh chuẩn lib.eiu.edu.vn */}
+            {/* Hộp Đỏ Đô #C10230 Hành động Nhanh (Fix WCAG AA contrast + xóa backtick markdown) */}
             <div className="bg-[#C10230] text-white p-6 space-y-3">
               <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
               <h3 className="text-base font-bold font-eiu-display">
                 Sổ tay Hội viên và SV5T Số
               </h3>
-              <p className="text-[13px] text-white/92 leading-relaxed">
-                Đăng nhập bằng tài khoản `@eiu.edu.vn` để tự động tính GPA Quý EIU, làm bài thi Online Quiz và theo dõi E-Certificate cá nhân.
+              <p className="text-[13px] text-white/95 leading-relaxed">
+                Đăng nhập bằng tài khoản Google Workspace trường (eiu.edu.vn) để tự động tính GPA Quý EIU, làm bài thi Online Quiz và theo dõi E-Certificate cá nhân.
               </p>
               <Link
                 href="/portal"
-                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-[#FCB900] hover:underline font-eiu-display pt-1"
+                className="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-white underline underline-offset-4 hover:text-[#EAE3D2] font-eiu-display pt-1"
               >
                 <span>MỞ SỔ TAY HỘI VIÊN</span>
                 <ChevronRight className="w-3.5 h-3.5" />

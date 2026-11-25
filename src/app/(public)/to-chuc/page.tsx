@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
@@ -14,7 +14,6 @@ import {
   CheckCircle2,
   ChevronRight,
   ExternalLink,
-  Filter,
   MapPin,
   Search,
   Sparkles,
@@ -59,7 +58,7 @@ const MENU_ITEMS: MenuItemMeta[] = [
     group: 'CLUBS',
     label: 'Khối Cộng đồng và Tình nguyện',
     count: 7,
-    heading: 'KHỐI CÂU LẠC BỘ – ĐỘI CỘNG ĐỒNG và TÌNH NGUYỆN (07 ĐƠN VỊ)',
+    heading: 'KHỐI CÂU LẠC BỘ – ĐỘI CỘNG ĐỒNG VÀ TÌNH NGUYỆN (07 ĐƠN VỊ)',
     subtitle:
       'Nòng cốt phong trào Sinh viên 5 Tốt, xung kích sự kiện, hiến máu nhân đạo, sơ cấp cứu và công tác xã hội.',
   },
@@ -77,7 +76,7 @@ const MENU_ITEMS: MenuItemMeta[] = [
     group: 'CLUBS',
     label: 'Khối Văn hóa – Nghệ thuật',
     count: 10,
-    heading: 'KHỐI CÂU LẠC BỘ – NHÓM VĂN HÓA và NGHỆ THUẬT (10 ĐƠN VỊ)',
+    heading: 'KHỐI CÂU LẠC BỘ – NHÓM VĂN HÓA VÀ NGHỆ THUẬT (10 ĐƠN VỊ)',
     subtitle:
       'Âm nhạc, vũ đạo, dẫn chương trình (MC), nhiếp ảnh, cổ động và giao lưu văn hóa quốc tế tại EIU.',
   },
@@ -88,7 +87,7 @@ const MENU_ITEMS: MenuItemMeta[] = [
     count: 7,
     heading: 'KHỐI CÂU LẠC BỘ THỂ DỤC – THỂ THAO SINH VIÊN (07 ĐƠN VỊ)',
     subtitle:
-      'Rèn luyện thể chất định kỳ, kiểm tra chuẩn Sinh viên Khỏe (Phụ lục 1) và tuyển chọn đội tuyển thể thao EIU.',
+      'Rèn luyện thể chất định kỳ, kiểm tra chuẩn Sinh viên Khỏe và tuyển chọn đội tuyển thể thao EIU.',
   },
   {
     id: 'BRANCHES_ALL',
@@ -161,10 +160,43 @@ function ToChucContent({
   initialMenu: UnitMenuTab;
   initialQuery: string;
 }) {
-  const [activeMenu, setActiveMenu] = useState<UnitMenuTab>(initialMenu);
+  const [activeMenu, setActiveMenuState] = useState<UnitMenuTab>(initialMenu);
   const [search, setSearch] = useState(initialQuery);
   const [onlyRecruiting, setOnlyRecruiting] = useState(false);
   const [cohortFilter, setCohortFilter] = useState<CohortFilter>('ALL');
+  const contentTopRef = useRef<HTMLDivElement>(null);
+
+  const setActiveMenu = useCallback(
+    (menu: UnitMenuTab, scrollMobile = false) => {
+      setActiveMenuState(menu);
+      if (typeof window !== 'undefined' && window.history) {
+        const url = new URL(window.location.href);
+        if (menu.startsWith('BRANCHES_')) {
+          url.searchParams.set('tab', 'branches');
+          url.searchParams.delete('category');
+          const fac = menu.replace('BRANCHES_', '');
+          if (fac === 'ALL') {
+            url.searchParams.delete('faculty');
+          } else {
+            url.searchParams.set('faculty', fac);
+          }
+        } else {
+          url.searchParams.set('tab', 'clubs');
+          url.searchParams.delete('faculty');
+          if (menu === 'ALL_CLUBS') {
+            url.searchParams.delete('category');
+          } else {
+            url.searchParams.set('category', menu);
+          }
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
+      if (scrollMobile && typeof window !== 'undefined' && window.innerWidth < 1024) {
+        contentTopRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    },
+    []
+  );
 
   const currentMenuMeta =
     MENU_ITEMS.find((m) => m.id === activeMenu) || MENU_ITEMS[0];
@@ -211,7 +243,6 @@ function ToChucContent({
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker="BAN TỔ CHỨC VÀ XÂY DỰNG HỘI — 55 CƠ SỞ HỘI TRỰC THUỘC"
         title="Hệ thống 25 Chi hội và 30 Câu lạc bộ – Đội – Nhóm"
         subtitle="Mạng lưới cơ sở Hội trải rộng trên 04 Cụm Khoa (Khóa K21 – K26) và 04 Khối Câu lạc bộ học thuật, nghệ thuật, thể thao, tình nguyện"
         breadcrumbs={[
@@ -220,12 +251,38 @@ function ToChucContent({
         ]}
       />
 
-      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-9">
+      <div className="max-w-[1140px] mx-auto px-4 sm:px-6 pt-6 lg:pt-9">
+        {/* Thanh tab ngang gọn cho Mobile / Tablet (< 1024px) */}
+        <div
+          role="group"
+          aria-label="Chọn khối Câu lạc bộ hoặc Cụm Chi hội"
+          className="lg:hidden flex items-center gap-2 overflow-x-auto pb-3 mb-4 -mx-1 px-1"
+        >
+          {MENU_ITEMS.map((item) => {
+            const isSelected = activeMenu === item.id;
+            return (
+              <button
+                key={`mob-${item.id}`}
+                type="button"
+                aria-current={isSelected ? 'page' : undefined}
+                onClick={() => setActiveMenu(item.id, true)}
+                className={`min-h-[44px] px-3.5 py-2 text-xs font-bold whitespace-nowrap shrink-0 border transition-colors cursor-pointer font-eiu-display ${
+                  isSelected
+                    ? 'bg-[#C10230] text-white border-[#C10230]'
+                    : 'bg-[#EAE3D2] text-[#133F68] border-slate-300'
+                }`}
+              >
+                {item.label} ({String(item.count).padStart(2, '0')})
+              </button>
+            );
+          })}
+        </div>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* CỘT TRÁI (3/12): Menu dọc chia 02 khối rõ ràng */}
+          {/* CỘT TRÁI (3/12): Menu dọc Desktop chia 02 khối rõ ràng */}
           <aside
             aria-label="Phân loại Chi hội và Câu lạc bộ"
-            className="lg:col-span-3 space-y-5"
+            className="hidden lg:block lg:col-span-3 space-y-5"
           >
             {/* Khối 1: 30 CLB - Đội - Nhóm */}
             <div className="bg-white border border-slate-200">
@@ -249,7 +306,7 @@ function ToChucContent({
                     >
                       <span>{item.label}</span>
                       <span
-                        className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
+                        className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                           isSelected
                             ? 'bg-white/20 text-white'
                             : 'bg-white/80 text-[#133F68]'
@@ -285,7 +342,7 @@ function ToChucContent({
                     >
                       <span>{item.label}</span>
                       <span
-                        className={`text-[10px] font-eiu-serif px-1.5 py-0.5 font-bold ${
+                        className={`text-[11px] font-eiu-serif px-1.5 py-0.5 font-bold ${
                           isSelected
                             ? 'bg-white/20 text-white'
                             : 'bg-white/80 text-[#133F68]'
@@ -298,30 +355,18 @@ function ToChucContent({
                 })}
               </div>
             </div>
-
-            {/* Hộp Phụ trách Cụm */}
-            <div className="bg-[#C10230] text-white p-5 space-y-2">
-              <div className="w-8 h-0.5 bg-white" aria-hidden="true" />
-              <div className="text-sm font-bold font-eiu-display">
-                {isBranchView
-                  ? 'Chỉ tiêu Tập thể SV5T'
-                  : 'Điều phối Cụm 30 CLB'}
-              </div>
-              <p className="text-xs text-white/92 leading-relaxed">
-                {isBranchView
-                  ? 'Theo QĐ 09/QĐ-HSV (2026): 100% hội viên đăng ký phấn đấu, ít nhất 30% hội viên đạt SV5T cấp Trường và 0% vi phạm kỷ luật.'
-                  : 'Phó Ban TC-XDH phụ trách Cụm CLB/Đội/Nhóm: Đ/c Nguyễn Mỹ Hạnh (Chánh Văn phòng HSV). Mỗi đơn vị có BCN gồm 05 đồng chí.'}
-              </p>
-            </div>
           </aside>
 
-          {/* CỘT PHẢI (9/12): Danh mục Đơn vị & Bộ lọc thông minh */}
-          <div className="lg:col-span-9 space-y-5">
+          {/* CỘT PHẢI (9/12): Danh mục Đơn vị và Bộ lọc thông minh */}
+          <div
+            ref={contentTopRef}
+            className="lg:col-span-9 space-y-5 scroll-mt-24"
+          >
             {/* Header & Thanh tìm kiếm */}
             <div className="bg-white border border-slate-200 border-t-2 border-t-[#133F68] p-5 space-y-4">
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
-                  <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display">
+                  <h2 className="text-lg sm:text-xl font-bold uppercase tracking-wide text-[#133F68] font-eiu-display text-balance">
                     {currentMenuMeta.heading}
                   </h2>
                   <p className="text-[13.5px] text-slate-600 mt-1 leading-relaxed">
@@ -332,39 +377,26 @@ function ToChucContent({
                 <div className="relative w-full md:w-64 shrink-0">
                   <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
+                    id="org-search-input"
+                    name="orgSearchQuery"
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
-                    placeholder={
-                      isBranchView
-                        ? 'Tìm mã Chi hội, Cụm trưởng...'
-                        : 'Tìm tên CLB, mã, Chủ nhiệm...'
-                    }
+                    placeholder="Tìm đơn vị..."
                     aria-label="Tìm kiếm đơn vị"
-                    className="w-full h-9 pl-9 pr-3 bg-white border border-slate-300 rounded text-xs text-slate-900"
+                    className="w-full h-11 sm:h-9 pl-9 pr-3 bg-white border border-slate-300 rounded text-base sm:text-xs text-slate-900"
                   />
                 </div>
               </div>
 
               {/* Thanh lọc phụ tùy theo chế độ CLB hoặc Chi hội */}
               {!isBranchView ? (
-                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
-                  <div className="flex items-center gap-2 text-slate-600">
-                    <Filter className="w-3.5 h-3.5 text-[#0054A6]" />
-                    <span>
-                      Hiển thị{' '}
-                      <strong className="font-eiu-serif text-[#133F68]">
-                        {filteredClubs.length}
-                      </strong>{' '}
-                      đơn vị
-                    </span>
-                  </div>
-
+                <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-end gap-3 text-xs">
                   <button
                     type="button"
                     onClick={() => setOnlyRecruiting(!onlyRecruiting)}
                     aria-pressed={onlyRecruiting}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
+                    className={`min-h-[44px] sm:min-h-[34px] px-3.5 py-1.5 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
                       onlyRecruiting
                         ? 'bg-[#C10230] text-white border-[#C10230]'
                         : 'bg-[#F5F5F5] text-[#133F68] border-slate-300 hover:border-[#133F68]'
@@ -386,8 +418,9 @@ function ToChucContent({
                       <button
                         key={String(pill.id)}
                         type="button"
+                        aria-pressed={active}
                         onClick={() => setCohortFilter(pill.id)}
-                        className={`px-3 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
+                        className={`min-h-[44px] sm:min-h-[32px] px-3 py-1 rounded-full text-xs font-bold border transition-colors cursor-pointer font-eiu-display ${
                           active
                             ? 'bg-[#C10230] text-white border-[#C10230]'
                             : 'bg-[#F5F5F5] text-[#133F68] border-slate-300 hover:border-[#133F68]'
@@ -440,7 +473,7 @@ function ToChucContent({
                         >
                           <div className="flex items-center justify-between gap-1.5">
                             <span
-                              className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider font-eiu-display ${
+                              className={`px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider font-eiu-display ${
                                 club.isCoreUnionUnit
                                   ? 'bg-[#FCB900] text-[#02294E]'
                                   : 'bg-[#00BCFF] text-[#02294E]'
@@ -452,10 +485,10 @@ function ToChucContent({
                             </span>
 
                             <span
-                              className={`px-1.5 py-0.5 text-[9.5px] font-eiu-serif font-bold uppercase ${
+                              className={`px-2 py-0.5 text-[11px] font-eiu-serif font-bold uppercase whitespace-nowrap shrink-0 ${
                                 club.recruitmentOpen
                                   ? 'bg-emerald-500/25 text-emerald-100 border border-emerald-300/40'
-                                  : 'bg-black/25 text-white/75'
+                                  : 'bg-black/25 text-white/80'
                               }`}
                             >
                               {club.recruitmentOpen
@@ -568,14 +601,14 @@ function ToChucContent({
                 )}
 
                 <div className="bg-white border border-slate-300 overflow-x-auto">
-                  <table className="eiu-table">
+                  <table className="eiu-table min-w-[720px]">
                     <thead>
                       <tr>
                         <th className="w-12 text-center">TT</th>
                         <th className="w-28">Mã Chi hội</th>
                         <th>Cụm Khoa và Khóa tuyển sinh</th>
                         <th>Cụm trưởng / Chi hội trưởng</th>
-                        <th className="w-56">Tiến độ Tập thể SV5T (≥ 30%)</th>
+                        <th className="w-56">Tiến độ Tập thể SV5T</th>
                         <th className="w-24 text-right">Hồ sơ</th>
                       </tr>
                     </thead>
@@ -654,7 +687,7 @@ function ToChucContent({
                                   />
                                 </div>
                                 {isQualified && (
-                                  <div className="inline-flex items-center gap-1 text-[10.5px] font-bold text-emerald-700">
+                                  <div className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-700">
                                     <CheckCircle2 className="w-3 h-3" />
                                     <span>Đạt chuẩn Tập thể SV5T</span>
                                   </div>

@@ -1,9 +1,10 @@
 'use client';
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, { Suspense, useCallback, useRef, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { SubpageBanner } from '@/components/public/subpage-banner';
 import { OFFICIAL_DOCUMENTS } from '@/data/mock-data';
+import { useFocusTrap } from '@/hooks/use-focus-trap';
 import {
   DocFieldCategory,
   DocIssuingUnitCategory,
@@ -97,7 +98,7 @@ function formatDateInputMasked(raw: string): string {
 function formatSignedDateParts(dateStr: string): string {
   const m = dateStr.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
   if (!m) return dateStr;
-  return `Bình Dương, ngày ${m[1]} tháng ${m[2]} năm ${m[3]}`;
+  return `Thành phố Hồ Chí Minh, ngày ${m[1]} tháng ${m[2]} năm ${m[3]}`;
 }
 
 function escapeHtml(val: string): string {
@@ -222,20 +223,10 @@ function VanBanContent({
   const [selectedDoc, setSelectedDoc] = useState<OfficialDocumentItem | null>(
     initialSelectedDoc
   );
+  const docModalRef = useRef<HTMLDivElement>(null);
+  const closeDocModal = useCallback(() => setSelectedDoc(null), []);
 
-  // ESC key + lock scroll while modal is open
-  useEffect(() => {
-    if (!selectedDoc) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedDoc(null);
-    };
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', onKeyDown);
-    };
-  }, [selectedDoc]);
+  useFocusTrap(Boolean(selectedDoc), docModalRef, closeDocModal);
 
   const fromTimestamp = parseDdMmYyyy(fromDateStr);
   const toTimestamp = parseDdMmYyyy(toDateStr);
@@ -353,7 +344,6 @@ function VanBanContent({
   return (
     <div className="bg-[#F5F5F5] min-h-screen pb-16">
       <SubpageBanner
-        kicker="VĂN PHÒNG HỘI SINH VIÊN (PHÒNG 206.B06) — VĂN THƯ VÀ LƯU TRỮ SỐ"
         title="VĂN BẢN HỘI SINH VIÊN"
         subtitle="Tra cứu Quyết định, Kế hoạch, Thông báo, Công văn, Tờ trình, Báo cáo, Biên bản và Hướng dẫn chính thức của Hội Sinh viên Trường Đại học Quốc tế Miền Đông."
         breadcrumbs={[{ label: 'Văn bản Hội Sinh viên' }]}
@@ -369,7 +359,7 @@ function VanBanContent({
         <section className="space-y-4">
           {/* Hàng 1: Pills 09 Thể loại + Tất cả */}
           <div
-            role="tablist"
+            role="group"
             aria-label="Lọc văn bản theo thể loại"
             className="flex flex-wrap items-center justify-center gap-2"
           >
@@ -385,13 +375,12 @@ function VanBanContent({
                 <button
                   key={pill.id}
                   type="button"
-                  role="tab"
-                  aria-selected={active}
+                  aria-pressed={active}
                   onClick={() => {
                     setDocTypeFilter(pill.id);
                     setCurrentPage(1);
                   }}
-                  className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
+                  className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display min-h-[44px] sm:min-h-[38px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 ${
                     active
                       ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs'
                       : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40'
@@ -425,8 +414,8 @@ function VanBanContent({
                       setSearch(e.target.value);
                       setCurrentPage(1);
                     }}
-                    placeholder="Nhập số kí hiệu (09/QĐ-HSV), trích yếu, nội dung..."
-                    className="w-full h-9.5 pl-9 pr-10 bg-white border border-slate-300 rounded text-xs sm:text-sm text-slate-900 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    placeholder="Tìm số hiệu hoặc trích yếu..."
+                    className="w-full h-11 sm:h-9.5 pl-9 pr-10 bg-white border border-slate-300 rounded text-base sm:text-sm text-slate-900 placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   />
                   {search && (
                     <button
@@ -436,7 +425,7 @@ function VanBanContent({
                         setCurrentPage(1);
                       }}
                       aria-label="Xóa từ khóa tìm kiếm"
-                      className="absolute right-1.5 top-1/2 -translate-y-1/2 w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
+                      className="absolute right-1 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center text-slate-500 hover:text-slate-700 cursor-pointer"
                     >
                       <X className="w-4 h-4" />
                     </button>
@@ -473,7 +462,7 @@ function VanBanContent({
                         placeholder="dd/mm/yyyy"
                         aria-label="Thời gian ban hành từ ngày"
                         aria-invalid={isFromInvalid || isRangeReversed}
-                        className={`w-36 h-9.5 pl-8 pr-2.5 bg-white border rounded text-xs text-slate-900 font-sans tabular-nums placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 ${
+                        className={`w-36 h-11 sm:h-9.5 pl-8 pr-2.5 bg-white border rounded text-base sm:text-xs text-slate-900 font-sans tabular-nums placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 ${
                           isFromInvalid || isRangeReversed
                             ? 'border-[#C10230] focus-visible:ring-[#C10230]'
                             : 'border-slate-300 focus-visible:ring-[#133F68]'
@@ -505,7 +494,7 @@ function VanBanContent({
                         placeholder="dd/mm/yyyy"
                         aria-label="Thời gian ban hành đến ngày"
                         aria-invalid={isToInvalid || isRangeReversed}
-                        className={`w-36 h-9.5 pl-8 pr-2.5 bg-white border rounded text-xs text-slate-900 font-sans tabular-nums placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 ${
+                        className={`w-36 h-11 sm:h-9.5 pl-8 pr-2.5 bg-white border rounded text-base sm:text-xs text-slate-900 font-sans tabular-nums placeholder:text-slate-500 focus-visible:outline-none focus-visible:ring-2 ${
                           isToInvalid || isRangeReversed
                             ? 'border-[#C10230] focus-visible:ring-[#C10230]'
                             : 'border-slate-300 focus-visible:ring-[#133F68]'
@@ -521,7 +510,7 @@ function VanBanContent({
                   type="button"
                   onClick={() => setShowMobileFilters((prev) => !prev)}
                   aria-expanded={showMobileFilters}
-                  className="sm:hidden px-3.5 h-9.5 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
+                  className="sm:hidden px-3.5 h-11 rounded text-xs font-bold uppercase tracking-wider font-eiu-display border border-slate-300 bg-white text-[#133F68] inline-flex items-center gap-1.5 cursor-pointer"
                 >
                   <span>
                     Bộ lọc chi tiết
@@ -540,7 +529,7 @@ function VanBanContent({
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="px-3.5 h-9.5 text-xs font-bold text-[#C10230] hover:bg-red-50 border border-red-200 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
+                    className="px-3.5 h-11 sm:h-9.5 text-xs font-bold text-[#C10230] hover:bg-red-50 border border-red-200 rounded transition-colors font-eiu-display cursor-pointer shrink-0"
                   >
                     Đặt lại bộ lọc
                   </button>
@@ -576,12 +565,13 @@ function VanBanContent({
                 <div className="relative">
                   <select
                     id="doc-filter-field"
+                    name="docFieldFilter"
                     value={fieldFilter}
                     onChange={(e) => {
                       setFieldFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     {FIELD_OPTIONS.map((f) => (
                       <option key={f} value={f}>
@@ -607,12 +597,13 @@ function VanBanContent({
                 <div className="relative">
                   <select
                     id="doc-filter-status"
+                    name="docStatusFilter"
                     value={statusFilter}
                     onChange={(e) => {
                       setStatusFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả tình trạng</option>
                     <option value="Còn hiệu lực">Còn hiệu lực</option>
@@ -636,12 +627,13 @@ function VanBanContent({
                 <div className="relative">
                   <select
                     id="doc-filter-signer"
+                    name="docSignerFilter"
                     value={signerFilter}
                     onChange={(e) => {
                       setSignerFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     <option value="ALL">Tất cả người ký</option>
                     {NAMED_SIGNERS.map((s) => (
@@ -669,12 +661,13 @@ function VanBanContent({
                 <div className="relative">
                   <select
                     id="doc-filter-unit"
+                    name="docUnitFilter"
                     value={unitFilter}
                     onChange={(e) => {
                       setUnitFilter(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
+                    className="w-full h-11 sm:h-9 pl-2.5 pr-8 py-0 bg-white border border-slate-300 rounded text-base sm:text-xs font-semibold text-[#133F68] appearance-none leading-normal cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68]"
                   >
                     {ISSUING_UNIT_OPTIONS.map((u) => (
                       <option key={u} value={u}>
@@ -693,7 +686,7 @@ function VanBanContent({
         </section>
 
         {/* =====================================================================
-            DANH SÁCH VĂN BẢN (5 CỘT: STT, SỐ KÍ HIỆU, NGÀY BAN HÀNH, TRÍCH YẾU, FILE ĐÍNH KÈM)
+            DANH SÁCH VĂN BẢN (CARD LIST TRÊN MOBILE <768PX, BẢNG 5 CỘT TRÊN DESKTOP)
            ===================================================================== */}
         <section className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2">
@@ -717,19 +710,98 @@ function VanBanContent({
               <button
                 type="button"
                 onClick={handleResetFilters}
-                className="px-5 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors cursor-pointer font-eiu-display min-h-[38px]"
+                className="min-h-[44px] sm:min-h-[38px] px-5 py-2.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider rounded-full transition-colors cursor-pointer font-eiu-display"
               >
                 Xem toàn bộ {OFFICIAL_DOCUMENTS.length} văn bản
               </button>
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="bg-white border border-slate-300 overflow-x-auto shadow-2xs">
-                <table className="eiu-table">
+              {/* Mobile Card List (< 768px) cho trải nghiệm đọc mượt trên 390px */}
+              <div className="md:hidden space-y-3">
+                {paginatedDocs.map((doc, idx) => {
+                  const rowNum = (safePage - 1) * DOCS_PER_PAGE + idx + 1;
+                  return (
+                    <article
+                      key={`mob-${doc.id}`}
+                      className="bg-white border border-slate-300 border-t-3 border-t-[#133F68] p-4 space-y-3 shadow-2xs"
+                    >
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <span className="font-eiu-serif text-xs font-bold text-slate-500 tabular-nums">
+                            #{String(rowNum).padStart(2, '0')}
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => setSelectedDoc(doc)}
+                            className="font-eiu-serif font-bold text-sm text-[#133F68] hover:text-[#C10230] underline underline-offset-2 text-left cursor-pointer"
+                          >
+                            {doc.documentNumber}
+                          </button>
+                          <span className="px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold font-eiu-display">
+                            {doc.docType}
+                          </span>
+                        </div>
+                        <span className="font-eiu-serif text-xs text-slate-600 tabular-nums">
+                          {doc.signedDate}
+                        </span>
+                      </div>
+
+                      <h3 className="text-sm font-bold leading-snug font-eiu-display">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedDoc(doc)}
+                          className="text-left text-[#133F68] hover:text-[#C10230] cursor-pointer"
+                        >
+                          {doc.title}
+                        </button>
+                      </h3>
+
+                      <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[11px] font-sans text-slate-600">
+                        <span>{doc.field}</span>
+                        <span aria-hidden="true">•</span>
+                        <span
+                          className={`font-semibold ${
+                            doc.status === 'Còn hiệu lực'
+                              ? 'text-[#51803A]'
+                              : 'text-slate-500'
+                          }`}
+                        >
+                          {doc.status}
+                        </span>
+                        <span aria-hidden="true">•</span>
+                        <span>Người ký: {doc.signerName}</span>
+                      </div>
+
+                      <div className="pt-2 border-t border-slate-100 flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedDoc(doc)}
+                          className="flex-1 min-h-[44px] px-3 py-2 bg-[#F8FAFC] hover:bg-[#EAE3D2] border border-slate-300 text-[#133F68] text-xs font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                        >
+                          Xem chi tiết
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => downloadDocumentFile(doc)}
+                          className="flex-1 min-h-[44px] px-3 py-2 bg-[#133F68] hover:bg-[#0054A6] text-white text-xs font-bold uppercase tracking-wider font-eiu-display inline-flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <Download className="w-3.5 h-3.5 shrink-0" />
+                          <span>{doc.fileUrl ? 'Tải file' : 'Xem / In PDF'}</span>
+                        </button>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+
+              {/* Desktop Table (>= 768px) giữ nguyên cấu trúc 5 cột hành chính */}
+              <div className="hidden md:block bg-white border border-slate-300 overflow-x-auto shadow-2xs">
+                <table className="eiu-table min-w-[720px]">
                   <thead>
                     <tr>
                       <th className="w-14 text-center">STT</th>
-                      <th className="w-36">Số kí hiệu</th>
+                      <th className="w-38">Số kí hiệu</th>
                       <th className="w-32">Ngày ban hành</th>
                       <th>Trích yếu</th>
                       <th className="w-48 text-right">File đính kèm</th>
@@ -748,12 +820,12 @@ function VanBanContent({
                             <button
                               type="button"
                               onClick={() => setSelectedDoc(doc)}
-                              className="font-eiu-serif font-bold text-sm text-[#133F68] hover:text-[#C10230] hover:underline underline-offset-2 text-left cursor-pointer focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0054A6]"
+                              className="font-eiu-serif font-bold text-sm text-[#133F68] hover:text-[#C10230] hover:underline underline-offset-2 text-left cursor-pointer whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#0054A6]"
                             >
                               {doc.documentNumber}
                             </button>
                             <div className="mt-1">
-                              <span className="inline-block px-1.5 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[10px] font-bold font-eiu-display">
+                              <span className="inline-block px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold font-eiu-display whitespace-nowrap">
                                 {doc.docType}
                               </span>
                             </div>
@@ -786,19 +858,22 @@ function VanBanContent({
                             </div>
                           </td>
 
-                          <td className="text-right">
+                          <td className="text-right whitespace-nowrap">
                             <button
                               type="button"
                               onClick={() => downloadDocumentFile(doc)}
-                              title={`Tải về ${doc.attachmentName}`}
+                              title={`Mở bản in hoặc tải về ${doc.attachmentName}`}
                               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#133F68] hover:bg-[#0054A6] text-white text-[11px] font-bold uppercase tracking-wider cursor-pointer font-eiu-display transition-colors"
                             >
                               <Download className="w-3.5 h-3.5 shrink-0" />
-                              <span>Tải file</span>
+                              <span>
+                                {doc.fileUrl ? 'Tải file' : 'Xem / In PDF'}
+                              </span>
                             </button>
                             {doc.attachmentSize && (
-                              <div className="text-[10.5px] text-slate-500 font-sans mt-1 tabular-nums">
-                                PDF • {doc.attachmentSize}
+                              <div className="text-[11px] text-slate-500 font-sans mt-1 tabular-nums">
+                                {doc.fileUrl ? 'PDF' : 'Bản in A4'} •{' '}
+                                {doc.attachmentSize}
                               </div>
                             )}
                           </td>
@@ -872,15 +947,19 @@ function VanBanContent({
          ===================================================================== */}
       {selectedDoc && (
         <div
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="modal-doc-title"
           className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
           onClick={(e) => {
-            if (e.target === e.currentTarget) setSelectedDoc(null);
+            if (e.target === e.currentTarget) closeDocModal();
           }}
         >
-          <div className="bg-white max-w-3xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto">
+          <div
+            ref={docModalRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-doc-title"
+            tabIndex={-1}
+            className="bg-white max-w-3xl w-full border-2 border-[#133F68] shadow-2xl overflow-hidden my-auto focus:outline-none"
+          >
             {/* Header Popup */}
             <div className="bg-[#133F68] text-white px-5 sm:px-6 py-4 flex items-center justify-between gap-3 border-b-3 border-[#A68556]">
               <div className="flex items-center gap-2.5 min-w-0">
@@ -891,7 +970,7 @@ function VanBanContent({
               </div>
               <button
                 type="button"
-                onClick={() => setSelectedDoc(null)}
+                onClick={closeDocModal}
                 aria-label="Đóng cửa sổ chi tiết văn bản"
                 className="w-11 h-11 -mr-2 rounded-full hover:bg-white/10 flex items-center justify-center text-white/80 hover:text-white transition-colors cursor-pointer shrink-0"
               >
@@ -901,7 +980,7 @@ function VanBanContent({
 
             {/* Nội dung Popup */}
             <div className="p-5 sm:p-6 space-y-5 max-h-[calc(90vh-90px)] overflow-y-auto text-xs">
-              {/* Bảng thông tin thuộc tính văn bản đầy đủ theo yêu cầu */}
+              {/* Bảng thông tin thuộc tính văn bản đầy đủ */}
               <div className="border border-slate-300 bg-white divide-y divide-slate-200 font-sans">
                 {/* 1. Tên / Trích yếu văn bản */}
                 <div className="grid grid-cols-1 sm:grid-cols-12">
@@ -926,7 +1005,7 @@ function VanBanContent({
                       {selectedDoc.documentNumber}
                     </span>
                     <span
-                      className={`px-2 py-0.5 text-[10.5px] font-bold uppercase font-eiu-display ${
+                      className={`px-2 py-0.5 text-[11px] font-bold uppercase font-eiu-display ${
                         selectedDoc.status === 'Còn hiệu lực'
                           ? 'bg-emerald-50 text-[#2E521D] border border-emerald-200'
                           : 'bg-slate-100 text-slate-600 border border-slate-200'
@@ -963,7 +1042,7 @@ function VanBanContent({
                     Thể loại
                   </div>
                   <div className="sm:col-span-8 px-3.5 py-2.5">
-                    <span className="inline-block px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[10.5px] font-bold uppercase font-eiu-display">
+                    <span className="inline-block px-2 py-0.5 bg-[#EAE3D2] text-[#133F68] text-[11px] font-bold uppercase font-eiu-display">
                       {selectedDoc.docType}
                     </span>
                   </div>
@@ -1057,7 +1136,7 @@ function VanBanContent({
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-[#133F68] font-eiu-display flex items-center gap-1.5">
                     <QrCode className="w-4 h-4 text-[#0054A6]" />
-                    <span>Xem trước văn bản ({selectedDoc.attachmentName})</span>
+                    <span>Xem trước văn bản</span>
                   </span>
                   <button
                     type="button"
@@ -1162,15 +1241,17 @@ function VanBanContent({
                 <button
                   type="button"
                   onClick={() => downloadDocumentFile(selectedDoc)}
-                  className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#0054A6] hover:bg-[#133F68] text-white font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
+                  className="min-h-[44px] inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#0054A6] hover:bg-[#133F68] text-white font-bold uppercase tracking-wider font-eiu-display cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Tải văn bản về</span>
+                  <span>
+                    {selectedDoc.fileUrl ? 'Tải văn bản về' : 'Mở bản in / Lưu PDF'}
+                  </span>
                 </button>
                 <button
                   type="button"
-                  onClick={() => setSelectedDoc(null)}
-                  className="px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white font-bold uppercase font-eiu-display cursor-pointer"
+                  onClick={closeDocModal}
+                  className="min-h-[44px] px-5 py-2.5 bg-[#133F68] hover:bg-[#02294E] text-white font-bold uppercase font-eiu-display cursor-pointer"
                 >
                   Đóng
                 </button>

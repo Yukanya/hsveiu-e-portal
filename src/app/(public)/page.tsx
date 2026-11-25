@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import {
@@ -14,7 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock,
-  ExternalLink,
   MapPin,
   Newspaper,
   Pause,
@@ -266,13 +265,39 @@ const SV5T_HONOREES = [
   },
 ];
 
+const subscribeEmpty = () => () => {};
+
+function subscribeReducedMotion(callback: () => void) {
+  if (typeof window === 'undefined') return () => {};
+  const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+  mq.addEventListener('change', callback);
+  return () => mq.removeEventListener('change', callback);
+}
+
+function getReducedMotionSnapshot() {
+  if (typeof window === 'undefined') return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
+
 export default function HomePage() {
   const [eventFilter, setEventFilter] = useState<string>('ALL');
   const [isFiltering, setIsFiltering] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(
+    subscribeEmpty,
+    () => true,
+    () => false
+  );
+  const prefersReducedMotion = useSyncExternalStore(
+    subscribeReducedMotion,
+    getReducedMotionSnapshot,
+    () => false
+  );
 
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [isCarouselPaused, setIsCarouselPaused] = useState(false);
+  const [carouselPauseOverride, setCarouselPauseOverride] = useState<
+    boolean | null
+  >(null);
+  const isCarouselPaused = carouselPauseOverride ?? prefersReducedMotion;
   const [activeHonoreeIndex, setActiveHonoreeIndex] = useState(1);
   const [failedHonoreeImages, setFailedHonoreeImages] = useState<Record<string, boolean>>({});
   const [failedNewsImages, setFailedNewsImages] = useState<Record<string, boolean>>({});
@@ -303,8 +328,6 @@ export default function HomePage() {
   const listNews = NEWS_POSTS.slice(2, 6);
 
   useEffect(() => {
-    setIsMounted(true);
-
     const handleWindowBlur = () => {
       if (isDraggingRef.current && activePointerIdRef.current !== null) {
         const el = carouselRef.current;
@@ -318,16 +341,12 @@ export default function HomePage() {
         isDraggingRef.current = false;
         activePointerIdRef.current = null;
         setIsDraggingState(false);
-        setIsCarouselPaused(false);
+        setCarouselPauseOverride(null);
       }
     };
 
     const handleVisibilityChange = () => {
-      if (document.hidden) {
-        setIsCarouselPaused(true);
-      } else {
-        setIsCarouselPaused(false);
-      }
+      setCarouselPauseOverride(document.hidden ? true : null);
     };
 
     window.addEventListener('blur', handleWindowBlur);
@@ -351,18 +370,18 @@ export default function HomePage() {
       ? EVENT_ITEMS
       : EVENT_ITEMS.filter((ev) => ev.sv5tCriterion === eventFilter);
 
+  const displayedEvents = [...filteredEvents]
+    .sort((a, b) => {
+      const aOpen = getEventCardMeta(a).isOpen ? 1 : 0;
+      const bOpen = getEventCardMeta(b).isOpen ? 1 : 0;
+      return bOpen - aOpen;
+    })
+    .slice(0, 6);
+
   // Auto-scroll logic for infinite carousel (tôn trọng prefers-reduced-motion)
   useEffect(() => {
     const el = carouselRef.current;
-    if (!el) return;
-
-    if (typeof window !== 'undefined') {
-      const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-      if (mediaQuery.matches) {
-        setIsCarouselPaused(true);
-        return;
-      }
-    }
+    if (!el || isCarouselPaused) return;
 
     let animId: number;
     let lastTime = performance.now();
@@ -371,7 +390,7 @@ export default function HomePage() {
       const delta = Math.min(100, time - lastTime);
       lastTime = time;
 
-      if (!isCarouselPaused && !isDraggingRef.current && el) {
+      if (!isDraggingRef.current && el) {
         const halfWidth = el.scrollWidth / 2;
         el.scrollLeft += (38 * delta) / 1000;
         if (halfWidth > 0) {
@@ -400,7 +419,7 @@ export default function HomePage() {
     isDraggingRef.current = true;
     startXRef.current = e.clientX;
     startScrollLeftRef.current = el.scrollLeft;
-    setIsCarouselPaused(true);
+    setCarouselPauseOverride(true);
     setIsDraggingState(true);
 
     try {
@@ -443,7 +462,7 @@ export default function HomePage() {
     isDraggingRef.current = false;
     activePointerIdRef.current = null;
     setIsDraggingState(false);
-    setIsCarouselPaused(false);
+    setCarouselPauseOverride(null);
   };
 
   const handleCarouselScroll = () => {
@@ -489,7 +508,7 @@ export default function HomePage() {
       scrollCarouselNext();
     } else if (e.key === ' ' || e.key === 'Spacebar') {
       e.preventDefault();
-      setIsCarouselPaused((prev) => !prev);
+      setCarouselPauseOverride(!isCarouselPaused);
     }
   };
 
@@ -521,10 +540,10 @@ export default function HomePage() {
                 clipPath: 'polygon(0 0, 100% 0, 91% 100%, 0% 100%)',
               }}
             >
-              <h1 className="text-2xl sm:text-[29px] font-extrabold tracking-tight leading-snug font-eiu-display pr-6">
+              <h1 className="text-2xl sm:text-[29px] font-extrabold tracking-tight leading-snug font-eiu-display pr-6 text-balance">
                 HỘI SINH VIÊN VIỆT NAM TRƯỜNG ĐẠI HỌC QUỐC TẾ MIỀN ĐÔNG
               </h1>
-              <p className="text-sm text-white/95 mt-3 pr-8 leading-relaxed">
+              <p className="text-sm text-white/95 mt-3 pr-8 leading-relaxed max-w-prose">
                 Cổng thông tin Điện tử của Ban Chấp hành Hội Sinh viên trường Đại học Quốc tế Miền Đông.
               </p>
             </div>
@@ -541,7 +560,7 @@ export default function HomePage() {
                 <Image
                   src="/images/eiu-logo-full.png"
                   alt="Trường Đại học Quốc tế Miền Đông"
-                  width={240}
+                  width={100}
                   height={100}
                   priority
                   style={{ width: 'auto' }}
@@ -551,7 +570,7 @@ export default function HomePage() {
                 <Image
                   src="/images/hsv-bch-dh2.png"
                   alt="Biểu trưng Đại hội II Hội Sinh viên EIU (2026 - 2028)"
-                  width={140}
+                  width={82}
                   height={100}
                   priority
                   style={{ width: 'auto' }}
@@ -608,21 +627,23 @@ export default function HomePage() {
                   <Image
                     src="/images/eiu-logo-full-white.png"
                     alt="Trường Đại học Quốc tế Miền Đông"
-                    width={130}
+                    width={58}
                     height={50}
+                    style={{ width: 'auto' }}
                     className="h-10 w-auto object-contain hover:scale-105 transition-transform duration-300"
                   />
                   <div className="h-10 w-px bg-white/20" aria-hidden="true" />
                   <Image
                     src="/images/hsv-bch-dh2.png"
                     alt="Biểu trưng Đại hội II"
-                    width={60}
-                    height={60}
+                    width={48}
+                    height={58}
+                    style={{ width: 'auto' }}
                     className="h-12 w-auto object-contain hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="w-16 h-0.5 bg-[#A68556] my-3" aria-hidden="true" />
-                <span className="text-xs sm:text-sm font-eiu-serif font-extrabold italic text-[#FCB900] max-w-[220px] leading-relaxed">
+                <span className="text-xs sm:text-sm font-eiu-serif font-extrabold italic text-[#FCB900] max-w-[260px] leading-relaxed text-balance">
                   Trí sáng - Đồng tâm - Vươn tầm - Cất cánh
                 </span>
               </div>
@@ -664,9 +685,10 @@ export default function HomePage() {
                   <Image
                     src="/images/hsv-bch-dh2.png"
                     alt=""
-                    width={36}
+                    width={30}
                     height={36}
-                    className="w-9 h-9 object-contain opacity-95 group-hover:scale-110 transition-transform duration-200"
+                    style={{ width: 'auto' }}
+                    className="w-auto h-9 object-contain opacity-95 group-hover:scale-110 transition-transform duration-200"
                   />
                   <ChevronRight className="w-4 h-4 text-white/40 group-hover:text-white group-hover:translate-x-1 transition-all duration-200" />
                 </div>
@@ -798,7 +820,7 @@ export default function HomePage() {
 
                 <div className="pt-3 border-t border-slate-100">
                   <Link
-                    href="#news-heading"
+                    href="/tin-tuc"
                     className="inline-flex items-center gap-1 text-[11.5px] font-bold uppercase tracking-wider text-[#8E6D3E] group-hover:text-[#C10230] font-eiu-display transition-colors"
                   >
                     <span>XEM BẢN TIN</span>
@@ -1012,7 +1034,7 @@ export default function HomePage() {
 
             {/* Các Pills Bộ lọc Tiêu chuẩn */}
             <div
-              role="tablist"
+              role="group"
               aria-label="Lọc Sự kiện theo Tiêu chuẩn Sinh viên 5 Tốt"
               className="flex flex-wrap items-center justify-center gap-2 pt-1"
             >
@@ -1027,10 +1049,9 @@ export default function HomePage() {
                   <button
                     key={pill.id}
                     type="button"
-                    role="tab"
-                    aria-selected={isSelected}
+                    aria-pressed={isSelected}
                     onClick={() => handleFilterChange(pill.id)}
-                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[38px] ${
+                    className={`py-2 px-4 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C10230] focus-visible:ring-offset-2 min-h-[44px] sm:min-h-[38px] ${
                       isSelected
                         ? 'bg-[#C10230] text-white border border-[#C10230] shadow-xs scale-[1.02]'
                         : 'bg-white text-[#133F68] border border-slate-300 hover:border-[#133F68] hover:bg-[#EAE3D2]/40 hover:scale-[1.01]'
@@ -1043,7 +1064,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Lưới Thẻ Sự kiện (Grid 3 cột) đồng bộ 1-1 với /su-kien và /cuoc-thi */}
+          {/* Lưới Thẻ Sự kiện Tiêu điểm (Giới hạn tối đa 6 thẻ ưu tiên mở đơn) */}
           {filteredEvents.length === 0 ? (
             <div className="bg-[#F5F5F5] border border-slate-200/90 p-8 text-center space-y-3">
               <p className="text-sm text-slate-600">
@@ -1053,7 +1074,7 @@ export default function HomePage() {
               <button
                 type="button"
                 onClick={() => handleFilterChange('ALL')}
-                className="px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-[#0054A6] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] focus-visible:ring-offset-2 min-h-[38px]"
+                className="min-h-[44px] sm:min-h-[38px] px-4 py-2 bg-[#133F68] text-white text-xs font-bold uppercase tracking-wider rounded-full hover:bg-[#0054A6] transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0054A6] focus-visible:ring-offset-2"
               >
                 Xem tất cả sự kiện
               </button>
@@ -1064,7 +1085,7 @@ export default function HomePage() {
                 isFiltering ? 'opacity-40 translate-y-1' : 'opacity-100 translate-y-0'
               }`}
             >
-              {filteredEvents.map((ev) => {
+              {displayedEvents.map((ev) => {
                 const maxParticipants = Number(ev.maxParticipants) || 1;
                 const registeredCount = Number(ev.registeredCount) || 0;
                 const fillPct = Math.min(
@@ -1195,8 +1216,12 @@ export default function HomePage() {
 
           <div className="flex justify-end pt-2">
             <Link
-              href="/su-kien"
-              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-2 rounded-xs group"
+              href={
+                eventFilter === 'ALL'
+                  ? '/su-kien'
+                  : `/su-kien?criteria=${encodeURIComponent(eventFilter)}`
+              }
+              className="min-h-[44px] sm:min-h-0 inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#133F68] hover:text-[#C10230] font-eiu-display focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#133F68] focus-visible:ring-offset-2 rounded-xs group"
             >
               <ChevronRight className="w-4 h-4 transition-transform duration-200 ease-out group-hover:translate-x-1 motion-reduce:transition-none" />
               <span>XEM TẤT CẢ SỰ KIỆN</span>
@@ -1237,7 +1262,7 @@ export default function HomePage() {
           <div className="flex items-center gap-2 shrink-0">
             <button
               type="button"
-              onClick={() => setIsCarouselPaused(!isCarouselPaused)}
+              onClick={() => setCarouselPauseOverride(!isCarouselPaused)}
               aria-label={isCarouselPaused ? 'Tiếp tục tự cuộn' : 'Tạm dừng tự cuộn'}
               className="w-11 h-11 rounded-full border border-white/25 hover:border-white hover:bg-white/10 active:scale-95 text-white flex items-center justify-center transition-all duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FCB900] motion-reduce:active:scale-100"
             >
@@ -1275,10 +1300,10 @@ export default function HomePage() {
           aria-label="Gương sáng Sinh viên 5 Tốt Trường Đại học Quốc tế Miền Đông"
           onKeyDown={handleCarouselKeyDown}
           onScroll={handleCarouselScroll}
-          onMouseEnter={() => setIsCarouselPaused(true)}
-          onMouseLeave={() => !isDraggingRef.current && setIsCarouselPaused(false)}
-          onFocus={() => setIsCarouselPaused(true)}
-          onBlur={() => !isDraggingRef.current && setIsCarouselPaused(false)}
+          onMouseEnter={() => setCarouselPauseOverride(true)}
+          onMouseLeave={() => !isDraggingRef.current && setCarouselPauseOverride(null)}
+          onFocus={() => setCarouselPauseOverride(true)}
+          onBlur={() => !isDraggingRef.current && setCarouselPauseOverride(null)}
           onPointerDown={handlePointerDown}
           onPointerMove={handlePointerMove}
           onPointerUp={endDrag}
@@ -1306,6 +1331,7 @@ export default function HomePage() {
                       src={student.image}
                       alt={`Sinh viên 5 tốt ${student.name}`}
                       fill
+                      loading="eager"
                       sizes="(max-width: 640px) 270px, 285px"
                       onError={() =>
                         setFailedHonoreeImages((prev) => ({

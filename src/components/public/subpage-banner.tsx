@@ -6,7 +6,6 @@ import { ChevronRight } from 'lucide-react';
 interface SubpageBannerProps {
   title: string;
   subtitle?: string;
-  kicker?: string;
   breadcrumbs: { label: string; href?: string }[];
   wide?: boolean;
 }
@@ -47,11 +46,11 @@ export function SubpageBanner({
                 clipPath: 'polygon(0 0, 100% 0, 91% 100%, 0% 100%)',
               }}
             >
-              <h1 className="text-2xl sm:text-[29px] font-extrabold tracking-tight leading-snug font-eiu-display pr-6 uppercase">
+              <h1 className="text-2xl sm:text-[29px] font-extrabold tracking-tight leading-snug font-eiu-display pr-6 uppercase text-balance">
                 {title}
               </h1>
               {subtitle && (
-                <p className="text-sm text-white/95 mt-3 pr-8 leading-relaxed font-sans">
+                <p className="text-sm text-white/95 mt-3 pr-8 leading-relaxed font-sans max-w-prose">
                   {subtitle}
                 </p>
               )}
@@ -65,7 +64,7 @@ export function SubpageBanner({
                 <Image
                   src="/images/eiu-logo-full.png"
                   alt="Trường Đại học Quốc tế Miền Đông"
-                  width={240}
+                  width={100}
                   height={100}
                   priority
                   style={{ width: 'auto' }}
@@ -75,7 +74,7 @@ export function SubpageBanner({
                 <Image
                   src="/images/hsv-bch-dh2.png"
                   alt="Biểu trưng Đại hội II Hội Sinh viên EIU (2026 - 2028)"
-                  width={140}
+                  width={82}
                   height={100}
                   priority
                   style={{ width: 'auto' }}

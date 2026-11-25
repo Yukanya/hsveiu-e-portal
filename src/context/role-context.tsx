@@ -1,14 +1,20 @@
 'use client';
 
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useMemo, useSyncExternalStore } from 'react';
 import { STAFF_MEMBERS } from '@/data/mock-data';
+import {
+  emitStorageSync,
+  ROLE_SESSION_KEY,
+  RoleSessionRecord,
+  subscribeStorageSync,
+} from '@/lib/portal-storage';
 import { PositionAssignment, StaffMember } from '@/types';
 
 // Thêm 1 tài khoản Sinh viên mẫu (Cấp 1) để kiểm thử đóng vai đủ 6 cấp độ
 export const DEMO_STUDENT_PROFILE: StaffMember = {
   id: 'student-demo',
   orderNumber: 99,
-  fullName: 'Nguyễn Minh Khôi (Sinh viên mẫu)',
+  fullName: 'Nguyễn Minh Khôi',
   studentId: '2531200188',
   email: 'khoi.nguyenminh.cit25@eiu.edu.vn',
   phone: '0901234567',
@@ -56,6 +62,18 @@ export const DEMO_PERSONAS: StaffMember[] = [
   DEMO_STUDENT_PROFILE, // 10. Sinh viên EIU (Cấp 1)
 ];
 
+function getRoleSessionSnapshot(): string {
+  try {
+    return window.localStorage.getItem(ROLE_SESSION_KEY) || '';
+  } catch {
+    return '';
+  }
+}
+
+function getServerRoleSessionSnapshot(): string {
+  return '';
+}
+
 interface RoleContextValue {
   currentPersona: StaffMember;
   activePosition: PositionAssignment;
@@ -67,24 +85,66 @@ interface RoleContextValue {
 const RoleContext = createContext<RoleContextValue | undefined>(undefined);
 
 export function RoleProvider({ children }: { children: React.ReactNode }) {
-  const [currentPersona, setCurrentPersona] = useState<StaffMember>(DEMO_PERSONAS[0]);
-  const [activePosition, setActivePosition] = useState<PositionAssignment>(
-    DEMO_PERSONAS[0].positions[0]
+  const sessionRaw = useSyncExternalStore(
+    subscribeStorageSync,
+    getRoleSessionSnapshot,
+    getServerRoleSessionSnapshot
   );
+
+  const { currentPersona, activePosition } = useMemo(() => {
+    if (!sessionRaw) {
+      return {
+        currentPersona: DEMO_PERSONAS[0],
+        activePosition: DEMO_PERSONAS[0].positions[0],
+      };
+    }
+    try {
+      const parsed = JSON.parse(sessionRaw) as Partial<RoleSessionRecord>;
+      const foundPersona =
+        DEMO_PERSONAS.find((p) => p.id === parsed.personaId) ||
+        STAFF_MEMBERS.find((p) => p.id === parsed.personaId) ||
+        DEMO_PERSONAS[0];
+      const foundPos =
+        foundPersona.positions.find((pos) => pos.id === parsed.positionId) ||
+        foundPersona.positions[0];
+      return { currentPersona: foundPersona, activePosition: foundPos };
+    } catch {
+      return {
+        currentPersona: DEMO_PERSONAS[0],
+        activePosition: DEMO_PERSONAS[0].positions[0],
+      };
+    }
+  }, [sessionRaw]);
 
   const setPersonaById = (personaId: string) => {
     const found =
       DEMO_PERSONAS.find((p) => p.id === personaId) ||
       STAFF_MEMBERS.find((p) => p.id === personaId) ||
       DEMO_PERSONAS[0];
-    setCurrentPersona(found);
-    setActivePosition(found.positions[0]);
+    const nextSession: RoleSessionRecord = {
+      personaId: found.id,
+      positionId: found.positions[0].id,
+    };
+    try {
+      window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
+      emitStorageSync();
+    } catch {
+      // Bỏ qua lỗi quota storage
+    }
   };
 
   const setActivePositionById = (positionId: string) => {
     const pos = currentPersona.positions.find((p) => p.id === positionId);
-    if (pos) {
-      setActivePosition(pos);
+    if (!pos) return;
+    const nextSession: RoleSessionRecord = {
+      personaId: currentPersona.id,
+      positionId: pos.id,
+    };
+    try {
+      window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
+      emitStorageSync();
+    } catch {
+      // Bỏ qua lỗi quota storage
     }
   };
 
