@@ -478,7 +478,7 @@ export const HSV_VN_SONG_STANZAS: SongStanza[] = [
     label: 'Lời 1',
     lines: [
       'Bài ca sinh viên ta hát',
-      'Có nắng ấm ban mai rực hồng',
+      'Có nắng ấm ban mai ửng hồng',
       'Tuổi sinh viên theo năm tháng',
       'Trang giấy trắng ước mơ tràn đầy',
     ],
@@ -486,10 +486,10 @@ export const HSV_VN_SONG_STANZAS: SongStanza[] = [
   {
     label: 'Lời 2',
     lines: [
-      'Hàng me xôn xao lá mới',
-      'Có tiếng hát cất cao trời mây',
+      'Hàng me đang thay lá mới',
+      'Cất tiếng hát bay cao trời mây',
       'Đàn chim hôm nay đã lớn',
-      'Ta sẽ nhớ mãi sân trường này',
+      'Ta vẫn nhớ mãi sân trường này',
     ],
   },
   {
@@ -502,9 +502,7 @@ export const HSV_VN_SONG_STANZAS: SongStanza[] = [
       'Ta mơ một ngày mai',
       'Bàn tay ta biến sông thành điện',
       'Đi đi nào bạn ơi',
-      'Dệt lên những ước mơ cho đời',
-      'Đi đi nào bạn ơi',
-      'Dệt lên những ước mơ cho đời',
+      'Dệt lên những ước mơ cho đời.',
     ],
   },
 ];
