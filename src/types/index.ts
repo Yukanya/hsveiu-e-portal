@@ -337,3 +337,19 @@ export interface PlanSubmissionItem {
     | 'office_format_checked'
     | 'btk_approved';
 }
+
+export type AwardProgramCategory = 'DANH_HIEU' | 'KHEN_THUONG' | 'HOC_BONG';
+
+export interface AwardProgramItem {
+  id: string;
+  title: string;
+  category: AwardProgramCategory;
+  categoryLabel: string;
+  academicYear: string;
+  deadline: string;
+  status: 'OPEN' | 'UPCOMING' | 'CLOSED';
+  issuingBody: string;
+  summary: string;
+  requirements: string[];
+  benefits: string[];
+}

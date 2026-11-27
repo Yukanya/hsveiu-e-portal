@@ -249,12 +249,12 @@ Tuân thủ tuyệt đối **Quyết định số 28/QĐ-HSV ngày 01/9/2026** v
    - `/to-chuc` & `/to-chuc/[slug]` – Danh bạ & Micro-site các Chi hội Khoa (`CIT`, `BBS`, `SET`, `SNS`) và CLB/Đội/Nhóm
    - `/van-ban` – Kho Văn bản, Quy chế, Hướng dẫn công khai
    - `/tra-cuu-gcn` – Cổng tra cứu & xác thực Giấy chứng nhận điện tử / Quyết định công nhận bằng mã QR hoặc MSSV
-2. **`(student-portal)` – Khu vực Sinh viên / Hội viên (Yêu cầu đăng nhập `@eiu.edu.vn`):**
-   - `/portal` – Tổng quan cá nhân (Thẻ Hội viên số, tổng số ngày tình nguyện, tiến độ SV5T)
-   - `/portal/su-kien-cua-toi` – Sự kiện đã đăng ký, vé QR Check-in cá nhân, kho E-Certificate của tôi
-   - `/portal/sinh-vien-5-tot` – Sổ tay Kỹ thuật số SV5T (Tự động tính GPA gia quyền, đồng bộ minh chứng nội viện, tải lên minh chứng ngoại viện PDF/Ảnh, đăng ký phấn đấu SV5T)
-   - `/portal/cuoc-thi` – Phòng thi Trắc nghiệm trực tuyến (Online Quiz)
-   - `/portal/lang-nghe` – Hộp thư Lắng nghe Sinh viên & Khảo sát dư luận
+2. **`(student-portal)` – Hồ sơ Hội viên EIU (Yêu cầu đăng nhập `@eiu.edu.vn`):**
+   - `/portal?tab=overview` – Thông tin chung (4 chỉ số tổng quan cá nhân, thông tin học vụ giải mã từ MSSV/Email, Chi hội gốc và CLB đang tham gia, mở nhanh Mã QR Hội viên và Góp ý/Hỗ trợ)
+   - `/portal?tab=sv5t` – Sổ tay Sinh viên 5 tốt (5 tiêu chuẩn đóng/mở kèm Máy tính GPA Quý EIU tích hợp, gợi ý hoạt động đang mở bù tiêu chuẩn thiếu và bổ sung minh chứng ngoại khóa)
+   - `/portal?tab=applications` – Xét chọn hồ sơ (Danh mục đợt Danh hiệu, Khen thưởng, Học bổng với biểu mẫu trực tuyến tự động điền thông tin từ Hồ sơ Hội viên)
+   - `/portal?tab=activities` – Sự kiện và Cuộc thi (Vé QR Check-in cá nhân, lịch sử hoạt động kèm đối soát điểm danh, phòng thi Online Quiz)
+   - `/portal?tab=certificates` – Kho Giấy chứng nhận (Xem trước trực quan E-Certificate chuẩn Phụ lục 2 và xuất Bảng tổng hợp Hoạt động Ngoại khóa khổ A4)
 3. **`(workspace)` – Khu vực Quản trị & E-Office Nội bộ (Phân quyền từ Cấp 2 đến Cấp 6, có Context Switcher):**
    - `/workspace` – Dashboard điều hành tổng quan & Biểu đồ Real-time đa chiều
    - `/workspace/cms` – Quản trị Bài viết, Chuyên mục, Banner (Ban TG-PT)

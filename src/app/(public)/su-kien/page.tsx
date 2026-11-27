@@ -395,7 +395,7 @@ function SuKienContent({
       setRegisteredEventIds(currentPersona.id, [...current, id]);
     }
     showToast(
-      `✓ Đã ghi nhận đăng ký cho ${currentPersona.fullName} và đồng bộ mã QR về Sổ tay Hội viên!`
+      `✓ Đã ghi nhận đăng ký cho ${currentPersona.fullName} và đồng bộ mã QR về Hồ sơ Hội viên!`
     );
   };
 
@@ -1176,11 +1176,11 @@ function SuKienContent({
                     lưu bền vững vào danh sách điểm danh QR. Bạn có thể mở vé QR
                     ngay tại{' '}
                     <Link
-                      href="/portal?tab=certs"
+                      href="/portal?tab=activities"
                       onClick={closeEventModal}
                       className="font-bold underline text-[#0054A6] hover:text-[#C10230]"
                     >
-                      Sổ tay Hội viên (Vé QR Check-in)
+                      Hồ sơ Hội viên (Vé QR Check-in)
                     </Link>
                     .
                   </div>
@@ -1234,7 +1234,7 @@ function SuKienContent({
                     </div>
                     <p className="text-slate-700 leading-relaxed">
                       Chương trình hiện đang diễn ra tại địa điểm tổ chức. Hội
-                      viên tham gia vui lòng mở mã QR trên Sổ tay Hội viên để
+                      viên tham gia vui lòng mở mã QR trên Hồ sơ Hội viên để
                       quét điểm danh Check-in/Check-out tại cửa.
                     </p>
                   </div>

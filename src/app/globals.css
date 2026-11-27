@@ -242,3 +242,32 @@ pre {
     transition: none !important;
   }
 }
+
+/* Chế độ in / lưu PDF cho Bảng tổng hợp Hoạt động Ngoại khóa */
+@media print {
+  body.printing-transcript * {
+    visibility: hidden !important;
+  }
+
+  body.printing-transcript #eiu-printable-transcript,
+  body.printing-transcript #eiu-printable-transcript * {
+    visibility: visible !important;
+  }
+
+  body.printing-transcript #eiu-printable-transcript {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 16mm !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: #FFFFFF !important;
+  }
+
+  body.printing-transcript .no-print {
+    display: none !important;
+  }
+}

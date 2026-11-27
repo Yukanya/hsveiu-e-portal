@@ -169,7 +169,7 @@ export function PersonaSwitcherBar() {
                 : 'text-white/95 hover:text-[#DED1BE]'
             }`}
           >
-            SỔ TAY HỘI VIÊN
+            HỒ SƠ HỘI VIÊN
           </Link>
 
           <span className="hidden sm:inline-block h-3 w-px bg-white/35" aria-hidden="true" />

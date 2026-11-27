@@ -64,7 +64,7 @@ Toàn bộ hệ thống Cổng thông tin & E-Office HSV EIU chỉ sử dụng d
    - **Nút chuyển Tab, Nút Lọc Tiêu chuẩn (Filter Pills), Nút Đọc ngay & Nút Điều hướng Carousel:** **`9999px` (`rounded-full`)**.
 2. **Khung Lưới theo Đặc thù Khu vực:**
    - **Khu vực Công khai `(public)`:** Khung chuẩn **`1140px` (`max-w-[1140px]`)** căn giữa; trang danh mục dùng lưới `3/9` (Menu dọc trái `#C10230` / `#EAE3D2` + Nội dung phải `9/12`); trang đọc bài/chi tiết dùng lưới `8/4` hoặc `7/5`.
-   - **Khu vực Hội viên `(student-portal)` & E-Office Nội bộ `(workspace)`:** Khung rộng **`1200px` (`max-w-[1200px]`)** hoặc **`1240px`**, tối ưu không gian cho bảng biểu xét duyệt 25 Chi hội, Hội đồng SV5T 3 cấp, xuất Phụ lục 1, Máy tính GPA và Phòng thi Online Quiz.
+   - **Khu vực Hồ sơ Hội viên `(student-portal)` & E-Office Nội bộ `(workspace)`:** Khung rộng **`1200px` (`max-w-[1200px]`)** hoặc **`1240px`**; trong đó **Hồ sơ Hội viên** (`/portal`) dùng bố cục Header định danh gọn (nút QR 1 chạm + Góp ý/Hỗ trợ) và thanh 5 tab ngang (*Thông tin chung*, *Sổ tay Sinh viên 5 tốt*, *Xét chọn hồ sơ*, *Sự kiện và Cuộc thi*, *Kho Giấy chứng nhận*) theo nguyên tắc Progressive Disclosure chống quá tải thông tin.
    - **Thanh Điều hướng (Navbar):** Khung rộng **`1200px – 1240px`** đảm bảo đủ không gian cho 6 đề mục cấp 1 trên màn hình desktop.
 
 ---

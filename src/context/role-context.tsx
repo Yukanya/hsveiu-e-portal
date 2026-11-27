@@ -1,6 +1,11 @@
 'use client';
 
-import React, { createContext, useContext, useMemo, useSyncExternalStore } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useMemo,
+  useSyncExternalStore,
+} from 'react';
 import { STAFF_MEMBERS } from '@/data/mock-data';
 import {
   emitStorageSync,
@@ -74,99 +79,115 @@ function getServerRoleSessionSnapshot(): string {
   return '';
 }
 
-interface RoleContextValue {
+function resolveSessionPersona(sessionRaw: string): {
   currentPersona: StaffMember;
   activePosition: PositionAssignment;
+} {
+  if (!sessionRaw) {
+    return {
+      currentPersona: DEMO_PERSONAS[0],
+      activePosition: DEMO_PERSONAS[0].positions[0],
+    };
+  }
+  try {
+    const parsed = JSON.parse(sessionRaw) as Partial<RoleSessionRecord>;
+    const foundPersona =
+      DEMO_PERSONAS.find((p) => p.id === parsed.personaId) ||
+      STAFF_MEMBERS.find((p) => p.id === parsed.personaId) ||
+      DEMO_PERSONAS[0];
+    const foundPos =
+      foundPersona.positions.find((pos) => pos.id === parsed.positionId) ||
+      foundPersona.positions[0];
+    return { currentPersona: foundPersona, activePosition: foundPos };
+  } catch {
+    return {
+      currentPersona: DEMO_PERSONAS[0],
+      activePosition: DEMO_PERSONAS[0].positions[0],
+    };
+  }
+}
+
+interface RoleActionsContextValue {
   setPersonaById: (personaId: string) => void;
   setActivePositionById: (positionId: string) => void;
   allPersonas: StaffMember[];
 }
 
-const RoleContext = createContext<RoleContextValue | undefined>(undefined);
+interface RoleContextValue extends RoleActionsContextValue {
+  currentPersona: StaffMember;
+  activePosition: PositionAssignment;
+}
+
+const RoleContext = createContext<RoleActionsContextValue | undefined>(undefined);
 
 export function RoleProvider({ children }: { children: React.ReactNode }) {
+  const value = useMemo<RoleActionsContextValue>(() => {
+    const setPersonaById = (personaId: string) => {
+      const found =
+        DEMO_PERSONAS.find((p) => p.id === personaId) ||
+        STAFF_MEMBERS.find((p) => p.id === personaId) ||
+        DEMO_PERSONAS[0];
+      const nextSession: RoleSessionRecord = {
+        personaId: found.id,
+        positionId: found.positions[0].id,
+      };
+      try {
+        window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
+        emitStorageSync();
+      } catch {
+        // Bỏ qua lỗi quota storage
+      }
+    };
+
+    const setActivePositionById = (positionId: string) => {
+      const { currentPersona } = resolveSessionPersona(getRoleSessionSnapshot());
+      const pos = currentPersona.positions.find((p) => p.id === positionId);
+      if (!pos) return;
+      const nextSession: RoleSessionRecord = {
+        personaId: currentPersona.id,
+        positionId: pos.id,
+      };
+      try {
+        window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
+        emitStorageSync();
+      } catch {
+        // Bỏ qua lỗi quota storage
+      }
+    };
+
+    return {
+      setPersonaById,
+      setActivePositionById,
+      allPersonas: DEMO_PERSONAS,
+    };
+  }, []);
+
+  return <RoleContext.Provider value={value}>{children}</RoleContext.Provider>;
+}
+
+export function useRole(): RoleContextValue {
+  const context = useContext(RoleContext);
+  if (!context) {
+    throw new Error('useRole must be used within a RoleProvider');
+  }
+
+  // Gọi useSyncExternalStore trực tiếp tại component sử dụng để tương thích 100% qua ranh giới <Suspense>
   const sessionRaw = useSyncExternalStore(
     subscribeStorageSync,
     getRoleSessionSnapshot,
     getServerRoleSessionSnapshot
   );
 
-  const { currentPersona, activePosition } = useMemo(() => {
-    if (!sessionRaw) {
-      return {
-        currentPersona: DEMO_PERSONAS[0],
-        activePosition: DEMO_PERSONAS[0].positions[0],
-      };
-    }
-    try {
-      const parsed = JSON.parse(sessionRaw) as Partial<RoleSessionRecord>;
-      const foundPersona =
-        DEMO_PERSONAS.find((p) => p.id === parsed.personaId) ||
-        STAFF_MEMBERS.find((p) => p.id === parsed.personaId) ||
-        DEMO_PERSONAS[0];
-      const foundPos =
-        foundPersona.positions.find((pos) => pos.id === parsed.positionId) ||
-        foundPersona.positions[0];
-      return { currentPersona: foundPersona, activePosition: foundPos };
-    } catch {
-      return {
-        currentPersona: DEMO_PERSONAS[0],
-        activePosition: DEMO_PERSONAS[0].positions[0],
-      };
-    }
-  }, [sessionRaw]);
-
-  const setPersonaById = (personaId: string) => {
-    const found =
-      DEMO_PERSONAS.find((p) => p.id === personaId) ||
-      STAFF_MEMBERS.find((p) => p.id === personaId) ||
-      DEMO_PERSONAS[0];
-    const nextSession: RoleSessionRecord = {
-      personaId: found.id,
-      positionId: found.positions[0].id,
-    };
-    try {
-      window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
-      emitStorageSync();
-    } catch {
-      // Bỏ qua lỗi quota storage
-    }
-  };
-
-  const setActivePositionById = (positionId: string) => {
-    const pos = currentPersona.positions.find((p) => p.id === positionId);
-    if (!pos) return;
-    const nextSession: RoleSessionRecord = {
-      personaId: currentPersona.id,
-      positionId: pos.id,
-    };
-    try {
-      window.localStorage.setItem(ROLE_SESSION_KEY, JSON.stringify(nextSession));
-      emitStorageSync();
-    } catch {
-      // Bỏ qua lỗi quota storage
-    }
-  };
-
-  return (
-    <RoleContext.Provider
-      value={{
-        currentPersona,
-        activePosition,
-        setPersonaById,
-        setActivePositionById,
-        allPersonas: DEMO_PERSONAS,
-      }}
-    >
-      {children}
-    </RoleContext.Provider>
+  const { currentPersona, activePosition } = useMemo(
+    () => resolveSessionPersona(sessionRaw),
+    [sessionRaw]
   );
-}
 
-export function useRole() {
-  const context = useContext(RoleContext);
-  if (!context) {
-    throw new Error('useRole must be used within a RoleProvider');
-  }
-  return context;
+  return {
+    currentPersona,
+    activePosition,
+    setPersonaById: context.setPersonaById,
+    setActivePositionById: context.setActivePositionById,
+    allPersonas: context.allPersonas,
+  };
 }

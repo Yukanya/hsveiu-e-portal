@@ -39,12 +39,62 @@ export interface VoiceTicketRecord {
   status: string;
 }
 
+export type Sv5tCriterionKey =
+  | 'Đạo đức tốt'
+  | 'Học tập tốt'
+  | 'Thể lực tốt'
+  | 'Tình nguyện tốt'
+  | 'Hội nhập tốt';
+
+export interface ExternalEvidenceRecord {
+  id: string;
+  criterion: Sv5tCriterionKey;
+  categoryLabel: string;
+  title: string;
+  issuer: string;
+  issuedDate: string;
+  referenceCode?: string;
+}
+
+export interface AwardApplicationSnapshot {
+  fullName: string;
+  studentId: string;
+  email: string;
+  phone: string;
+  facultyName: string;
+  majorName: string;
+  cohortText: string;
+  unitName: string;
+  effectiveGpa: string;
+  ethicsScore: number;
+  volunteerDays: string;
+  metCriteriaCount: number;
+}
+
+export interface SubmittedAwardApplication {
+  id: string;
+  programId: string;
+  programTitle: string;
+  categoryLabel: string;
+  submittedAt: string;
+  reviewStage: 1 | 2 | 3;
+  statusLabel: string;
+  autoFilledSnapshot: AwardApplicationSnapshot;
+  attachedCertCodes: string[];
+  attachedEvidenceIds: string[];
+  statement: string;
+}
+
 export interface PortalPersonaState {
   quarters: QuarterInputStr[];
   cumulativeGpaStr: string;
   dossierSubmitted: boolean;
   submittedAt?: string;
   voiceTickets: VoiceTicketRecord[];
+  phoneOverride?: string;
+  bioNote?: string;
+  externalEvidences: ExternalEvidenceRecord[];
+  awardApplications: SubmittedAwardApplication[];
 }
 
 export interface Sv5tCandidateStored {
@@ -227,6 +277,31 @@ export function getDefaultPortalPersonaState(
     cum: '3.16',
   };
 
+  const defaultEvidences: ExternalEvidenceRecord[] =
+    persona.id === 'student-demo'
+      ? [
+          {
+            id: 'ext-ev-default-1',
+            criterion: 'Hội nhập tốt',
+            categoryLabel: 'Chứng chỉ ngoại ngữ',
+            title: 'Chứng chỉ tiếng Anh IELTS 6.0 (Chuẩn B2 Khung tham chiếu châu Âu)',
+            issuer: 'IDP Education Việt Nam',
+            issuedDate: '15/08/2026',
+            referenceCode: '26VN004819',
+          },
+        ]
+      : [
+          {
+            id: 'ext-ev-default-2',
+            criterion: 'Học tập tốt',
+            categoryLabel: 'Nghiên cứu khoa học',
+            title: 'Báo cáo tham luận Hội thảo Sinh viên Nghiên cứu Khoa học EIU',
+            issuer: 'Phòng Quản lý Nghiên cứu Khoa học EIU',
+            issuedDate: '10/09/2026',
+            referenceCode: 'EIU-NCKH-2026',
+          },
+        ];
+
   return {
     quarters: [
       {
@@ -253,12 +328,15 @@ export function getDefaultPortalPersonaState(
     cumulativeGpaStr: preset.cum,
     dossierSubmitted: false,
     voiceTickets: [],
+    externalEvidences: defaultEvidences,
+    awardApplications: [],
   };
 }
 
 export function getPortalPersonaState(
   persona: StaffMember
 ): PortalPersonaState {
+  const defaults = getDefaultPortalPersonaState(persona);
   const all = readJsonStorage<Record<string, PortalPersonaState>>(
     PORTAL_STATE_KEY,
     {}
@@ -266,11 +344,20 @@ export function getPortalPersonaState(
   const stored = all[persona.id];
   if (stored && Array.isArray(stored.quarters) && stored.quarters.length === 4) {
     return {
-      ...getDefaultPortalPersonaState(persona),
+      ...defaults,
       ...stored,
+      voiceTickets: Array.isArray(stored.voiceTickets)
+        ? stored.voiceTickets
+        : defaults.voiceTickets,
+      externalEvidences: Array.isArray(stored.externalEvidences)
+        ? stored.externalEvidences
+        : defaults.externalEvidences,
+      awardApplications: Array.isArray(stored.awardApplications)
+        ? stored.awardApplications
+        : defaults.awardApplications,
     };
   }
-  return getDefaultPortalPersonaState(persona);
+  return defaults;
 }
 
 export function savePortalPersonaState(

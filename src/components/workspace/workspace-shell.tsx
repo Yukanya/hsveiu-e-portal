@@ -64,7 +64,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
                 href="/portal"
                 className="min-h-[36px] px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-[11px] font-bold uppercase tracking-wider text-[#00BCFF] font-eiu-display inline-flex items-center gap-1"
               >
-                <span>Sổ tay</span>
+                <span>Hồ sơ</span>
                 <ExternalLink className="w-3 h-3" />
               </Link>
               <Link
@@ -146,7 +146,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
                 href="/portal"
                 className="h-9 px-3 bg-white/10 hover:bg-white/20 text-[11px] font-bold uppercase tracking-wider text-[#00BCFF] font-eiu-display inline-flex items-center gap-1 whitespace-nowrap"
               >
-                <span>Sổ tay Hội viên</span>
+                <span>Hồ sơ Hội viên</span>
                 <ExternalLink className="w-3 h-3" />
               </Link>
               <Link
@@ -181,7 +181,7 @@ export function WorkspaceShell({ children }: { children: React.ReactNode }) {
             </Link>
             <span aria-hidden="true">•</span>
             <Link href="/portal" className="hover:text-[#00BCFF] underline underline-offset-2">
-              Sổ tay Hội viên
+              Hồ sơ Hội viên
             </Link>
           </div>
         </div>

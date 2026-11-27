@@ -1,4 +1,5 @@
 import {
+  AwardProgramItem,
   BranchUnit,
   ClubUnit,
   EventItem,
@@ -2124,7 +2125,7 @@ export const NEWS_POSTS: NewsPost[] = [
         heading: '1. Chuẩn hóa tiêu chuẩn "Học tập tốt" theo học chế Quý tại EIU',
         paragraphs: [
           'Theo Quyết định số 09/QĐ-HSV sửa đổi, bổ sung năm 2026 do Ban Thư ký Hội Sinh viên Trường Đại học Quốc tế Miền Đông ban hành, tiêu chuẩn "Học tập tốt" yêu cầu Điểm trung bình chung năm học hoặc Điểm tích lũy đạt từ 3.00/4.00 trở lên.',
-          'Đặc biệt, phù hợp với mô hình đào tạo 03 Học kỳ chính (Thu – Đông – Xuân) và Học kỳ Hè tại EIU, hệ thống Sổ tay Hội viên tự động tính bình quân gia quyền theo số tín chỉ và ưu tiên lấy giá trị cao hơn giữa GPA trung bình năm học và GPA tích lũy hiện tại, kết hợp tối thiểu 01 tiêu chí phụ về nghiên cứu khoa học, cuộc thi học thuật hoặc sinh hoạt định kỳ tại CLB học thuật có xác nhận của Giảng viên Mentor.',
+          'Đặc biệt, phù hợp với mô hình đào tạo 03 Học kỳ chính (Thu – Đông – Xuân) và Học kỳ Hè tại EIU, hệ thống Hồ sơ Hội viên tự động tính bình quân gia quyền theo số tín chỉ và ưu tiên lấy giá trị cao hơn giữa GPA trung bình năm học và GPA tích lũy hiện tại, kết hợp tối thiểu 01 tiêu chí phụ về nghiên cứu khoa học, cuộc thi học thuật hoặc sinh hoạt định kỳ tại CLB học thuật có xác nhận của Giảng viên Mentor.',
         ],
         bullets: [
           'Đạo đức tốt: Điểm rèn luyện ≥ 80/100, không vi phạm quy chế + ≥ 01 tiêu chí phụ.',
@@ -2397,7 +2398,7 @@ export const NEWS_POSTS: NewsPost[] = [
       {
         heading: '1. Sôi nổi phong trào rèn luyện thể chất theo Phụ lục 1 QĐ 09/QĐ-HSV',
         paragraphs: [
-          'Kết quả kiểm tra thể lực được cập nhật trực tiếp lên hệ thống Sổ tay Hội viên điện tử để hội viên chủ động hoàn thiện hồ sơ xét chọn Sinh viên 5 tốt.',
+          'Kết quả kiểm tra thể lực được cập nhật trực tiếp lên hệ thống Hồ sơ Hội viên điện tử để hội viên chủ động hoàn thiện hồ sơ xét chọn Sinh viên 5 tốt.',
         ],
       },
     ],
@@ -2712,7 +2713,7 @@ export const EVENT_ITEMS: EventItem[] = [
     benefits: [
       'Ghi nhận +0.5 ngày tình nguyện, +1 điểm rèn luyện và chứng nhận kỹ năng thực hành xã hội (tiêu chuẩn "Hội nhập tốt").',
       'Thực hành kiểm tra đường dẫn giả mạo, cấu hình bảo mật hai lớp và xử lý sự cố tài khoản số.',
-      'Cấp E-Certificate điện tử đồng bộ trực tiếp về Sổ tay Hội viên sau khi hoàn thành điểm danh.',
+      'Cấp E-Certificate điện tử đồng bộ trực tiếp về Hồ sơ Hội viên sau khi hoàn thành điểm danh.',
     ],
   },
   {
@@ -2782,7 +2783,7 @@ export const EVENT_ITEMS: EventItem[] = [
     benefits: [
       'Ghi nhận +0.5 ngày tình nguyện, +1 điểm rèn luyện và tiêu chí tham gia học thuật ("Học tập tốt").',
       'Cơ hội kết nối giảng viên hướng dẫn nghiên cứu khoa học sinh viên và nhóm dự án liên ngành.',
-      'Cấp Giấy chứng nhận tham dự Diễn đàn Học thuật qua Sổ tay Hội viên EIU.',
+      'Cấp Giấy chứng nhận tham dự Diễn đàn Học thuật qua Hồ sơ Hội viên EIU.',
     ],
   },
   {
@@ -2922,7 +2923,7 @@ export const EVENT_ITEMS: EventItem[] = [
     benefits: [
       'Ghi nhận +0.5 ngày tình nguyện hỗ trợ định hướng nghề nghiệp (Tiêu chuẩn "Học tập tốt").',
       'Nộp hồ sơ ứng tuyển thực tập trực tiếp và nhận góp ý CV từ bộ phận tuyển dụng doanh nghiệp FDI.',
-      'Cấp Giấy chứng nhận tham dự Tọa đàm Hướng nghiệp qua Sổ tay Hội viên.',
+      'Cấp Giấy chứng nhận tham dự Tọa đàm Hướng nghiệp qua Hồ sơ Hội viên.',
     ],
   },
   {
@@ -3167,7 +3168,7 @@ export const EVENT_ITEMS: EventItem[] = [
     benefits: [
       'Ghi nhận +2.0 ngày tình nguyện và +1 điểm rèn luyện (Tiêu chuẩn "Đạo đức tốt").',
       'Cấp Giấy chứng nhận hoàn thành lớp bồi dưỡng cảm tình Đoàn - Hội có giá trị xét kết nạp.',
-      'Cung cấp bộ tài liệu học tập số và bài kiểm tra trực tuyến ngay trên Sổ tay Hội viên.',
+      'Cung cấp bộ tài liệu học tập số và bài kiểm tra trực tuyến ngay trên Hồ sơ Hội viên.',
     ],
   },
   {
@@ -3499,7 +3500,7 @@ export const OFFICIAL_DOCUMENTS: OfficialDocumentItem[] = [
     issuingBody: 'Văn phòng Hội Sinh viên Trường (Phòng 206.B06)',
     issuingUnitCategory: 'Ban Thư ký HSV trường',
     summary:
-      'Đề nghị Ban Chấp hành 25 Chi hội trực thuộc 04 Khoa đôn đốc 100% hội viên đăng nhập Sổ tay Hội viên SSO `@eiu.edu.vn` để đăng ký phấn đấu danh hiệu Sinh viên 5 Tốt.',
+      'Đề nghị Ban Chấp hành 25 Chi hội trực thuộc 04 Khoa đôn đốc 100% hội viên đăng nhập Hồ sơ Hội viên SSO `@eiu.edu.vn` để đăng ký phấn đấu danh hiệu Sinh viên 5 Tốt.',
     keyPoints: [
       'Thời hạn hoàn tất đăng ký phấn đấu cấp Chi hội trước ngày 30/09/2026.',
       'Là điều kiện cứng đầu tiên để xét công nhận Tập thể Sinh viên 5 Tốt cấp Trường.',
@@ -3944,6 +3945,27 @@ export const ISSUED_CERTIFICATES: IssuedCertificateRecord[] = [
     signerName: 'Trương Châu Phước Lộc',
     signerTitle: 'Chủ tịch Hội Sinh viên Trường',
   },
+  {
+    id: 'cert-35-01',
+    certSerialNumber: 1,
+    certCode: '35-001/GCN-HSV',
+    decisionNumber: '35/QĐ-HSV',
+    decisionDate: '02/11/2026',
+    headerMode: 'HOI_SINH_VIEN',
+    studentId: '2531200188',
+    fullName: 'Nguyễn Minh Khôi',
+    email: 'khoi.nguyenminh.cit25@eiu.edu.vn',
+    unitName: 'Chi hội 25CNTT01 / CLB Học thuật EIU IT Club',
+    eventId: 'evt-01',
+    eventTitle:
+      'Ngày hội Giao lưu Văn hóa Quốc tế EIU International Day và Kỹ năng Hội nhập Toàn cầu',
+    roleTitle: 'Thành viên Ban Tổ chức (Điều phối Kỹ thuật – Hệ số ×2)',
+    multiplierApplied: 2,
+    volunteerDays: 1.0,
+    evidenceNote: 'QR Check-in toàn sự kiện và Chứng nhận Hoàn thành nhiệm vụ',
+    signerName: 'Trương Châu Phước Lộc',
+    signerTitle: 'Chủ tịch Hội Sinh viên Trường',
+  },
 ];
 
 export const ONLINE_QUIZ_QUESTIONS: OnlineQuizQuestion[] = [
@@ -4080,7 +4102,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
         topic: 'Bảo mật Tài khoản @eiu.edu.vn',
         sv5tTarget: 'Hội nhập tốt',
         question:
-          'Khi nhận được email yêu cầu "Cập nhật gấp mật khẩu tài khoản @eiu.edu.vn qua đường link rút gọn lạ để tránh khóa Sổ tay Hội viên", sinh viên cần xử lý như thế nào?',
+          'Khi nhận được email yêu cầu "Cập nhật gấp mật khẩu tài khoản @eiu.edu.vn qua đường link rút gọn lạ để tránh khóa Hồ sơ Hội viên", sinh viên cần xử lý như thế nào?',
         options: [
           'Nhấn vào link và đăng nhập ngay để không bị khóa tài khoản',
           'Chuyển tiếp cho bạn bè trong Chi hội cùng kiểm tra',
@@ -4153,7 +4175,7 @@ export const ONLINE_CONTESTS: OnlineContestItem[] = [
         ],
         correctIndex: 1,
         explanation:
-          'Luôn đăng xuất hoàn toàn (Sign out) trên thiết bị dùng chung để bảo vệ phiên đăng nhập Sổ tay Hội viên và dữ liệu học tập.',
+          'Luôn đăng xuất hoàn toàn (Sign out) trên thiết bị dùng chung để bảo vệ phiên đăng nhập Hồ sơ Hội viên và dữ liệu học tập.',
       },
     ],
   },
@@ -4620,6 +4642,98 @@ export const PLAN_SUBMISSIONS: PlanSubmissionItem[] = [
     eventDate: '22/11/2026',
     hasVolunteerDays: true,
     stage: 'btk_approved',
+  },
+];
+
+export const AWARD_PROGRAMS: AwardProgramItem[] = [
+  {
+    id: 'prog-sv5t-truong-2026',
+    title: 'Danh hiệu "Sinh viên 5 tốt" cấp Trường – Năm học 2026 – 2027',
+    category: 'DANH_HIEU',
+    categoryLabel: 'Danh hiệu',
+    academicYear: '2026 – 2027',
+    deadline: '30/05/2027',
+    status: 'OPEN',
+    issuingBody: 'Ban Thư ký Hội Sinh viên Trường EIU',
+    summary:
+      'Xét trao tặng danh hiệu cao quý nhất của Hội Sinh viên EIU cho cá nhân hoàn thành đồng thời 05 tiêu chuẩn rèn luyện toàn diện theo Quyết định 09/QĐ-HSV sửa đổi năm 2026.',
+    requirements: [
+      'Điểm rèn luyện năm học đạt từ 80/100 trở lên, không vi phạm quy chế.',
+      'GPA năm học hoặc tích lũy từ 3.00/4.00 trở lên kèm ít nhất 01 tiêu chí phụ.',
+      'Hoàn thành 03 môn GDTC và đạt danh hiệu Sinh viên Khỏe hoặc hoạt động TDTT.',
+      'Tích lũy từ 5.0 ngày tình nguyện/năm học trở lên.',
+      'Hoàn thành khóa kỹ năng thực hành xã hội và hoạt động hội nhập.',
+    ],
+    benefits: [
+      'Cấp Giấy chứng nhận danh hiệu "Sinh viên 5 tốt" cấp Trường và biểu trưng tuyên dương.',
+      'Ưu tiên giới thiệu xét học bổng doanh nghiệp Becamex – EIU và thực tập chuyên môn.',
+      'Cộng điểm rèn luyện tiêu biểu và đề cử xét cấp Thành phố Hồ Chí Minh.',
+    ],
+  },
+  {
+    id: 'prog-sao-thang-gieng-2026',
+    title: 'Giải thưởng "Sao Tháng Giêng" và Khen thưởng Hội viên Tiêu biểu',
+    category: 'KHEN_THUONG',
+    categoryLabel: 'Khen thưởng',
+    academicYear: '2026 – 2027',
+    deadline: '15/12/2026',
+    status: 'OPEN',
+    issuingBody: 'Ban Chấp hành Hội Sinh viên Trường EIU',
+    summary:
+      'Ghi nhận và đề cử cấp Trung ương đối với sinh viên, cán bộ Chi hội, CLB có thành tích xuất sắc trong học tập, nghiên cứu khoa học và công tác phong trào thanh niên – sinh viên.',
+    requirements: [
+      'GPA tích lũy đạt từ 3.20/4.00 trở lên hoặc có công trình nghiên cứu đạt giải cấp Khoa/Trường.',
+      'Là hội viên tích cực, từng giữ vai trò Ban Tổ chức từ 02 chương trình cấp Trường trở lên.',
+      'Có tối thiểu 01 Giấy chứng nhận điện tử do Hội Sinh viên Trường ban hành trong năm học.',
+    ],
+    benefits: [
+      'Giấy khen của Ban Chấp hành Hội Sinh viên Trường EIU.',
+      'Đề cử hồ sơ tham gia Giải thưởng "Sao Tháng Giêng" cấp Trung ương Hội.',
+      'Ghi nhận thành tích nổi bật vào Bảng tổng hợp Hoạt động Ngoại khóa.',
+    ],
+  },
+  {
+    id: 'prog-hoc-bong-dong-hanh-2026',
+    title: 'Học bổng Đồng hành Sinh viên Vượt khó – Học tốt EIU',
+    category: 'HOC_BONG',
+    categoryLabel: 'Học bổng',
+    academicYear: 'Học kỳ Thu – Đông 2026',
+    deadline: '25/12/2026',
+    status: 'OPEN',
+    issuingBody: 'Quỹ Hỗ trợ Sinh viên Hội Sinh viên EIU và Đối tác',
+    summary:
+      'Chương trình hỗ trợ tài chính thường niên dành cho hội viên có nỗ lực học tập tốt, tích cực tham gia hoạt động cộng đồng và cần tiếp sức trang trải học phí, sinh hoạt phí.',
+    requirements: [
+      'Là sinh viên chính quy đang theo học tại EIU và có hồ sơ Hội viên hoạt động.',
+      'GPA năm học hoặc tích lũy đạt từ 2.80/4.00 trở lên, Điểm rèn luyện ≥ 75/100.',
+      'Có hoàn cảnh gia đình cần hỗ trợ hoặc tích cực đóng góp công tác tình nguyện tại trường.',
+    ],
+    benefits: [
+      'Suất học bổng trị giá 5.000.000 VNĐ tiền mặt hoặc khấu trừ trực tiếp học phí.',
+      'Hỗ trợ kết nối chương trình Cố vấn nghề nghiệp (Career Mentoring) tại EIU.',
+      'Ưu tiên tham gia đội hình Xuân tình nguyện và chương trình an sinh sinh viên.',
+    ],
+  },
+  {
+    id: 'prog-sv5t-tphcm-2026',
+    title: 'Danh hiệu "Sinh viên 5 tốt" cấp Thành phố Hồ Chí Minh',
+    category: 'DANH_HIEU',
+    categoryLabel: 'Danh hiệu',
+    academicYear: '2026 – 2027',
+    deadline: '01/06/2027',
+    status: 'UPCOMING',
+    issuingBody: 'Hội Sinh viên Việt Nam Thành phố Hồ Chí Minh',
+    summary:
+      'Đợt xét chọn cấp Thành phố dành cho các cá nhân đạt danh hiệu "Sinh viên 5 tốt Tiêu biểu Toàn trường" có minh chứng nổi bật ở cả 05 tiêu chuẩn.',
+    requirements: [
+      'Đã được công nhận danh hiệu "Sinh viên 5 tốt" cấp Trường năm học 2026 – 2027.',
+      'Đạt từ 02 tiêu chí phụ trở lên ở 04 tiêu chuẩn và có khen thưởng Tình nguyện cấp Trường.',
+      'Chuẩn bị đầy đủ minh chứng chứng nhận ngoại ngữ và hoạt động hội nhập quốc tế.',
+    ],
+    benefits: [
+      'Bằng khen của Ban Chấp hành Hội Sinh viên Việt Nam TP. Hồ Chí Minh.',
+      'Tham gia Câu lạc bộ Sinh viên 5 tốt TP.HCM và Diễn đàn Kết nối Nhân lực chất lượng cao.',
+    ],
   },
 ];
 

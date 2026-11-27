@@ -143,7 +143,7 @@ function PublicFooterInner() {
                   href="/portal"
                   className="inline-block py-1 sm:py-0.5 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-[#FCB900] rounded-xs"
                 >
-                  Sổ tay hội viên
+                  Hồ sơ Hội viên
                 </Link>
               </li>
               <li>

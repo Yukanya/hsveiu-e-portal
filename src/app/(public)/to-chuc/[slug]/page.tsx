@@ -32,7 +32,7 @@ function getClubSv5tBenefit(club: ClubUnit): {
   if (club.code === 'CLB-SV5T') {
     return {
       pillar: 'Đồng hành cả 05 Tiêu chuẩn Sinh viên 5 Tốt',
-      rule: 'Hỗ trợ rà soát hồ sơ Sổ tay số, tổ chức chuỗi Workshop kỹ năng thực hành xã hội và diễn đàn Gương SV5T Tiêu biểu.',
+      rule: 'Hỗ trợ rà soát Hồ sơ Hội viên số, tổ chức chuỗi Workshop kỹ năng thực hành xã hội và diễn đàn Gương SV5T Tiêu biểu.',
     };
   }
   if (club.code === 'DOI-CTVXK') {
